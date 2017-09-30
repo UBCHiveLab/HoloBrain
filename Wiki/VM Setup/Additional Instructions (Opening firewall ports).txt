@@ -1,0 +1,3 @@
+After the VM is set up, we need to open ports in the firewall.
+
+Go into the advanced firewall settings, and set new inbound rules for TCP and UDP on ports 20580-20605 and new outbound rules for TCP and UDP on ports 20600-20605.
