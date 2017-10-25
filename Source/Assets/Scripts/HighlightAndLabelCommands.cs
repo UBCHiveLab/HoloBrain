@@ -25,9 +25,12 @@ public class HighlightAndLabelCommands : MonoBehaviour {
     public Color gazeColour;
     public Color highlightedColour;
 
+    string mode;
+
 
     private void Start()
     {
+        mode = PlayerPrefs.GetString("mode");
         customMessages = CustomMessages.Instance;
         soundFX = gameObject.GetComponent<AudioSource>();
         gameObject.GetComponent<Renderer>().material.color = defaultColour;
@@ -57,7 +60,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
  
     void OnStartGaze()
     {
-        if (StateAccessor.Instance.AbleToTakeAnInteraction())
+        if (StateAccessor.Instance.AbleToTakeAnInteraction() && mode != "student")
         {
             isGazedAt = true;
             HighlightObject();
