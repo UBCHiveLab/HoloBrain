@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 09f0223fda07c7145bcbf65405bf894f
+timeCreated: 1489528680
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Selawik
+  fontNames:
+  - Selawik
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 0aa3a2b3c0a9994469f56d7b02b3f60d, type: 3}
+  - {fileID: 12800000, guid: b4479ce88f17eb942bcc61e5aec34a55, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
