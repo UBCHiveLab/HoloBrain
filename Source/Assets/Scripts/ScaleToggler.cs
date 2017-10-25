@@ -37,7 +37,8 @@ public class ScaleToggler : MonoBehaviour
             customMessages.MessageHandlers[CustomMessages.TestMessageID.scaleChange] = this.ScaleChangeMessageReceived;
         }
 
-        brainGameObject = GameObject.Find("BrainParts");
+        //brainGameObject = GameObject.Find("BrainParts");
+        brainGameObject = this.gameObject;
         defaultScale = brainGameObject.transform.localScale;
         ResetScale();
 

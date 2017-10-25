@@ -7,7 +7,34 @@ using UnityEngine;
 
 public class ExplodeButtonAction : MonoBehaviour
 {
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+    private const string BRAIN_1 = "Brain";
+    private const string BRAIN_PARTS_1 = "BrainParts";
+    private const string BRAIN_PARTS_2 = "BrainParts2";
+
+    private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
+
+    GameObject brain_structures_1, brain_structures_2;
+    GameObject selectBrainControlGameObject;
+
+    private string __selectedBrain;
+
+    private GameObject SelectedBrainStructures
+    {
+        get
+        {
+            __selectedBrain = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            return (__selectedBrain == BRAIN_1) ? (brain_structures_1) : (brain_structures_2);
+        }
+    }
+
+
+    void Awake()
+    {
+        brain_structures_1 = GameObject.Find(BRAIN_PARTS_1);
+        brain_structures_2 = GameObject.Find(BRAIN_PARTS_2);
+
+        selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
+    }
 
     // Use this for initialization
     void Start()
@@ -22,6 +49,6 @@ public class ExplodeButtonAction : MonoBehaviour
 
     void OnSelect()
     {
-        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ExplodingCommands>().OnSelect();
+        SelectedBrainStructures.GetComponent<ExplodingCommands>().OnSelect();
     }
 }
