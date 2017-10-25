@@ -53,6 +53,6 @@ public class BrainSelectControl : MonoBehaviour {
         //Debug.Log("Inside ChangeSelectedBrain function()");
         soundFX.Play();
         SelectedBrain = (SelectedBrain == BRAIN_1) ? (BRAIN_2) : (BRAIN_1);
-        Debug.Log("Selected Brain changed to Brain" + SelectedBrain);
+        Debug.Log("======================================Selected Brain changed to Brain" + SelectedBrain);
     }
 }

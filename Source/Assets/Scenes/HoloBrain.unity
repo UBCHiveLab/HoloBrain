@@ -7331,6 +7331,10 @@ Prefab:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f52b1cf0b4c5a3b428c069378a42eb5b, type: 2}
+    - target: {fileID: 100000, guid: 4bdf72a29390105478d3640c8f8b01b3, type: 3}
+      propertyPath: m_Name
+      value: thalamus
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4bdf72a29390105478d3640c8f8b01b3, type: 3}
   m_IsPrefabParent: 0
@@ -8818,6 +8822,10 @@ Prefab:
     - target: {fileID: 400000, guid: c214a7b90788fbe46a599ae7c76de984, type: 3}
       propertyPath: m_LocalScale.z
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: c214a7b90788fbe46a599ae7c76de984, type: 3}
+      propertyPath: m_Name
+      value: ventricle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c214a7b90788fbe46a599ae7c76de984, type: 3}
