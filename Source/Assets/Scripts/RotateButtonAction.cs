@@ -23,7 +23,6 @@ public class RotateButtonAction : MonoBehaviour {
         //Debug.Log("Rotate button brain variable is pointing to " + brain.name);
 
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
-
     }
 	
 	// Update is called once per frame

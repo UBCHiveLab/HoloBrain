@@ -8,11 +8,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MRIManager : Singleton<MRIManager> {
-    private const string MRIObjectTag = "MRI";
-    private const string CLIP_PLANE = "ClipPlane";
+    private const string MRIObjectTag_1 = "MRI_1";
+	private const string MRIObjectTag_2 = "MRI_2";
+	private const string CLIP_PLANE = "ClipPlane";
     private const string BRAIN_PARTS = "BrainParts";
+	private const string BRAIN_1 = "Brain";
 
-    private List<GameObject> MRIObjects;
+	private GameObject mriCollection;
+	private List<GameObject> mriObjects_1, mriObjects_2;
     private GameObject activeMRI;
     private GameObject clipPlane;
     private GameObject brainParts;
@@ -25,11 +28,23 @@ public class MRIManager : Singleton<MRIManager> {
     private bool isOneMRIActive = false;
     private BoxCollider boxCollider;
 
+	
+	private string __selectedBrain;
+	private GameObject selectBrainControlGameObject;
 
+	private List<GameObject> SelectedMRIObjects {
+		get {
+			__selectedBrain = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+			return (__selectedBrain == BRAIN_1) ? (mriObjects_1) : (mriObjects_2);
+		}
+	}
+	
 	// Use this for initialization
 	void Start () {
-        MRIObjects = new List<GameObject>();
-        customMessages = CustomMessages.Instance;
+		mriCollection = this.gameObject;
+		mriObjects_1 = new List<GameObject>();
+		mriObjects_2 = new List<GameObject>();
+		customMessages = CustomMessages.Instance;
         coloursAccessor = ColoursAccessor.Instance;
         clipPlane = GameObject.Find(CLIP_PLANE);
         moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
@@ -45,12 +60,16 @@ public class MRIManager : Singleton<MRIManager> {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ToggleMRIImages] = this.ChangeMRIImageMessageReceived;
         }
 
-        foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag))
+        foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_1))
         {
-            MRIObjects.Add(MRIObject);
-        }
+			mriObjects_1.Add(MRIObject);
+		}
 
-        SetMRICollectionChildrenActive(false);
+		foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_2)) {
+			mriObjects_2.Add(MRIObject);
+		}
+
+		SetMRICollectionChildrenActive(false);
 	}
 	
 	// Update is called once per frame
@@ -71,7 +90,7 @@ public class MRIManager : Singleton<MRIManager> {
     /*Changes the MRI image that is displayed in every MRI object*/
     private void ChangeMRIImage()
     {
-        foreach(GameObject MRIObject in MRIObjects)
+        foreach(GameObject MRIObject in SelectedMRIObjects)
         {
             MRIObject.GetComponent<MRIInteractions>().ChangeMRIImage(isOutlinedMRIImages);
         }
@@ -256,7 +275,7 @@ public class MRIManager : Singleton<MRIManager> {
 
     private void SetMRICollectionChildrenActive(bool active)
     {
-        foreach (GameObject MRIObject in MRIObjects)
+        foreach (GameObject MRIObject in SelectedMRIObjects)
         {
             MRIObject.SetActive(active);
         }
@@ -282,7 +301,7 @@ public class MRIManager : Singleton<MRIManager> {
 
     private GameObject GetMRIObjectByName(string MRIName)
     {
-        foreach (GameObject MRIObject in MRIObjects)
+        foreach (GameObject MRIObject in SelectedMRIObjects)
         {
             if (MRIObject.name == MRIName)
             {
@@ -302,7 +321,7 @@ public class MRIManager : Singleton<MRIManager> {
     {
         if (isOneMRIActive)
         {
-            foreach (GameObject MRIObject in MRIObjects)
+            foreach (GameObject MRIObject in SelectedMRIObjects)
             {
                 if (MRIObject.name != activeMRI.name)
                 {
@@ -320,7 +339,7 @@ public class MRIManager : Singleton<MRIManager> {
     public void DisplaySingleMRI(GameObject activeMRI)
     {
         SetActiveMRI(activeMRI);
-        foreach(GameObject MRIObject in MRIObjects)
+        foreach(GameObject MRIObject in SelectedMRIObjects)
         {
             if(MRIObject.name != activeMRI.name)
             {
