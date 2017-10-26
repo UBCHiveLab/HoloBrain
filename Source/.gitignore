@@ -33,3 +33,6 @@ sysinfo.txt
 /UWP/
 /VSBuild/**/*
 !/VSBuild/BuildYourProjectsInThisFolder.txt
+
+# folder that contains the build
+App/
