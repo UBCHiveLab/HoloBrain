@@ -6,6 +6,8 @@ TagManager:
   tags:
   - MRI
   - selectBrainController
+  - MRI_1
+  - MRI_2
   layers:
   - Default
   - TransparentFX
