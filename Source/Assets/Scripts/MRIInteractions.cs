@@ -30,6 +30,7 @@ public class MRIInteractions : MonoBehaviour
 
     private CustomMessages customMessages;
     private MRIManager mriManager;
+    private string mode;
 
 
     void Awake()
@@ -41,6 +42,7 @@ public class MRIInteractions : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        mode = PlayerPrefs.GetString("mode");
         customMessages = CustomMessages.Instance;
         mriManager = MRIManager.Instance;
         ring = transform.Find(MRI_RING).gameObject;
@@ -78,7 +80,7 @@ public class MRIInteractions : MonoBehaviour
 
     void OnSelect()
     {
-        if (!isSectionSelected)
+        if (!isSectionSelected && mode != "student")
         {
             SelectMRI();
         }

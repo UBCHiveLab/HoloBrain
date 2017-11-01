@@ -243,11 +243,21 @@ public class VoiceControl : MonoBehaviour {
         GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            HandlePlaceMarker();
+        }
+    }
+
     //UNCOMMENT THIS FOR GAZE MARKER
     private void HandlePlaceMarker()
     {
+        print("handleplacemarker called");
         if (gazeManager.Hit)
         {
+            print("gazemanager hit");
             gazeManager.HitInfo.transform.GetComponent<GazeMarkerCommands>().OnSelect();
         }
     }

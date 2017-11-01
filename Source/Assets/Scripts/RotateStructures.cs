@@ -99,7 +99,7 @@ public class RotateStructures : MonoBehaviour {
         //if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         //{
             soundFX.Play();
-            isRotating = !isRotating;
+        isRotating = !isRotating;
         //}
     }
 
@@ -119,7 +119,7 @@ public class RotateStructures : MonoBehaviour {
             }
 
             //UNCOMMENT THIS FOR GAZE MARKER
-            gazeMarker.RotateAround(isolatedStructures[0].position, Vector3.up, Time.deltaTime * ROTATION_SPEED);
+            //gazeMarker.RotateAround(isolatedStructures[0].position, Vector3.up, Time.deltaTime * ROTATION_SPEED);
         }
     }
 

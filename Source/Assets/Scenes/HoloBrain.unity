@@ -4316,8 +4316,8 @@ Transform:
   - {fileID: 362745175}
   - {fileID: 667446754}
   - {fileID: 1106722434}
-  - {fileID: 1263384322}
   - {fileID: 1946540869}
+  - {fileID: 1263384322}
   - {fileID: 1236236624}
   - {fileID: 961274461}
   - {fileID: 920679674}
@@ -4494,7 +4494,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dde84dd4a498a474aae08b3ea9f0b7bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Marker: {fileID: 0}
+  Marker: {fileID: 1537393814}
 --- !u!1 &1053903241 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 1482150360079452, guid: 47fedc93328b9424682db5018decd250,
@@ -5586,6 +5586,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 23055088339268098, guid: 159fc2f2bbb264841852d5be16391936,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 159fc2f2bbb264841852d5be16391936, type: 2}
   m_IsPrefabParent: 0
@@ -5768,6 +5773,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4613086932995676, guid: 6cc0e48d1aa35b74e8d8fec50ed40556,
     type: 2}
   m_PrefabInternal: {fileID: 1536434900}
+--- !u!1 &1537393814 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1545971795308892, guid: 159fc2f2bbb264841852d5be16391936,
+    type: 2}
+  m_PrefabInternal: {fileID: 1523723769}
 --- !u!1 &1586316994
 GameObject:
   m_ObjectHideFlags: 0
@@ -5895,6 +5905,86 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d757fe38e297314e8198a62b7e1e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1697859861
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1697859858}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: ce083afaf4a4f4547956751f9b6afa60, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 1
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1001 &1703234099
 Prefab:
   m_ObjectHideFlags: 0
@@ -6410,11 +6500,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: c38b81ff90d1c2e40b39d3eadb1bf9ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.0016
+      value: -0.0001
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c38b81ff90d1c2e40b39d3eadb1bf9ae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0
+      value: 0.0003
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c38b81ff90d1c2e40b39d3eadb1bf9ae, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6438,7 +6528,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: c38b81ff90d1c2e40b39d3eadb1bf9ae, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: c38b81ff90d1c2e40b39d3eadb1bf9ae, type: 3}
       propertyPath: m_Materials.Array.data[0]

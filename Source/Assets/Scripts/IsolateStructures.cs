@@ -464,6 +464,9 @@ public class IsolateStructures : MonoBehaviour {
 
     public void ResetIsolate()
     {
+        //UNCOMMENT THIS FOR GAZE MARKER
+        GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).GetComponent<GazeMarkerManager>().ClearMarkerLocally();
+
         foreach (Transform structure in isolatedStructures)
         {
             GameObject.DestroyImmediate(structure.gameObject);
@@ -476,8 +479,6 @@ public class IsolateStructures : MonoBehaviour {
                 GameObject.DestroyImmediate(movingStructureWithDirection.structure.ModelTransform.gameObject);
             }
         }
-        //UNCOMMENT THIS FOR GAZE MARKER
-        GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).GetComponent<GazeMarkerManager>().ClearMarkerLocally();
         cortexBoxCollider.enabled = false;
         isolatedStructures.Clear();
         movingStructures.Clear();

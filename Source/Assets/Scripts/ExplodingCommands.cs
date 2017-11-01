@@ -171,7 +171,6 @@ public class ExplodingCommands : MonoBehaviour {
     private void ToggleExplode()
     {
         soundFX.Play();
-
         // We toggle the last state and then send the message to all other HoloLenses
         switch (lastState)
         {

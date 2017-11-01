@@ -106,11 +106,11 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         }
     }
 
-    public void ToggleLockedHighlight()
+    public void ToggleLockedHighlight(bool allBrainParts = false)
     {
         isLocked = !isLocked;
 
-        if (soundFX != null)
+        if (soundFX != null && !allBrainParts)
         {
             soundFX.Play();
         }

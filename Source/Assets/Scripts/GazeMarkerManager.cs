@@ -1,7 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-﻿///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //  GazeMarker instructions
 //  
 //  In order to add the GazeMarker, follow these instructions. Please note that the location of the gaze marker
@@ -27,7 +27,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GazeMarkerManager : MonoBehaviour {
+public class GazeMarkerManager : MonoBehaviour
+{
 
     public GameObject Marker;
     private GameObject pointedPart;
@@ -39,7 +40,8 @@ public class GazeMarkerManager : MonoBehaviour {
     private AudioSource soundFX;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         customMessages = CustomMessages.Instance;
         if (customMessages != null)
         {
@@ -64,13 +66,18 @@ public class GazeMarkerManager : MonoBehaviour {
     {
         if (!state.CurrentlyInStudentMode() && state.CurrentlyIsolatedOrIsolating())
         {
-            if (gazeManager.Hit) {
+            if (gazeManager.Hit)
+            {
+                PlaceMarker(gazeManager.Position, gazeManager.HitInfo.transform.name);
+
+                // make marker a child of the brain part it's on
+                Marker.transform.SetParent(gazeManager.HitInfo.transform);
+                Vector3 markerLocalPos = Marker.transform.localPosition;
                 if (customMessages != null)
                 {
-                    CustomMessages.Instance.SendSetGazeMarkerPositionMessage(gazeManager.Position, gazeManager.HitInfo.transform.name);
+                    CustomMessages.Instance.SendSetGazeMarkerPositionMessage(markerLocalPos, gazeManager.HitInfo.transform.name);
                 }
-                
-                PlaceMarker(gazeManager.Position, gazeManager.HitInfo.transform.name);
+
                 return true;
             }
         }
@@ -94,12 +101,26 @@ public class GazeMarkerManager : MonoBehaviour {
     {
         msg.ReadInt64();
 
-        PlaceMarker(customMessages.ReadVector3(msg), msg.ReadString());
+        PlaceStudentMarker(customMessages.ReadVector3(msg), msg.ReadString());
     }
 
     public void ClearGazeMarkerMessageReceived(NetworkInMessage msg)
     {
         ClearMarkerLocally();
+    }
+
+    void PlaceStudentMarker(Vector3 markerLocalPos, string partName)
+    {
+        if (pointedPart != null)
+        {
+            pointedPart.GetComponent<GazeMarkerCommands>().MarkerIsPointing(false);
+        }
+        pointedPart = GameObject.Find(partName);
+        pointedPart.GetComponent<GazeMarkerCommands>().MarkerIsPointing(true);
+        Marker.transform.SetParent(pointedPart.transform);
+        Marker.transform.localPosition = markerLocalPos;
+        markerRenderer.enabled = true;
+        soundFX.Play();
     }
 
     void PlaceMarker(Vector3 markerPosition, string partName)
@@ -111,6 +132,7 @@ public class GazeMarkerManager : MonoBehaviour {
         pointedPart = GameObject.Find(partName);
         pointedPart.GetComponent<GazeMarkerCommands>().MarkerIsPointing(true);
 
+        //Marker.transform.SetParent(pointedPart.transform);
         Marker.transform.position = markerPosition;
         markerRenderer.enabled = true;
 
@@ -119,6 +141,8 @@ public class GazeMarkerManager : MonoBehaviour {
 
     public void ClearMarkerLocally()
     {
+        // make marker a child of Brain (instead of a brain part)
+        Marker.transform.SetParent(transform.parent);
         if (pointedPart != null)
         {
             pointedPart.GetComponent<GazeMarkerCommands>().MarkerIsPointing(false);

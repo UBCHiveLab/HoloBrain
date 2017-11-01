@@ -39,11 +39,12 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
 
     public void ToggledLockedHighlightOnBrain()
     {
+        print("togglelocked");
         for (int i = 0; i < brainParts.transform.childCount; i++)
         {
             try
             {
-                brainParts.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().ToggleLockedHighlight();
+                brainParts.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().ToggleLockedHighlight(true);
             }
             catch (NullReferenceException e)
             {
