@@ -142,7 +142,7 @@ public class MRIInteractions : MonoBehaviour
         ActiveMRIImage.SetActive(false);
         MRIImageWithNoOutline.SetActive(false);
         MRIImageWithOutline.SetActive(false);
-        ring.SetActive(true);
+        ring.SetActive(false);
     }
 
     public void ClipPlaneAtMRIPosition()
