@@ -11,8 +11,9 @@ public class MRIManager : Singleton<MRIManager> {
     private const string MRIObjectTag_1 = "MRI_1";
 	private const string MRIObjectTag_2 = "MRI_2";
 	private const string CLIP_PLANE = "ClipPlane";
-    private const string BRAIN_PARTS = "BrainParts";
-	private const string BRAIN_1 = "Brain";
+    private const string BRAIN_PARTS_1 = "BrainParts";
+    private const string BRAIN_PARTS_2 = "BrainParts2";
+    private const string BRAIN_1 = "Brain";
 
 	private GameObject mriCollection;
 	private List<GameObject> mriObjects_1, mriObjects_2;
@@ -48,7 +49,7 @@ public class MRIManager : Singleton<MRIManager> {
         coloursAccessor = ColoursAccessor.Instance;
         clipPlane = GameObject.Find(CLIP_PLANE);
         moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
-        brainParts = GameObject.Find(BRAIN_PARTS);
+        brainParts = GameObject.Find((__selectedBrain == BRAIN_1) ? (BRAIN_PARTS_1) : (BRAIN_PARTS_2));
         stateAccessor = StateAccessor.Instance;
         boxCollider = GetComponent<BoxCollider>();
 
