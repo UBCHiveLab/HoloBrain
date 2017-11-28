@@ -13,12 +13,14 @@ public class StateAccessor : Singleton<StateAccessor> {
     private ResetState resetState;
     public enum Mode { Default, Isolated, MRI };
 
-    private Mode currentMode;
+	private GameObject brainParts;
+	private Mode currentMode;
 
 	// Use this for initialization
 	void Start () {
+		brainParts = this.gameObject;
         currentMode = Mode.Default;
-        resetState = GameObject.Find(BRAIN_PARTS).GetComponent<ResetState>();
+        resetState = brainParts.GetComponent<ResetState>();
 	}
 	
 	// Update is called once per frame

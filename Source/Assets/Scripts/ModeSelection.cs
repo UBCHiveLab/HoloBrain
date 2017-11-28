@@ -7,18 +7,22 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ModeSelection : MonoBehaviour {
+public class ModeSelection : MonoBehaviour
+{
 
     private string STUDENT_BUTTON;
     private string PROFESSOR_BUTTON;
     private string JOIN_LAB_BUTTON;
     private string SOLO_BUTTON;
     private string BACK_BUTTON;
+    private string ONE_BRAIN_BUTTON;
+    private string TWO_BRAINS_BUTTON;
 
     private Stack<string> sceneStack;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
 
         DontDestroyOnLoad(transform.gameObject);
         STUDENT_BUTTON = "Student";
@@ -26,28 +30,43 @@ public class ModeSelection : MonoBehaviour {
         JOIN_LAB_BUTTON = "Join Lab";
         SOLO_BUTTON = "Solo";
         BACK_BUTTON = "Back";
+        ONE_BRAIN_BUTTON = "OneBrain";
+        TWO_BRAINS_BUTTON = "TwoBrains";
 
         sceneStack = new Stack<string>();
-	}
+    }
 
     public void OnTap(string buttonName)
-    {   
+    {
         if (buttonName == STUDENT_BUTTON)
         {
             LoadStudentOrSoloScene();
-        }else if (buttonName == PROFESSOR_BUTTON)
+        }
+        else if (buttonName == PROFESSOR_BUTTON)
         {
             HandleProfessorTapped();
-        }else if (buttonName == JOIN_LAB_BUTTON)
+        }
+        else if (buttonName == JOIN_LAB_BUTTON)
         {
             LoadEnterSessionIDScene();
-        }else if (buttonName == SOLO_BUTTON)
+        }
+        else if (buttonName == SOLO_BUTTON)
         {
             HandleSoloTapped();
-        }else if (buttonName == BACK_BUTTON)
+        }
+        else if (buttonName == BACK_BUTTON)
         {
             HandleBackButton();
         }
+        else if (buttonName == ONE_BRAIN_BUTTON)
+        {
+            LoadOneBrainScene();
+        }
+        else if (buttonName == TWO_BRAINS_BUTTON)
+        {
+            LoadTwoBrainsScene();
+        }
+
     }
 
     private void LoadStudentOrSoloScene()
@@ -76,16 +95,30 @@ public class ModeSelection : MonoBehaviour {
         SceneManager.LoadScene("EnterSessionIDScene");
     }
 
-    private void HandleProfessorTapped() {
+    private void HandleProfessorTapped()
+    {
         PlayerPrefs.SetString("mode", "professor");
- 
-        SceneManager.LoadScene("HoloBrain");
+        HTGazeManager gazeManager = HTGazeManager.Instance;
+        if (gazeManager.Hit)
+            WriteAdjustmentAngle(gazeManager.Position);
+        else
+            PlayerPrefs.SetFloat("adjustmentAngle", 0.0f);
+
+        PushSceneName("StartAppScene");
+        SceneManager.LoadScene("BrainNumSelectScene");
     }
 
     private void HandleSoloTapped()
     {
         PlayerPrefs.SetString("mode", "solo");
-        SceneManager.LoadScene("HoloBrain");
+        HTGazeManager gazeManager = HTGazeManager.Instance;
+        if (gazeManager.Hit)
+            WriteAdjustmentAngle(gazeManager.Position);
+        else
+            PlayerPrefs.SetFloat("adjustmentAngle", 0.0f);
+
+        PushSceneName("StudentOrSoloScene");
+        SceneManager.LoadScene("BrainNumSelectScene");
     }
 
     private void HandleBackButton()
@@ -98,7 +131,7 @@ public class ModeSelection : MonoBehaviour {
             WriteAdjustmentAngle(gazeManager.Position);
         else
             PlayerPrefs.SetFloat("adjustmentAngle", 0.0f);
-        
+
         SceneManager.LoadScene(PopSceneName());
     }
 
@@ -129,5 +162,17 @@ public class ModeSelection : MonoBehaviour {
         {
             PlayerPrefs.SetFloat("adjustmentAngle", 0.0f);
         }
+    }
+
+    private void LoadOneBrainScene()
+    {
+        PlayerPrefs.SetString("brainMode", "one");
+        SceneManager.LoadScene("HoloBrainOne");
+    }
+
+    private void LoadTwoBrainsScene()
+    {
+        PlayerPrefs.SetString("brainMode", "two");
+        SceneManager.LoadScene("HoloBrain");
     }
 }

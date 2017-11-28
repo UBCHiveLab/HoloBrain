@@ -42,7 +42,8 @@ public class RotateStructures : MonoBehaviour {
 
         //UNCOMMENT THIS FOR GAZE MARKER
         //gazeMarker = GameObject.Find(GAZE_MARKER_GAMEOBJECT_NAME).transform;
-        brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
+        //brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
+        brain = this.gameObject;
         brainOriginalRotation = brain.transform.localRotation;
         MRIOriginalRotation = MRICollection.transform.localRotation;
         isolatedStructures = null;

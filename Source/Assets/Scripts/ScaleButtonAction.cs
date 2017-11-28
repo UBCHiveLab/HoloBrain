@@ -7,6 +7,7 @@ using UnityEngine;
 
 public class ScaleButtonAction : MonoBehaviour
 {
+    //TODO: this line not being used
     private const string BRAIN_PARTS_NAME = "BrainParts";
     private const string SUB_MENU_MANAGER = "ScaleButtonsManager";
 

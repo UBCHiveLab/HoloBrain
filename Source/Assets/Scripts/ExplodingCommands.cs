@@ -14,11 +14,11 @@ public class ExplodingCommands : MonoBehaviour {
         public Vector3 explodingDirection;
         public Vector3 furthestPosition;
 
-        public BrainStructure(Transform structure, Vector3 centerOfBrainModel)
+        public BrainStructure(Transform structure, Vector3 cntrOfBrainModel)
         {
             modelTransform = structure;
             initialPosition = modelTransform.localPosition;
-            explodingDirection = structure.GetComponent<Renderer>().bounds.center - centerOfBrainModel;
+            explodingDirection = structure.GetComponent<Renderer>().bounds.center - cntrOfBrainModel;
             furthestPosition = initialPosition + explodingDirection * MAX_EXPLODE_DISTANCE_MULTIPLE;
         }
 
@@ -50,11 +50,13 @@ public class ExplodingCommands : MonoBehaviour {
         }
     }
 
-    private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
     private const string CORTEX_GAMEOBJECT_NAME = "cortex_low";
+    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "cortex_low", "ventricle", "thalamus" };
+
     private const float EXPLODING_TRANSITION_TIME_IN_SECONDS = 1.5f;
     private const float MAX_EXPLODE_DISTANCE_MULTIPLE = 0.8f;
-    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "cortex_low", "ventricle", "thalamus" };
+
+    GameObject brainParts;
 
     public enum ExplodingState
     {
@@ -81,16 +83,18 @@ public class ExplodingCommands : MonoBehaviour {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ToggleExplode] = this.ToggleExplodeMessageReceived;
         }
 
-        cortex = GameObject.Find(CORTEX_GAMEOBJECT_NAME);
-        GameObject brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
-        Vector3 centerOfBrainModel = brain.transform.Find(CORTEX_GAMEOBJECT_NAME).GetComponent<Renderer>().bounds.center;
-       
+        brainParts = this.gameObject;
+        cortex = brainParts.transform.Find(CORTEX_GAMEOBJECT_NAME).gameObject;
+
+        Vector3 centerOfBrainModel = brainParts.transform.Find(CORTEX_GAMEOBJECT_NAME).GetComponent<Renderer>().bounds.center;
+        
         // Create and populate the list of brain structures
         // We add up all the initial positions of the structures to later determine the middle
         explodingStructures = new List<BrainStructure>();
-        for (int i = 0;i<brain.transform.childCount;i++)
+        
+        for (int i = 0;i< brainParts.transform.childCount;i++)
         {
-            Transform currentStructure = brain.transform.GetChild(i);
+            Transform currentStructure = brainParts.transform.GetChild(i);
             if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(currentStructure.name))
             {
                 explodingStructures.Add(new BrainStructure(currentStructure, centerOfBrainModel));

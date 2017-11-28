@@ -7,15 +7,28 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: Assets/RubberDucky.unity
+    guid: 00000000000000000000000000000000
   - enabled: 0
     path: Assets/HoloToolkit/Sharing/Tests/SpawnTest/SharingSpawnTest.unity
+    guid: ce1ce2e2fae76fe41a127041a7fd6df3
   - enabled: 0
     path: Assets/HoloToolkit/Sharing/Tests/Sharing.unity
+    guid: 00000000000000000000000000000000
   - enabled: 1
     path: Assets/Scenes/StartAppScene.unity
+    guid: 485df5ae50db49b47bfec5b2e2eee9e0
   - enabled: 1
     path: Assets/Scenes/StudentOrSoloScene.unity
+    guid: 10b9ee8bc2c68a24e9fcfbbdf89f88eb
   - enabled: 1
     path: Assets/Scenes/EnterSessionIDScene.unity
+    guid: c63b97593109ae141b4abc35514c50a7
   - enabled: 1
     path: Assets/Scenes/HoloBrain.unity
+    guid: 569d545af7438ca47acc54671fc57d2e
+  - enabled: 1
+    path: Assets/Scenes/HoloBrainOne.unity
+    guid: 41cb945682ff3f647864ce86825a69f8
+  - enabled: 1
+    path: Assets/Scenes/BrainNumSelectScene.unity
+    guid: e2fd68f64855fa844bf66cbbcf08010c
