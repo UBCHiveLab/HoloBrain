@@ -13,9 +13,28 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
     float speed = 0.5f;
 
     Slider slider;
+    public Transform parentOfArray;
 
 	// Use this for initialization
 	void Start () {
+        for (int i = 0; i < parentOfArray.childCount; i++)
+        {
+
+            GameObject child = parentOfArray.GetChild(i).gameObject;
+            GameObject grandChild = child.transform.GetChild(0).gameObject;
+
+            
+            Material grandchildMat = grandChild.GetComponent<MeshRenderer>().material;
+            grandchildMat.color = new Color(grandchildMat.color.r, grandchildMat.color.g, grandchildMat.color.b, 0f);
+            //if (i % 2 == 0) {
+            //    grandChild.GetComponent<MeshRenderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
+            //} else{
+            //    grandChild.GetComponent<MeshRenderer>().material.color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
+
+            //}
+            list.Add(grandChild);
+        }
+
         slider = GetComponent<Slider>();
         slider.maxValue = list.Count-1;
         slider.onValueChanged.AddListener(delegate { SliderUpdate(); });
@@ -40,7 +59,7 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
                 isPlaying = false;
             }
         }
-        
+        //print(currentMat.)
 	}
 
     public void TogglePlay()
@@ -54,6 +73,7 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
     public void SliderUpdate()
     {
         int newIndex = Mathf.FloorToInt(slider.value);
+        print(newIndex);
         if (newIndex == list.Count-1)
         {
             index = newIndex;
