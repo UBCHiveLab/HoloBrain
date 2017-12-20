@@ -22,6 +22,8 @@ public class VoiceControl : MonoBehaviour {
     private GameObject brain;
     private GameObject brainStructures;
     private GameObject mriScans;
+    private GameObject crossfadeSlider;
+
 
     private GameObject ControlsUI;
 
@@ -39,9 +41,11 @@ public class VoiceControl : MonoBehaviour {
         // Referencing game objects to access their scripts
         brain = GameObject.Find(BRAIN_GAME_OBJECT_NAME);
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
+        crossfadeSlider = GameObject.Find("CrossfadeSlider");
 
-       // mriScans = GameObject.Find(MRI_SCANS);
-        ControlsUI= GameObject.Find(Control_UI);
+
+        // mriScans = GameObject.Find(MRI_SCANS);
+        ControlsUI = GameObject.Find(Control_UI);
 
         gazeManager = GameObject.Find(HOLOGRAM_COLLECTION_NAME).GetComponent<HTGazeManager>();
         mriScans = GameObject.Find(MRI_SCANS_NAME);
@@ -90,6 +94,9 @@ public class VoiceControl : MonoBehaviour {
             { "MRI Outline", "show-colour-icon" },
             { "Pin", "pin-icon" },
             { "Structures", "structures-icon" },
+            // New Voice Commands
+            { "Play", "rotate-icon" },
+
         };
 
         voiceRecognitionKeywords.Add("Rotate", HandleStartRotate); 
@@ -104,6 +111,11 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("Reposition", HandleResetAnchor);
         voiceRecognitionKeywords.Add("Add All", HandleAddAll);
         voiceRecognitionKeywords.Add("Remove All", HandleRemoveAll);
+        // New Voice Commands
+        //voiceRecognitionKeywords.Add("Play", HandleStartRotate);
+        voiceRecognitionKeywords.Add("Play", HandleStartPlay);
+
+
         //UNCOMMENT THIS FOR GAZE MARKER
         voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);
         voiceRecognitionKeywords.Add("Clear Marker", HandleClearMarker);
@@ -118,6 +130,8 @@ public class VoiceControl : MonoBehaviour {
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
+
+
 	}
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
@@ -137,10 +151,20 @@ public class VoiceControl : MonoBehaviour {
     {
         if (!brainStructures.GetComponent<RotateStructures>().isRotating)
         {
+            //This line was just for testing the voice command "Play"
+            //GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
+
             GameObject.Find(buttonActionsToGameObjectName["Rotate"]).GetComponent<ButtonCommands>().OnSelect();
         }
 
         brainStructures.GetComponent<RotateStructures>().StartRotate();
+    }
+
+    private void HandleStartPlay()
+    {
+        crossfadeSlider.GetComponent<ObjectCrossfadeSlider>().TogglePlay();
+        GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
+
     }
 
     private void HandleStopRotate()

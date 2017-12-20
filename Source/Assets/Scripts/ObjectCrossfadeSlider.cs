@@ -47,6 +47,7 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        //if ((Input.GetKeyDown(KeyCode.P)) || (voiceRecognitionKeywords.TryGetValue("Play", out keywordAction)))
         if (Input.GetKeyDown(KeyCode.P))
         {
             TogglePlay();
