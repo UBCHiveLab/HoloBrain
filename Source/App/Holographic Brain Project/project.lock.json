@@ -15889,19 +15889,19 @@
     "UAP,Version=v10.0.10240": []
   },
   "packageFolders": {
-    "C:\\Users\\Worklearn\\.nuget\\packages\\": {}
+    "C:\\Users\\chenc\\.nuget\\packages\\": {}
   },
   "project": {
     "restore": {
-      "projectUniqueName": "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\Holographic Brain Project\\Holographic Brain Project.csproj",
+      "projectUniqueName": "D:\\Workspace\\HoloBrain\\Source\\App\\Holographic Brain Project\\Holographic Brain Project.csproj",
       "projectName": "Holographic Brain Project",
-      "projectPath": "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\Holographic Brain Project\\Holographic Brain Project.csproj",
-      "projectJsonPath": "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\Holographic Brain Project\\project.json",
-      "packagesPath": "C:\\Users\\Worklearn\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\Holographic Brain Project\\obj\\",
+      "projectPath": "D:\\Workspace\\HoloBrain\\Source\\App\\Holographic Brain Project\\Holographic Brain Project.csproj",
+      "projectJsonPath": "D:\\Workspace\\HoloBrain\\Source\\App\\Holographic Brain Project\\project.json",
+      "packagesPath": "C:\\Users\\chenc\\.nuget\\packages\\",
+      "outputPath": "D:\\Workspace\\HoloBrain\\Source\\App\\Holographic Brain Project\\obj\\",
       "projectStyle": "ProjectJson",
       "configFilePaths": [
-        "C:\\Users\\Worklearn\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\chenc\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "sources": {
@@ -15911,11 +15911,11 @@
       "frameworks": {
         "uap10.0.10240": {
           "projectReferences": {
-            "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj": {
-              "projectPath": "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj"
+            "D:\\Workspace\\HoloBrain\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj": {
+              "projectPath": "D:\\Workspace\\HoloBrain\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp\\Assembly-CSharp.csproj"
             },
-            "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp-firstpass\\Assembly-CSharp-firstpass.csproj": {
-              "projectPath": "C:\\Users\\Worklearn\\Desktop\\HoloBrain_Sean\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp-firstpass\\Assembly-CSharp-firstpass.csproj"
+            "D:\\Workspace\\HoloBrain\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp-firstpass\\Assembly-CSharp-firstpass.csproj": {
+              "projectPath": "D:\\Workspace\\HoloBrain\\Source\\App\\GeneratedProjects\\UWP\\Assembly-CSharp-firstpass\\Assembly-CSharp-firstpass.csproj"
             }
           }
         }
