@@ -4882,7 +4882,7 @@ GameObject:
   - component: {fileID: 824066001}
   m_Layer: 0
   m_Name: BrainParts2
-  m_TagString: Untagged
+  m_TagString: brainParts_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6345,7 +6345,7 @@ GameObject:
   - component: {fileID: 1052410354}
   m_Layer: 0
   m_Name: BrainParts
-  m_TagString: Untagged
+  m_TagString: brainParts_1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
