@@ -26,19 +26,16 @@ public class MRIButtonAction : MonoBehaviour {
 		}
 	}
 
-
-	void Awake() {
-		brain_1 = GameObject.Find(BRAIN_1);
-		brain_2 = GameObject.Find(BRAIN_2);
-
-		mriCollection_1 = brain_1.transform.Find(MRI_COLLECTION_NAME).gameObject;
-		mriCollection_1 = brain_2.transform.Find(MRI_COLLECTION_NAME).gameObject;
-		
-		selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
-	}
-
 	// Use this for initialization
 	void Start () {
+        brain_1 = GameObject.Find(BRAIN_1);
+        brain_2 = GameObject.Find(BRAIN_2);
+
+        mriCollection_1 = brain_1.transform.Find(MRI_COLLECTION_NAME).gameObject;
+        if (brain_2)
+            mriCollection_2 = brain_2.transform.Find(MRI_COLLECTION_NAME).gameObject;
+
+        selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
     }
 
     // Update is called once per frame
