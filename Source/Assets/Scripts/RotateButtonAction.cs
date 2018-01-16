@@ -15,8 +15,8 @@ public class RotateButtonAction : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        brain_1 = GameObject.FindWithTag("brainParts_1");
-        brain_2 = GameObject.FindWithTag("brainParts_2");
+        brain_1 = GameObject.Find("brainParts");
+        brain_2 = GameObject.Find("brainParts2");
         //Debug.Log("Rotate button brain variable is pointing to " + brain.name);
 
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
