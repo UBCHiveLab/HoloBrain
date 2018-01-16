@@ -3862,6 +3862,7 @@ GameObject:
   - component: {fileID: 603627192}
   - component: {fileID: 603627191}
   - component: {fileID: 603627190}
+  - component: {fileID: 603627189}
   m_Layer: 0
   m_Name: change-selected-brain-icon
   m_TagString: Untagged
@@ -3886,6 +3887,21 @@ Transform:
   m_Father: {fileID: 1188547406}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &603627189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 603627187}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 499427ed291a9284095deb9933d5c9f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartIcon: {fileID: 21300000, guid: 16d84c5e56a97ea43a5e92f569f1bf70, type: 3}
+  EndIcon: {fileID: 21300000, guid: 3e06acb2b79aa5b4599842f8c074df3b, type: 3}
+  StartVoiceCommand: 
+  EndVoiceCommand: 
 --- !u!114 &603627190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4060,7 +4076,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b70e1ec4891c4354e958889d164ce339, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 16d84c5e56a97ea43a5e92f569f1bf70, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.47058824}
   m_FlipX: 0
   m_FlipY: 0
