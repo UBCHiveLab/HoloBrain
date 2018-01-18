@@ -9,15 +9,35 @@ public class IsolateButtonAction : MonoBehaviour {
 
     private bool buttonSelected;
     private Dictionary<string, string> isolateIconsToGameObjectName;
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+
+    private const string BRAIN_1 = "Brain";
+    private const string BRAIN_PARTS_1 = "BrainParts";
+    private const string BRAIN_PARTS_2 = "BrainParts2";
+    private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
     private const string ISOLATE_MENU_NAME = "IsolateMode";
+
     private GameObject IsolateMenu;
-    private GameObject brainStructures;
+    private GameObject brain_structures_1, brain_structures_2;
+    private GameObject selectBrainControlGameObject;
+
     private string PartToIsolate;
+    private string __selectedBrain;
+
+    private GameObject SelectedBrainStructures
+    {
+        get
+        {
+            __selectedBrain = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            return (__selectedBrain == BRAIN_1) ? (brain_structures_1) : (brain_structures_2);
+        }
+    }
+
     // Use this for initialization
     void Start () {
         buttonSelected = false;
-        brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
+        brain_structures_1 = GameObject.Find(BRAIN_PARTS_1);
+        brain_structures_2 = GameObject.Find(BRAIN_PARTS_2);
+        selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
         IsolateMenu = GameObject.Find(ISOLATE_MENU_NAME);
         isolateIconsToGameObjectName = new Dictionary<string, string>
         {
@@ -64,13 +84,13 @@ public class IsolateButtonAction : MonoBehaviour {
     }
     private void AddBrainPart(string PartName)
     {
-        brainStructures.GetComponent<IsolateStructures>().TryToIsolate(PartName);
+        SelectedBrainStructures.GetComponent<IsolateStructures>().TryToIsolate(PartName);
 
     }
 
     private void RemoveBrainPart(string PartName)
     {
-        brainStructures.GetComponent<IsolateStructures>().TryToReturnFromIsolate(PartName);
+        SelectedBrainStructures.GetComponent<IsolateStructures>().TryToReturnFromIsolate(PartName);
 
     }
 
@@ -78,14 +98,14 @@ public class IsolateButtonAction : MonoBehaviour {
     {
         Debug.Log("In handle add all button");
 
-        brainStructures.GetComponent<IsolateStructures>().AddAllParts();
+        SelectedBrainStructures.GetComponent<IsolateStructures>().AddAllParts();
         SelectAllButtons(true);
     }
 
     public void RemoveAllParts()
     {
         Debug.Log("In handle remove all button");
-        brainStructures.GetComponent<IsolateStructures>().RemoveAllParts();
+        SelectedBrainStructures.GetComponent<IsolateStructures>().RemoveAllParts();
         SelectAllButtons(false);
     }
 
