@@ -4181,12 +4181,10 @@ GameObject:
   - component: {fileID: 603627196}
   - component: {fileID: 603627195}
   - component: {fileID: 603627194}
-  - component: {fileID: 603627193}
   - component: {fileID: 603627198}
   - component: {fileID: 603627192}
   - component: {fileID: 603627191}
   - component: {fileID: 603627190}
-  - component: {fileID: 603627189}
   - component: {fileID: 603627197}
   m_Layer: 0
   m_Name: enable-brain-2-icon
@@ -4212,21 +4210,6 @@ Transform:
   m_Father: {fileID: 1188547406}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &603627189
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 603627187}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 499427ed291a9284095deb9933d5c9f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartIcon: {fileID: 21300000, guid: 16d84c5e56a97ea43a5e92f569f1bf70, type: 3}
-  EndIcon: {fileID: 21300000, guid: 3e06acb2b79aa5b4599842f8c074df3b, type: 3}
-  StartVoiceCommand: 
-  EndVoiceCommand: 
 --- !u!114 &603627190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4330,17 +4313,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dc77b8b66a448a4faa316cbf540b890, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &603627193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 603627187}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b30c93ced9299443b3b30fa416b0978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &603627194
@@ -12812,7 +12784,6 @@ GameObject:
   - component: {fileID: 2120375021}
   - component: {fileID: 2120375020}
   - component: {fileID: 2120375019}
-  - component: {fileID: 2120375018}
   - component: {fileID: 2120375017}
   m_Layer: 0
   m_Name: enable-brain-1-icon
@@ -12879,21 +12850,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &2120375018
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2120375015}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 499427ed291a9284095deb9933d5c9f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartIcon: {fileID: 21300000, guid: 16d84c5e56a97ea43a5e92f569f1bf70, type: 3}
-  EndIcon: {fileID: 21300000, guid: 3e06acb2b79aa5b4599842f8c074df3b, type: 3}
-  StartVoiceCommand: 
-  EndVoiceCommand: 
 --- !u!114 &2120375019
 MonoBehaviour:
   m_ObjectHideFlags: 0
