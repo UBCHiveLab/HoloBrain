@@ -7,8 +7,8 @@ using UnityEngine;
 
 public class RepositionButtonAction : MonoBehaviour
 {
-    private const string BRAIN_1_NAME = "brain_1";
-    private const string BRAIN_2_NAME = "brain_2";
+    private const string BRAIN_1_NAME = "Brain";
+    private const string BRAIN_2_NAME = "Brain2";
 
     private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
 
@@ -29,8 +29,8 @@ public class RepositionButtonAction : MonoBehaviour
 
     void Awake()
     {
-        brain_1 = GameObject.FindWithTag(BRAIN_1_NAME);
-        brain_2 = GameObject.FindWithTag(BRAIN_2_NAME);
+        brain_1 = GameObject.Find(BRAIN_1_NAME);
+        brain_2 = GameObject.Find(BRAIN_2_NAME);
 
         selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
     }
