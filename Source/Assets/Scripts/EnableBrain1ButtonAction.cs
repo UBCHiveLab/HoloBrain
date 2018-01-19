@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ChangeSelectedBrainButtonAction : MonoBehaviour
+public class EnableBrain1ButtonAction : MonoBehaviour
 {
 
     private const string BRAIN_PARTS_1_NAME = "BrainParts";
