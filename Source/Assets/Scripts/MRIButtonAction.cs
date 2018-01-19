@@ -49,6 +49,7 @@ public class MRIButtonAction : MonoBehaviour {
         //if the button is enabled
         if (gameObject.GetComponent<ButtonCommands>().buttonIsEnabled)
         {
+            transform.Find("Ring").gameObject.SetActive(true);
 			//do the action
 			SelectedMRICollection.GetComponent<MRIManager>().ProcessMRIButtonAction();
         }
