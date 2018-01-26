@@ -8,13 +8,15 @@ using UnityEngine;
 public class StructuresButtonAction : MonoBehaviour {
 
     private const string BRAIN_PARTS_NAME = "BrainParts";
-    GameObject brain;
+    private const string BRAIN_PARTS_NAME_2 = "BrainParts2";
+    GameObject brain, brain2;
     private StateAccessor stateAccessor;
 
     void Start()
     {
         stateAccessor = StateAccessor.Instance;
         brain = GameObject.Find(BRAIN_PARTS_NAME);
+        brain2 = GameObject.Find(BRAIN_PARTS_NAME_2);
     }
     public void OnSelect()
     {
@@ -25,5 +27,7 @@ public class StructuresButtonAction : MonoBehaviour {
             return;
         }
         brain.GetComponent<ResetState>().ResetEverything();
-   }
+        brain2.GetComponent<ResetState>().ResetEverything();
+
+    }
 }

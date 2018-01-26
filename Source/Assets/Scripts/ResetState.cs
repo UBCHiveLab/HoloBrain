@@ -26,8 +26,10 @@ public class ResetState : Singleton<ResetState> {
         {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ResetState] = this.ResetStateMessageReceived;
         }
-
-		brain =  GameObject.Find(BRAIN_STRUCTURE_GROUPING);
+        Debug.Log("++++++++++++++++++++++Hellow!");
+        //brain =  GameObject.Find(BRAIN_STRUCTURE_GROUPING);
+        brain = this.gameObject;
+        Debug.Log(brain);
         soundFX = this.gameObject.GetComponent<AudioSource>();
         MRICollection = GameObject.Find("Brain").transform.Find(MRI_COLLECTION).gameObject;
     }
@@ -46,6 +48,8 @@ public class ResetState : Singleton<ResetState> {
 
     public void ResetEverything()
     {
+        Debug.Log("*****************************Hello2");
+        Debug.Log(brain);
         if (customMessages != null)
         {
             customMessages.SendResetStateMessage();
