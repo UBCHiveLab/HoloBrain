@@ -16,7 +16,7 @@ public class MRIManager : Singleton<MRIManager> {
     private const string BRAIN_PARTS_2 = "BrainParts2";
     private const string BRAIN_1 = "Brain";
 
-	private GameObject mriCollection;
+	//private GameObject mriCollection;
 	private List<GameObject> mriObjects_1, mriObjects_2;
     private GameObject activeMRI;
     private GameObject clipPlane;
