@@ -9,11 +9,11 @@ using UnityEngine;
 
 public class ResetState : Singleton<ResetState> {
     private const string MRI_COLLECTION = "MRICollection";
+    private const string BRAIN_STRUCTURE_GROUPING = "BrainParts";
 
     private GameObject brain;
     private GameObject MRICollection;
     private CustomMessages customMessages;
-	private GameObject brainParts;
 	private AudioSource soundFX;
     private StateAccessor stateAccessor;
     // Use this for initialization
@@ -27,9 +27,9 @@ public class ResetState : Singleton<ResetState> {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ResetState] = this.ResetStateMessageReceived;
         }
 
-		brainParts = this.gameObject;
+		brain =  GameObject.Find(BRAIN_STRUCTURE_GROUPING);
         soundFX = this.gameObject.GetComponent<AudioSource>();
-        MRICollection = brainParts.transform.Find(MRI_COLLECTION).gameObject;
+        MRICollection = brain.transform.Find(MRI_COLLECTION).gameObject;
     }
 
     void OnSelect()
