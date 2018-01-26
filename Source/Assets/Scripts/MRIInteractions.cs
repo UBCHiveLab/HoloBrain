@@ -8,7 +8,9 @@ using HoloToolkit.Sharing;
 
 public class MRIInteractions : MonoBehaviour
 {
-    private const string CLIP_PLANE = "ClipPlane";
+    private const string CLIP_PLANE_1 = "ClipPlane";
+    //private const string CLIP_PLANE_2 = "ClipPlane2";
+
     private const string MRI_IMAGE_WITH_OUTLINE = "MRIImage";
     private const string MRI_IMAGE_NO_OUTLINE = "MRIImageBlank";
     private const string MRI_COLLECTION = "MRICollection";
@@ -31,16 +33,22 @@ public class MRIInteractions : MonoBehaviour
     private CustomMessages customMessages;
     private MRIManager mriManager;
 
+    // copy from master
+    private string mode;
+
 
     void Awake()
     {
-        clipPlane = GameObject.Find(CLIP_PLANE);
-        MRICollection = GameObject.Find(MRI_COLLECTION);
+        clipPlane = GameObject.Find(CLIP_PLANE_1);
+        //MRICollection = GameObject.Find(MRI_COLLECTION);
+        MRICollection = GameObject.Find("Brain").transform.Find(MRI_COLLECTION).gameObject;
+
 
     }
     // Use this for initialization
     void Start()
     {
+        mode = PlayerPrefs.GetString("mode");
         customMessages = CustomMessages.Instance;
         mriManager = MRIManager.Instance;
         ring = transform.Find(MRI_RING).gameObject;
@@ -142,7 +150,7 @@ public class MRIInteractions : MonoBehaviour
         ActiveMRIImage.SetActive(false);
         MRIImageWithNoOutline.SetActive(false);
         MRIImageWithOutline.SetActive(false);
-        ring.SetActive(false);
+        ring.SetActive(true);
     }
 
     public void ClipPlaneAtMRIPosition()

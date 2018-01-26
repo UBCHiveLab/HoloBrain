@@ -10,7 +10,8 @@ using UnityEngine;
 public class MRIManager : Singleton<MRIManager> {
     private const string MRIObjectTag_1 = "MRI_1";
 	private const string MRIObjectTag_2 = "MRI_2";
-	private const string CLIP_PLANE = "ClipPlane";
+	private const string CLIP_PLANE_1 = "ClipPlane";
+    private const string CLIP_PLANE_2 = "ClipPlane2";
     private const string BRAIN_PARTS_1 = "BrainParts";
     private const string BRAIN_PARTS_2 = "BrainParts2";
     private const string BRAIN_1 = "Brain";
@@ -42,14 +43,17 @@ public class MRIManager : Singleton<MRIManager> {
 	
 	// Use this for initialization
 	void Start () {
-		mriCollection = this.gameObject;
+		//mriCollection = this.gameObject;
 		mriObjects_1 = new List<GameObject>();
-		mriObjects_2 = new List<GameObject>();
+		//mriObjects_2 = new List<GameObject>();
 		customMessages = CustomMessages.Instance;
         coloursAccessor = ColoursAccessor.Instance;
-        clipPlane = GameObject.Find(CLIP_PLANE);
+        clipPlane = GameObject.Find(CLIP_PLANE_1);
         moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
-        brainParts = GameObject.Find((__selectedBrain == BRAIN_1) ? (BRAIN_PARTS_1) : (BRAIN_PARTS_2));
+        
+        //brainParts = GameObject.Find((__selectedBrain == BRAIN_1) ? (BRAIN_PARTS_1) : (BRAIN_PARTS_2));
+        brainParts = GameObject.Find(BRAIN_PARTS_1);
+
         stateAccessor = StateAccessor.Instance;
         boxCollider = GetComponent<BoxCollider>();
 
@@ -66,9 +70,9 @@ public class MRIManager : Singleton<MRIManager> {
 			mriObjects_1.Add(MRIObject);
 		}
 
-		foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_2)) {
-			mriObjects_2.Add(MRIObject);
-		}
+		//foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_2)) {
+		//	mriObjects_2.Add(MRIObject);
+		//}
 
 		SetMRICollectionChildrenActive(false);
 	}
@@ -91,7 +95,8 @@ public class MRIManager : Singleton<MRIManager> {
     /*Changes the MRI image that is displayed in every MRI object*/
     private void ChangeMRIImage()
     {
-        foreach(GameObject MRIObject in SelectedMRIObjects)
+        //foreach(GameObject MRIObject in SelectedMRIObjects)
+        foreach (GameObject MRIObject in mriObjects_1)
         {
             MRIObject.GetComponent<MRIInteractions>().ChangeMRIImage(isOutlinedMRIImages);
         }
@@ -276,7 +281,8 @@ public class MRIManager : Singleton<MRIManager> {
 
     private void SetMRICollectionChildrenActive(bool active)
     {
-        foreach (GameObject MRIObject in SelectedMRIObjects)
+        //foreach (GameObject MRIObject in SelectedMRIObjects)
+        foreach (GameObject MRIObject in mriObjects_1)
         {
             MRIObject.SetActive(active);
         }
@@ -302,7 +308,8 @@ public class MRIManager : Singleton<MRIManager> {
 
     private GameObject GetMRIObjectByName(string MRIName)
     {
-        foreach (GameObject MRIObject in SelectedMRIObjects)
+        foreach (GameObject MRIObject in mriObjects_1)
+            //foreach (GameObject MRIObject in SelectedMRIObjects)
         {
             if (MRIObject.name == MRIName)
             {
@@ -322,7 +329,8 @@ public class MRIManager : Singleton<MRIManager> {
     {
         if (isOneMRIActive)
         {
-            foreach (GameObject MRIObject in SelectedMRIObjects)
+            foreach (GameObject MRIObject in mriObjects_1)
+            //foreach (GameObject MRIObject in SelectedMRIObjects)
             {
                 if (MRIObject.name != activeMRI.name)
                 {
@@ -340,9 +348,10 @@ public class MRIManager : Singleton<MRIManager> {
     public void DisplaySingleMRI(GameObject activeMRI)
     {
         SetActiveMRI(activeMRI);
-        foreach(GameObject MRIObject in SelectedMRIObjects)
+        foreach (GameObject MRIObject in mriObjects_1)
+        //foreach (GameObject MRIObject in SelectedMRIObjects)
         {
-            if(MRIObject.name != activeMRI.name)
+            if (MRIObject.name != activeMRI.name)
             {
                 MRIObject.SetActive(false);
             }
