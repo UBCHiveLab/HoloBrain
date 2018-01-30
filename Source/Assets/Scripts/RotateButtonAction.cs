@@ -7,6 +7,8 @@ using UnityEngine;
 
 public class RotateButtonAction : MonoBehaviour {
 
+    private const string BRAIN_PARTS_1_NAME = "BrainParts";
+    private const string BRAIN_PARTS_2_NAME = "BrainParts2";
     private const string BRAIN_1_GAME_OBJECT_NAME = "Brain";
 
     GameObject currentBrain, brain_1, brain_2;
@@ -15,8 +17,8 @@ public class RotateButtonAction : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        brain_1 = GameObject.Find("brainParts");
-        brain_2 = GameObject.Find("brainParts2");
+        brain_1 = GameObject.Find(BRAIN_PARTS_1_NAME);
+        brain_2 = GameObject.Find(BRAIN_PARTS_2_NAME);
         //Debug.Log("Rotate button brain variable is pointing to " + brain.name);
 
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
