@@ -9,10 +9,10 @@ using UnityEngine;
 
 public class ResetState : Singleton<ResetState> {
     private const string MRI_COLLECTION = "MRICollection";
-    private const string BRAIN_STRUCTURE_GROUPING = "BrainParts";
+    //private const string BRAIN_STRUCTURE_GROUPING = "BrainParts";
 
     private GameObject brain;
-    private GameObject MRICollection;
+    private GameObject MRICollection_1, MRICollection_2;
     private CustomMessages customMessages;
 	private AudioSource soundFX;
     private StateAccessor stateAccessor;
@@ -26,12 +26,11 @@ public class ResetState : Singleton<ResetState> {
         {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ResetState] = this.ResetStateMessageReceived;
         }
-        Debug.Log("++++++++++++++++++++++Hellow!");
-        //brain =  GameObject.Find(BRAIN_STRUCTURE_GROUPING);
         brain = this.gameObject;
-        Debug.Log(brain);
         soundFX = this.gameObject.GetComponent<AudioSource>();
-        MRICollection = GameObject.Find("Brain").transform.Find(MRI_COLLECTION).gameObject;
+        MRICollection_1 = GameObject.Find("Brain").transform.Find(MRI_COLLECTION).gameObject;
+        if (GameObject.Find("Brain2") != null)
+            MRICollection_2 = GameObject.Find("Brain2").transform.Find(MRI_COLLECTION).gameObject;
     }
 
     void OnSelect()
@@ -48,8 +47,6 @@ public class ResetState : Singleton<ResetState> {
 
     public void ResetEverything()
     {
-        Debug.Log("*****************************Hello2");
-        Debug.Log(brain);
         if (customMessages != null)
         {
             customMessages.SendResetStateMessage();
@@ -75,7 +72,9 @@ public class ResetState : Singleton<ResetState> {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
             brain.GetComponent<IsolateStructures>().ResetIsolate();
-            MRICollection.GetComponent<MRIManager>().ResetMRI();
+            MRICollection_1.GetComponent<MRIManager>().ResetMRI();
+            if (MRICollection_2 != null)
+                MRICollection_2.GetComponent<MRIManager>().ResetMRI();
             return true;
         }
 
