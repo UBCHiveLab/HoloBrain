@@ -8,7 +8,7 @@ using HoloToolkit.Sharing;
 
 public class MRIInteractions : MonoBehaviour
 {
-    private const string CLIP_PLANE_1 = "ClipPlane";
+    private const string CLIP_PLANE = "ClipPlane";
     //private const string CLIP_PLANE_2 = "ClipPlane2";
 
     private const string MRI_IMAGE_WITH_OUTLINE = "MRIImage";
@@ -39,9 +39,14 @@ public class MRIInteractions : MonoBehaviour
 
     void Awake()
     {
-        clipPlane = GameObject.Find(CLIP_PLANE_1);
+        clipPlane = this.transform
+            .parent
+            .gameObject
+            .transform
+            .Find(CLIP_PLANE)
+            .gameObject;
         //MRICollection = GameObject.Find(MRI_COLLECTION);
-        MRICollection = GameObject.Find("Brain").transform.Find(MRI_COLLECTION).gameObject;
+        //MRICollection = GameObject.Find("Brain").transform.Find(MRI_COLLECTION).gameObject;
 
 
     }
