@@ -7,19 +7,38 @@ using UnityEngine;
 
 public class ToggleMenu : MonoBehaviour {
 
-    private GameObject brainParts;
+    private const string BRAIN_1 = "Brain";
+    private GameObject brainParts, brainParts2;
 
-	// Use this for initialization
-	void Start () {
+    private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
+
+    GameObject brain_structures_1, brain_structures_2;
+    GameObject selectBrainControlGameObject;
+
+    private string __selectedBrain;
+
+    private GameObject SelectedBrainParts
+    {
+        get
+        {
+            __selectedBrain = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            return (__selectedBrain == BRAIN_1) ? (brainParts) : (brainParts2);
+        }
+    }
+
+
+    // Use this for initialization
+    void Start () {
         brainParts = GameObject.Find("BrainParts");
+        brainParts2 = GameObject.Find("BrainParts2");
     }
     public void ChangeMenu()
     {
-        if (gameObject.name == "exit-mode-icon" && (brainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated || brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing) ) 
+        if (gameObject.name == "exit-mode-icon" && (SelectedBrainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated || SelectedBrainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing) ) 
         {
             return;
         }
-        if (gameObject.name == "isolate-mode-icon" && brainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated && brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
+        if (gameObject.name == "isolate-mode-icon" && SelectedBrainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated && SelectedBrainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
         {
             return;
         }
