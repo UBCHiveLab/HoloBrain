@@ -1,23 +1,29 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IsolateExitButtonAction : MonoBehaviour {
+public class IsolateExitButtonAction : MonoBehaviour
+{
 
-    private const string BRAIN_PARTS_NAME = "BrainParts";
-    GameObject brain;
- 
+    private const string BRAIN_PARTS_1 = "BrainParts";
+    private const string BRAIN_PARTS_2 = "BrainParts2";
+
+    GameObject brain_1, brain_2;
+
     // Use this for initialization
     void Start()
     {
-        brain = GameObject.Find(BRAIN_PARTS_NAME);
+        brain_1 = GameObject.Find(BRAIN_PARTS_1);
+        brain_2 = GameObject.Find(BRAIN_PARTS_2);
     }
 
     void OnSelect()
     {
-        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();    
+        brain_1.GetComponent<IsolateStructures>().ConcludeIsolationMode();
+        if (brain_2)
+            brain_2.GetComponent<IsolateStructures>().ConcludeIsolationMode();
     }
 }
