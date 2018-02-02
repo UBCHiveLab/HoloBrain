@@ -5,10 +5,15 @@ using UnityEngine.UI;
 
 public class ObjectCrossfadeSlider : MonoBehaviour {
 
-    public List<GameObject> list;
+    //public List<GameObject> list;
+    public List<List<Material>> fmriList = new List<List<Material>>();
     int index = 0;
-    Material currentMat;
-    Material nextMat;
+   // Material currentMat;
+   // Material nextMat;
+
+    List<Material> currentMats = new List<Material>();
+    List<Material> nextMats = new List<Material>();
+
     bool isPlaying;
     float speed = 0.5f;
 
@@ -21,27 +26,41 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
         {
 
             GameObject child = parentOfArray.GetChild(i).gameObject;
-            GameObject grandChild = child.transform.GetChild(0).gameObject;
-
-            
-            Material grandchildMat = grandChild.GetComponent<MeshRenderer>().material;
-            grandchildMat.color = new Color(grandchildMat.color.r, grandchildMat.color.g, grandchildMat.color.b, 0f);
+            //GameObject grandChild = child.transform.GetChild(0).gameObject;
+            List<Material> fmrisections = new List<Material>();
+            for(int j=0;j<child.transform.childCount;j++)
+            {
+                Material mat = child.transform.GetChild(j).GetComponentInChildren<MeshRenderer>().material;
+                fmrisections.Add(mat);
+                mat.color = new Color(mat.color.r, mat.color.g, mat.color.b, 0f);
+                
+            }
+            //Material grandchildMat = grandChild.GetComponent<MeshRenderer>().material;
+            //grandchildMat.color = new Color(grandchildMat.color.r, grandchildMat.color.g, grandchildMat.color.b, 0f);
             //if (i % 2 == 0) {
             //    grandChild.GetComponent<MeshRenderer>().material.color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
             //} else{
             //    grandChild.GetComponent<MeshRenderer>().material.color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
 
             //}
-            list.Add(grandChild);
+            fmriList.Add(fmrisections);
         }
 
         slider = GetComponent<Slider>();
-        slider.maxValue = list.Count-1;
+        slider.maxValue = fmriList.Count-1;
         slider.onValueChanged.AddListener(delegate { SliderUpdate(); });
-        currentMat = list[0].GetComponent<MeshRenderer>().material;
-        currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 1);
-        nextMat = list[1].GetComponent<MeshRenderer>().material;
-        nextMat.color = new Color(nextMat.color.r, nextMat.color.g, nextMat.color.b, 0);
+        //currentMat = list[0].GetComponent<MeshRenderer>().material;
+        // currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 1);
+        // nextMat = list[1].GetComponent<MeshRenderer>().material;
+        // nextMat.color = new Color(nextMat.color.r, nextMat.color.g, nextMat.color.b, 0);
+
+        currentMats = fmriList[0];
+        foreach (Material m in currentMats)
+        {
+            m.color = new Color(m.color.r, m.color.g, m.color.b, 1);
+        }
+        nextMats = fmriList[1];
+
     }
     
 
@@ -50,6 +69,11 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
         //if ((Input.GetKeyDown(KeyCode.P)) || (voiceRecognitionKeywords.TryGetValue("Play", out keywordAction)))
         if (Input.GetKeyDown(KeyCode.P))
         {
+            // MEHRDAD YOU NEED TO FIX THIS FOR LOOPING THE PLAY
+            //if (isPlaying == false)
+            //{
+            //    slider.value = slider.minValue;
+            //}
             TogglePlay();
         }
 
@@ -75,7 +99,8 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
     {
         int newIndex = Mathf.FloorToInt(slider.value);
         print(newIndex);
-        if (newIndex == list.Count-1)
+        //if (newIndex == list.Count-1)
+        if (newIndex == fmriList.Count-1)
         {
             index = newIndex;
             return;
@@ -84,22 +109,42 @@ public class ObjectCrossfadeSlider : MonoBehaviour {
         // if slider is a whole number, just display the corresponding indexed object in the list at full opacity
         if (slider.value % 1 == 0)
         {
-
             index = newIndex;
-            currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 0);
-            currentMat = list[index].GetComponent<MeshRenderer>().material;
-            currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 1);
+            foreach (Material m in currentMats)
+            {
+                m.color = new Color(m.color.r, m.color.g, m.color.b, 0);
+            }
+            currentMats = fmriList[index];
+            foreach (Material m in currentMats)
+            {
+                m.color = new Color(m.color.r, m.color.g, m.color.b, 1);
+            }
+            //currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 0);
+            //currentMat = list[index].GetComponent<MeshRenderer>().material;
+            //currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 1);
         }
         // if it's not a whole number, display the appropriate crossfade between the 2 indexes
         else
         {
             index = newIndex;
-            currentMat = list[index].GetComponent<MeshRenderer>().material;
-            nextMat = list[index + 1].GetComponent<MeshRenderer>().material;
+            currentMats = fmriList[index];
+            nextMats = fmriList[index + 1];
             float remainder = slider.value - (float)index;
-            currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 1 - remainder);
-            nextMat.color = new Color(nextMat.color.r, nextMat.color.g, nextMat.color.b, remainder);
+
+            foreach (Material m in currentMats)
+            {
+                m.color = new Color(m.color.r, m.color.g, m.color.b, 1-remainder);
+            }
+            foreach (Material m in nextMats)
+            {
+                m.color = new Color(m.color.r, m.color.g, m.color.b, remainder);
+            }
+
+            //currentMat = list[index].GetComponent<MeshRenderer>().material;
+            //nextMat = list[index + 1].GetComponent<MeshRenderer>().material;
+            //float remainder = slider.value - (float)index;
+            //currentMat.color = new Color(currentMat.color.r, currentMat.color.g, currentMat.color.b, 1 - remainder);
+            //nextMat.color = new Color(nextMat.color.r, nextMat.color.g, nextMat.color.b, remainder);
         }
     }
-
 }
