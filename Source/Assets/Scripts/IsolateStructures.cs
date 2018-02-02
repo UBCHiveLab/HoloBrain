@@ -109,6 +109,7 @@ public class IsolateStructures : MonoBehaviour {
     private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.2f;
     private const float ISOLATION_TRANSITION_TIME_IN_SECONDS = 1.5f;
     private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
+    private const string BRAIN_PARTS2_GAMEOBJECT_NAME = "BrainParts2"; //ADDED
     private const string CORTEX_OBJECT_NAME = "cortex_low";
     private const string VENTRICLE_OBJECT_NAME = "ventricle";
     private const string BRAIN_MINIMAP_POSITION_OBJECT = "MinimapPositionObject";
@@ -118,6 +119,7 @@ public class IsolateStructures : MonoBehaviour {
     private List<Transform> isolatedStructures;
     private List<MovingStructureWithDirection> movingStructures;
     private Vector3 defaultStructurePosition;
+    private Vector3 defaultStructurePosition2; //ADDED
     private Vector3 defaultStructureScale;
     private Quaternion defaultStructureRotation;
     private Vector3 isolatedStructureScale;
@@ -205,6 +207,7 @@ public class IsolateStructures : MonoBehaviour {
     private void CalculateDefaultAndFinalPositionsScalesAndRotations()
     {
         defaultStructurePosition = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.localPosition;
+        defaultStructurePosition2 = GameObject.Find(BRAIN_PARTS2_GAMEOBJECT_NAME).transform.localPosition; //ADDED
         defaultStructureScale = transform.GetChild(0).localScale;
         defaultStructureRotation = transform.GetChild(0).rotation;
         minimapStructurePosition = 0.3f * GameObject.Find(BRAIN_MINIMAP_POSITION_OBJECT).transform.localPosition;
