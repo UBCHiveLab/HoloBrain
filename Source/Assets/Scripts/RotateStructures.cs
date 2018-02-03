@@ -28,7 +28,7 @@ public class RotateStructures : MonoBehaviour {
     void Awake()
     {
         //this is in awake because the MRICollection is disabled in Start() in another script- so it might be null before Start() executes in this script
-        MRICollection = GameObject.Find(MRI_COLLECITON_GAMEOBJECT_NAME);
+        MRICollection = this.gameObject.transform.parent.gameObject.transform.Find(MRI_COLLECITON_GAMEOBJECT_NAME).gameObject;
     }
 
     void Start(){

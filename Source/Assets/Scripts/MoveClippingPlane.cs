@@ -33,7 +33,7 @@ public class MoveClippingPlane : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        BrainObject = GameObject.Find(BRAIN);
+        BrainObject = this.gameObject.transform.parent.gameObject.transform.parent.gameObject;
     }
 
     void OnEnable()
@@ -48,7 +48,7 @@ public class MoveClippingPlane : MonoBehaviour {
         {
             try
             {
-                BrainObject = GameObject.Find(BRAIN);
+                BrainObject = this.gameObject.transform.parent.gameObject.transform.parent.gameObject;
                 setDefaultPosition();
             }
             catch(NullReferenceException e)
@@ -179,8 +179,8 @@ public class MoveClippingPlane : MonoBehaviour {
     {
         Vector3 normal = transform.up;
         
-        Shader.SetGlobalVector("_PlaneD", transform.position);
-        Shader.SetGlobalVector("_PlaneN", normal);
+        //Shader.SetGlobalVector("_PlaneD", transform.position);
+        //Shader.SetGlobalVector("_PlaneN", normal);
 
 //        brainMaterial.SetVector("_PlaneD", transform.position);
 //        brainMaterial.SetVector("_PlaneN", normal);
