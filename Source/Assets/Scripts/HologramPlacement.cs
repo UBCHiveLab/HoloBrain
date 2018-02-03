@@ -27,7 +27,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
 
     void Start()
     {
-        mriManager = GameObject.Find(MRI_COLLECTION).GetComponent<MRIManager>();
+        mriManager = this.gameObject.transform.Find(MRI_COLLECTION).gameObject.GetComponent<MRIManager>();
         mode = PlayerPrefs.GetString("mode");
         uiVisibilityCommands = GameObject.Find("StatusUI").GetComponent<StudentModeCommands>();
 
