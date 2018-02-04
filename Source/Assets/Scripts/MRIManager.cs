@@ -16,7 +16,7 @@ public class MRIManager : Singleton<MRIManager> {
     private const string BRAIN_1 = "Brain";
 
 	private GameObject MRICollection;
-	private List<GameObject> MRIObjects;
+	private List<GameObject> MRIObjects, allMRIObjects;
     private GameObject activeMRI;
     private GameObject clipPlane;
     private GameObject brainParts_1, brainParts_2;
@@ -45,8 +45,9 @@ public class MRIManager : Singleton<MRIManager> {
 	void Start () {
 		MRICollection = this.gameObject;
 		MRIObjects = new List<GameObject>();
-		//mriObjects_2 = new List<GameObject>();
-		customMessages = CustomMessages.Instance;
+        allMRIObjects = new List<GameObject>();
+        //mriObjects_2 = new List<GameObject>();
+        customMessages = CustomMessages.Instance;
         coloursAccessor = ColoursAccessor.Instance;
         clipPlane = MRICollection.transform.Find(CLIP_PLANE).gameObject;
         moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
@@ -68,14 +69,14 @@ public class MRIManager : Singleton<MRIManager> {
 
         MRIObjects.Add(MRICollection.transform.Find("MRI1").gameObject);
         MRIObjects.Add(MRICollection.transform.Find("MRI3").gameObject);
-        //foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_1))
-        //{
-        //mriObjects_1.Add(MRIObject);
-        //}
+        foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_1))
+        {
+            allMRIObjects.Add(MRIObject);
+        }
 
-        //foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_2)) {
-        //	mriObjects_2.Add(MRIObject);
-        //}
+        foreach (GameObject MRIObject in GameObject.FindGameObjectsWithTag(MRIObjectTag_2)) {
+        	allMRIObjects.Add(MRIObject);
+        }
 
         SetMRICollectionChildrenActive(false);
 	}
@@ -289,7 +290,7 @@ public class MRIManager : Singleton<MRIManager> {
     private void SetMRICollectionChildrenActive(bool active)
     {
         //foreach (GameObject MRIObject in SelectedMRIObjects)
-        foreach (GameObject MRIObject in MRIObjects)
+        foreach (GameObject MRIObject in allMRIObjects)
         {
             MRIObject.SetActive(active);
         }

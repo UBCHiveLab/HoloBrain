@@ -53,7 +53,8 @@ public class MRIButtonAction : MonoBehaviour {
         {
             //transform.Find("Ring").gameObject.SetActive(true);
 			//do the action
-			SelectedMRICollection.GetComponent<MRIManager>().ProcessMRIButtonAction();
+			mriCollection_1.GetComponent<MRIManager>().ProcessMRIButtonAction();
+            mriCollection_2.GetComponent<MRIManager>().ProcessMRIButtonAction();
             soundFx.Play();
         }
     }
