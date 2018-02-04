@@ -1,6 +1,7 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -86,6 +87,8 @@ public class IsolateButtonAction : MonoBehaviour
     }
     private void AddBrainPart(string PartName)
     {
+        Assert.IsTrue(PartName != null);
+        Debug.Log(PartName);
         SelectedBrainStructures.GetComponent<IsolateStructures>().TryToIsolate(PartName);
 
     }

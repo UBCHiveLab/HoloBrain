@@ -156,6 +156,8 @@ public class IsolateStructures : MonoBehaviour {
         CalculateDefaultAndFinalPositionsScalesAndRotations();
         currentlyInIsolatedMode = false;
         cortexBoxCollider = transform.Find(CORTEX_OBJECT_NAME).gameObject.GetComponent<BoxCollider>();
+        print("===============================================");
+        print(cortexBoxCollider);
     }
 
     private GameObject CopyStructure(GameObject structureToCopy)
@@ -164,6 +166,8 @@ public class IsolateStructures : MonoBehaviour {
         copiedStructure.transform.SetParent(structureToCopy.transform.parent);
         copiedStructure.transform.position = structureToCopy.transform.position;
         copiedStructure.transform.localScale = structureToCopy.transform.localScale;
+        print("================");
+        print(copiedStructure);
         return copiedStructure;
     }
 
@@ -310,8 +314,15 @@ public class IsolateStructures : MonoBehaviour {
     private void TryToIsolateStructure(string structureName)
     {
         GameObject structureToIsolate = transform.Find(structureName).gameObject;
-        if (currentlyInIsolatedMode && transform.Find(structureToIsolate.name + "(Clone)").gameObject == null)
+        Debug.Log("===========structure to isolate");
+        Debug.Log(structureToIsolate);
+        Debug.Log(currentlyInIsolatedMode);
+        GameObject test = GameObject.Find(structureToIsolate.name + "(Clone)");
+        Debug.Log("test: " + test);
+
+        if (currentlyInIsolatedMode && GameObject.Find(structureToIsolate.name + "(Clone)") == null)
         {
+            Debug.Log("helooooos");
             StartIsolatingStructure(structureToIsolate);
         }
     }
@@ -362,14 +373,18 @@ public class IsolateStructures : MonoBehaviour {
 
     private void StartIsolatingStructure(GameObject structureToIsolate)
     {
+        Debug.Log("inside StartIsolatingStrcuture");
         Transform copiedStructureToIsolate = CopyStructure(structureToIsolate).transform;
         if (isolatedStructures.Any())
         {
+            Debug.Log("===========isolatedStrcuture.Any()");
             movingStructures.Add(new MovingStructureWithDirection(new MovingStructure(copiedStructureToIsolate, defaultStructurePosition, isolatedStructureScale, Quaternion.identity), MovingToState.Isolation));
             copiedStructureToIsolate.rotation = isolatedStructures[0].rotation;
         }
         else
         {
+            Debug.Log("===========else");
+
             movingStructures.Add(new MovingStructureWithDirection(new MovingStructure(copiedStructureToIsolate, defaultStructurePosition, isolatedStructureScale, minimapStructureRotation), MovingToState.Isolation));
         }
         isolatedStructures.Add(copiedStructureToIsolate);
