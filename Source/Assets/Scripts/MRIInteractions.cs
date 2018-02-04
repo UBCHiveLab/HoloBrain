@@ -100,7 +100,7 @@ public class MRIInteractions : MonoBehaviour
     public void SelectMRI()
     {
         DisplayMRIImage();
-        mriManager.DisplaySingleMRI(gameObject);
+        this.gameObject.transform.parent.GetComponent<MRIManager>().DisplaySingleMRI(this.gameObject);
         if (customMessages != null)
         {
             customMessages.SendToggleMRIMessage(this.name, isSectionSelected);
