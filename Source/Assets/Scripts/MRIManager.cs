@@ -100,7 +100,7 @@ public class MRIManager : Singleton<MRIManager> {
     private void ChangeMRIImage()
     {
         //foreach(GameObject MRIObject in SelectedMRIObjects)
-        foreach (GameObject MRIObject in MRIObjects)
+        foreach (GameObject MRIObject in allMRIObjects)
         {
             MRIObject.GetComponent<MRIInteractions>().ChangeMRIImage(isOutlinedMRIImages);
         }
