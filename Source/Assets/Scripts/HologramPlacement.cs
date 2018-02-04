@@ -15,6 +15,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     /// The model is rendered relative to the actual anchor.
     /// </summary>
     public bool GotTransform { get; private set; }
+    private bool isSecondBrainAndClickFirstTime;
 
     /// <summary>
     /// When the experience starts, we disable all of the rendering of the model.
@@ -22,14 +23,17 @@ public class HologramPlacement : Singleton<HologramPlacement>
     List<MeshRenderer> disabledRenderers = new List<MeshRenderer>();
     private const string MRI_COLLECTION = "MRICollection";
     private MRIManager mriManager;
-    private string mode;
+    private string mode, brainMode;
     private StudentModeCommands uiVisibilityCommands;
 
     void Start()
     {
+        isSecondBrainAndClickFirstTime = this.gameObject.name == "Brain2";
         mriManager = this.gameObject.transform.Find(MRI_COLLECTION).gameObject.GetComponent<MRIManager>();
         mode = PlayerPrefs.GetString("mode");
+        brainMode = PlayerPrefs.GetString("brainMode");
         uiVisibilityCommands = GameObject.Find("StatusUI").GetComponent<StudentModeCommands>();
+        
 
         if (mode != "solo")
         {
@@ -49,6 +53,8 @@ public class HologramPlacement : Singleton<HologramPlacement>
         {
             HTGestureManager.Instance.OverrideFocusedObject = this.gameObject;
         }
+
+        HTGestureManager.Instance.OverrideFocusedObject = this.gameObject;
     }
 
 
@@ -194,6 +200,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
 
     public void OnSelect()
     {
+
         if (mode != "student")
         {
             // Note that we have a transform.
@@ -213,6 +220,13 @@ public class HologramPlacement : Singleton<HologramPlacement>
                 HTGestureManager.Instance.OverrideFocusedObject = null;
                 GameObject controlsUI = GameObject.Find("ControlsUI");
                 controlsUI.SetActive(true);
+            }
+
+            if (isSecondBrainAndClickFirstTime && brainMode == "two")
+            {
+                isSecondBrainAndClickFirstTime = false;
+                GameObject.Find("Brain").GetComponent<HologramPlacement>().ResetStage();
+
             }
         }
     }
