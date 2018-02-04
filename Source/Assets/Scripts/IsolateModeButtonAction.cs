@@ -10,6 +10,10 @@ public class IsolateModeButtonAction : MonoBehaviour
 
     private const string BRAIN_PARTS_1 = "BrainParts";
     private const string BRAIN_PARTS_2 = "BrainParts2";
+
+    const string BRAIN_1 = "Brain";
+    const string BRAIN_2 = "Brain2";
+
     GameObject brain_1, brain_2;
     // Use this for initialization
     void Start()
@@ -20,8 +24,13 @@ public class IsolateModeButtonAction : MonoBehaviour
 
     void OnSelect()
     {
+        // have brain 1 selected
         brain_1.GetComponent<IsolateStructures>().InitiateIsolationMode();
-        if (brain_2)
-            brain_2.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        // change select brain value to 2
+        brain_2.GetComponent<IsolateStructures>().InitiateIsolationMode();
+
+       
+        //if (brain_2)
+        // brain_2.GetComponent<IsolateStructures>().InitiateIsolationMode();
     }
 }

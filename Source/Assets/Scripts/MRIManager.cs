@@ -47,7 +47,7 @@ public class MRIManager : Singleton<MRIManager> {
 		MRIObjects = new List<GameObject>();
 		//mriObjects_2 = new List<GameObject>();
 		customMessages = CustomMessages.Instance;
-        coloursAccessor = ColoursAccessor.Instance;
+        coloursAccessor = GetComponent<ColoursAccessor>();
         clipPlane = MRICollection.transform.Find(CLIP_PLANE).gameObject;
         moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
         
@@ -55,7 +55,7 @@ public class MRIManager : Singleton<MRIManager> {
         brainParts_1 = GameObject.Find(BRAIN_PARTS_1);
         brainParts_2 = GameObject.Find(BRAIN_PARTS_2);
 
-        stateAccessor = StateAccessor.Instance;
+        stateAccessor = GetComponent<StateAccessor>();
         boxCollider = GetComponent<BoxCollider>();
 
         boxCollider.enabled = false;

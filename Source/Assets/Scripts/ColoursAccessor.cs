@@ -7,7 +7,7 @@ using UnityEngine;
 using HoloToolkit.Unity;
 using System;
 
-public class ColoursAccessor : Singleton<ColoursAccessor> {
+public class ColoursAccessor : MonoBehaviour {
 
     private GameObject brainParts;
     private const string BRAIN_PARTS = "BrainParts";

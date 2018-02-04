@@ -14,7 +14,7 @@ public class StructuresButtonAction : MonoBehaviour {
 
     void Start()
     {
-        stateAccessor = StateAccessor.Instance;
+        stateAccessor = GetComponent<StateAccessor>();
         brain = GameObject.Find(BRAIN_PARTS_NAME);
         brain2 = GameObject.Find(BRAIN_PARTS_NAME_2);
     }

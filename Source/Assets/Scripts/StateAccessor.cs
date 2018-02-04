@@ -6,7 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StateAccessor : Singleton<StateAccessor> {
+public class StateAccessor : MonoBehaviour {
 
     private const string MRICollection = "MRICollection";
     private const string BRAIN_PARTS = "BrainParts";

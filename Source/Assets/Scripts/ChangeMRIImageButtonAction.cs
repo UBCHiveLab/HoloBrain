@@ -27,7 +27,7 @@ public class ChangeMRIImageButtonAction : MonoBehaviour {
         if (gameObject.GetComponent<ButtonCommands>().buttonIsEnabled)
         {
             //do the action
-            if(StateAccessor.Instance.CurrentlyInMRIMode())
+            if(GetComponent<StateAccessor>().CurrentlyInMRIMode())
             {
                 MRICollection.GetComponent<MRIManager>().ProcessChangeMRIImageButtonAction();
             }
