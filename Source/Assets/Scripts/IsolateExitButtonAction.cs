@@ -23,7 +23,6 @@ public class IsolateExitButtonAction : MonoBehaviour
     void OnSelect()
     {
         brain_1.GetComponent<IsolateStructures>().ConcludeIsolationMode();
-        if (brain_2)
-            brain_2.GetComponent<IsolateStructures>().ConcludeIsolationMode();
+        brain_2.GetComponent<IsolateStructures>().ConcludeIsolationMode();
     }
 }
