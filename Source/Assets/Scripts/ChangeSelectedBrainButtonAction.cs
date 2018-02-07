@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ChangeSelectedBrainButtonAction : MonoBehaviour
 {
@@ -26,5 +27,11 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
         //do the action
         Debug.Log("ChangeBrain button selected");
         selectBrainControlGameObject.GetComponent<BrainSelectControl>().OnSelect();
+        SwapImage();
+    }
+
+    private void SwapImage()
+    {
+        //gameObject.GetComponentInChildren<Image>().GetComponent<ImageSwap>().ToggleImage(); TODO
     }
 }
