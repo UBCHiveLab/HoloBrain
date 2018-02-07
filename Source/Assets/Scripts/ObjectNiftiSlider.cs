@@ -18,7 +18,7 @@ public class ObjectNiftiSlider : MonoBehaviour
 
     bool isPlaying;
     float speed = 5f;
-    private const float initTimePerObject = 500f; // in ms
+    private const float initTimePerObject = 250f; // in ms
     float timePerObject;
 
     Slider slider;
