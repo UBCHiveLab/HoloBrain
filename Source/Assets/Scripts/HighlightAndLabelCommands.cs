@@ -47,7 +47,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
 
     void OnSelect()
     {
-        if (!StateAccessor.Instance.CurrentlyInStudentMode() && StateAccessor.Instance.AbleToTakeAnInteraction())
+        if (!GetComponent<StateAccessor>().CurrentlyInStudentMode() && GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         {
             if (customMessages != null)
             {
@@ -60,7 +60,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
  
     void OnStartGaze()
     {
-        if (StateAccessor.Instance.AbleToTakeAnInteraction() && mode != "student")
+        if (GetComponent<StateAccessor>().AbleToTakeAnInteraction() && mode != "student")
         {
             isGazedAt = true;
             HighlightObject();
@@ -115,7 +115,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
             soundFX.Play();
         }
         
-        if (!(StateAccessor.Instance.CurrentlyIsolatedOrIsolating() || StateAccessor.Instance.CurrentlyInMRIMode()))
+        if (!(GetComponent<StateAccessor>().CurrentlyIsolatedOrIsolating() || GetComponent<StateAccessor>().CurrentlyInMRIMode()))
         {
             UpdatePins();
         }

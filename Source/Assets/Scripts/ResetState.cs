@@ -7,7 +7,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResetState : Singleton<ResetState> {
+public class ResetState : MonoBehaviour {
     private const string MRI_COLLECTION = "MRICollection";
     //private const string BRAIN_STRUCTURE_GROUPING = "BrainParts";
 
@@ -19,7 +19,7 @@ public class ResetState : Singleton<ResetState> {
     // Use this for initialization
     void Start () {
         customMessages = CustomMessages.Instance;
-        stateAccessor = StateAccessor.Instance;
+        stateAccessor = GetComponent<StateAccessor>();
         // Assign the ToggleExplodeMessageReceived() function to be a message handler for ToggleExplode messages
         // MessageHandlers is a dictionary with TestMessageID's as keys and MessageCalback's as values
         if (customMessages != null)

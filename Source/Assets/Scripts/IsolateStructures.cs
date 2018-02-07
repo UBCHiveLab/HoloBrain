@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using HoloToolkit.Sharing;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -108,7 +109,7 @@ public class IsolateStructures : MonoBehaviour {
     private const float ISOLATED_STRUCTURE_SCALE_SIZE = 2.0f;
     private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.2f;
     private const float ISOLATION_TRANSITION_TIME_IN_SECONDS = 1.5f;
-    private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
+    //private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
     private const string CORTEX_OBJECT_NAME = "cortex_low";
     private const string VENTRICLE_OBJECT_NAME = "ventricle";
     private const string BRAIN_MINIMAP_POSITION_OBJECT = "MinimapPositionObject";
@@ -133,9 +134,33 @@ public class IsolateStructures : MonoBehaviour {
         get { return movingStructures.Any(); }
     }
 
+
+    private const string BRAIN_1 = "Brain";
+    private const string BRAIN_PARTS_1 = "BrainParts";
+    private const string BRAIN_PARTS_2 = "BrainParts2";
+    private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
+    private GameObject selectBrainControlGameObject;
+
+    private GameObject brain_structures_1, brain_structures_2;
+    private string __selectedBrain;
+
+    private GameObject SelectedBrainStructures
+    {
+        get
+        {
+            __selectedBrain = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            return (__selectedBrain == BRAIN_1) ? (brain_structures_1) : (brain_structures_2);
+        }
+    }
+
     void Start () {
+
+        brain_structures_1 = GameObject.Find(BRAIN_PARTS_1);
+        brain_structures_2 = GameObject.Find(BRAIN_PARTS_2);
+        selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
+
         customMessages = CustomMessages.Instance;
-        stateAccessor = StateAccessor.Instance;
+        stateAccessor = GetComponent<StateAccessor>();
         if (customMessages != null)
         {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.InitiateIsolateMessage] = InitiateIsolateMessageReceived;
@@ -155,7 +180,9 @@ public class IsolateStructures : MonoBehaviour {
 
         CalculateDefaultAndFinalPositionsScalesAndRotations();
         currentlyInIsolatedMode = false;
-        cortexBoxCollider = GameObject.Find(CORTEX_OBJECT_NAME).GetComponent<BoxCollider>();
+        cortexBoxCollider = FindGameObjectInChildren(CORTEX_OBJECT_NAME).GetComponent<BoxCollider>();
+        print("===============================================");
+        print(cortexBoxCollider);
     }
 
     private GameObject CopyStructure(GameObject structureToCopy)
@@ -164,6 +191,8 @@ public class IsolateStructures : MonoBehaviour {
         copiedStructure.transform.SetParent(structureToCopy.transform.parent);
         copiedStructure.transform.position = structureToCopy.transform.position;
         copiedStructure.transform.localScale = structureToCopy.transform.localScale;
+        print("================");
+        print(copiedStructure);
         return copiedStructure;
     }
 
@@ -204,10 +233,10 @@ public class IsolateStructures : MonoBehaviour {
 
     private void CalculateDefaultAndFinalPositionsScalesAndRotations()
     {
-        defaultStructurePosition = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.localPosition;
+        defaultStructurePosition = transform.localPosition;
         defaultStructureScale = transform.GetChild(0).localScale;
         defaultStructureRotation = transform.GetChild(0).rotation;
-        minimapStructurePosition = 0.3f * GameObject.Find(BRAIN_MINIMAP_POSITION_OBJECT).transform.localPosition;
+        minimapStructurePosition = 0.3f * transform.parent.transform.Find(BRAIN_MINIMAP_POSITION_OBJECT).gameObject.transform.localPosition; // TODO
         minimapStructureScale = new Vector3(MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE);
         isolatedStructureScale = new Vector3(ISOLATED_STRUCTURE_SCALE_SIZE, ISOLATED_STRUCTURE_SCALE_SIZE, ISOLATED_STRUCTURE_SCALE_SIZE);
     }
@@ -241,7 +270,7 @@ public class IsolateStructures : MonoBehaviour {
             ResetStructurePositionsAndScales();
             StartSettingUpMinimap();
 
-            GameObject ventricles = GameObject.Find(VENTRICLE_OBJECT_NAME);
+            GameObject ventricles = FindGameObjectInChildren(VENTRICLE_OBJECT_NAME);
             ventricles.AddComponent<MeshCollider>();
             StartIsolatingStructure(ventricles);
             Destroy(ventricles.GetComponent<MeshCollider>());
@@ -257,6 +286,7 @@ public class IsolateStructures : MonoBehaviour {
 
     public void ConcludeIsolationMode()
     {
+        Debug.Log("*******************************");
         if (!currentlyInIsolatedMode)
         {
             Debug.Log("ConcludeIsolationMode() was called, but no structure is currently isolated");
@@ -294,7 +324,7 @@ public class IsolateStructures : MonoBehaviour {
 
     public void TryToIsolate(string structureName)
     {
-        if (GameObject.Find(structureName) == null)
+        if (FindGameObjectInChildren(structureName) == null)
         {
             Debug.Log("Tried to isolate the structure '" + structureName + "', which could not be found");
             return;
@@ -306,19 +336,36 @@ public class IsolateStructures : MonoBehaviour {
             customMessages.SendTryToIsolateStructureMessage(structureName);
         }
     }
+    private GameObject FindGameObjectInChildren(string str) {
+        try
+        {
+            return transform.Find(str).gameObject;
+        } catch (Exception ex)
+        {
+            Debug.Log(ex);
+            return null;
+        }
+    }
 
     private void TryToIsolateStructure(string structureName)
     {
-        GameObject structureToIsolate = GameObject.Find(structureName);
-        if (currentlyInIsolatedMode && GameObject.Find(structureToIsolate.name + "(Clone)") == null)
+        GameObject structureToIsolate = FindGameObjectInChildren(structureName);
+        Debug.Log("===========structure to isolate");
+        Debug.Log(structureToIsolate);
+        Debug.Log(currentlyInIsolatedMode);
+        
+        GameObject test = FindGameObjectInChildren(structureToIsolate.name + "(Clone)");
+
+        if (currentlyInIsolatedMode && test == null)
         {
+            Debug.Log("helooooos");
             StartIsolatingStructure(structureToIsolate);
         }
     }
 
     public void TryToReturnFromIsolate(string structureName)
     {
-        if (GameObject.Find(structureName + "(Clone)") == null)
+        if (FindGameObjectInChildren(structureName + "(Clone)").transform == null)
         {
             Debug.Log("Tried to return from isolation the structure '" + structureName + "', which could not be found");
             return;
@@ -342,7 +389,7 @@ public class IsolateStructures : MonoBehaviour {
 
     private void TryToReturnIsolatedStructure(string structureName)
     {
-        GameObject structureToReturnFromIsolate = GameObject.Find(structureName+"(Clone)");
+        GameObject structureToReturnFromIsolate = FindGameObjectInChildren(structureName+"(Clone)");
         if (currentlyInIsolatedMode)
         //if (currentlyInIsolatedMode && !AtLeastOneStructureIsMovingOrResizing)
         {
@@ -362,14 +409,18 @@ public class IsolateStructures : MonoBehaviour {
 
     private void StartIsolatingStructure(GameObject structureToIsolate)
     {
+        Debug.Log("inside StartIsolatingStrcuture");
         Transform copiedStructureToIsolate = CopyStructure(structureToIsolate).transform;
         if (isolatedStructures.Any())
         {
+            Debug.Log("===========isolatedStrcuture.Any()");
             movingStructures.Add(new MovingStructureWithDirection(new MovingStructure(copiedStructureToIsolate, defaultStructurePosition, isolatedStructureScale, Quaternion.identity), MovingToState.Isolation));
             copiedStructureToIsolate.rotation = isolatedStructures[0].rotation;
         }
         else
         {
+            Debug.Log("===========else");
+
             movingStructures.Add(new MovingStructureWithDirection(new MovingStructure(copiedStructureToIsolate, defaultStructurePosition, isolatedStructureScale, minimapStructureRotation), MovingToState.Isolation));
         }
         isolatedStructures.Add(copiedStructureToIsolate);
@@ -427,13 +478,13 @@ public class IsolateStructures : MonoBehaviour {
                 if (structureWithDirection.structure.ModelTransform.name != VENTRICLE_OBJECT_NAME+"(Clone)")
                 {
                     structureWithDirection.structure.ModelTransform.GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
-                    GameObject.Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
+                    FindGameObjectInChildren(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
                 }
                 break;
             case MovingToState.Minimap:
                 if (structureWithDirection.structure.ModelTransform.name.Contains("(Clone)"))
                 {
-                    GameObject.Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
+                    FindGameObjectInChildren(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
                     GameObject.DestroyImmediate(structureWithDirection.structure.ModelTransform.gameObject);
                 }
                 break;
@@ -443,7 +494,7 @@ public class IsolateStructures : MonoBehaviour {
                     if (structureWithDirection.structure.ModelTransform.name != VENTRICLE_OBJECT_NAME + "(Clone)")
                     {
                         structureWithDirection.structure.ModelTransform.GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
-                        GameObject.Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
+                        FindGameObjectInChildren(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
                     }
                     GameObject.DestroyImmediate(structureWithDirection.structure.ModelTransform.gameObject);
                 }
