@@ -12,7 +12,7 @@ public class ChangeMRIImageButtonAction : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        MRICollection = GameObject.Find(MRICollectionName);
+        MRICollection = GameObject.Find("Brain").transform.Find(MRICollectionName).gameObject;
     }
 
     // Update is called once per frame
@@ -27,7 +27,7 @@ public class ChangeMRIImageButtonAction : MonoBehaviour {
         if (gameObject.GetComponent<ButtonCommands>().buttonIsEnabled)
         {
             //do the action
-            if(GetComponent<StateAccessor>().CurrentlyInMRIMode())
+            if(StateAccessor.Instance.CurrentlyInMRIMode())
             {
                 MRICollection.GetComponent<MRIManager>().ProcessChangeMRIImageButtonAction();
             }
