@@ -10,6 +10,8 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
     public GameObject selectedBrainIcon;
     public Sprite StartIcon;
     public Sprite EndIcon;
+    private StateAccessor stateAccessor;
+    private List<GameObject> isolateButtons;
 
     private GameObject selectBrainControlGameObject;
 
@@ -17,6 +19,14 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
     void Start ()
     {
         selectBrainControlGameObject = GameObject.Find("BrainSelectControl");
+        stateAccessor = StateAccessor.Instance;
+        isolateButtons = new List<GameObject>();
+        SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
+
+        foreach (GameObject isolateButton in GameObject.FindGameObjectsWithTag("isolate"))
+        {
+            isolateButtons.Add(isolateButton);
+        }
 
     }
 	
@@ -31,6 +41,15 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
         Debug.Log("ChangeBrain button selected");
         selectBrainControlGameObject.GetComponent<BrainSelectControl>().OnSelect();
         SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
+
+        if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Isolated)
+        {
+            foreach (GameObject isolateButton in isolateButtons)
+            {
+                isolateButton.GetComponent<ButtonCommands>().setIsPressd(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
+                isolateButton.GetComponent<ButtonEnabledFeedback>().ToggleOpacity(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
+            }
+        }
     }
 
     private void SwapImage(string selectedBrain)

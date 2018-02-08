@@ -153,4 +153,15 @@ public class IsolateButtonAction : MonoBehaviour
             }
         }
     }
+
+    public bool getButtonStatus()
+    {
+        if (selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain == BRAIN_1)
+        {
+            return buttonSelected;
+        } else
+        {
+            return buttonSelected2;
+        }
+    }
 }

@@ -132,4 +132,9 @@ public class ButtonCommands : MonoBehaviour {
 
     }
 
+    public void setIsPressd(bool value)
+    {
+        IsPressed = value;
+    }
+
 }
