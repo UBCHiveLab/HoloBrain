@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class ChangeSelectedBrainButtonAction : MonoBehaviour
 {
 
-    private const string BRAIN_PARTS_1_NAME = "BrainParts";
+    private const string BRAIN_1 = "Brain";
+    public GameObject selectedBrainIcon;
+    public Sprite StartIcon;
+    public Sprite EndIcon;
 
     private GameObject selectBrainControlGameObject;
 
@@ -27,11 +30,18 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
         //do the action
         Debug.Log("ChangeBrain button selected");
         selectBrainControlGameObject.GetComponent<BrainSelectControl>().OnSelect();
-        SwapImage();
+        SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
     }
 
-    private void SwapImage()
+    private void SwapImage(string selectedBrain)
     {
+        if (selectedBrain == BRAIN_1)
+        {
+            selectedBrainIcon.GetComponent<SpriteRenderer>().sprite = StartIcon;
+        } else
+        {
+            selectedBrainIcon.GetComponent<SpriteRenderer>().sprite = EndIcon;
+        }
         //gameObject.GetComponentInChildren<Image>().GetComponent<ImageSwap>().ToggleImage(); TODO
     }
 }

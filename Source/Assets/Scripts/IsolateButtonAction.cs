@@ -9,7 +9,7 @@ using UnityEngine;
 public class IsolateButtonAction : MonoBehaviour
 {
 
-    private bool buttonSelected;
+    private bool buttonSelected, buttonSelected2;
     private Dictionary<string, string> isolateIconsToGameObjectName;
 
     private const string BRAIN_1 = "Brain";
@@ -38,6 +38,7 @@ public class IsolateButtonAction : MonoBehaviour
     void Start()
     {
         buttonSelected = false;
+        buttonSelected2 = false;
         brain_structures_1 = GameObject.Find(BRAIN_PARTS_1);
         brain_structures_2 = GameObject.Find(BRAIN_PARTS_2);
         selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
@@ -70,7 +71,7 @@ public class IsolateButtonAction : MonoBehaviour
             RemoveAllParts();
         }
 
-        else if (!buttonSelected)
+        else if (checkIfBrainPartAdded())
         {
 
             AddBrainPart(PartToIsolate);
@@ -79,12 +80,40 @@ public class IsolateButtonAction : MonoBehaviour
         }
         else
         {
-
             RemoveBrainPart(PartToIsolate);
             buttonSelected = false;
         }
 
     }
+
+    private bool checkIfBrainPartAdded()
+    {
+        if (selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain == BRAIN_1)
+        {
+            if (!buttonSelected)
+            {
+                buttonSelected = true;
+                return true;
+            } else
+            {
+                buttonSelected = false;
+                return false;
+            }
+        } else
+        {
+            if (!buttonSelected2)
+            {
+                buttonSelected2 = true;
+                return true;
+            }
+            else
+            {
+                buttonSelected2 = false;
+                return false;
+            }
+        }
+    }
+
     private void AddBrainPart(string PartName)
     {
         Assert.IsTrue(PartName != null);
