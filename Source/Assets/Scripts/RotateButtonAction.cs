@@ -14,6 +14,7 @@ public class RotateButtonAction : MonoBehaviour {
     GameObject currentBrain, brain_1, brain_2;
     GameObject selectBrainControlGameObject;
     private string selectedBrainName;
+    private StateAccessor stateAccessor;
 
     // Use this for initialization
     void Start () {
@@ -22,6 +23,7 @@ public class RotateButtonAction : MonoBehaviour {
         //Debug.Log("Rotate button brain variable is pointing to " + brain.name);
 
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
+        stateAccessor = StateAccessor.Instance;
     }
 	
 	// Update is called once per frame
@@ -33,13 +35,20 @@ public class RotateButtonAction : MonoBehaviour {
     {
         //do the action
         //TODO: faster technique would be to change all the bindings in the BrainSelectControl class right when the selected brain is changed
+        if (stateAccessor.IsInCompareMode())
+        {
+            brain_1.GetComponent<RotateStructures>().OnSelect();
+            brain_2.GetComponent<RotateStructures>().OnSelect();
+        }
+        else
+        {
+            selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brain_1) : (brain_2);
 
-        selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
-        currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brain_1) : (brain_2);
+            Debug.Log("Rotate button brain variable is pointing to " + currentBrain.name);
 
-        Debug.Log("Rotate button brain variable is pointing to " + currentBrain.name);
-
-        currentBrain.GetComponent<RotateStructures>().OnSelect();
+            currentBrain.GetComponent<RotateStructures>().OnSelect();
+        }
     }
 
 }

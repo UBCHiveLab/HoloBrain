@@ -10,7 +10,7 @@ public class ExplodeButtonAction : MonoBehaviour
     private const string BRAIN_1 = "Brain";
     private const string BRAIN_PARTS_1 = "BrainParts";
     private const string BRAIN_PARTS_2 = "BrainParts2";
-
+    private StateAccessor stateAccessor;
     private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
 
     GameObject brain_structures_1, brain_structures_2;
@@ -34,6 +34,7 @@ public class ExplodeButtonAction : MonoBehaviour
         brain_structures_2 = GameObject.Find(BRAIN_PARTS_2);
 
         selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
+        stateAccessor = StateAccessor.Instance;
     }
 
     // Use this for initialization
@@ -49,6 +50,11 @@ public class ExplodeButtonAction : MonoBehaviour
 
     void OnSelect()
     {
-        SelectedBrainStructures.GetComponent<ExplodingCommands>().OnSelect();
+        if (stateAccessor.IsInCompareMode())
+        {
+            brain_structures_1.GetComponent<ExplodingCommands>().OnSelect();
+            brain_structures_2.GetComponent<ExplodingCommands>().OnSelect();
+        } else
+            SelectedBrainStructures.GetComponent<ExplodingCommands>().OnSelect();
     }
 }

@@ -11,6 +11,8 @@ public class StateAccessor : Singleton<StateAccessor> {
     private const string MRICollection = "MRICollection";
     private const string BRAIN_PARTS = "BrainParts";
     private ResetState resetState;
+    private bool isCompareMode;
+    private bool compareModeReposition;
     public enum Mode { Default, Isolated, MRI };
 
 	private GameObject brainParts;
@@ -21,11 +23,34 @@ public class StateAccessor : Singleton<StateAccessor> {
 		brainParts = this.gameObject;
         currentMode = Mode.Default;
         resetState = brainParts.GetComponent<ResetState>();
-	}
+        isCompareMode = false;
+        compareModeReposition = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	}
+
+    public void SetCompare(bool value)
+    {
+        this.isCompareMode = value;
+    }
+
+    public bool IsInCompareMode()
+    {
+        return this.isCompareMode;
+    }
+
+    public void SeteCompareModeReposition(bool value)
+    {
+        this.compareModeReposition = value;
+    }
+
+    public bool IsCompareModeReposition()
+    {
+        return this.compareModeReposition;
+    }
 
     public bool ChangeMode(Mode newMode)
     {

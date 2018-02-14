@@ -16,6 +16,7 @@ public class RepositionButtonAction : MonoBehaviour
     GameObject selectBrainControlGameObject;
 
     private string __selectedBrain;
+    private StateAccessor stateAccessor;
 
     private GameObject SelectedBrain
     {
@@ -37,17 +38,30 @@ public class RepositionButtonAction : MonoBehaviour
 
     // Use this for initialization
     private void Start() {
+        stateAccessor = StateAccessor.Instance;
         
     }
 
     // Update is called once per frame
     void Update () {
+        if (stateAccessor.IsInCompareMode())
+        {
+            float x = brain_1.transform.position.x + 0.75f;
+            float y = brain_1.transform.position.y;
+            float z = brain_1.transform.position.z;
+            brain_2.transform.position = new Vector3(x, y, z);
+        }
 		
 	}
 
     public void OnSelect()
     {
-        SelectedBrain.GetComponent<HologramPlacement>().ResetStage();
+        if (!stateAccessor.IsInCompareMode())
+            SelectedBrain.GetComponent<HologramPlacement>().ResetStage();
+        else
+        {
+            brain_1.GetComponent<HologramPlacement>().ResetStage();
+        }
     }
 
 

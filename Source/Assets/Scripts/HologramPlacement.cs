@@ -228,6 +228,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
                 GameObject.Find("Brain").GetComponent<HologramPlacement>().ResetStage();
 
             }
+
         }
     }
 

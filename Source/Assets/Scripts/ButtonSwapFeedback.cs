@@ -69,10 +69,13 @@ public class ButtonSwapFeedback : MonoBehaviour {
     public void ResetButtonState()
     {
         //if the reset button is pressed , return button icons to their original state
-        Debug.Log("in reset button " + gameObject.name);
-        StartIconisOn = true;
-        gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
-        VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
+        if (gameObject.name != "compare-icon")
+        {
+            Debug.Log("in reset button " + gameObject.name);
+            StartIconisOn = true;
+            gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
+            VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
+        }
     }
 
 }
