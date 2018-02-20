@@ -114,7 +114,7 @@ public class RotateStructures : MonoBehaviour {
         {
             brain.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
             MRICollection.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
-            fMRIBrains.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
+            fMRIBrains.transform.Rotate(transform.InverseTransformPoint(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0)));
 
         }
         else

@@ -1,17 +1,24 @@
 fileFormatVersion: 2
 guid: 7dc6cf7fdecbda549b20fb531261d6ed
-timeCreated: 1517953430
+timeCreated: 1518546345
 licenseType: Free
 ModelImporter:
   serializedVersion: 21
   fileIDToRecycleName:
     100000: default
-    100002: //RootNode
+    100002: default_MeshPart0
+    100004: default_MeshPart1
+    100006: //RootNode
     400000: default
-    400002: //RootNode
-    2300000: default
-    3300000: default
-    4300000: default
+    400002: default_MeshPart0
+    400004: default_MeshPart1
+    400006: //RootNode
+    2300000: default_MeshPart0
+    2300002: default_MeshPart1
+    3300000: default_MeshPart0
+    3300002: default_MeshPart1
+    4300000: default_MeshPart0
+    4300002: default_MeshPart1
   materials:
     importMaterials: 1
     materialName: 0

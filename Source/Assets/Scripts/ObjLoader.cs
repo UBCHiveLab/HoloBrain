@@ -30,8 +30,8 @@ public class ObjLoader : MonoBehaviour {
                 string objName = name.Split('.')[0];
 
                 GameObject loadedObject = (GameObject)Instantiate(Resources.Load(folderName + "/" + objName));
-                loadedObject.transform.localScale = new Vector3(0.004f, 0.004f, 0.004f);
-                loadedObject.transform.position = parentTransform.position;
+                loadedObject.transform.localScale = new Vector3(0.0035f, 0.0035f, 0.0035f);
+                loadedObject.transform.position = parentTransform.position + new Vector3(0.07f, 0.06f, 0f);
                 loadedObject.transform.Rotate(new Vector3(0f, -100f, 0f));
 
                 string[] nameParts = objName.Split('_');

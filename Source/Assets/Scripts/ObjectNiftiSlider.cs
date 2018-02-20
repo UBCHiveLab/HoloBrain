@@ -16,7 +16,10 @@ public class ObjectNiftiSlider : MonoBehaviour
     private List<GameObject> fmriGameObjects = new List<GameObject>();
     private List<GameObject> deltafMRIGameObjects = new List<GameObject>();
 
-    bool isPlaying;
+    private Text fMRItext;
+    private string fMRITotal;
+
+    public bool isPlaying;
     float speed = 5f;
     private const float initTimePerObject = 250f; // in ms
     float timePerObject;
@@ -48,6 +51,10 @@ public class ObjectNiftiSlider : MonoBehaviour
 
         timePerObject = initTimePerObject;
         slider = GetComponent<Slider>();
+        fMRItext = GetComponentInChildren<Text>();
+        fMRITotal = fmriGameObjects.Count.ToString();
+  
+        fMRItext.text = "1/" + fMRITotal;
         slider.maxValue = fmriGameObjects.Count * timePerObject;
         slider.onValueChanged.AddListener(delegate { SliderUpdate(); });
 
@@ -77,12 +84,32 @@ public class ObjectNiftiSlider : MonoBehaviour
     {
         timePerObject *= 2;
         slider.maxValue = fmriGameObjects.Count * timePerObject;
+        slider.value = index * timePerObject;
+    }
+
+    public void Skip(int numFrames)
+    {
+        int newIndex = Mathf.Min(index + numFrames, fmriGameObjects.Count);
+        slider.value = index * timePerObject;
+        SwitchfMRIObjects(newIndex);
+        index = newIndex;
+        UpdateSliderText();
+    }
+
+    public void Back(int numFrames)
+    {
+        int newIndex = Mathf.Max(0, index - numFrames);
+        slider.value = index * timePerObject;
+        SwitchfMRIObjects(newIndex);
+        index = newIndex;
+        UpdateSliderText();
     }
 
     public void SpeedUpPlayback()
     {
         timePerObject /= 2;
         slider.maxValue = fmriGameObjects.Count * timePerObject;
+        slider.value = index * timePerObject;
     }
 
     public void TogglePlay()
@@ -97,30 +124,42 @@ public class ObjectNiftiSlider : MonoBehaviour
             isPlaying = true;
     }
 
+    private void UpdateSliderText() {
+
+        fMRItext.text = (index + 1).ToString() + "/" + fMRITotal;
+
+    }
+
+    private void SwitchfMRIObjects(int newIndex)
+    {
+        fmriGameObjects[newIndex].SetActive(true);
+        fmriGameObjects[index].SetActive(false);
+
+        deltafMRIGameObjects[newIndex].SetActive(true);
+        deltafMRIGameObjects[index].SetActive(false);
+    }
+
     public void SliderUpdate()
     {
-        //int newIndex = Mathf.Clamp(Mathf.FloorToInt(slider.value), 0, gameObjects.Count - 1);
         int newIndex = Mathf.FloorToInt(slider.value / timePerObject);
         print(slider.value);
         print(newIndex);
 
 
         // if slider is a whole number, just display the corresponding indexed object in the list at full opacity
-        if ( newIndex != index) 
+        if ( newIndex != index)
         {
 
-            Debug.Log("Current index: " + index.ToString() + "\n New index: " + newIndex.ToString());
-            Debug.Log("Old object active: " + fmriGameObjects[index].activeSelf + "\n New object active: " + fmriGameObjects[newIndex].activeSelf);
+            //Debug.Log("Current index: " + index.ToString() + "\n New index: " + newIndex.ToString());
+            //Debug.Log("Old object active: " + fmriGameObjects[index].activeSelf + "\n New object active: " + fmriGameObjects[newIndex].activeSelf);
 
-            fmriGameObjects[newIndex].SetActive(true);
-            fmriGameObjects[index].SetActive(false);
+            SwitchfMRIObjects(newIndex);
 
-            deltafMRIGameObjects[newIndex].SetActive(true);
-            deltafMRIGameObjects[index].SetActive(false);
-
-            Debug.Log("Old object active: " + fmriGameObjects[index].activeSelf + "\n New object active: " + fmriGameObjects[newIndex].activeSelf);
+            //adding 1 so that list starts from 1 
+           // Debug.Log("Old object active: " + fmriGameObjects[index].activeSelf + "\n New object active: " + fmriGameObjects[newIndex].activeSelf);
 
             index = newIndex;
+            UpdateSliderText();
 
         }
 
