@@ -1,11 +1,12 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using System.Linq;
+using System;
 
 public class VoiceControl : MonoBehaviour {
     private const string BRAIN_PARTS_NAME = "BrainParts";
@@ -18,10 +19,16 @@ public class VoiceControl : MonoBehaviour {
     private const string MRI_SCANS_NAME = "MRIScans";
     private const string MRI_COLLECTION_NAME = "MRICollection";
 
+    private const string FMRI_BRAIN_NAME = "fMRIBrains"; // change later
+
 
     private GameObject brain;
     private GameObject brainStructures;
     private GameObject mriScans;
+    private GameObject crossfadeSlider;
+
+    private GameObject fmriBrain;
+
 
     private GameObject ControlsUI;
 
@@ -39,9 +46,14 @@ public class VoiceControl : MonoBehaviour {
         // Referencing game objects to access their scripts
         brain = GameObject.Find(BRAIN_GAME_OBJECT_NAME);
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
+        crossfadeSlider = GameObject.Find("CrossfadeSlider");
 
-       // mriScans = GameObject.Find(MRI_SCANS);
-        ControlsUI= GameObject.Find(Control_UI);
+        fmriBrain = GameObject.Find(FMRI_BRAIN_NAME);
+        //fmriBrain.SetActive(false);
+
+
+        // mriScans = GameObject.Find(MRI_SCANS);
+        ControlsUI = GameObject.Find(Control_UI);
 
         gazeManager = GameObject.Find(HOLOGRAM_COLLECTION_NAME).GetComponent<HTGazeManager>();
         mriScans = GameObject.Find(MRI_SCANS_NAME);
@@ -90,6 +102,16 @@ public class VoiceControl : MonoBehaviour {
             { "MRI Outline", "show-colour-icon" },
             { "Pin", "pin-icon" },
             { "Structures", "structures-icon" },
+            // New Voice Commands
+            { "Play", "play-icon" },
+            { "Faster", "faster-icon" },
+            { "Slower", "slower-icon" },
+            { "Skip One", "skip-one-icon" },
+            { "Skip Ten", "skip-ten-icon" },
+            { "Back One", "back-one-icon" },
+            { "Back Ten", "back-ten-icon" },
+            { "FMRI To Home", "fmri-toggle-icon"}
+
         };
 
         voiceRecognitionKeywords.Add("Rotate", HandleStartRotate); 
@@ -104,6 +126,23 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("Reposition", HandleResetAnchor);
         voiceRecognitionKeywords.Add("Add All", HandleAddAll);
         voiceRecognitionKeywords.Add("Remove All", HandleRemoveAll);
+        // New Voice Commands
+        //voiceRecognitionKeywords.Add("Play", HandleStartRotate);
+
+        voiceRecognitionKeywords.Add("FMRI", HandleHomeTransition);
+        voiceRecognitionKeywords.Add("Functional MRI", HandleHomeTransition);
+
+        voiceRecognitionKeywords.Add("Play", HandleStartPlay);
+        voiceRecognitionKeywords.Add("Pause", HandleStartPlay);
+        voiceRecognitionKeywords.Add("Faster", HandleSpeedUpPlayback);
+        voiceRecognitionKeywords.Add("Slower", HandleSlowDownPlayback);
+        voiceRecognitionKeywords.Add("Skip One", HandleSkipOne);
+        voiceRecognitionKeywords.Add("Back One", HandleBackOne);
+        voiceRecognitionKeywords.Add("Skip Ten", HandleSkipTen);
+        voiceRecognitionKeywords.Add("Back Ten", HandleBackTen);
+
+        voiceRecognitionKeywords.Add("Holo brain", HandleHomeTransition);
+
         //UNCOMMENT THIS FOR GAZE MARKER
         voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);
         voiceRecognitionKeywords.Add("Clear Marker", HandleClearMarker);
@@ -118,7 +157,10 @@ public class VoiceControl : MonoBehaviour {
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
+
+
 	}
+
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
@@ -137,10 +179,49 @@ public class VoiceControl : MonoBehaviour {
     {
         if (!brainStructures.GetComponent<RotateStructures>().isRotating)
         {
+            //This line was just for testing the voice command "Play"
+            //GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
+
             GameObject.Find(buttonActionsToGameObjectName["Rotate"]).GetComponent<ButtonCommands>().OnSelect();
         }
 
         brainStructures.GetComponent<RotateStructures>().StartRotate();
+    }
+
+    private void HandleStartPlay()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
+
+    }
+
+    private void HandleSpeedUpPlayback()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Faster"]).GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleSlowDownPlayback()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Slower"]).GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleSkipOne()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Skip One"]).GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleBackOne()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Back One"]).GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleSkipTen()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]).GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleBackTen()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Back Ten"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleStopRotate()
@@ -243,11 +324,42 @@ public class VoiceControl : MonoBehaviour {
         GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
     }
 
+    private void HandleHomeTransition()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["FMRI To Home"]).GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleShowFMRIBrain()
+    {
+        bool isShown = fmriBrain.activeSelf;
+        /*
+        foreach (Renderer rend in brain.GetComponentsInChildren<Renderer>())
+        {
+            rend.gameObject.SetActive(isShown);
+        }
+
+        foreach (Renderer rend in ControlsUI.GetComponentsInChildren<Renderer>())
+        {
+            rend.gameObject.SetActive(isShown);
+        }*/
+
+        //brain.SetActive(isShown); // SetActive(isShown);
+        //ControlsUI.SetActive(isShown);
+
+        fmriBrain.SetActive(!isShown);
+        
+
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
             HandlePlaceMarker();
+        }
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            HandleShowFMRIBrain();
         }
     }
 
