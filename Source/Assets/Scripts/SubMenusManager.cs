@@ -44,7 +44,7 @@ public class SubMenusManager : MonoBehaviour {
         IsolateModeMenu = GameObject.Find(ISOLATE_MODE_NAME);
         MRIMenu= GameObject.Find(MRI_MODE_NAME);
 
-        EnableDefaultMenus();
+        //EnableDefaultMenus();
 
     }
 

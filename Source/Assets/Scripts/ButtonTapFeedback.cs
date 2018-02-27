@@ -16,7 +16,7 @@ public class ButtonTapFeedback : MonoBehaviour {
     void Start () {
         opacityTimer = 10;
         FullOpacityColor = new Color(1, 1, 1, 1);
-        PartialOpacityColor = new Color(1, 1, 1, 0.39f);
+        PartialOpacityColor = new Color(1, 1, 1, 0.8f);
     }
 
     private void OnEnable()

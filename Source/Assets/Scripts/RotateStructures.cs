@@ -32,7 +32,7 @@ public class RotateStructures : MonoBehaviour {
     {
         //this is in awake because the MRICollection is disabled in Start() in another script- so it might be null before Start() executes in this script
         MRICollection = GameObject.Find(MRI_COLLECITON_GAMEOBJECT_NAME);
-        fMRIBrains = GameObject.Find(FMRI_BRAINS_GAMEOBJECT_NAME);
+        //fMRIBrains = GameObject.Find(FMRI_BRAINS_GAMEOBJECT_NAME);
     }
 
     void Start(){
@@ -49,7 +49,7 @@ public class RotateStructures : MonoBehaviour {
         brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
         brainOriginalRotation = brain.transform.localRotation;
         MRIOriginalRotation = MRICollection.transform.localRotation;
-        fMRIOriginalRotation = fMRIBrains.transform.localRotation;
+        //fMRIOriginalRotation = fMRIBrains.transform.localRotation;
         isolatedStructures = null;
 
         ResetRotation();
@@ -114,7 +114,7 @@ public class RotateStructures : MonoBehaviour {
         {
             brain.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
             MRICollection.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
-            fMRIBrains.transform.Rotate(transform.InverseTransformPoint(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0)));
+            //fMRIBrains.transform.Rotate(transform.InverseTransformPoint(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0)));
 
         }
         else
@@ -146,7 +146,7 @@ public class RotateStructures : MonoBehaviour {
     {
         brain.transform.localRotation = brainOriginalRotation;
         MRICollection.transform.localRotation = MRIOriginalRotation;
-        fMRIBrains.transform.localRotation = fMRIOriginalRotation;
+        //fMRIBrains.transform.localRotation = fMRIOriginalRotation;
         isolatedStructures = null;
         isRotating = false;
     }
