@@ -11,6 +11,7 @@ public class ScaleUpButtonAction : MonoBehaviour {
     private const string BRAIN_PARTS_2_NAME = "BrainParts2";
 
     private const string BRAIN_1_GAME_OBJECT_NAME = "Brain";
+    private StateAccessor stateAccessor;
 
     GameObject currentBrain, brain_1, brain_2;
     GameObject selectBrainControlGameObject;
@@ -24,19 +25,27 @@ public class ScaleUpButtonAction : MonoBehaviour {
         brain_2 = GameObject.Find(BRAIN_PARTS_2_NAME);
 
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
+        stateAccessor = StateAccessor.Instance;
     }
 
     void OnSelect()
     {
         //TODO: faster technique would be to change all the bindings in the BrainSelectControl class right when the selected brain is changed
 
-        selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
-        currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brain_1) : (brain_2);
+        if (stateAccessor.IsInCompareMode())
+        {
+            brain_1.GetComponent<ScaleToggler>().ScaleUp();
+            brain_2.GetComponent<ScaleToggler>().ScaleUp();
+        }
+        else
+        {
+            selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brain_1) : (brain_2);
 
-        Debug.Log("Scale Up button brain variable is pointing to " + currentBrain.name);
+            Debug.Log("Scale Up button brain variable is pointing to " + currentBrain.name);
 
-        currentBrain.GetComponent<ScaleToggler>().ScaleUp();
-
+            currentBrain.GetComponent<ScaleToggler>().ScaleUp();
+        }
     }
     void OnStartGaze()
     {

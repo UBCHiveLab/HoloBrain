@@ -12,6 +12,7 @@ public class ScaleDownButtonAction : MonoBehaviour
     private const string BRAIN_PARTS_2_NAME = "BrainParts2";
 
     private const string BRAIN_1_Name = "Brain";
+    private StateAccessor stateAccessor;
 
     GameObject currentBrain, brain_1, brain_2;
     GameObject selectBrainControlGameObject;
@@ -26,18 +27,27 @@ public class ScaleDownButtonAction : MonoBehaviour
         brain_2 = GameObject.Find(BRAIN_PARTS_2_NAME);
 
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
+        stateAccessor = StateAccessor.Instance;
     }
 	
     void OnSelect()
     {
         //TODO: faster technique would be to change all the bindings in the BrainSelectControl class right when the selected brain is changed
 
-        selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
-        currentBrain = (selectedBrainName == BRAIN_1_Name) ? (brain_1) : (brain_2);
+        if (stateAccessor.IsInCompareMode())
+        {
+            brain_1.GetComponent<ScaleToggler>().ScaleDown();
+            brain_2.GetComponent<ScaleToggler>().ScaleDown();
+        }
+        else
+        {
+            selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            currentBrain = (selectedBrainName == BRAIN_1_Name) ? (brain_1) : (brain_2);
 
-        Debug.Log("Scale Down button brain variable is pointing to " + currentBrain.name);
+            Debug.Log("Scale Down button brain variable is pointing to " + currentBrain.name);
 
-        currentBrain.GetComponent<ScaleToggler>().ScaleDown();
+            currentBrain.GetComponent<ScaleToggler>().ScaleDown();
+        }
     }
     void OnStartGaze()
     {
