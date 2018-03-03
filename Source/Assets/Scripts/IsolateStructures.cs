@@ -365,7 +365,7 @@ public class IsolateStructures : MonoBehaviour {
 
     public void TryToReturnFromIsolate(string structureName)
     {
-        if (FindGameObjectInChildren(structureName + "(Clone)").transform == null)
+        if (FindGameObjectInChildren(structureName + "(Clone)")?.transform == null)
         {
             Debug.Log("Tried to return from isolation the structure '" + structureName + "', which could not be found");
             return;
