@@ -69,7 +69,7 @@ public class ResetState : MonoBehaviour {
 
     public bool ResetMode()
     {
-        if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
+        if (stateAccessor.ChangeMode(StateAccessor.Mode.Default) || stateAccessor.ChangeMode(StateAccessor.Mode.MRI) || stateAccessor.ChangeMode(StateAccessor.Mode.Isolated))
         {
             brain.GetComponent<IsolateStructures>().ResetIsolate();
             MRICollection_1.GetComponent<MRIManager>().ResetMRI();
