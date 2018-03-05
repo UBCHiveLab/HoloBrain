@@ -9,12 +9,14 @@ using System;
 
 public class ColoursAccessor : Singleton<ColoursAccessor> {
 
-    private GameObject brainParts;
+    private GameObject brainParts, brainParts2;
     private const string BRAIN_PARTS = "BrainParts";
-	// Use this for initialization
-	void Start () {
+    private const string BRAIN_PARTS2 = "BrainParts2";
+    // Use this for initialization
+    void Start () {
         brainParts = GameObject.Find(BRAIN_PARTS);
-	}
+        brainParts2 = GameObject.Find(BRAIN_PARTS2);
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -50,6 +52,21 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
                 Debug.Log("ColoursAccessor: This brain part does not have a HighlightAndLabelCommands script attached to it");
             }
         }
+
+        if (brainParts2 != null)
+        {
+            for (int i = 0; i < brainParts2.transform.childCount; i++)
+            {
+                try
+                {
+                    brainParts2.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().ToggleLockedHighlight();
+                }
+                catch (NullReferenceException e)
+                {
+                    Debug.Log("ColoursAccessor: This brain part does not have a HighlightAndLabelCommands script attached to it");
+                }
+            }
+        }
     }
 
     public void TurnOnHighlightOnBrain()
@@ -63,6 +80,21 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
             catch (NullReferenceException e)
             {
                 Debug.Log("ColoursAccessor: This brain part does not have a HighlightAndLabelCommands script attached to it");
+            }
+        }
+
+        if (brainParts2 != null)
+        {
+            for (int i = 0; i < brainParts2.transform.childCount; i++)
+            {
+                try
+                {
+                    brainParts2.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
+                }
+                catch (NullReferenceException e)
+                {
+                    Debug.Log("ColoursAccessor: This brain part does not have a HighlightAndLabelCommands script attached to it");
+                }
             }
         }
     }
