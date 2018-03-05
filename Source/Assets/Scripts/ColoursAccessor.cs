@@ -22,8 +22,8 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
 	void Update () {
 		
 	}
-
-   /* public void setBrainToGazeColour()
+    /*
+    public void setBrainToGazeColour()
     {
         for (int i = 0; i < brainParts.transform.childCount; i++)
         {
@@ -52,7 +52,7 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
                 Debug.Log("ColoursAccessor: This brain part does not have a HighlightAndLabelCommands script attached to it");
             }
         }
-
+        
         if (brainParts2 != null)
         {
             for (int i = 0; i < brainParts2.transform.childCount; i++)
@@ -82,7 +82,7 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
                 Debug.Log("ColoursAccessor: This brain part does not have a HighlightAndLabelCommands script attached to it");
             }
         }
-
+        
         if (brainParts2 != null)
         {
             for (int i = 0; i < brainParts2.transform.childCount; i++)

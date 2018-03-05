@@ -40,7 +40,7 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
         //do the action
         Debug.Log("ChangeBrain button selected");
         selectBrainControlGameObject.GetComponent<BrainSelectControl>().OnSelect();
-        SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
+       // SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().getSelectedBrain);
 
         if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Isolated)
         {

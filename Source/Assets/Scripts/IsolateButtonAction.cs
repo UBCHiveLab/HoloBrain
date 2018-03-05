@@ -75,7 +75,7 @@ public class IsolateButtonAction : MonoBehaviour
         {
 
             AddBrainPart(PartToIsolate);
-            buttonSelected = true;
+           // buttonSelected = true;
 
         }
         else
