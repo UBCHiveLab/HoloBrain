@@ -14,6 +14,8 @@ Data\level0
 Data\level1
 Data\level2
 Data\level3
+Data\level4
+Data\level5
 Data\managedAssemblies.txt
 Data\nativePlugins.txt
 Data\resources.assets
@@ -28,9 +30,8 @@ Data\sharedassets2.assets
 Data\sharedassets2.assets.resS
 Data\sharedassets3.assets
 Data\sharedassets3.assets.resS
-MicStreamSelector.dll
-PlaneFinding.dll
+Data\sharedassets4.assets
+Data\sharedassets5.assets
+Data\sharedassets5.assets.resS
 Properties\Default.rd.xml
 Resource.res
-SharingClient.dll
-SpatialUnderstanding.dll

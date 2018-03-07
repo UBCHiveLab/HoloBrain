@@ -8,13 +8,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ResetState : Singleton<ResetState> {
-    private const string BRAIN_STRUCTURE_GROUPING = "BrainParts";
     private const string MRI_COLLECTION = "MRICollection";
 
     private GameObject brain;
     private GameObject MRICollection;
     private CustomMessages customMessages;
-    private AudioSource soundFX;
+	private GameObject brainParts;
+	private AudioSource soundFX;
     private StateAccessor stateAccessor;
     // Use this for initialization
     void Start () {
@@ -27,9 +27,9 @@ public class ResetState : Singleton<ResetState> {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ResetState] = this.ResetStateMessageReceived;
         }
 
-        brain = GameObject.Find(BRAIN_STRUCTURE_GROUPING);
-        soundFX = gameObject.GetComponent<AudioSource>();
-        MRICollection = GameObject.Find(MRI_COLLECTION);
+		brainParts = this.gameObject;
+        soundFX = this.gameObject.GetComponent<AudioSource>();
+        MRICollection = brainParts.transform.Find(MRI_COLLECTION).gameObject;
     }
 
     void OnSelect()
