@@ -20,6 +20,7 @@ public class SubMenusManager : MonoBehaviour {
     private GameObject IsolateModeMenu;
     private GameObject MRIMenu;
     private GameObject MenuButton;
+    private GameObject CompareModeButton;
     private List<string> CurrentActiveMenu;
     private List<string> MenusToActivate;
 
@@ -43,6 +44,7 @@ public class SubMenusManager : MonoBehaviour {
         BasalGangliaMenu = GameObject.Find(BASAL_GANGLIA_MODES_NAME);
         IsolateModeMenu = GameObject.Find(ISOLATE_MODE_NAME);
         MRIMenu= GameObject.Find(MRI_MODE_NAME);
+        CompareModeButton = GameObject.Find("compare-icon");
 
         EnableDefaultMenus();
 
@@ -50,7 +52,7 @@ public class SubMenusManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-		
+        CompareModeButton.SetActive(true);
 	}
 
     public void ToggleMenuUI(string currentMenu)
@@ -69,12 +71,15 @@ public class SubMenusManager : MonoBehaviour {
         {
             GameObject.Find("ControlsUI").transform.Find(item).gameObject.SetActive(true);
         }
+        CompareModeButton.SetActive(true);
         CurrentActiveMenu = MenusToActivate;
+        GameObject.Find("remove-icon").GetComponent<IsolateButtonAction>().ResetAllParts();
        
     }
 
     public void EnableDefaultMenus()
     {
+        CompareModeButton.SetActive(true);
         ButtonsMenu.SetActive(true);
         BasalGangliaMenu.SetActive(true);
         //SubsectionMenu.SetActive(false);

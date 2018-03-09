@@ -12,6 +12,7 @@ public class ResetButtonAction : MonoBehaviour {
 	private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
 
 	GameObject brain_1, brain_2;
+    StateAccessor stateAccessor;
 	//GameObject selectBrainControlGameObject;
 
 	/*private string __selectedBrain;
@@ -27,12 +28,13 @@ public class ResetButtonAction : MonoBehaviour {
 	void Awake() {
 		brain_1 = GameObject.Find(BRAIN_1_NAME);
 		brain_2 = GameObject.Find(BRAIN_2_NAME);
+        stateAccessor = StateAccessor.Instance;
 
 		//selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
 	}
 
-	private const string STRUCTURES_MENU_BUTTONS = "Buttons";
-	private const string ControlS_UI = "ControlsUI";
+    private const string STRUCTURES_MENU_BUTTONS = "Buttons";
+    private const string ControlS_UI = "ControlsUI";
 	GameObject ButtonsMenu;
 	GameObject ControlsUI;
 

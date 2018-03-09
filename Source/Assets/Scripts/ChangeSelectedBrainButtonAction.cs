@@ -16,10 +16,14 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
     private GameObject selectBrainControlGameObject;
 
     // Use this for initialization
-    void Start ()
+    void Awake()
     {
         selectBrainControlGameObject = GameObject.Find("BrainSelectControl");
         stateAccessor = StateAccessor.Instance;
+    }
+
+    void Start ()
+    {
         isolateButtons = new List<GameObject>();
         SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
 
@@ -29,24 +33,19 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
         }
 
     }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void OnSelect()
     {
         //do the action
         Debug.Log("ChangeBrain button selected");
         selectBrainControlGameObject.GetComponent<BrainSelectControl>().OnSelect();
-       // SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().getSelectedBrain);
+        SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
 
         if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Isolated)
         {
             foreach (GameObject isolateButton in isolateButtons)
             {
-                isolateButton.GetComponent<ButtonCommands>().setIsPressd(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
+                isolateButton.GetComponent<ButtonCommands>().setIsPressed(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
                 isolateButton.GetComponent<ButtonEnabledFeedback>().ToggleOpacity(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
             }
         }

@@ -29,6 +29,15 @@ public class ButtonCommands : MonoBehaviour {
         EnableOrDisableFrame(false);
     }
 
+    private void Update()
+    {
+        if (gameObject.GetComponent<IsolateButtonAction>() != null && gameObject.GetComponent<ButtonEnabledFeedback>() != null)
+        {
+            gameObject.GetComponent<ButtonEnabledFeedback>()
+                .ToggleOpacity(gameObject.GetComponent<IsolateButtonAction>().getButtonStatus());
+        }
+    }
+
     void OnStartGaze()
     {
         //let the UIManager know that it is being gazed at
@@ -74,7 +83,6 @@ public class ButtonCommands : MonoBehaviour {
         if (gameObject.GetComponent<ButtonSwapFeedback>() != null)
         {
             gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
-
         }
     }
 
@@ -132,7 +140,7 @@ public class ButtonCommands : MonoBehaviour {
 
     }
 
-    public void setIsPressd(bool value)
+    public void setIsPressed(bool value)
     {
         IsPressed = value;
     }
