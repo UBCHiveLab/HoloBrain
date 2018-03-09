@@ -18,6 +18,7 @@ public class IsolateButtonAction : MonoBehaviour
     private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
     private const string ISOLATE_MENU_NAME = "IsolateMode";
 
+    private StateAccessor stateAccessor;
     private GameObject IsolateMenu;
     private GameObject brain_structures_1, brain_structures_2;
     private GameObject selectBrainControlGameObject;
@@ -37,6 +38,7 @@ public class IsolateButtonAction : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        stateAccessor = StateAccessor.Instance;
         buttonSelected = false;
         buttonSelected2 = false;
         brain_structures_1 = GameObject.Find(BRAIN_PARTS_1);
@@ -59,6 +61,7 @@ public class IsolateButtonAction : MonoBehaviour
 
     public void OnSelect()
     {
+        
 
         PartToIsolate = isolateIconsToGameObjectName[gameObject.name];
         if (PartToIsolate == "AddAll")
@@ -118,7 +121,15 @@ public class IsolateButtonAction : MonoBehaviour
     {
         Assert.IsTrue(PartName != null);
         Debug.Log(PartName);
-        SelectedBrainStructures.GetComponent<IsolateStructures>().TryToIsolate(PartName);
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brain_structures_1.GetComponent<IsolateStructures>().TryToIsolate(PartName);
+            brain_structures_2.GetComponent<IsolateStructures>().TryToIsolate(PartName);
+        }
+        else
+        {
+            SelectedBrainStructures.GetComponent<IsolateStructures>().TryToIsolate(PartName);
+        }
 
     }
 
@@ -126,21 +137,50 @@ public class IsolateButtonAction : MonoBehaviour
     {
         SelectedBrainStructures.GetComponent<IsolateStructures>().TryToReturnFromIsolate(PartName);
 
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brain_structures_1.GetComponent<IsolateStructures>().TryToReturnFromIsolate(PartName);
+            brain_structures_2.GetComponent<IsolateStructures>().TryToReturnFromIsolate(PartName);
+        }
+        else
+        {
+            SelectedBrainStructures.GetComponent<IsolateStructures>().TryToReturnFromIsolate(PartName);
+        }
+
     }
 
     public void AddAllParts()
     {
         Debug.Log("In handle add all button");
-
-        SelectedBrainStructures.GetComponent<IsolateStructures>().AddAllParts();
-        SelectAllButtons(true);
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brain_structures_1.GetComponent<IsolateStructures>().AddAllParts();
+            SelectAllButtons(true);
+            brain_structures_2.GetComponent<IsolateStructures>().AddAllParts();
+            SelectAllButtons(true);
+        }
+        else
+        {
+            SelectedBrainStructures.GetComponent<IsolateStructures>().AddAllParts();
+            SelectAllButtons(true);
+        }
     }
 
     public void RemoveAllParts()
     {
         Debug.Log("In handle remove all button");
-        SelectedBrainStructures.GetComponent<IsolateStructures>().RemoveAllParts();
-        SelectAllButtons(false);
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brain_structures_1.GetComponent<IsolateStructures>().RemoveAllParts();
+            SelectAllButtons(false);
+            brain_structures_2.GetComponent<IsolateStructures>().RemoveAllParts();
+            SelectAllButtons(false);
+        }
+        else
+        {
+            SelectedBrainStructures.GetComponent<IsolateStructures>().RemoveAllParts();
+            SelectAllButtons(false);
+        }
     }
 
     public void SelectAllButtons(bool select)
