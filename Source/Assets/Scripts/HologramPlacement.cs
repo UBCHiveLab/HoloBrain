@@ -7,8 +7,9 @@ using UnityEngine.Windows.Speech;
 using HoloToolkit.Unity;
 using HoloToolkit.Sharing;
 using HoloToolkit.Unity.SpatialMapping;
+using HutongGames.PlayMaker;
 
-public class HologramPlacement : Singleton<HologramPlacement>
+public class HologramPlacement : MonoBehaviour
 {
     /// <summary>
     /// Tracks if we have been sent a transform for the model.
@@ -21,19 +22,29 @@ public class HologramPlacement : Singleton<HologramPlacement>
     /// </summary>
     List<MeshRenderer> disabledRenderers = new List<MeshRenderer>();
     private const string MRI_COLLECTION = "MRICollection";
+    private const string BRAIN_2_NAME = "Brain_2";
+    private const string HOLOGRAM_COLLECTION_NAME = "HologramCollection";
+
     private MRIManager mriManager;
     private string mode;
     private StudentModeCommands uiVisibilityCommands;
 
+    public PlayMakerFSM fsm;
+    private GameObject hologramCollection;
+    private GameObject brain_2;
+
     void Start()
     {
-        mriManager = GameObject.Find(MRI_COLLECTION).GetComponent<MRIManager>();
+        
+        hologramCollection = GameObject.FindWithTag(HOLOGRAM_COLLECTION_NAME);
+        mriManager = gameObject.transform.Find(MRI_COLLECTION).GetComponent<MRIManager>();
         mode = PlayerPrefs.GetString("mode");
+        // Todo: refactorTip: following MIGHT be better with FindWithTag
+        // Todo: refactorTip: StatusUI MIGHT be better NOT as a child of Brain_1 or Brain_2
         uiVisibilityCommands = GameObject.Find("StatusUI").GetComponent<StudentModeCommands>();
 
         if (mode != "solo")
         {
-
             // When we first start, we need to disable the model to avoid it obstructing the user picking a hat.
             DisableModel();
             // We care about getting updates for the model transform.
@@ -47,7 +58,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
         }
         else
         {
-            HTGestureManager.Instance.OverrideFocusedObject = this.gameObject;
+            HTGestureManager.Instance.OverrideFocusedObject = gameObject;
         }
     }
 
@@ -194,8 +205,11 @@ public class HologramPlacement : Singleton<HologramPlacement>
 
     public void OnSelect()
     {
+        
         if (mode != "student")
         {
+            // Todo: reaches here even in student mode. Possible cause: mode var is set to solo
+            
             // Note that we have a transform.
             GotTransform = true;
             mriManager.UpdateClippingForRepositioning(GotTransform);
@@ -210,9 +224,21 @@ public class HologramPlacement : Singleton<HologramPlacement>
             }
             else
             {
-                HTGestureManager.Instance.OverrideFocusedObject = null;
-                GameObject controlsUI = GameObject.Find("ControlsUI");
-                controlsUI.SetActive(true);
+                switch(fsm.ActiveStateName){
+                    case "WaitingToPlaceBrain_1":
+                        brain_2 = hologramCollection.transform.Find("Brain_2").gameObject;
+                        brain_2.SetActive(true);
+                        HTGestureManager.Instance.OverrideFocusedObject = brain_2;
+                        break;
+                    case "WaitingToPlaceBrain_2": 
+                        HTGestureManager.Instance.OverrideFocusedObject = null;
+                        GameObject controlsUI = GameObject.Find("ControlsUI");
+                        controlsUI.SetActive(true);
+                        break;
+                }
+
+                fsm.SendEvent("PlacedBrain"); // Since we just placed the brain using OnSelect()
+
             }
         }
     }
@@ -249,6 +275,9 @@ public class HologramPlacement : Singleton<HologramPlacement>
         AppStateManager.Instance.ResetStage();
     }
 
+    /// <summary>
+    /// TODO: what does this do?
+    /// </summary>
     private void HideUI()
     {
         if (uiVisibilityCommands != null)
@@ -256,7 +285,10 @@ public class HologramPlacement : Singleton<HologramPlacement>
             uiVisibilityCommands.SetUIVisibilityUI(false);
         }
     }
-
+    
+    /// <summary>
+    /// Todo: what does this do?
+    /// </summary>
     private void ShowUI()
     {
         if (uiVisibilityCommands != null)

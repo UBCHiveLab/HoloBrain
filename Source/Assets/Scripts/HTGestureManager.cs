@@ -27,8 +27,12 @@ public class HTGestureManager : Singleton<HTGestureManager>
     private GestureRecognizer gestureRecognizer;
     private GameObject focusedObject;
     private GameObject brainParts;
+
+    public Camera cam;
+
     void Start()
     {
+        
         // Create a new GestureRecognizer. Sign up for tapped events.
         gestureRecognizer = new GestureRecognizer();
         gestureRecognizer.SetRecognizableGestures(GestureSettings.Tap);
@@ -38,7 +42,7 @@ public class HTGestureManager : Singleton<HTGestureManager>
         // Start looking for gestures.
         gestureRecognizer.StartCapturingGestures();
 
-        brainParts = GameObject.Find("BrainParts");
+        //brainParts = GameObject.Find("BrainParts");
     }
 
     private void GestureRecognizer_TappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
@@ -46,6 +50,12 @@ public class HTGestureManager : Singleton<HTGestureManager>
         if (focusedObject != null)
         {
             focusedObject.SendMessage("OnSelect");
+            if(focusedObject.GetComponent<PlayMakerFSM>() != null) {
+                Debug.Log("fsm test");
+                focusedObject.GetComponent<PlayMakerFSM>().SendEvent("test1");
+
+            }
+
         }
         //UNCOMMENT THIS FOR GAZE MARKER
         //else if (brainParts != null)
@@ -87,6 +97,13 @@ public class HTGestureManager : Singleton<HTGestureManager>
             // Start looking for new gestures.  This is to prevent applying gestures from one hologram to another.
             gestureRecognizer.CancelGestures();
             gestureRecognizer.StartCapturingGestures();
+        }
+
+
+        if (Input.GetKeyDown("space")) { 
+            print("space key was pressed");
+            Ray ray = cam.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+            GestureRecognizer_TappedEvent(InteractionSourceKind.Other, 1, ray);
         }
     }
 

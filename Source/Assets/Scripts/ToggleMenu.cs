@@ -24,7 +24,7 @@ public class ToggleMenu : MonoBehaviour {
             return;
         }
 
-        //Send the name of the button pressed to the paretnt to know which UI menus should be enabled
+        //Send the name of the button pressed to the parent to know which UI menus should be enabled
         GameObject.Find("ControlsUI").GetComponent<SubMenusManager>().ToggleMenuUI(gameObject.name);
     }
 }

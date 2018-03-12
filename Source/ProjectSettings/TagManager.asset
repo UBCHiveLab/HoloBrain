@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 2
   tags:
   - MRI
+  - Brain_1
+  - Brain_2
+  - HologramCollection
   layers:
   - Default
   - TransparentFX

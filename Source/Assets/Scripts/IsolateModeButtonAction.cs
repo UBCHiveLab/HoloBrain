@@ -9,6 +9,9 @@ public class IsolateModeButtonAction : MonoBehaviour {
 
     private const string BRAIN_PARTS_NAME = "BrainParts";
     GameObject brain;
+
+    public PlayMakerFSM fsm;
+
     // Use this for initialization
     void Start () {
         brain = GameObject.Find(BRAIN_PARTS_NAME);
@@ -16,6 +19,7 @@ public class IsolateModeButtonAction : MonoBehaviour {
 	
 	void OnSelect()
     {
+        fsm.SendEvent("isolateModeSelected");
         brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
     }
 }

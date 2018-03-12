@@ -5,6 +5,7 @@
 using HoloToolkit.Unity;
 using HoloToolkit.Sharing;
 using HoloToolkit.Unity.SpatialMapping;
+using HutongGames.PlayMaker;
 
 /// <summary>
 /// Keeps track of the current state of the experience.
@@ -19,9 +20,12 @@ public class AppStateManager : Singleton<AppStateManager>
         Starting = 0,
         WaitingForAnchor,
         WaitingForStageTransform,
+        WaitingForSecondBrainPlacement,
         Ready
     }
 
+    private const string BRAIN_1_NAME = "Brain_1";
+    private const string BRAIN_2_NAME = "Brain_2";
     private const string LOADING_SCREEN_GAMEOBJECT_NAME = "LoadingScreen";
     private const string CURSOR_GAMEOBJECT_NAME = "Cursor";
     private const string STATUSUI_GAMEOBJECT_NAME = "StatusUI";
@@ -30,8 +34,13 @@ public class AppStateManager : Singleton<AppStateManager>
 
     private GameObject loadingScreen;
     private GameObject cursor;
-    private GameObject cortex;
+    private GameObject brain_1;
+    private GameObject brain_2;
+    private GameObject cortex_1;
+    private GameObject cortex_2;
     private GameObject labelDisplay;
+
+    public PlayMakerFSM fsm;
 
     /// <summary>
     /// Tracks the current state in the experience.
@@ -45,7 +54,10 @@ public class AppStateManager : Singleton<AppStateManager>
 
         loadingScreen = GameObject.Find(LOADING_SCREEN_GAMEOBJECT_NAME);
         labelDisplay = GameObject.Find(LABELDISPLAY_GAMEOBJECT_NAME);
-        cortex = GameObject.Find(CORTEX_GAMEOBJECT_NAME);
+        brain_1 = GameObject.FindWithTag(BRAIN_1_NAME);
+        brain_2 = GameObject.FindWithTag(BRAIN_2_NAME);
+        cortex_1 = brain_1.transform.Find(CORTEX_GAMEOBJECT_NAME).gameObject;
+        cortex_2 = brain_2.transform.Find(CORTEX_GAMEOBJECT_NAME).gameObject;
         cursor = GameObject.Find(CURSOR_GAMEOBJECT_NAME);
         cursor.SetActive(false);
     }
@@ -69,7 +81,7 @@ public class AppStateManager : Singleton<AppStateManager>
                 {
                     CurrentAppState = AppState.WaitingForStageTransform;
                     LoadUI();
-                    HTGestureManager.Instance.OverrideFocusedObject = HologramPlacement.Instance.gameObject;
+                    HTGestureManager.Instance.OverrideFocusedObject = brain_1;
                     SpatialMappingManager.Instance.gameObject.SetActive(true);
                     SpatialMappingManager.Instance.DrawVisualMeshes = true;
                     SpatialMappingManager.Instance.StartObserver();
@@ -77,13 +89,26 @@ public class AppStateManager : Singleton<AppStateManager>
                 else
                 {
                     labelDisplay.SetActive(false);
-                    cortex.SetActive(false);
+                    cortex_1.SetActive(false);
+                    cortex_2.SetActive(false);
                 }
                 break;
             case AppState.WaitingForStageTransform:
                 // Now if we have the stage transform we are ready to go.
-                if (HologramPlacement.Instance.GotTransform)
-                {
+                Debug.Log("0");
+                string fsmStateName = fsm.ActiveStateName;
+                if (fsmStateName == "WaitingToPlaceBrain_1" && brain_1.GetComponent<HologramPlacement>().GotTransform) {
+                    Debug.Log("1");
+                    brain_2.SetActive(true);
+                    Debug.Log("2");
+                    HTGestureManager.Instance.OverrideFocusedObject = brain_2;
+                    Debug.Log("3");
+                    cortex_2.SetActive(true);
+                    Debug.Log("4");
+                    fsm.SendEvent("PlacedBrain_1");
+                } 
+                else if (fsmStateName == "WaitingToPlaceBrain_2" && brain_2.GetComponent<HologramPlacement>().GotTransform) {
+                    fsm.SendEvent("PlacedBrain_1");
                     CurrentAppState = AppState.Ready;
                     HTGestureManager.Instance.OverrideFocusedObject = null;
                     transform.Find("ControlsUI").gameObject.SetActive(true);
@@ -97,6 +122,6 @@ public class AppStateManager : Singleton<AppStateManager>
         loadingScreen.SetActive(false);
         cursor.SetActive(true);
         labelDisplay.SetActive(true);
-        cortex.SetActive(true);
+        cortex_1.SetActive(true);
     }
 }

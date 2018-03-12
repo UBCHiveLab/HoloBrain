@@ -211,6 +211,7 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleResetAnchor()
     {
+        // TODO: 2 brain fix
         brain.GetComponent<HologramPlacement>().ResetStage();
         GameObject.Find(buttonActionsToGameObjectName["Reposition"]).GetComponent<ButtonCommands>().OnSelect();
     }

@@ -11,6 +11,8 @@ public class StructuresButtonAction : MonoBehaviour {
     GameObject brain;
     private StateAccessor stateAccessor;
 
+    public PlayMakerFSM fsm;
+
     void Start()
     {
         stateAccessor = StateAccessor.Instance;
@@ -18,6 +20,8 @@ public class StructuresButtonAction : MonoBehaviour {
     }
     public void OnSelect()
     {
+        fsm.SendEvent("structuresModeSelected");
+        
         //go back to the default mode
         if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Default)
         {

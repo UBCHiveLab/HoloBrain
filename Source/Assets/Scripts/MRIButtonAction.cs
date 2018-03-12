@@ -10,8 +10,10 @@ public class MRIButtonAction : MonoBehaviour {
     private GameObject MRICollection;
     private const string MRICollectionName = "MRICollection";
 
-	// Use this for initialization
-	void Start () {
+    public PlayMakerFSM fsm;
+
+    // Use this for initialization
+    void Start () {
         MRICollection = GameObject.Find(MRICollectionName);
     }
 
@@ -26,6 +28,8 @@ public class MRIButtonAction : MonoBehaviour {
         //if the button is enabled
         if (gameObject.GetComponent<ButtonCommands>().buttonIsEnabled)
         {
+            fsm.SendEvent("mriModeSelected");
+
             //do the action
             MRICollection.GetComponent<MRIManager>().ProcessMRIButtonAction();
         }

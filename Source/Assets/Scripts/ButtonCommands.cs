@@ -75,6 +75,8 @@ public class ButtonCommands : MonoBehaviour {
         {
             gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
 
+        } else if(gameObject.GetComponent<SelectedBrainButtonController>() != null) {
+            gameObject.GetComponent<SelectedBrainButtonController>().IncrementAndRenderSelectedBrainButton();
         }
     }
 

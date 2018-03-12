@@ -19,6 +19,7 @@ public class RepositionButtonAction : MonoBehaviour {
 
     public void OnSelect()
     {
+        // Todo: 2 brain fix
         GameObject.Find("Brain").GetComponent<HologramPlacement>().ResetStage();
     }
 

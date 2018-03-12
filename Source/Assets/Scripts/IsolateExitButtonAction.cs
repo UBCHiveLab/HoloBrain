@@ -8,8 +8,9 @@ using UnityEngine;
 public class IsolateExitButtonAction : MonoBehaviour {
 
     private const string BRAIN_PARTS_NAME = "BrainParts";
+    public PlayMakerFSM fsm;
     GameObject brain;
- 
+
     // Use this for initialization
     void Start()
     {
@@ -18,6 +19,7 @@ public class IsolateExitButtonAction : MonoBehaviour {
 
     void OnSelect()
     {
-        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();    
+        fsm.SendEvent("structuresModeSelected");
+        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
     }
 }
