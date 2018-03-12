@@ -24,6 +24,8 @@ public class IsolateModeButtonAction : MonoBehaviour
 
     void OnSelect()
     {
+        brain_1.GetComponent<ResetState>().ResetEverything();
+        brain_2.GetComponent<ResetState>().ResetEverything();
         // have brain 1 selected
         brain_1.GetComponent<IsolateStructures>().InitiateIsolationMode();
         // change select brain value to 2

@@ -13,7 +13,7 @@ public class ResetButtonAction : MonoBehaviour {
 
 	GameObject brain_1, brain_2;
     StateAccessor stateAccessor;
-	//GameObject selectBrainControlGameObject;
+	GameObject selectBrainControlGameObject;
 
 	/*private string __selectedBrain;
 
@@ -38,9 +38,16 @@ public class ResetButtonAction : MonoBehaviour {
 	GameObject ButtonsMenu;
 	GameObject ControlsUI;
 
-	// Use this for initialization
-	void Start() {
-	}
+   
+
+    GameObject currentBrain;
+    private string selectedBrainName;
+    private const string BRAIN_1_GAME_OBJECT_NAME = "Brain";
+
+    // Use this for initialization
+    void Start() {
+        selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
+    }
 
 	// Update is called once per frame
 	void Update() {
@@ -48,12 +55,26 @@ public class ResetButtonAction : MonoBehaviour {
 
 	public void OnSelect() 
 	{
-		brain_1.GetComponent<ResetState>().ResetEverything();
-        brain_2.GetComponent<ResetState>().ResetEverything();
-        ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
-        ControlsUI = GameObject.Find(ControlS_UI);
-        //reset the state of the menus and buttons
-        ResetUI();
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brain_1.GetComponent<ResetState>().ResetEverything();
+            brain_2.GetComponent<ResetState>().ResetEverything();
+            ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
+            ControlsUI = GameObject.Find(ControlS_UI);
+            //reset the state of the menus and buttons
+            ResetUI();
+        }
+        else
+        {
+            selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brain_1) : (brain_2);
+            currentBrain.GetComponent<ResetState>().ResetEverything();
+            ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
+            ControlsUI = GameObject.Find(ControlS_UI);
+            //reset the state of the menus and buttons
+            ResetUI();
+        }
+	
        
     } 
 
