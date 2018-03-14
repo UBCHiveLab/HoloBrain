@@ -14,6 +14,8 @@ public class SubMenusManager : MonoBehaviour {
     private const string ISOLATE_MODE_NAME = "IsolateMode";
     private const string MRI_MODE_NAME = "MRIMode";
 
+    private const string BRAIN_2_GAME_OBJECT_NAME = "Brain2";
+    GameObject brain_2;
     private GameObject SubsectionMenu;
     private GameObject ButtonsMenu;
     private GameObject BasalGangliaMenu;
@@ -38,7 +40,8 @@ public class SubMenusManager : MonoBehaviour {
             { "exit-mode-icon", new List<string> { "BasalGangliaModes", "Buttons" } },
 
         };
-                
+
+        brain_2 = GameObject.Find(BRAIN_2_GAME_OBJECT_NAME);
         SubsectionMenu = GameObject.Find(SUBSECTION_UI_NAME);
         ButtonsMenu = GameObject.Find(BUTTONS_MENU_NAME);
         BasalGangliaMenu = GameObject.Find(BASAL_GANGLIA_MODES_NAME);
@@ -52,7 +55,9 @@ public class SubMenusManager : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        CompareModeButton.SetActive(true);
+        if (brain_2 != null) {
+            CompareModeButton.SetActive(true);
+        }
 	}
 
     public void ToggleMenuUI(string currentMenu)
@@ -71,7 +76,10 @@ public class SubMenusManager : MonoBehaviour {
         {
             GameObject.Find("ControlsUI").transform.Find(item).gameObject.SetActive(true);
         }
-        CompareModeButton.SetActive(true);
+        if (brain_2 != null)
+        {
+            CompareModeButton.SetActive(true);
+        }
         CurrentActiveMenu = MenusToActivate;
         GameObject.Find("remove-icon").GetComponent<IsolateButtonAction>().ResetAllParts();
        
@@ -79,7 +87,10 @@ public class SubMenusManager : MonoBehaviour {
 
     public void EnableDefaultMenus()
     {
-        CompareModeButton.SetActive(true);
+        if (brain_2 != null)
+        {
+            CompareModeButton.SetActive(true);
+        }
         ButtonsMenu.SetActive(true);
         BasalGangliaMenu.SetActive(true);
         //SubsectionMenu.SetActive(false);
