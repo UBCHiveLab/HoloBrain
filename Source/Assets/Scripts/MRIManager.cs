@@ -30,8 +30,18 @@ public class MRIManager : Singleton<MRIManager> {
     private BoxCollider boxCollider;
 
 	
-	private string __selectedBrain;
-	private GameObject selectBrainControlGameObject;
+    private const string BRAIN_1_NAME = "BrainParts";
+    private const string BRAIN_2_NAME = "BrainParts2";
+    private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
+
+    GameObject currentBrain;
+    private string selectedBrainName;
+    private const string BRAIN_1_GAME_OBJECT_NAME = "Brain";
+
+
+
+    private string __selectedBrain;
+    private GameObject selectBrainControlGameObject;
 
     /*
 	private List<GameObject> SelectedMRIObjects {
@@ -57,6 +67,7 @@ public class MRIManager : Singleton<MRIManager> {
         brainParts_2 = GameObject.Find(BRAIN_PARTS_2);
 
         stateAccessor = StateAccessor.Instance;
+        selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
         boxCollider = GetComponent<BoxCollider>();
 
         boxCollider.enabled = false;
@@ -269,9 +280,18 @@ public class MRIManager : Singleton<MRIManager> {
     {
         isInMRIMode = true;
         SetMRICollectionChildrenActive(true);
-        brainParts_1.GetComponent<ResetState>().ResetInteractions();
-        if (brainParts_2 != null)
-            brainParts_2.GetComponent<ResetState>().ResetInteractions();
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brainParts_1.GetComponent<ResetState>().ResetInteractions();
+            if (brainParts_2 != null)
+                brainParts_2.GetComponent<ResetState>().ResetInteractions();
+        }
+        else
+        {
+            selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brainParts_1) : (brainParts_2);
+            currentBrain.GetComponent<ResetState>().ResetInteractions();
+        }
         coloursAccessor.ToggledLockedHighlightOnBrain();
         return true;
     }
@@ -282,9 +302,18 @@ public class MRIManager : Singleton<MRIManager> {
         ReturnFromDisplaySingleMRI();
         moveClippingPlane.TurnOffClipping();
         SetMRICollectionChildrenActive(false);
-        brainParts_1.GetComponent<ResetState>().ResetInteractions();
-        if (brainParts_2 != null)
-            brainParts_2.GetComponent<ResetState>().ResetInteractions();
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brainParts_1.GetComponent<ResetState>().ResetInteractions();
+            if (brainParts_2 != null)
+                brainParts_2.GetComponent<ResetState>().ResetInteractions();
+        }
+        else
+        {
+            selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brainParts_1) : (brainParts_2);
+            currentBrain.GetComponent<ResetState>().ResetInteractions();
+        }
     }
 
     private void SetMRICollectionChildrenActive(bool active)

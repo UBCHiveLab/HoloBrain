@@ -13,19 +13,13 @@ public class ResetButtonAction : MonoBehaviour {
 
 	GameObject brain_1, brain_2;
     StateAccessor stateAccessor;
-	//GameObject selectBrainControlGameObject;
-
-	/*private string __selectedBrain;
-
-	private GameObject SelectedBrain {
-		get {
-			__selectedBrain = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
-			return (__selectedBrain == BRAIN_1_NAME) ? (brain_1) : (brain_2);
-		}
-	}*/
+    GameObject selectBrainControlGameObject;
+    GameObject currentBrain;
+    private string selectedBrainName;
+    private const string BRAIN_1_GAME_OBJECT_NAME = "Brain";
 
 
-	void Awake() {
+    void Awake() {
 		brain_1 = GameObject.Find(BRAIN_1_NAME);
 		brain_2 = GameObject.Find(BRAIN_2_NAME);
         stateAccessor = StateAccessor.Instance;
@@ -40,7 +34,8 @@ public class ResetButtonAction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start() {
-	}
+        selectBrainControlGameObject = GameObject.FindWithTag(BRAIN_SELECTION_CONTROLLER);
+    }
 
 	// Update is called once per frame
 	void Update() {
@@ -48,13 +43,26 @@ public class ResetButtonAction : MonoBehaviour {
 
 	public void OnSelect() 
 	{
-		brain_1.GetComponent<ResetState>().ResetEverything();
-        brain_2.GetComponent<ResetState>().ResetEverything();
-        ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
-        ControlsUI = GameObject.Find(ControlS_UI);
-        //reset the state of the menus and buttons
-        ResetUI();
-       
+        if (stateAccessor.IsInCompareMode() == true)
+        {
+            brain_1.GetComponent<ResetState>().ResetEverything();
+            brain_2.GetComponent<ResetState>().ResetEverything();
+            ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
+            ControlsUI = GameObject.Find(ControlS_UI);
+            //reset the state of the menus and buttons
+            ResetUI();
+        }
+        else
+        {
+            selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
+            currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brain_1) : (brain_2);
+            currentBrain.GetComponent<ResetState>().ResetEverything();
+            ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
+            ControlsUI = GameObject.Find(ControlS_UI);
+            //reset the state of the menus and buttons
+            ResetUI();
+        }
+
     } 
 
     void ResetUIButtons()

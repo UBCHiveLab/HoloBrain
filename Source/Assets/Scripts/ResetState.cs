@@ -72,12 +72,14 @@ public class ResetState : MonoBehaviour {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default) || stateAccessor.ChangeMode(StateAccessor.Mode.MRI) || stateAccessor.ChangeMode(StateAccessor.Mode.Isolated))
         {
             brain.GetComponent<IsolateStructures>().ResetIsolate();
-            MRICollection_1.GetComponent<MRIManager>().ResetMRI();
-            if (MRICollection_2 != null)
-                MRICollection_2.GetComponent<MRIManager>().ResetMRI();
+            if (stateAccessor.GetCurrentMode() != StateAccessor.Mode.MRI)
+            {
+                MRICollection_1.GetComponent<MRIManager>().ResetMRI();
+                if (MRICollection_2 != null)
+                    MRICollection_2.GetComponent<MRIManager>().ResetMRI();
+            }
             return true;
         }
-
         return false;
     }
 

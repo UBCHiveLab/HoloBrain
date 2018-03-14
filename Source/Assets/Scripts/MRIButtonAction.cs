@@ -11,12 +11,14 @@ public class MRIButtonAction : MonoBehaviour {
     private const string MRI_COLLECTION_NAME = "MRICollection";
 	private const string BRAIN_1 = "Brain";
 	private const string BRAIN_2 = "Brain2";
+    private const string BRAIN_PARTS_NAME = "BrainParts";
+    private const string BRAIN_PARTS_NAME_2 = "BrainParts2";
     private AudioSource soundFx;
 
     private const string BRAIN_SELECTION_CONTROLLER = "selectBrainController";
 
-	GameObject brain_1, brain_2;
-	GameObject selectBrainControlGameObject;
+    GameObject brain_1, brain_2, brainparts_1, brainparts_2;
+    GameObject selectBrainControlGameObject;
 
 	private string __selectedBrain;
 
@@ -31,6 +33,8 @@ public class MRIButtonAction : MonoBehaviour {
 	void Start () {
         brain_1 = GameObject.Find(BRAIN_1);
         brain_2 = GameObject.Find(BRAIN_2);
+        brainparts_1 = GameObject.Find(BRAIN_PARTS_NAME);
+        brainparts_2 = GameObject.Find(BRAIN_PARTS_NAME_2);
         soundFx = GetComponent<AudioSource>();
 
         mriCollection_1 = brain_1.transform.Find(MRI_COLLECTION_NAME).gameObject;
@@ -48,6 +52,8 @@ public class MRIButtonAction : MonoBehaviour {
 
     public void OnSelect()
     {
+        brainparts_1.GetComponent<ResetState>().ResetEverything();
+        brainparts_2.GetComponent<ResetState>().ResetEverything();
         //if the button is enabled
         if (gameObject.GetComponent<ButtonCommands>().buttonIsEnabled)
         {
