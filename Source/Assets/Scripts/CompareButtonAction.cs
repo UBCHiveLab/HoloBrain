@@ -13,8 +13,9 @@ public class CompareButtonAction : MonoBehaviour {
     private const string BRAIN_2_NAME = "brain_2";
     private const string BRAINPARTS_1_NAME = "BrainParts";
     private const string BRAINPARTS_2_NAME = "BrainParts2";
+    private const string BRAIN_SELECT_CONTROL_TAG_NAME = "selectBrainController";
 
-    GameObject brain_1, brain_2, brainparts_1, brainparts_2;
+    GameObject brain_1, brain_2, brainparts_1, brainparts_2, brainSelectControl;
     GameObject ButtonsMenu;
 
     // Use this for initialization
@@ -24,7 +25,9 @@ public class CompareButtonAction : MonoBehaviour {
         
     }
 
-    void Start () {
+    void Start ()
+    {
+        brainSelectControl = GameObject.FindWithTag(BRAIN_SELECT_CONTROL_TAG_NAME);
         brain_1 = GameObject.FindWithTag(BRAIN_1_NAME);
         brain_2 = GameObject.FindWithTag(BRAIN_2_NAME);
         brainparts_1 = GameObject.Find(BRAINPARTS_1_NAME);
@@ -36,8 +39,9 @@ public class CompareButtonAction : MonoBehaviour {
         selectedBrainIcon.GetComponent<SpriteRenderer>().enabled = true;
         selectedBrainIcon.transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = true;
     }
-	
-	public void OnSelect ()
+
+
+    public void OnSelect ()
     {
         brainparts_1.GetComponent<RotateStructures>().ResetRotation();
         brainparts_1.GetComponent<ScaleToggler>().ResetScale();
@@ -91,5 +95,7 @@ public class CompareButtonAction : MonoBehaviour {
             selectedBrainIcon.GetComponent<SpriteRenderer>().enabled = true;
             selectedBrainIcon.transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = true;
         }
+        Debug.Log(stateAccessor.IsInCompareMode());
+        brainSelectControl.GetComponent<BrainSelectControl>().ToggleConeVisibility(!stateAccessor.IsInCompareMode());
     }
 }

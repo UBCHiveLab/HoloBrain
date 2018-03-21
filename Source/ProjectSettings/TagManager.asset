@@ -11,6 +11,11 @@ TagManager:
   - brain_2
   - brain_1
   - fmri
+  - brainParts_2
+  - brainParts_1
+  - isolate
+  - cone_1
+  - cone_2
   layers:
   - Default
   - TransparentFX
