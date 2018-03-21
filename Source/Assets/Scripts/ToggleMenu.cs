@@ -9,19 +9,21 @@ public class ToggleMenu : MonoBehaviour
 {
 
     private GameObject brainParts;
+    StateAccessor stateAccessor;
 
     // Use this for initialization
     void Start()
     {
         brainParts = GameObject.Find("BrainParts");
+        stateAccessor = StateAccessor.Instance;
     }
     public void ChangeMenu()
     {
-        if (gameObject.name == "exit-mode-icon" && (brainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated || brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing))
+        if (gameObject.name == "exit-mode-icon" && (stateAccessor.GetCurrentMode() != StateAccessor.Mode.Isolated || brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing))
         {
             return;
         }
-        if (gameObject.name == "isolate-mode-icon" && brainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated && brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
+        if (gameObject.name == "isolate-mode-icon" && stateAccessor.GetCurrentMode() != StateAccessor.Mode.Isolated && brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
         {
             return;
         }

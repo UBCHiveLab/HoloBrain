@@ -20,7 +20,7 @@ public class IsolateExitButtonAction : MonoBehaviour
         brain_2 = GameObject.Find(BRAIN_PARTS_2);
     }
 
-    void OnSelect()
+    public void OnSelect()
     {
         brain_1.GetComponent<IsolateStructures>().ConcludeIsolationMode();
         brain_2.GetComponent<IsolateStructures>().ConcludeIsolationMode();

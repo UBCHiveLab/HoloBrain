@@ -30,7 +30,7 @@ public class ScaleDownButtonAction : MonoBehaviour
         stateAccessor = StateAccessor.Instance;
     }
 	
-    void OnSelect()
+    public void OnSelect()
     {
         //TODO: faster technique would be to change all the bindings in the BrainSelectControl class right when the selected brain is changed
 

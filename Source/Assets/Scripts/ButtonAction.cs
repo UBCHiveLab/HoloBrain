@@ -30,11 +30,17 @@ public class ButtonAction : MonoBehaviour {
 
     void OnStartGaze()
     {
-        positionManager.OnGazeEnteredUI();
+        if (positionManager != null)
+        {
+            positionManager.OnGazeEnteredUI();
+        }
     }
 
     void OnEndGaze()
     {
-        positionManager.OnGazeExitUI();
+        if (positionManager != null)
+        {
+            positionManager.OnGazeExitUI();
+        }
     }
 }

@@ -22,7 +22,7 @@ public class IsolateModeButtonAction : MonoBehaviour
         brain_2 = GameObject.Find(BRAIN_PARTS_2);
     }
 
-    void OnSelect()
+    public void OnSelect()
     {
         brain_1.GetComponent<ResetState>().ResetEverything();
         brain_2.GetComponent<ResetState>().ResetEverything();

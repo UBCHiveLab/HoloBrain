@@ -8,6 +8,13 @@ public class CompareButtonAction : MonoBehaviour {
 
     public GameObject changeBrainButton;
     public GameObject selectedBrainIcon;
+    public Sprite StartIcon;
+    public Sprite EndIcon;
+    public string StartVoiceCommand;
+    public string EndVoiceCommand;
+    bool isStartIconOn;
+    GameObject VoiceToolTip;
+    private const string VOICE_COMMAND_TOOLTIP_NAME = "VoiceCommandTooltip";
     private StateAccessor stateAccessor;
     private const string BRAIN_1_NAME = "brain_1";
     private const string BRAIN_2_NAME = "brain_2";
@@ -35,6 +42,17 @@ public class CompareButtonAction : MonoBehaviour {
         selectedBrainIcon.SetActive(true);
         selectedBrainIcon.GetComponent<SpriteRenderer>().enabled = true;
         selectedBrainIcon.transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = true;
+        VoiceToolTip = gameObject.transform.Find(VOICE_COMMAND_TOOLTIP_NAME).gameObject;
+        if (StartIcon != null)
+        {
+            gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
+
+        }
+        if (StartVoiceCommand != null)
+        {
+            VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
+
+        }
     }
 	
 	public void OnSelect ()
@@ -68,6 +86,15 @@ public class CompareButtonAction : MonoBehaviour {
 
         if (!stateAccessor.IsInCompareMode())
         {
+            if (EndIcon != null)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = EndIcon;
+
+            }
+            if (EndVoiceCommand != null)
+            {
+                VoiceToolTip.GetComponent<Tooltip>().Text = EndVoiceCommand;
+            }
             stateAccessor.SetCompare(true);
             changeBrainButton.SetActive(false);
             changeBrainButton.GetComponent<SpriteRenderer>().enabled = false;
@@ -75,7 +102,6 @@ public class CompareButtonAction : MonoBehaviour {
             selectedBrainIcon.SetActive(false);
             selectedBrainIcon.GetComponent<SpriteRenderer>().enabled = false;
             selectedBrainIcon.transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = false;
-
             float x = brain_1.transform.position.x + 0.75f;
             float y = brain_1.transform.position.y;
             float z = brain_1.transform.position.z;
@@ -83,6 +109,16 @@ public class CompareButtonAction : MonoBehaviour {
             brain_2.transform.position = new Vector3(x, y, z);
         } else
         {
+            if (StartIcon != null)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
+
+            }
+            if (StartVoiceCommand != null)
+            {
+                VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
+
+            }
             stateAccessor.SetCompare(false);
             changeBrainButton.SetActive(true);
             changeBrainButton.GetComponent<SpriteRenderer>().enabled = true;

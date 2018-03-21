@@ -48,7 +48,7 @@ public class ExplodeButtonAction : MonoBehaviour
     {
     }
 
-    void OnSelect()
+    public void OnSelect()
     {
         if (stateAccessor.IsInCompareMode())
         {

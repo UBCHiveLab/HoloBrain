@@ -11,29 +11,67 @@ public class ButtonSwapFeedback : MonoBehaviour {
     public Sprite EndIcon;
     public string StartVoiceCommand;
     public string EndVoiceCommand;
-    bool StartIconisOn;
+    bool StartIconisOn_b1, StartIconisOn_b2;
     GameObject VoiceToolTip;
     private const string VOICE_COMMAND_TOOLTIP_NAME = "VoiceCommandTooltip";
+    StateAccessor stateAccessor;
+    GameObject selectBrainControlGameObject;
 
 
     // Use this for initialization
-    void Start () {
-//        StartIconisOn = true;
-//        VoiceToolTip = gameObject.transform.FindChild(VOICE_COMMAND_TOOLTIP_NAME).gameObject;
+    void Start ()
+    {
+        //        StartIconisOn = true;
+        //        VoiceToolTip = gameObject.transform.FindChild(VOICE_COMMAND_TOOLTIP_NAME).gameObject;
+        stateAccessor = StateAccessor.Instance;
+        selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
     }
 
     private void OnEnable()
     {
         if (VoiceToolTip == null)
         {
-            StartIconisOn = true;
+            StartIconisOn_b1 = true;
+            StartIconisOn_b2 = true;
             VoiceToolTip = gameObject.transform.Find(VOICE_COMMAND_TOOLTIP_NAME).gameObject;
+            
+        }
+    }
+
+   void Update()
+    {
+        if (gameObject.name != "compare-icon")
+        {
+            if (GetStartIconState())
+            {
+                if (StartIcon != null)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
+
+                }
+                if (StartVoiceCommand != null)
+                {
+                    VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
+
+                }
+            } else
+            {
+                if (EndIcon != null)
+                {
+                    gameObject.GetComponent<SpriteRenderer>().sprite = EndIcon;
+
+                }
+                if (EndVoiceCommand != null)
+                {
+                    VoiceToolTip.GetComponent<Tooltip>().Text = EndVoiceCommand;
+                }
+            }
         }
     }
 
     public void ToggleButtonImage()
     {
-        if (StartIconisOn)
+        if (GetStartIconState())
         {
             if (EndIcon != null)
             {
@@ -48,7 +86,7 @@ public class ButtonSwapFeedback : MonoBehaviour {
 
 
             }
-            StartIconisOn = false;
+            SetStartIconState(false);
         }else
         {
             if (StartIcon != null)
@@ -61,7 +99,7 @@ public class ButtonSwapFeedback : MonoBehaviour {
                 VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
 
             }
-            StartIconisOn = true;
+            SetStartIconState(true);
         }
        
     }  
@@ -72,10 +110,50 @@ public class ButtonSwapFeedback : MonoBehaviour {
         if (gameObject.name != "compare-icon")
         {
             Debug.Log("in reset button " + gameObject.name);
-            StartIconisOn = true;
+            ResetIconState();
             gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
             VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
         }
+    }
+
+    bool GetStartIconState()
+    {
+        if (selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain == "Brain" || gameObject.name == "compare-icon")
+        {
+            return StartIconisOn_b1;
+        } else
+        {
+            return StartIconisOn_b2;
+        }
+    }
+
+    void SetStartIconState(bool state)
+    {
+        if (gameObject.name == "compare-icon")
+        {
+            StartIconisOn_b1 = state;
+            return;
+        }
+
+        if (stateAccessor.IsInCompareMode())
+        {
+            StartIconisOn_b1 = state;
+            StartIconisOn_b2 = state;
+        }
+        else if (selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain == "Brain")
+        {
+           StartIconisOn_b1 = state;
+        }
+        else
+        {
+            StartIconisOn_b2 = state;
+        }
+    }
+
+    void ResetIconState()
+    {
+        StartIconisOn_b1 = true;
+        StartIconisOn_b2 = true;
     }
 
 }

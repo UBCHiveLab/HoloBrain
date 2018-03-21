@@ -30,6 +30,7 @@ public class VoiceControl : MonoBehaviour
 
     private GameObject mriCollection;
     private HTGazeManager gazeManager;
+    StateAccessor stateAccessor;
 
 
     private KeywordRecognizer keywordRecognizer;
@@ -70,6 +71,7 @@ public class VoiceControl : MonoBehaviour
         brain_parts_2 = GameObject.Find(BRAIN_PARTS_2);
 
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
+        stateAccessor = StateAccessor.Instance;
     }
     // Use this for initialization
     void Start () {
@@ -125,6 +127,8 @@ public class VoiceControl : MonoBehaviour
             { "MRI Outline", "show-colour-icon" },
             { "Pin", "pin-icon" },
             { "Structures", "structures-icon" },
+            { "Compare", "compare-icon" },
+            { "Exit Compare", "compare-icon" }
         };
 
         voiceRecognitionKeywords.Add("Change Brain", HandleChangeSelectedBrain);
@@ -150,6 +154,8 @@ public class VoiceControl : MonoBehaviour
         voiceRecognitionKeywords.Add("Pin Menu", HandlePinMenu);
         voiceRecognitionKeywords.Add("UnPin Menu", HandleUnpinMenu);
         voiceRecognitionKeywords.Add("Show Structures", HandleStructuresMode);
+        voiceRecognitionKeywords.Add("Compare", HandleCompareMode);
+        voiceRecognitionKeywords.Add("Exit Compare", HandleExitCompareMode);
 
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -172,7 +178,7 @@ public class VoiceControl : MonoBehaviour
     private void HandleChangeSelectedBrain()
     {
         GameObject.Find(buttonActionsToGameObjectName["Change Brain"]).GetComponent<ButtonCommands>().OnSelect();
-        selectBrainControlGameObject.GetComponent<BrainSelectControl>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Change Brain"]).GetComponent<ChangeSelectedBrainButtonAction>().OnSelect();
     }
 
     private void HandleStartRotate()
@@ -180,9 +186,8 @@ public class VoiceControl : MonoBehaviour
         if (!SelectedBrainParts.GetComponent<RotateStructures>().isRotating)
         {
             GameObject.Find(buttonActionsToGameObjectName["Rotate"]).GetComponent<ButtonCommands>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName["Rotate"]).GetComponent<RotateButtonAction>().OnSelect();
         }
-
-        SelectedBrainParts.GetComponent<RotateStructures>().StartRotate();
     }
 
     private void HandleStopRotate()
@@ -190,22 +195,21 @@ public class VoiceControl : MonoBehaviour
         if (SelectedBrainParts.GetComponent<RotateStructures>().isRotating)
         {
             GameObject.Find(buttonActionsToGameObjectName["Stop"]).GetComponent<ButtonCommands>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName["Stop"]).GetComponent<RotateButtonAction>().OnSelect();
         }
-
-        SelectedBrainParts.GetComponent<RotateStructures>().StopRotate();
     }
 
     private void HandleScaleUp()
     {
-        SelectedBrainParts.GetComponent<ScaleToggler>().ScaleUp();
         GameObject.Find(buttonActionsToGameObjectName["Scale Up"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Scale Up"]).GetComponent<ScaleUpButtonAction>().OnSelect();
 
     }
 
     private void HandleScaleDown()
     {
-        SelectedBrainParts.GetComponent<ScaleToggler>().ScaleDown();
         GameObject.Find(buttonActionsToGameObjectName["Scale Down"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Scale Down"]).GetComponent<ScaleDownButtonAction>().OnSelect();
     }
 
     private void HandleExplode()
@@ -213,9 +217,8 @@ public class VoiceControl : MonoBehaviour
         if (SelectedBrainParts.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingIn)
         {
             GameObject.Find(buttonActionsToGameObjectName["Expand"]).GetComponent<ButtonCommands>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName["Expand"]).GetComponent<ExplodeButtonAction>().OnSelect();
         }
-
-        SelectedBrainParts.GetComponent<ExplodingCommands>().TryToExplode();
     }
 
     private void HandleCollapse()
@@ -223,38 +226,41 @@ public class VoiceControl : MonoBehaviour
         if (SelectedBrainParts.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingOut)
         {
             GameObject.Find(buttonActionsToGameObjectName["Collapse"]).GetComponent<ButtonCommands>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName["Collapse"]).GetComponent<ExplodeButtonAction>().OnSelect();
         }
-
-        SelectedBrainParts.GetComponent<ExplodingCommands>().TryToCollapse();
     }
 
     private void HandleIsolate()
     {
-        SelectedBrainParts.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        GameObject.Find(buttonActionsToGameObjectName["Isolate"]).GetComponent<IsolateModeButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Isolate"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleConcludeIsolate()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Go Back"]).GetComponent<IsolateExitButtonAction>().OnSelect();
+        GameObject.Find("ControlsUI").GetComponent<SubMenusManager>().ToggleMenuUI(GameObject.Find(buttonActionsToGameObjectName["Go Back"]).name);
         GameObject.Find(buttonActionsToGameObjectName["Go Back"]).GetComponent<ButtonCommands>().OnSelect();
-        SelectedBrainParts.GetComponent<IsolateStructures>().ConcludeIsolationMode();
     }
 
     private void HandleResetState()
     {
-        SelectedBrainParts.GetComponent<ResetState>().ResetEverything();
-        ControlsUI.GetComponent<SubMenusManager>().EnableDefaultMenus();
-        if (GameObject.Find(buttonActionsToGameObjectName["Reset"]) != null)
+        if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Default)
         {
-            GameObject.Find(buttonActionsToGameObjectName["Reset"]).GetComponent<ResetButtonAction>().ResetUI();
+            SelectedBrainParts.GetComponent<ResetState>().ResetEverything();
+            ControlsUI.GetComponent<SubMenusManager>().EnableDefaultMenus();
+            if (GameObject.Find(buttonActionsToGameObjectName["Reset"]) != null)
+            {
+                GameObject.Find(buttonActionsToGameObjectName["Reset"]).GetComponent<ResetButtonAction>().ResetUI();
+            }
         }
        
     }
 
     private void HandleResetAnchor()
     {
-        SelectedBrain.GetComponent<HologramPlacement>().ResetStage();
         GameObject.Find(buttonActionsToGameObjectName["Reposition"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Reposition"]).GetComponent<RepositionButtonAction>().OnSelect();
     }
 
 
@@ -275,14 +281,20 @@ public class VoiceControl : MonoBehaviour
 
     private void HandleAddBrainPart(string partName)
     {
-        SelectedBrainParts.GetComponent<IsolateStructures>().TryToIsolate(brainStructureNameToGameObjectName[partName]);
-        GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
+        if (!GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<IsolateButtonAction>().getButtonStatus())
+        {
+            GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<IsolateButtonAction>().OnSelect();
+        }
     }
 
     private void HandleRemoveBrainPart(string partName)
     {
-        SelectedBrainParts.GetComponent<IsolateStructures>().TryToReturnFromIsolate(brainStructureNameToGameObjectName[partName]);
-        GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
+        if (GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<IsolateButtonAction>().getButtonStatus())
+        {
+            GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<IsolateButtonAction>().OnSelect();
+        }
     }
 
     //UNCOMMENT THIS FOR GAZE MARKER
@@ -360,5 +372,21 @@ public class VoiceControl : MonoBehaviour
         GameObject.Find(buttonActionsToGameObjectName["Structures"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
+    private void HandleCompareMode()
+    {
+        if (!stateAccessor.IsInCompareMode())
+        {
+            GameObject.Find(buttonActionsToGameObjectName["Compare"]).GetComponent<CompareButtonAction>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName["Compare"]).GetComponent<ButtonCommands>().OnSelect();
+        }
+    }
 
+    private void HandleExitCompareMode()
+    {
+        if (stateAccessor.IsInCompareMode())
+        {
+            GameObject.Find(buttonActionsToGameObjectName["Exit Compare"]).GetComponent<CompareButtonAction>().OnSelect();
+            GameObject.Find(buttonActionsToGameObjectName["Exit Compare"]).GetComponent<ButtonCommands>().OnSelect();
+        }
+    }
 }

@@ -172,6 +172,7 @@ public class ModeSelection : MonoBehaviour
 
     private void LoadTwoBrainsScene()
     {
+        PushSceneName("BrainNumSelectScene");
         PlayerPrefs.SetString("brainMode", "two");
         SceneManager.LoadScene("HoloBrain");
     }
