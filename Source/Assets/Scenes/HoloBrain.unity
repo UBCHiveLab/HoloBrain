@@ -3142,6 +3142,7 @@ GameObject:
   m_Component:
   - component: {fileID: 327302693}
   - component: {fileID: 327302695}
+  - component: {fileID: 327302694}
   m_Layer: 0
   m_Name: Brain
   m_TagString: brain_1
@@ -3167,6 +3168,17 @@ Transform:
   m_Father: {fileID: 942915100}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!122 &327302694
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 327302692}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 153911659
+  m_Size: 0.33
 --- !u!114 &327302695
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10261,6 +10273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1935398429}
   - component: {fileID: 1935398430}
+  - component: {fileID: 1935398431}
   m_Layer: 0
   m_Name: Brain2
   m_TagString: brain_2
@@ -10296,6 +10309,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c35ec659467c84499e5c07e0480356f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!122 &1935398431
+Halo:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1935398428}
+  m_Enabled: 1
+  m_Color:
+    serializedVersion: 2
+    rgba: 153911659
+  m_Size: 0.33
 --- !u!1001 &1946540868
 Prefab:
   m_ObjectHideFlags: 0

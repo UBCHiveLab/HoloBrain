@@ -7,10 +7,16 @@ public class BrainSelectControl : MonoBehaviour {
 
     const string BRAIN_1 = "Brain";
     const string BRAIN_2 = "Brain2";
+    const string BRAIN_1_TAG = "brain_1";
+    const string BRAIN_2_TAG = "brain_2";
 
     private string __selectedBrain = BRAIN_1;
 
     private AudioSource soundFX;
+    GameObject brain_1;
+    GameObject brain_2;
+    Behaviour halo_1;
+    Behaviour halo_2;
 
     public string SelectedBrain
     {
@@ -28,6 +34,9 @@ public class BrainSelectControl : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         soundFX = gameObject.GetComponent<AudioSource>();
+        halo_1 = (Behaviour)GameObject.FindWithTag(BRAIN_1_TAG).GetComponent("Halo");
+        halo_2 = (Behaviour)GameObject.FindWithTag(BRAIN_2_TAG).GetComponent("Halo");
+        UpdateHaloEffect();
     }
 	
 	// Update is called once per frame
@@ -48,11 +57,18 @@ public class BrainSelectControl : MonoBehaviour {
         throw new NotImplementedException();
     }
 
+    public void UpdateHaloEffect() {
+        Debug.Log(brain_2);
+        halo_1.enabled = SelectedBrain == BRAIN_1;
+        halo_2.enabled = SelectedBrain == BRAIN_2;
+    }
+
     private void ChangeSelectedBrain()
     {
         //Debug.Log("Inside ChangeSelectedBrain function()");
         soundFX.Play();
         SelectedBrain = (SelectedBrain == BRAIN_1) ? (BRAIN_2) : (BRAIN_1);
-        Debug.Log("======================================Selected Brain changed to Brain" + SelectedBrain);
+        UpdateHaloEffect();
+        //Debug.Log("======================================Selected Brain changed to Brain" + SelectedBrain);
     }
 }
