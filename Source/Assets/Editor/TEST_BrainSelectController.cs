@@ -2,6 +2,7 @@
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
+using UnityEditor.SceneManagement;
 
 /*
     Follow the steps for PlayMode tests from the following documentation link:
@@ -21,6 +22,7 @@ public class TEST_BrainSelectController {
     #endregion
 
     void TestingInitializations() {
+        EditorSceneManager.OpenScene("Assets/Scenes/HoloBrain.unity");
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
         changeBrainIcon = GameObject.Find("change-selected-brain-icon");
     }

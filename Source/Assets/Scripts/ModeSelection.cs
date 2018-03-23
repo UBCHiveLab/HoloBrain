@@ -21,10 +21,12 @@ public class ModeSelection : MonoBehaviour
     private Stack<string> sceneStack;
 
     // Use this for initialization
-    void Start()
+    public void Start()
     {
-
+#if UNITY_EDITOR
+#else
         DontDestroyOnLoad(transform.gameObject);
+#endif
         STUDENT_BUTTON = "Student";
         PROFESSOR_BUTTON = "Professor";
         JOIN_LAB_BUTTON = "Join Lab";

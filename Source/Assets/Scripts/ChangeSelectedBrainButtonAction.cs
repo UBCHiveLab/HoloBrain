@@ -43,14 +43,11 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
 #if UNITY_EDITOR
 #else
         if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Isolated) {
-#endif
             foreach (GameObject isolateButton in isolateButtons)
             {
                 isolateButton.GetComponent<ButtonCommands>().setIsPressed(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
                 isolateButton.GetComponent<ButtonEnabledFeedback>().ToggleOpacity(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
             }
-#if UNITY_EDITOR
-#else
         }
 #endif
     }

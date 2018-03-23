@@ -2,6 +2,7 @@
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
+using UnityEditor.SceneManagement;
 
 /*
     Follow the steps for PlayMode tests from the following documentation link:
@@ -23,6 +24,7 @@ public class TEST_ModeSelection {
     #endregion
 
     void TestingInitializations() {
+        EditorSceneManager.OpenScene("Assets/Scenes/BrainNumSelectScene.unity");
         OneBrainButton = GameObject.Find("OneBrainButton");
         ModeSelectionScript = GameObject.Find("ModeSelectionScript");
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");

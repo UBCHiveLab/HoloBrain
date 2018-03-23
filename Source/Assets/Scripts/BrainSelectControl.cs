@@ -53,7 +53,7 @@ public class BrainSelectControl : MonoBehaviour {
 
 #if UNITY_EDITOR
     public void UpdateSelectedCone() {
-        throw new NotImplementedException();
+
     }
 #else
     public void UpdateSelectedCone() {
