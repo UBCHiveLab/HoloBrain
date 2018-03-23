@@ -14,9 +14,7 @@ public class BuildTool : MonoBehaviour {
     public const string VS_BUILD_DIR_NAME = "VSBuild";
 
 
-    [MenuItem("Hololens Build With Postprocess")]
-    
-
+    [MenuItem("HolographicBrainProject/Hololens Build With Postprocess")]
     public static void BuildGame() {
 
 
