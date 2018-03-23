@@ -6,6 +6,7 @@ public class ResetBrainPositionAction : MonoBehaviour {
 
     private const string BRAIN_1_NAME = "brain_1";
     private const string BRAIN_2_NAME = "brain_2";
+    StateAccessor stateAccessor;
 
     GameObject brain_1, brain_2;
 
@@ -16,6 +17,7 @@ public class ResetBrainPositionAction : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        stateAccessor = StateAccessor.Instance;
         brain_1 = GameObject.FindWithTag(BRAIN_1_NAME);
         brain_2 = GameObject.FindWithTag(BRAIN_2_NAME);
     }

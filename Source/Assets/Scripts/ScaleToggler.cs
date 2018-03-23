@@ -8,7 +8,7 @@ using UnityEngine;
 
 public class ScaleToggler : MonoBehaviour
 {
-    enum Scale
+    public enum Scale
     {
         Small = 1,
         Default = 2,
@@ -206,5 +206,10 @@ public class ScaleToggler : MonoBehaviour
         oldZoom = Scale.Default;
         currentZoom = Scale.Default;
         zoomChanging = false;
+    }
+    
+    public Scale GetCurrentScale()
+    {
+        return this.currentZoom;
     }
 }

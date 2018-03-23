@@ -40,31 +40,26 @@ public class ButtonSwapFeedback : MonoBehaviour {
 
    void Update()
     {
-        if (gameObject.name != "compare-icon")
+        if (GetStartIconState())
         {
-            if (GetStartIconState())
+            if (StartIcon != null)
             {
-                if (StartIcon != null)
-                {
-                    gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
-
-                }
-                if (StartVoiceCommand != null)
-                {
-                    VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
-
-                }
-            } else
+                gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
+            }
+            if (StartVoiceCommand != null)
             {
-                if (EndIcon != null)
-                {
-                    gameObject.GetComponent<SpriteRenderer>().sprite = EndIcon;
+                VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
 
-                }
-                if (EndVoiceCommand != null)
-                {
-                    VoiceToolTip.GetComponent<Tooltip>().Text = EndVoiceCommand;
-                }
+            }
+        } else
+        {
+            if (EndIcon != null)
+            {
+                gameObject.GetComponent<SpriteRenderer>().sprite = EndIcon;
+            }
+            if (EndVoiceCommand != null)
+            {
+                VoiceToolTip.GetComponent<Tooltip>().Text = EndVoiceCommand;
             }
         }
     }
@@ -118,7 +113,9 @@ public class ButtonSwapFeedback : MonoBehaviour {
 
     bool GetStartIconState()
     {
-        if (selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain == "Brain" || gameObject.name == "compare-icon")
+        if (selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain == "Brain" || 
+            gameObject.name == "compare-icon" || 
+            gameObject.name == "show-colour-icon")
         {
             return StartIconisOn_b1;
         } else
@@ -129,7 +126,7 @@ public class ButtonSwapFeedback : MonoBehaviour {
 
     void SetStartIconState(bool state)
     {
-        if (gameObject.name == "compare-icon")
+        if (gameObject.name == "compare-icon" || gameObject.name == "show-colour-icon")
         {
             StartIconisOn_b1 = state;
             return;

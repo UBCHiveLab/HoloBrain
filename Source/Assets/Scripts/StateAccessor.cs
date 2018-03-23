@@ -25,7 +25,6 @@ public class StateAccessor : Singleton<StateAccessor> {
         resetState = brainParts.GetComponent<ResetState>();
         isCompareMode = false;
         compareModeReposition = false;
-
     }
 	
 	// Update is called once per frame
