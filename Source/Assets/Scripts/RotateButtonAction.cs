@@ -17,7 +17,7 @@ public class RotateButtonAction : MonoBehaviour {
     private StateAccessor stateAccessor;
 
     // Use this for initialization
-    void Start () {
+    public void Awake () {
         brain_1 = GameObject.Find(BRAIN_PARTS_1_NAME);
         brain_2 = GameObject.Find(BRAIN_PARTS_2_NAME);
         //Debug.Log("Rotate button brain variable is pointing to " + brain.name);

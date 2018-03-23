@@ -16,13 +16,13 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
     private GameObject selectBrainControlGameObject;
 
     // Use this for initialization
-    void Awake()
+    public void Awake()
     {
         selectBrainControlGameObject = GameObject.Find("BrainSelectControl");
         stateAccessor = StateAccessor.Instance;
     }
 
-    void Start ()
+    public void Start ()
     {
         isolateButtons = new List<GameObject>();
         SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
@@ -40,15 +40,19 @@ public class ChangeSelectedBrainButtonAction : MonoBehaviour
         Debug.Log("ChangeBrain button selected");
         selectBrainControlGameObject.GetComponent<BrainSelectControl>().OnSelect();
         SwapImage(selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain);
-
-        if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Isolated)
-        {
+#if UNITY_EDITOR
+#else
+        if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Isolated) {
+#endif
             foreach (GameObject isolateButton in isolateButtons)
             {
                 isolateButton.GetComponent<ButtonCommands>().setIsPressed(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
                 isolateButton.GetComponent<ButtonEnabledFeedback>().ToggleOpacity(isolateButton.GetComponent<IsolateButtonAction>().getButtonStatus());
             }
+#if UNITY_EDITOR
+#else
         }
+#endif
     }
 
     private void SwapImage(string selectedBrain)

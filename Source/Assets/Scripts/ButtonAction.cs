@@ -14,7 +14,7 @@ public class ButtonAction : MonoBehaviour {
 
     GameObject modeSelectionScript;
 	// Use this for initialization
-	void Start ()
+	public void Start ()
     {
         modeSelectionScript = GameObject.Find("ModeSelectionScript");
     }

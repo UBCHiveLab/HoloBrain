@@ -29,10 +29,11 @@ public class BrainSelectControl : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
+	public void Start () {
         soundFX = gameObject.GetComponent<AudioSource>();
         selectionCone_1 = GameObject.FindWithTag(CONE_1_TAG);
         selectionCone_2 = GameObject.FindWithTag(CONE_2_TAG);
+
         UpdateSelectedCone();
     }
 	
@@ -50,10 +51,17 @@ public class BrainSelectControl : MonoBehaviour {
         throw new NotImplementedException();
     }
 
+#if UNITY_EDITOR
+    public void UpdateSelectedCone() {
+        throw new NotImplementedException();
+    }
+#else
     public void UpdateSelectedCone() {
         selectionCone_1.SetActive(SelectedBrain == BRAIN_1);
         selectionCone_2.SetActive(SelectedBrain == BRAIN_2);
+
     }
+#endif
 
     public void ToggleConeVisibility(bool isVisible)
     {
