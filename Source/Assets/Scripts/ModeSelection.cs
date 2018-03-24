@@ -169,13 +169,20 @@ public class ModeSelection : MonoBehaviour
     private void LoadOneBrainScene()
     {
         PlayerPrefs.SetString("brainMode", "one");
+#if UNITY_EDITOR
+#else
         SceneManager.LoadScene("HoloBrainOne");
+#endif
     }
 
     private void LoadTwoBrainsScene()
     {
         PushSceneName("BrainNumSelectScene");
         PlayerPrefs.SetString("brainMode", "two");
+#if UNITY_EDITOR
+#else
         SceneManager.LoadScene("HoloBrain");
+#endif
+
     }
 }

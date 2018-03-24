@@ -16,7 +16,7 @@ public class RotateStructures : MonoBehaviour {
 
     private List<Transform> isolatedStructures;
     private Transform gazeMarker;
-    private GameObject brain;
+    public GameObject brain;
     private GameObject MRICollection;
     private Quaternion brainOriginalRotation;
     private Quaternion MRIOriginalRotation;
@@ -31,7 +31,7 @@ public class RotateStructures : MonoBehaviour {
         MRICollection = this.gameObject.transform.parent.gameObject.transform.Find(MRI_COLLECITON_GAMEOBJECT_NAME).gameObject;
     }
 
-    void Start(){
+    public void Start(){
         customMessages = CustomMessages.Instance;
         // Assign the ToggleRotateMessageReceived() function to be a message handler for ToggleRotate messages
         // MessageHandlers is a dictionary with TestMessageID's as keys and MessageCalback's as values
@@ -45,7 +45,10 @@ public class RotateStructures : MonoBehaviour {
         //brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
         brain = this.gameObject;
         brainOriginalRotation = brain.transform.localRotation;
+#if UNITY_EDITOR
+#else
         MRIOriginalRotation = MRICollection.transform.localRotation;
+#endif
         isolatedStructures = null;
 
         ResetRotation();
@@ -140,7 +143,10 @@ public class RotateStructures : MonoBehaviour {
     public void ResetRotation()
     {
         brain.transform.localRotation = brainOriginalRotation;
+#if UNITY_EDITOR
+#else
         MRICollection.transform.localRotation = MRIOriginalRotation;
+#endif
         isolatedStructures = null;
         isRotating = false;
     }

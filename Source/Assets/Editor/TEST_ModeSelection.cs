@@ -2,6 +2,7 @@
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
+//using UnityEngine.SceneManagement;
 using UnityEditor.SceneManagement;
 
 /*
@@ -18,6 +19,7 @@ public class TEST_ModeSelection {
     private GameObject changeBrainIcon;
 
     public GameObject OneBrainButton { get; private set; }
+    public GameObject TwoBrainButton { get; private set; }
     public GameObject ModeSelectionScript { get; private set; }
 
     GameObject selectBrainControlGameObject;
@@ -25,12 +27,15 @@ public class TEST_ModeSelection {
 
     void TestingInitializations() {
         EditorSceneManager.OpenScene("Assets/Scenes/BrainNumSelectScene.unity");
+        //Debug.Log(SceneManager.GetActiveScene().name);
         OneBrainButton = GameObject.Find("OneBrainButton");
+        TwoBrainButton = GameObject.Find("TwoBrainsButton");
         ModeSelectionScript = GameObject.Find("ModeSelectionScript");
         selectBrainControlGameObject = GameObject.FindWithTag("selectBrainController");
         changeBrainIcon = GameObject.Find("change-selected-brain-icon");
+        ModeSelectionScript.GetComponent<ModeSelection>().Start();
         OneBrainButton.GetComponent<ButtonAction>().Start();
-        //ModeSelectionScript.GetComponent<ModeSelection>().Start();
+        TwoBrainButton.GetComponent<ButtonAction>().Start();
     }
 
     /// <summary>
@@ -45,5 +50,19 @@ public class TEST_ModeSelection {
         OneBrainButton.GetComponent<ButtonAction>().OnSelect();
         Assert.AreEqual("one", PlayerPrefs.GetString("brainMode"));
     }
-    
+
+    /// <summary>
+    /// Test Case 5:  When “TwoBrains” button is tapped, LoadOneBrainScene will be called, (“brainMode”, “two”) will be stored in PlayerPrefs.
+    /// </summary>
+    [Test]
+    public void TEST_CASE_5_TwoBrainMode()
+    {
+        // setup
+        TestingInitializations();
+
+        // test
+        TwoBrainButton.GetComponent<ButtonAction>().OnSelect();
+        Assert.AreEqual("two", PlayerPrefs.GetString("brainMode"));
+    }
+
 }
