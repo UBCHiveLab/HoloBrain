@@ -27,7 +27,7 @@ public class ResetBrainPositionAction : MonoBehaviour {
 		
 	}
 
-    void OnSelect()
+    public void OnSelect()
     {
         //do the action
         Debug.Log("Rest Brain Position button selected");

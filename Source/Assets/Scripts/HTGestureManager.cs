@@ -76,11 +76,11 @@ public class HTGestureManager : Singleton<HTGestureManager>
         {
             if (oldFocusedObject != null)
             {
-                oldFocusedObject.SendMessageUpwards("OnEndGaze");
+                //oldFocusedObject.SendMessageUpwards("OnEndGaze");
             }
             if (focusedObject != null)
             {
-                focusedObject.SendMessageUpwards("OnStartGaze");
+                //focusedObject.SendMessageUpwards("OnStartGaze");
             }
 
             // If the currently focused object doesn't match the old focused object, cancel the current gesture.

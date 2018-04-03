@@ -42,7 +42,7 @@ public class ResetButtonAction : MonoBehaviour {
 	}
 
 	public void OnSelect() 
-	{
+	{/*
         if (stateAccessor.IsInCompareMode() == true)
         {
             brain_1.GetComponent<ResetState>().ResetEverything();
@@ -53,7 +53,7 @@ public class ResetButtonAction : MonoBehaviour {
             ResetUI();
         }
         else
-        {
+        {*/
             selectedBrainName = selectBrainControlGameObject.GetComponent<BrainSelectControl>().SelectedBrain;
             currentBrain = (selectedBrainName == BRAIN_1_GAME_OBJECT_NAME) ? (brain_1) : (brain_2);
             currentBrain.GetComponent<ResetState>().ResetEverything();
@@ -61,7 +61,7 @@ public class ResetButtonAction : MonoBehaviour {
             ControlsUI = GameObject.Find(ControlS_UI);
             //reset the state of the menus and buttons
             ResetUI();
-        }
+       // }
 
     } 
 
@@ -85,6 +85,6 @@ public class ResetButtonAction : MonoBehaviour {
     public void ResetUI()
     {
         ResetMenu();
-        ResetUIButtons();
+        //ResetUIButtons();
     }
 }

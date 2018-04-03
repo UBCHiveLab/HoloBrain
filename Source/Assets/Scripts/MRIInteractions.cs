@@ -48,6 +48,22 @@ public class MRIInteractions : MonoBehaviour
         //MRICollection = GameObject.Find(MRI_COLLECTION);
         //MRICollection = GameObject.Find("Brain").transform.Find(MRI_COLLECTION).gameObject;
 
+        mode = PlayerPrefs.GetString("mode");
+        customMessages = CustomMessages.Instance;
+        mriManager = MRIManager.Instance;
+        ring = transform.Find(MRI_RING).gameObject;
+        MRIImageWithOutline = transform.Find(MRI_IMAGE_WITH_OUTLINE).gameObject;
+        MRIImageWithNoOutline = transform.Find(MRI_IMAGE_NO_OUTLINE).gameObject;
+        ActiveMRIImage = MRIImageWithOutline;
+        ringDefaultColour = ring.GetComponent<Renderer>().material.color;
+
+
+        InitializeMRI();
+
+        if ((ring == null) || (clipPlane == null) || (MRIImageWithOutline == null) || (MRIImageWithNoOutline == null))
+        {
+            Debug.Log("MRI Interactions: MRI functionality won't load because objects haven't been defined in scene. Must have " + MRI_RING + "," + MRI_IMAGE_NO_OUTLINE + ", " + MRI_IMAGE_WITH_OUTLINE);
+        }
 
     }
     // Use this for initialization
@@ -89,7 +105,7 @@ public class MRIInteractions : MonoBehaviour
         SetLineAnimation(false);
     }
 
-    void OnSelect()
+    public void OnSelect()
     {
         if (!isSectionSelected)
         {

@@ -61,7 +61,7 @@ public class MRIButtonAction : MonoBehaviour {
 			//do the action
 			mriCollection_1.GetComponent<MRIManager>().ProcessMRIButtonAction();
             mriCollection_2.GetComponent<MRIManager>().ProcessMRIButtonAction();
-            soundFx.Play();
+            //soundFx.Play();
         }
     }
 

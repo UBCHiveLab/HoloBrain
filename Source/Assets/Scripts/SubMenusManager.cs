@@ -81,7 +81,7 @@ public class SubMenusManager : MonoBehaviour {
             CompareModeButton.SetActive(true);
         }
         CurrentActiveMenu = MenusToActivate;
-        GameObject.Find("remove-icon").GetComponent<IsolateButtonAction>().ResetAllParts();
+        //GameObject.Find("remove-icon").GetComponent<IsolateButtonAction>().ResetAllParts();
        
     }
 

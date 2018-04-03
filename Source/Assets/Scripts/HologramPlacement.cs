@@ -144,6 +144,9 @@ public class HologramPlacement : Singleton<HologramPlacement>
     void Update()
     {
 
+        if (Input.GetKeyDown(KeyCode.Space))
+            OnSelect();
+
         if (mode != "solo")
         {
             if (disabledRenderers.Count > 0)
