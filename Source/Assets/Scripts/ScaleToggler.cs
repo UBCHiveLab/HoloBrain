@@ -17,7 +17,7 @@ public class ScaleToggler : MonoBehaviour
 
     private const float SCALE_CHANGE_UPDATE_RATE = 0.05f;
 
-    private GameObject brainGameObject;
+    public GameObject brainGameObject;
     private Vector3 defaultScale;
     private Scale currentZoom;
     private Scale oldZoom;
@@ -37,7 +37,7 @@ public class ScaleToggler : MonoBehaviour
             customMessages.MessageHandlers[CustomMessages.TestMessageID.scaleChange] = this.ScaleChangeMessageReceived;
         }
 
-        brainGameObject = GameObject.Find("BrainParts");
+        //brainGameObject = GameObject.Find("BrainParts");
         defaultScale = brainGameObject.transform.localScale;
         ResetScale();
 
@@ -74,12 +74,14 @@ public class ScaleToggler : MonoBehaviour
 
     public void ToggleScale()
     {
-        if (!this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+
+        StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
+        if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }
 
-            soundFX.Play();
+        soundFX.Play();
         oldZoom = currentZoom;
         currentZoom = NextScale(currentZoom);
         zoomChanging = true;
@@ -92,15 +94,14 @@ public class ScaleToggler : MonoBehaviour
 
     public void ScaleUp()
     {
-
         soundFX.Play();
 
-        if (!this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+        StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
+        if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }
-
-
+        
         switch (currentZoom)
         {
             case Scale.Small:
@@ -127,7 +128,8 @@ public class ScaleToggler : MonoBehaviour
 
         soundFX.Play();
 
-        if (!this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+        StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
+        if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }

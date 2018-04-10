@@ -5,13 +5,13 @@ using UnityEngine;
 
 public class MRIIconManager : Singleton<MRIIconManager>
 {
-    private List<ButtonSwapFeedback> MRIWallIcons = new List<ButtonSwapFeedback>();
-    private ButtonSwapFeedback activeIcon;
+    private List<ButtonSwapHighlightFeedback> MRIWallIcons = new List<ButtonSwapHighlightFeedback>();
+    private ButtonSwapHighlightFeedback activeIcon;
 
 	// Use this for initialization
    void Start () {
 
-		foreach (ButtonSwapFeedback icon in GetComponentsInChildren<ButtonSwapFeedback>())
+		foreach (ButtonSwapHighlightFeedback icon in GetComponentsInChildren<ButtonSwapHighlightFeedback>())
         {
             MRIWallIcons.Add(icon);
         }
@@ -25,7 +25,7 @@ public class MRIIconManager : Singleton<MRIIconManager>
     public void DeselectAll ()
     {
         Debug.Log("In deselect all, " + MRIWallIcons);
-        foreach (ButtonSwapFeedback icon in MRIWallIcons)
+        foreach (ButtonSwapHighlightFeedback icon in MRIWallIcons)
         {
             Debug.Log(icon);
             icon.ResetButtonState();

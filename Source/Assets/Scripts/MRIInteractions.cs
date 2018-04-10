@@ -91,7 +91,7 @@ public class MRIInteractions : MonoBehaviour
         if (wallIcon != null)
         {
             MRIIconManager.Instance.DeselectAll();
-            wallIcon.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
+            wallIcon.GetComponent<ButtonSwapHighlightFeedback>().ToggleButtonImage();
         }
         DisplayMRIImage();
         mriManager.DisplaySingleMRI(gameObject);

@@ -91,18 +91,24 @@ public class ObjectNiftiSlider : MonoBehaviour
     {
         int newIndex = Mathf.Min(index + numFrames, fmriGameObjects.Count);
         slider.value = index * timePerObject;
-        SwitchfMRIObjects(newIndex);
-        index = newIndex;
-        UpdateSliderText();
+        if (newIndex != index)
+        {
+            SwitchfMRIObjects(newIndex);
+            index = newIndex;
+            UpdateSliderText();
+        }
     }
 
     public void Back(int numFrames)
     {
         int newIndex = Mathf.Max(0, index - numFrames);
         slider.value = index * timePerObject;
-        SwitchfMRIObjects(newIndex);
-        index = newIndex;
-        UpdateSliderText();
+        if (newIndex != index)
+        {
+            SwitchfMRIObjects(newIndex);
+            index = newIndex;
+            UpdateSliderText();
+        }
     }
 
     public void SpeedUpPlayback()

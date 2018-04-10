@@ -44,3 +44,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/MRIRoom.unity
     guid: 29c5bd9fb2706cf4fb0aeea480b4cec8
+  - enabled: 1
+    path: Assets/Scenes/BrainCellRoom.unity
+    guid: 9cabf9a855d22a5489989769cc325865

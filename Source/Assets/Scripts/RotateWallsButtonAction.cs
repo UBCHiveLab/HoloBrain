@@ -9,13 +9,13 @@ public class RotateWallsButtonAction : MonoBehaviour {
 
     GameObject walls;
     private const int ROTATION_SPEED = 20;
-
+    private AudioSource audio;
     public bool isRotating { get; private set; }
 
     // Use this for initialization
     void Start () {
         walls = GameObject.Find("MRIWalls");
-
+        audio = GetComponent<AudioSource>();
     }
 	
 	// Update is called once per frame
@@ -35,6 +35,7 @@ public class RotateWallsButtonAction : MonoBehaviour {
 
     public void OnSelect()
     {
+        audio.Play();
         ToggleRotate();     
     }
 

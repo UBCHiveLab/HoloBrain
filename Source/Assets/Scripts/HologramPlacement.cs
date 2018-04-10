@@ -58,7 +58,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     public void ResetStage()
     {
         GotTransform = false;
-        SpatialMappingManager.Instance.DrawVisualMeshes = true;
+        SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
         HideUI();
 
         if (mode != "solo") { 

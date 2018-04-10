@@ -58,6 +58,7 @@ public class ResetState : Singleton<ResetState> {
     {
         if (ResetMode())
         {
+            Debug.Log("Mode reset");
             ResetInteractions();
         }
         else
@@ -71,6 +72,7 @@ public class ResetState : Singleton<ResetState> {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
             brain.GetComponent<IsolateStructures>().ResetIsolate();
+            Debug.Log(MRICollection.GetComponent<MRIManager>());
             MRICollection.GetComponent<MRIManager>().ResetMRI();
             return true;
         }

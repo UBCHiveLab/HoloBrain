@@ -7,16 +7,18 @@ using UnityEngine;
 
 public class ScaleUpButtonAction : MonoBehaviour {
 
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+    //private const string BRAIN_PARTS_NAME = "BrainParts";
+    public GameObject scaleObject;
    
     // Use this for initialization
     void Start () {
        
     }
 
-    void OnSelect()
+    public void OnSelect()
     {
-        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleUp();
+        //GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleUp();
+        scaleObject.GetComponent<ScaleToggler>().ScaleUp();
 
     }
     void OnStartGaze()
