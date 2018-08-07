@@ -42,9 +42,13 @@ public class SubMenusManager : MonoBehaviour {
         ButtonsMenu = GameObject.Find(BUTTONS_MENU_NAME);
         BasalGangliaMenu = GameObject.Find(BASAL_GANGLIA_MODES_NAME);
         IsolateModeMenu = GameObject.Find(ISOLATE_MODE_NAME);
+        if (IsolateModeMenu != null)
+        {
+            IsolateModeMenu.SetActive(false);
+        }
         MRIMenu= GameObject.Find(MRI_MODE_NAME);
 
-        EnableDefaultMenus();
+        //EnableDefaultMenus();
 
     }
 

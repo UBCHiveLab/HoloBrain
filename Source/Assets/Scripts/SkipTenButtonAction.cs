@@ -8,11 +8,12 @@ public class SkipTenButtonAction : MonoBehaviour
 
     private const string FMRI_SLIDER = "CrossfadeSlider";
     private GameObject crossfadeSlider;
+    private AudioSource audio;
 
     // Use this for initialization
     void Start()
     {
-
+        audio = GetComponent<AudioSource>();
         crossfadeSlider = GameObject.Find(FMRI_SLIDER);
 
     }
@@ -25,6 +26,7 @@ public class SkipTenButtonAction : MonoBehaviour
 
     public void OnSelect()
     {
+        audio.Play();
         crossfadeSlider.GetComponent<ObjectNiftiSlider>().Skip(10);
     }
 }

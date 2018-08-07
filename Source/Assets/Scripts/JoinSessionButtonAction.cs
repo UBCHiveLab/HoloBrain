@@ -24,6 +24,7 @@ public class JoinSessionButtonAction : MonoBehaviour {
     private void OnSelect()
     {
         SessionNumber = InputField.GetComponentInChildren<Text>().text;
+        Debug.Log("Session number: " + SessionNumber.ToString());
         if (SessionNumber != null)
         {
             PlayerPrefs.SetString("SessionToJoin", SessionNumber);

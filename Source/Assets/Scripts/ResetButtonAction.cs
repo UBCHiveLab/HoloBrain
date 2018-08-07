@@ -49,7 +49,7 @@ public class ResetButtonAction : MonoBehaviour {
 
     public void ResetUI()
     {
-        ResetMenu();
+        //ResetMenu();
         ResetUIButtons();
     }
 }

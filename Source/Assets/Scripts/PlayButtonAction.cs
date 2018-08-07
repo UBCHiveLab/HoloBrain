@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayButtonAction : MonoBehaviour {
 
+    private AudioSource audio;
     private const string FMRI_SLIDER = "CrossfadeSlider";
     private string[] PLAY_MODE_BUTTONS = new string[] {"faster-icon", "slower-icon"};
     private string[] PAUSE_MODE_BUTTONS = new string[] { "skip-one-icon", "skip-ten-icon", "back-one-icon", "back-ten-icon" };
@@ -14,6 +15,7 @@ public class PlayButtonAction : MonoBehaviour {
     // Use this for initialization
     void Start () {
 
+        audio = GetComponent<AudioSource>();
         crossfadeSlider = GameObject.Find(FMRI_SLIDER).GetComponent<ObjectNiftiSlider>();
         foreach (string button in PLAY_MODE_BUTTONS)
         {
@@ -37,6 +39,7 @@ public class PlayButtonAction : MonoBehaviour {
 
     public void OnSelect()
     {
+        audio.Play();
         crossfadeSlider.TogglePlay();
 
         if (crossfadeSlider.isPlaying)

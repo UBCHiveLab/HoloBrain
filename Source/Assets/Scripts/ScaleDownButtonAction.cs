@@ -7,16 +7,19 @@ using UnityEngine;
 
 public class ScaleDownButtonAction : MonoBehaviour {
 
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+    //private const string BRAIN_PARTS_NAME = "BrainParts";
+    public GameObject scaleObject;
 
     // Use this for initialization
     void Start () {
 		
 	}
 	
-    void OnSelect()
+    public void OnSelect()
     {
-        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleDown();
+        //GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleDown();
+        scaleObject.GetComponent<ScaleToggler>().ScaleDown();
+
     }
     void OnStartGaze()
     {

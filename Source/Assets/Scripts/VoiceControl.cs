@@ -7,6 +7,7 @@ using UnityEngine;
 using UnityEngine.Windows.Speech;
 using System.Linq;
 using System;
+using UnityEngine.SceneManagement;
 
 public class VoiceControl : MonoBehaviour {
     private const string BRAIN_PARTS_NAME = "BrainParts";
@@ -81,6 +82,7 @@ public class VoiceControl : MonoBehaviour {
         buttonActionsToGameObjectName = new Dictionary<string, string>
         {
             { "Rotate", "rotate-icon" },
+            { "Rotate Walls", "rotate-walls-icon" },
             { "Stop", "rotate-icon" },
             { "Expand", "expand-icon" },
             { "Collapse", "expand-icon" },
@@ -98,6 +100,9 @@ public class VoiceControl : MonoBehaviour {
             { "Substantia Nigra", "nigra-icon" },
             { "Subthalamic Nucleus", "subthalamic-icon" },
             { "Thalamus", "thalamus-icon" },
+            { "Microglia", "microglia-icon" },
+            { "Channel 1", "red-icon" },
+            { "Channel 2", "green-icon" },
             { "MRI", "mri-icon" },
             { "MRI Outline", "show-colour-icon" },
             { "Pin", "pin-icon" },
@@ -110,12 +115,16 @@ public class VoiceControl : MonoBehaviour {
             { "Skip Ten", "skip-ten-icon" },
             { "Back One", "back-one-icon" },
             { "Back Ten", "back-ten-icon" },
-            { "FMRI To Home", "fmri-toggle-icon"}
-
+            { "Educational Room", "structures-icon"},
+            { "MRI Room", "mri-icon"},
+            { "fMRI Room", "fmri-icon"},
+            { "Brain Cell Room", "brain-cell-icon"}
         };
 
-        voiceRecognitionKeywords.Add("Rotate", HandleStartRotate); 
+        voiceRecognitionKeywords.Add("Rotate", HandleStartRotate);
+        voiceRecognitionKeywords.Add("Rotate Walls", HandleStartRotateWalls);
         voiceRecognitionKeywords.Add("Stop", HandleStopRotate);
+        voiceRecognitionKeywords.Add("Stop Walls", HandleStartRotateWalls);
         voiceRecognitionKeywords.Add("Scale Up", HandleScaleUp);
         voiceRecognitionKeywords.Add("Scale Down", HandleScaleDown);
         voiceRecognitionKeywords.Add("Expand", HandleExplode);
@@ -127,10 +136,6 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("Add All", HandleAddAll);
         voiceRecognitionKeywords.Add("Remove All", HandleRemoveAll);
         // New Voice Commands
-        //voiceRecognitionKeywords.Add("Play", HandleStartRotate);
-
-        voiceRecognitionKeywords.Add("FMRI", HandleHomeTransition);
-        voiceRecognitionKeywords.Add("Functional MRI", HandleHomeTransition);
 
         voiceRecognitionKeywords.Add("Play", HandleStartPlay);
         voiceRecognitionKeywords.Add("Pause", HandleStartPlay);
@@ -141,7 +146,17 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("Skip Ten", HandleSkipTen);
         voiceRecognitionKeywords.Add("Back Ten", HandleBackTen);
 
-        voiceRecognitionKeywords.Add("Holo brain", HandleHomeTransition);
+        voiceRecognitionKeywords.Add("Educational Room", HandleEducationalRoom);
+        voiceRecognitionKeywords.Add("FMRI Room", HandleFMRIRoom);
+        voiceRecognitionKeywords.Add("Functional MRI Room", HandleFMRIRoom);
+        voiceRecognitionKeywords.Add("MRI Room", HandleMRIRoom);
+        voiceRecognitionKeywords.Add("MRI Scan Room", HandleMRIRoom);
+        voiceRecognitionKeywords.Add("Brain Cell Room", HandleBrainCellRoom);
+        voiceRecognitionKeywords.Add("Cell Room", HandleBrainCellRoom);
+
+        voiceRecognitionKeywords.Add("Show Microglia", HandleShowMicroglia);
+        voiceRecognitionKeywords.Add("Show Channel One", HandleShowChannelOne);
+        voiceRecognitionKeywords.Add("Show Channel Two", HandleShowChannelTwo);
 
         //UNCOMMENT THIS FOR GAZE MARKER
         voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);
@@ -188,39 +203,53 @@ public class VoiceControl : MonoBehaviour {
         brainStructures.GetComponent<RotateStructures>().StartRotate();
     }
 
+    private void HandleStartRotateWalls()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Rotate Walls"]).GetComponent<RotateWallsButtonAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Rotate Walls"]).GetComponent<ButtonCommands>().OnSelect();
+        
+    }
+
     private void HandleStartPlay()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<PlayButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
 
     }
 
     private void HandleSpeedUpPlayback()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Faster"]).GetComponent<SpeedUpButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Faster"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleSlowDownPlayback()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Slower"]).GetComponent<SlowDownButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Slower"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleSkipOne()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Skip One"]).GetComponent<SkipOneButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Skip One"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleBackOne()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Back One"]).GetComponent<BackOneButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Back One"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleSkipTen()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]).GetComponent<SkipTenButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleBackTen()
     {
+        GameObject.Find(buttonActionsToGameObjectName["Back Ten"]).GetComponent<BackTenButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Back Ten"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
@@ -236,15 +265,15 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleScaleUp()
     {
-        brainStructures.GetComponent<ScaleToggler>().ScaleUp();
         GameObject.Find(buttonActionsToGameObjectName["Scale Up"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Scale Up"]).GetComponent<ScaleUpButtonAction>().OnSelect();
 
     }
 
     private void HandleScaleDown()
     {
-        brainStructures.GetComponent<ScaleToggler>().ScaleDown();
         GameObject.Find(buttonActionsToGameObjectName["Scale Down"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Scale Down"]).GetComponent<ScaleDownButtonAction>().OnSelect();
     }
 
     private void HandleExplode()
@@ -292,8 +321,8 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleResetAnchor()
     {
-        brain.GetComponent<HologramPlacement>().ResetStage();
         GameObject.Find(buttonActionsToGameObjectName["Reposition"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Reposition"]).GetComponent<RepositionButtonAction>().OnSelect();
     }
 
 
@@ -324,43 +353,50 @@ public class VoiceControl : MonoBehaviour {
         GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
     }
 
-    private void HandleHomeTransition()
+    private void HandleEducationalRoom()
     {
-        GameObject.Find(buttonActionsToGameObjectName["FMRI To Home"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Educational Room"]).GetComponent<SwitchRoomAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Educational Room"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
-    private void HandleShowFMRIBrain()
+    private void HandleMRIRoom()
     {
-        bool isShown = fmriBrain.activeSelf;
-        /*
-        foreach (Renderer rend in brain.GetComponentsInChildren<Renderer>())
-        {
-            rend.gameObject.SetActive(isShown);
-        }
+        GameObject.Find(buttonActionsToGameObjectName["MRI Room"]).GetComponent<SwitchRoomAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["MRI Room"]).GetComponent<ButtonCommands>().OnSelect();
+    }
 
-        foreach (Renderer rend in ControlsUI.GetComponentsInChildren<Renderer>())
-        {
-            rend.gameObject.SetActive(isShown);
-        }*/
+    private void HandleFMRIRoom()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]).GetComponent<SwitchRoomAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]).GetComponent<ButtonCommands>().OnSelect();
+    }
 
-        //brain.SetActive(isShown); // SetActive(isShown);
-        //ControlsUI.SetActive(isShown);
+    private void HandleBrainCellRoom()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Brain Cell Room"]).GetComponent<SwitchRoomAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Brain Cell Room"]).GetComponent<ButtonCommands>().OnSelect();
+    }
 
-        fmriBrain.SetActive(!isShown);
-        
+    private void HandleShowMicroglia()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Microglia"]).GetComponent<SwitchBrainCellModeButtonAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Microglia"]).GetComponent<ButtonCommands>().OnSelect();
+    }
 
+    private void HandleShowChannelOne()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Channel 1"]).GetComponent<EnableObjectButtonAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Channel 1"]).GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleShowChannelTwo()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Channel 2"]).GetComponent<EnableObjectButtonAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Channel 2"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            HandlePlaceMarker();
-        }
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            HandleShowFMRIBrain();
-        }
     }
 
     //UNCOMMENT THIS FOR GAZE MARKER

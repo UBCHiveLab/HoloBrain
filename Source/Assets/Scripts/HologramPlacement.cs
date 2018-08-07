@@ -58,7 +58,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     public void ResetStage()
     {
         GotTransform = false;
-        SpatialMappingManager.Instance.DrawVisualMeshes = true;
+        SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
         HideUI();
 
         if (mode != "solo") { 
@@ -198,13 +198,14 @@ public class HologramPlacement : Singleton<HologramPlacement>
         {
             // Note that we have a transform.
             GotTransform = true;
-            mriManager.UpdateClippingForRepositioning(GotTransform);
+            //mriManager.UpdateClippingForRepositioning(GotTransform);
             ShowUI();
 
             SpatialMappingManager.Instance.DrawVisualMeshes = false;
 
             if (mode != "solo")
             {
+                Debug.Log(mode);
                 // And send it to our friends.
                 CustomMessages.Instance.SendStageTransform(transform.localPosition, transform.localRotation);
             }

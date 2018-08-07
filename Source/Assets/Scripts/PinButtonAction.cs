@@ -8,15 +8,18 @@ using UnityEngine;
 public class PinButtonAction : MonoBehaviour {
 
     private ControlsUIManager UIManager;
+    private AudioSource audio;
 
     // Use this for initialization
     void Start () {
+        audio = GetComponent<AudioSource>();
         UIManager = transform.GetComponentInParent<ControlsUIManager>();
 	}
    
 
     public void OnSelect()
     {
+        audio.Play();
         UIManager.TogglePinUI();
     }
     private void OnEnable()
