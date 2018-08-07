@@ -79,13 +79,13 @@ public class ModeSelection : MonoBehaviour {
     private void HandleProfessorTapped() {
         PlayerPrefs.SetString("mode", "professor");
  
-        SceneManager.LoadScene("HoloBrain");
+        SceneManager.LoadScene("EducationalRoom");
     }
 
     private void HandleSoloTapped()
     {
         PlayerPrefs.SetString("mode", "solo");
-        SceneManager.LoadScene("HoloBrain");
+        SceneManager.LoadScene("EducationalRoom");
     }
 
     private void HandleBackButton()

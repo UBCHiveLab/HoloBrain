@@ -76,6 +76,12 @@ public class ButtonCommands : MonoBehaviour {
             gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
 
         }
+
+        if (gameObject.GetComponent<ButtonSwapHighlightFeedback>() != null)
+        {
+            gameObject.GetComponent<ButtonSwapHighlightFeedback>().ToggleButtonImage();
+
+        }
     }
 
     private void ChangeOpacity()
@@ -128,6 +134,11 @@ public class ButtonCommands : MonoBehaviour {
         if (gameObject.GetComponent<ButtonSwapFeedback>())
         {
             gameObject.GetComponent<ButtonSwapFeedback>().ResetButtonState();
+        }
+
+        if (gameObject.GetComponent<ButtonSwapHighlightFeedback>())
+        {
+            gameObject.GetComponent<ButtonSwapHighlightFeedback>().ResetButtonState();
         }
 
     }

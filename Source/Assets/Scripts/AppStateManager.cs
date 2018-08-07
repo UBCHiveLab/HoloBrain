@@ -71,7 +71,7 @@ public class AppStateManager : Singleton<AppStateManager>
                     LoadUI();
                     HTGestureManager.Instance.OverrideFocusedObject = HologramPlacement.Instance.gameObject;
                     SpatialMappingManager.Instance.gameObject.SetActive(true);
-                    SpatialMappingManager.Instance.DrawVisualMeshes = true;
+                    SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
                     SpatialMappingManager.Instance.StartObserver();
                 }
                 else

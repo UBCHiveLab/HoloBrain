@@ -300,6 +300,10 @@ public class MRIManager : Singleton<MRIManager> {
 
     public void ReturnFromDisplaySingleMRI()
     {
+        if (MRIIconManager.Instance != null)
+        {
+            MRIIconManager.Instance.DeselectAll();
+        }
         if (isOneMRIActive)
         {
             foreach (GameObject MRIObject in MRIObjects)

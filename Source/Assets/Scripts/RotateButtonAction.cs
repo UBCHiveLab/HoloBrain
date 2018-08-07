@@ -7,12 +7,15 @@ using UnityEngine;
 
 public class RotateButtonAction : MonoBehaviour {
 
-    GameObject brain;
+    public GameObject brain;
  
 
     // Use this for initialization
     void Start () {
-        brain = GameObject.Find("BrainParts");
+        if (brain == null)
+        {
+            brain = GameObject.Find("BrainParts");
+        }
         Debug.Log("Rotate button brain variable is pointing to " + brain.name);
 
     }

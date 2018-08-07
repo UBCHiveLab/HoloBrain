@@ -11,11 +11,9 @@ public class TurnOffBrain : MonoBehaviour {
 
         brain = GameObject.Find("BrainParts");
         brain.SetActive(false);
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+    }
 }

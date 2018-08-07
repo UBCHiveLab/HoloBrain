@@ -32,6 +32,9 @@ public class MRIInteractions : MonoBehaviour
     private MRIManager mriManager;
     private string mode;
 
+    public GameObject wallIcon;
+    
+    
 
     void Awake()
     {
@@ -50,8 +53,6 @@ public class MRIInteractions : MonoBehaviour
         MRIImageWithNoOutline = transform.Find(MRI_IMAGE_NO_OUTLINE).gameObject;
         ActiveMRIImage = MRIImageWithOutline;
         ringDefaultColour = ring.GetComponent<Renderer>().material.color;
-
-
         InitializeMRI();
 
         if ((ring == null) || (clipPlane == null) || (MRIImageWithOutline == null) || (MRIImageWithNoOutline == null))
@@ -88,6 +89,11 @@ public class MRIInteractions : MonoBehaviour
 
     public void SelectMRI()
     {
+        if (wallIcon != null)
+        {
+            MRIIconManager.Instance.DeselectAll();
+            wallIcon.GetComponent<ButtonSwapHighlightFeedback>().ToggleButtonImage();
+        }
         DisplayMRIImage();
         mriManager.DisplaySingleMRI(gameObject);
         if (customMessages != null)

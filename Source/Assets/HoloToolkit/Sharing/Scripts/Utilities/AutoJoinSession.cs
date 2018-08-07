@@ -38,6 +38,8 @@ namespace HoloToolkit.Sharing
         void Start()
         {
             SessionName = PlayerPrefs.GetString("session");
+            Debug.Log("Session number from session: " + PlayerPrefs.GetString("session"));
+            Debug.Log("Session number from session: " + PlayerPrefs.GetString("SessionToJoin"));
 
             // Get the ServerSessionsTracker to use later.  Note that if this processes takes the role of a secondary client,
             // then the sessionsTracker will always be null

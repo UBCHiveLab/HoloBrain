@@ -8,8 +8,9 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: TransparentCortex
   m_Shader: {fileID: 4800000, guid: a82e601d90c076c458969fbd127780e6, type: 3}
-  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _EMISSION _USEAMBIENT_ON _USEDIFFUSE_ON _USEMAINCOLOR_ON
-  m_LightmapFlags: 1
+  m_ShaderKeywords: _ALPHAPREMULTIPLY_ON _USEAMBIENT_ON _USECOLOR_ON _USEDIFFUSE_ON
+    _USEMAINCOLOR_ON
+  m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -31,6 +32,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DetailNormalMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Diffuse:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -66,6 +71,8 @@ Material:
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DstBlend: 10
+    - _FPow: 2
+    - _Factor: 0.5
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -81,9 +88,11 @@ Material:
     - _SpecularPower: 10
     - _SpecularScale: 1
     - _SrcBlend: 1
+    - _Transparency: 0.08
     - _UVSec: 0
     - _UseAmbient: 1
     - _UseBumpMap: 0
+    - _UseColor: 1
     - _UseDiffuse: 1
     - _UseEmissionColor: 0
     - _UseEmissionTex: 0
@@ -92,10 +101,11 @@ Material:
     - _UseOcclusionMap: 0
     - _UseSpecular: 0
     - _UseVertexColor: 0
+    - _Wrapping: 0.214
     - _ZTest: 4
     - _ZWrite: 0
     m_Colors:
     - _Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _SpecularColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    - _SpecularColor: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
     - _TextureScaleOffset: {r: 1, g: 1, b: 0, a: 0}
