@@ -73,7 +73,7 @@ public class DigitHandler : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("HoloBrain");
+            SceneManager.LoadScene("EducationalRoom");
         }
     }
 

@@ -33,7 +33,8 @@ public class MRIInteractions : MonoBehaviour
     private string mode;
 
     public GameObject wallIcon;
-
+    
+    
 
     void Awake()
     {
