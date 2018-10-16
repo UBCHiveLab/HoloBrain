@@ -12,10 +12,11 @@ public class ButtonCommands : MonoBehaviour {
     private ControlsUIManager controlsUI;
 
     private const string GAZE_FRAME_NAME = "white-border";
+    private float gazeStart;
+    private float gazeDuration;
     Color FullOpacityColor;
     Color PartialOpacityColor;
     bool IsPressed;
-
 
     private void Start()
     {
@@ -24,9 +25,24 @@ public class ButtonCommands : MonoBehaviour {
         FullOpacityColor = new Color(1, 1, 1, 1);
         PartialOpacityColor = new Color(1, 1, 1, 0.63f);
         controlsUI = transform.GetComponentInParent<ControlsUIManager>();
+        gazeStart = -1;
+        gazeDuration = 1.0f;
         
         //disable the white selection frame
         EnableOrDisableFrame(false);
+    }
+
+    private void Update()
+    {
+        if (gazeStart > 0)
+        {
+            if (Time.time - gazeStart > gazeDuration)
+            {
+                SendMessage("OnSelect");
+                gazeStart = Time.time;
+            }
+        }
+
     }
 
     void OnStartGaze()
@@ -36,6 +52,8 @@ public class ButtonCommands : MonoBehaviour {
 
         //visual change of the button on gaze over
         EnableOrDisableFrame(true);
+
+        gazeStart = Time.time;
     }
 
     void OnEndGaze()
@@ -45,6 +63,7 @@ public class ButtonCommands : MonoBehaviour {
 
         //visual change of the button on gaze over
         EnableOrDisableFrame(false);
+        gazeStart = -1;
     }
 
     public void OnSelect()
