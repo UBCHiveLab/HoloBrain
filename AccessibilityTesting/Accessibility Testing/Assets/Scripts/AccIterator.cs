@@ -5,6 +5,24 @@ namespace Accessibility
 {
     public class AccIterator
     {
+        private static AccIterator instance = null;
+        public static AccIterator Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new AccIterator();
+                }
+                return instance;
+            }
+        }
+
+        //constructor
+        public AccIterator()
+        {
+
+        }
 
         public delegate void CompareReadyEventHandler(object source, CompareEvent evnt);
         public event CompareReadyEventHandler compareReady;
