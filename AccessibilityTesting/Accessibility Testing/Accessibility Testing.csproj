@@ -81,8 +81,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\ResizeTest.cs" />
     <Compile Include="Assets\Scripts\AccChecker.cs" />
     <Compile Include="Assets\Scripts\AccComparer.cs" />
+    <Compile Include="Assets\Scripts\Accessibility.cs" />
     <Compile Include="Assets\Scripts\AccIterator.cs" />
     <Compile Include="Assets\Scripts\ColliderChecker.cs" />
     <Compile Include="Assets\Scripts\MobilityMinimizer.cs" />
