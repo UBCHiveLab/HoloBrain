@@ -6,9 +6,9 @@ namespace Accessibility
 {
     public class ColliderChecker : AccComparer
     {
-        public float ColliderMinDistance = 0.0f;
+        public float ColliderMinDistance = 1.0f;
 
-        public override bool compare(GameObject item1, GameObject item2)
+        public bool Compare(GameObject item1, GameObject item2)
         {
             Bounds bounds1 = item1.GetComponent<Collider>().bounds;
             Bounds bounds2 = item2.GetComponent<Collider>().bounds;
@@ -21,14 +21,25 @@ namespace Accessibility
             return true;
         }
 
-        public override void OnCompareReady(object source, CompareEvent evnt)
+        public void OnCompareReady(object source, CompareEvent evnt)
         {
             string log = "[ACCESSIBILITY][MOBILITY][ColliderChecker]\n";
-            if (!compare(evnt.item1, evnt.item2))
+            bool logged = false;
+            if (!Compare(evnt.item1, evnt.item2))
             {
-                log += evnt.item1.name + " is too close to" + evnt.item2.name + "\n";
+                log += evnt.item1.name + " is too close to " + evnt.item2.name + "\n";
+                logged = true;
             }
-            Debug.Log(log);
+            if(logged)
+            {
+                Debug.Log(log);
+            }
+        }
+
+        //constructor
+        public ColliderChecker()
+        {
+
         }
     }
 }
