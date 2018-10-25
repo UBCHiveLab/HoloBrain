@@ -2,67 +2,66 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MobilityMinimizer : MonoBehaviour {
-
-    public float MAX_DISTANCE = 2.0f;
-	// Use this for initialization
-	void Start () {
-        List<farAway> items = CheckDistances();
-        string log = "";
-        if(items.Count > 0)
-        {
-            log += "[ACCESSIBILITY][MOBILITY][MobilityMinimizer] Some objects in your scene are far away from each other, this can be a barrier to users with mobility impairments:\n";
-            log += PrintItems(items);
-            Debug.Log(log);
-        }
-        else
-        {
-            Debug.Log("[ACCESSIBILITY][MOBILITY][MobilityMinimizer] All of your objects are acceptable distances from each other.");
-        }
-	}
-
-    struct farAway
+namespace Accessibility
+{
+    public class MobilityMinimizer : AccChecker, AccComparer
     {
-        public GameObject A;
-        public GameObject B;
 
-        public farAway(GameObject x, GameObject y)
+        private float MAX_DISTANCE;
+
+        private float EXPECTED_USER_X;
+        private float EXPECTED_USER_Y;
+        private float EXPECTED_USER_Z;
+        private float EXPECTED_USER_MAX_DISTANCE;
+
+        public bool Compare(GameObject child1, GameObject child2)
         {
-            A = x;
-            B = y;
+            return Vector3.Distance(child1.transform.position, child2.transform.position) > MAX_DISTANCE;
         }
-    }
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
-    List<farAway> CheckDistances()
-    {
-        List<farAway> result = new List<farAway>();
-        Transform[] allChildren = GetComponentsInChildren<Transform>();
-        foreach(Transform child1 in allChildren)
+        public void OnCompareReady(object source, CompareEvent evnt)
         {
-            foreach (Transform child2 in allChildren)
+            string log = "[ACCESSIBILITY][MOBILITY][MobilityMinimizer]";
+            bool logged = false;
+            if (Compare(evnt.item1, evnt.item2))
             {
-                if(Vector3.Distance(child1.position, child2.position) > MAX_DISTANCE) {
-                    //add child1 and child2 to result list
-                    result.Add(new farAway(child1.gameObject, child2.gameObject));
-                }
+                logged = true;
+                log += evnt.item1.name + " is too far away from " + evnt.item2.name + "\n";
+            }
+            if(logged)
+            {
+                Debug.Log(log);
             }
         }
 
-        return result;
-    }
-
-    string PrintItems(List<farAway> items)
-    {
-        string log = "";
-        foreach(farAway item in items)
+        public bool Check(GameObject child)
         {
-            log += item.A.name + " is far away from " + item.B.name + "\n";
+            return Vector3.Distance(child.transform.position, new Vector3(EXPECTED_USER_X, EXPECTED_USER_Y, EXPECTED_USER_Z)) > EXPECTED_USER_MAX_DISTANCE;
         }
-        return log;
+
+        public void OnCheckReady(object source, CheckEvent evnt)
+        {
+            string log = "[ACCESSIBILITY][MOBILITY][MobilityMinimizer]";
+            bool logged = false;
+            if(Check(evnt.item))
+            {
+                logged = true;
+                log += evnt.item.name + " is too far from the expected user position\n";
+            }
+
+            if(logged)
+            {
+                Debug.Log(log);
+            }
+        }
+
+        public MobilityMinimizer()
+        {
+            EXPECTED_USER_X = AccConfig.EXPECTED_USER_X;
+            EXPECTED_USER_Y = AccConfig.EXPECTED_USER_Y;
+            EXPECTED_USER_Z = AccConfig.EXPECTED_USER_Z;
+            EXPECTED_USER_MAX_DISTANCE= AccConfig.EXPECTED_USER_MAX_DISTANCE;
+            MAX_DISTANCE = AccConfig.MAX_DISTANCE;
+        }
     }
 }
