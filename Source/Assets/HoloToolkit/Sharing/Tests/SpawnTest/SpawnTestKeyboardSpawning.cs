@@ -6,7 +6,7 @@
 using HoloToolkit.Sharing.SyncModel;
 using HoloToolkit.Sharing.Spawning;
 using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+using UnityEngine.XR.WSA.Input;
 
 /// <summary>
 /// Class that handles spawning objects on keyboard presses, for the spawning test scene of
