@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.VR.WSA.Input;
+
 using HoloToolkit.Unity;
 
 /// <summary>
@@ -24,14 +24,14 @@ public class HTGestureManager : Singleton<HTGestureManager>
         get; set;
     }
 
-    private GestureRecognizer gestureRecognizer;
+    private UnityEngine.XR.WSA.Input.GestureRecognizer gestureRecognizer;
     private GameObject focusedObject;
     private GameObject brainParts;
     void Start()
     {
         // Create a new GestureRecognizer. Sign up for tapped events.
-        gestureRecognizer = new GestureRecognizer();
-        gestureRecognizer.SetRecognizableGestures(GestureSettings.Tap);
+        gestureRecognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
+        gestureRecognizer.SetRecognizableGestures(UnityEngine.XR.WSA.Input.GestureSettings.Tap);
 
         gestureRecognizer.TappedEvent += GestureRecognizer_TappedEvent;
 
@@ -41,7 +41,7 @@ public class HTGestureManager : Singleton<HTGestureManager>
         brainParts = GameObject.Find("BrainParts");
     }
 
-    private void GestureRecognizer_TappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
+    private void GestureRecognizer_TappedEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, int tapCount, Ray headRay)
     {
         if (focusedObject != null)
         {
