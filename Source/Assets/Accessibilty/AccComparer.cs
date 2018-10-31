@@ -2,9 +2,9 @@
 {
     using UnityEngine;
 
-    public abstract class AccComparer
+    public interface AccComparer
     {
-        public abstract bool compare(GameObject item1, GameObject item2);
-        public abstract void OnCompareReady(object source, CompareEvent evnt);
+        bool Compare(GameObject item1, GameObject item2);
+        void OnCompareReady(object source, CompareEvent evnt);
     }
 }

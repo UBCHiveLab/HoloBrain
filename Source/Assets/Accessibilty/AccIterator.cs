@@ -5,6 +5,24 @@ namespace Accessibility
 {
     public class AccIterator
     {
+        private static AccIterator instance = null;
+        public static AccIterator Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new AccIterator();
+                }
+                return instance;
+            }
+        }
+
+        //constructor
+        public AccIterator()
+        {
+
+        }
 
         public delegate void CompareReadyEventHandler(object source, CompareEvent evnt);
         public event CompareReadyEventHandler compareReady;
@@ -41,6 +59,26 @@ namespace Accessibility
             if(! (checkReady == null))
             {
                 checkReady(this, new CheckEvent(item));
+            }
+        }
+       
+        public void Iterate(IEnumerable<GameObject> children)
+        {
+            bool check = checkReady != null && checkReady.GetInvocationList().Length > 0;
+            bool compare = compareReady != null && compareReady.GetInvocationList().Length > 0;
+            foreach (GameObject child1 in children)
+            {
+                if(check)
+                {
+                    OnCheckReady(child1);
+                }
+                foreach(GameObject child2 in children)
+                {
+                    if(compare && child1.GetInstanceID() != child2.GetInstanceID())
+                    {
+                        OnCompareReady(child1, child2);
+                    }
+                }
             }
         }
     }

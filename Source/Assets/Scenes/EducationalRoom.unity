@@ -23099,6 +23099,7 @@ GameObject:
   - component: {fileID: 1396337122}
   - component: {fileID: 1396337121}
   - component: {fileID: 1396337120}
+  - component: {fileID: 1396337127}
   m_Layer: 5
   m_Name: ControlsUI
   m_TagString: Untagged
@@ -23351,6 +23352,18 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1396337127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1396337119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2107be8eafbf76247b527d097c2ec8d2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uiPrefab: {fileID: 1151218718813374, guid: d4f5a8c47cdcc8842a8d2e80cea132d5, type: 2}
 --- !u!1 &1397195393
 GameObject:
   m_ObjectHideFlags: 0

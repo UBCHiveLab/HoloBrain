@@ -6,61 +6,40 @@ namespace Accessibility
 {
     public class ColliderChecker : AccComparer
     {
-        public float ColliderMinDistance = 0.0f;
+        public float ColliderMinDistance = 1.0f;
 
-        public override bool compare(GameObject item1, GameObject item2)
+        public bool Compare(GameObject item1, GameObject item2)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public override void OnCompareReady(object source, CompareEvent evnt)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-        struct infringement
-        {
-            public GameObject focus;
-            public List<GameObject> list;
-
-            public infringement(GameObject f, List<GameObject> l)
+            Bounds bounds1 = item1.GetComponent<Collider>().bounds;
+            Bounds bounds2 = item2.GetComponent<Collider>().bounds;
+            Vector3 point1 = bounds1.ClosestPoint(bounds2.center);
+            Vector3 point2 = bounds2.ClosestPoint(bounds1.center);
+            if(Vector3.Distance(point1, point2) < ColliderMinDistance)
             {
-                focus = f;
-                list = l;
+                return false;
             }
+            return true;
         }
 
-        bool CompareDistance(Collider coll1, Collider coll2)
-        {
-            Vector3 point1 = coll1.bounds.ClosestPoint(coll2.bounds.center);
-            Vector3 point2 = coll2.bounds.ClosestPoint(coll1.bounds.center);
-            if (Vector3.Distance(point1, point2) < ColliderMinDistance)
-            {
-                return true;
-            }
-            return false;
-        }
-
-        void PrintItems(List<infringement> items)
+        public void OnCompareReady(object source, CompareEvent evnt)
         {
             string log = "[ACCESSIBILITY][MOBILITY][ColliderChecker]\n";
-            foreach (infringement item in items)
+            bool logged = false;
+            if (!Compare(evnt.item1, evnt.item2))
             {
-                log += item.focus.name + " is too close to...\n";
-                foreach (GameObject innerItem in item.list)
-                {
-                    log += innerItem.name + "\n";
-                }
-                log += "done\n";
+                log += evnt.item1.name + " is too close to " + evnt.item2.name + "\n";
+                logged = true;
             }
+            if(logged)
+            {
+                Debug.Log(log);
+            }
+        }
 
-            Debug.Log(log);
+        //constructor
+        public ColliderChecker()
+        {
+
         }
     }
 }
