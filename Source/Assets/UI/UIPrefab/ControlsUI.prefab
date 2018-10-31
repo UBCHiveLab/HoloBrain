@@ -13116,7 +13116,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   reverbZoneMixCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -16506,6 +16506,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6035d54597532114ab950ef7b0f4a905, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleObject: {fileID: 0}
 --- !u!114 &114316313615385570
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -16961,6 +16962,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d733a7adca4ae4f47bd13e6cdeafdf6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scaleObject: {fileID: 0}
 --- !u!114 &114353995162608826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18035,6 +18037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa630f16c045c104abb4a5aad33a7794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brain: {fileID: 0}
 --- !u!114 &114480207060739010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -18861,6 +18864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa630f16c045c104abb4a5aad33a7794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brain: {fileID: 0}
 --- !u!114 &114566281305380894
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -20468,6 +20472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa630f16c045c104abb4a5aad33a7794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  brain: {fileID: 0}
 --- !u!114 &114741834268024282
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -23982,7 +23987,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212404448214404028
 SpriteRenderer:
@@ -24822,7 +24827,7 @@ SpriteRenderer:
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
 --- !u!212 &212584256058469688
 SpriteRenderer:

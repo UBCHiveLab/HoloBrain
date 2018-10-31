@@ -4,7 +4,7 @@ using UnityEngine;
 using Accessibility.GazeOver;
 
 public class GazeOverUITarget : MonoBehaviour {
-    public GameObject uiPrefabClone;
+    private GameObject uiPrefabClone;
 
     void OnGazeEnteredUI()
     {
@@ -13,6 +13,7 @@ public class GazeOverUITarget : MonoBehaviour {
         uiPrefabClone.transform.position = transform.position;
         uiPrefabClone.transform.rotation = transform.rotation;
         uiPrefabClone.SetActive(true);
+        uiPrefabClone.transform.parent = this.transform;
     }
 
     void OnGazeExitUI()
