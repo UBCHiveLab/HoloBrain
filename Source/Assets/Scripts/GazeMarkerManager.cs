@@ -23,6 +23,7 @@
 //  
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;

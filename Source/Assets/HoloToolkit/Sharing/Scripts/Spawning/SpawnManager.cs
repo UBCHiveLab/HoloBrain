@@ -1,10 +1,10 @@
-//
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
-//
 
-using HoloToolkit.Sharing.SyncModel;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Sharing.SyncModel;
 
 namespace HoloToolkit.Sharing.Spawning
 {
@@ -20,11 +20,49 @@ namespace HoloToolkit.Sharing.Spawning
 
         protected SyncArray<T> SyncSource;
 
+        protected List<GameObject> SyncSpawnObjectListInternal = new List<GameObject>(0);
+
+        public bool IsSpawningObjects { get; protected set; }
+
+        public List<GameObject> SyncSpawnObjectList { get { return SyncSpawnObjectListInternal; } }
+
         protected virtual void Start()
         {
+            // SharingStage should be valid at this point, but we may not be connected.
             NetworkManager = SharingStage.Instance;
+            if (NetworkManager.IsConnected)
+            {
+                Connected();
+            }
+            else
+            {
+                NetworkManager.SharingManagerConnected += Connected;
+            }
+        }
+
+        protected virtual void Connected(object sender = null, EventArgs e = null)
+        {
+            if (SyncSource != null)
+            {
+                IsSpawningObjects = true;
+                UnRegisterToDataModel();
+
+                for (var i = 0; i < SyncSpawnObjectListInternal.Count; i++)
+                {
+                    Destroy(SyncSpawnObjectListInternal[i]);
+                }
+
+                SyncSpawnObjectListInternal.Clear();
+            }
+
             SetDataModelSource();
             RegisterToDataModel();
+
+            if (IsSpawningObjects)
+            {
+                ReSpawnObjects();
+                IsSpawningObjects = false;
+            }
         }
 
         /// <summary>
@@ -37,8 +75,14 @@ namespace HoloToolkit.Sharing.Spawning
         /// </summary>
         private void RegisterToDataModel()
         {
-            this.SyncSource.ObjectAdded += OnObjectAdded;
-            this.SyncSource.ObjectRemoved += OnObjectRemoved;
+            SyncSource.ObjectAdded += OnObjectAdded;
+            SyncSource.ObjectRemoved += OnObjectRemoved;
+        }
+
+        private void UnRegisterToDataModel()
+        {
+            SyncSource.ObjectAdded -= OnObjectAdded;
+            SyncSource.ObjectRemoved -= OnObjectRemoved;
         }
 
         private void OnObjectAdded(T addedObject)
@@ -49,6 +93,16 @@ namespace HoloToolkit.Sharing.Spawning
         private void OnObjectRemoved(T removedObject)
         {
             RemoveFromNetwork(removedObject);
+        }
+
+        private void ReSpawnObjects()
+        {
+            T[] objs = SyncSource.GetDataArray();
+
+            for (var i = 0; i < objs.Length; i++)
+            {
+                InstantiateFromNetwork(objs[i]);
+            }
         }
 
         /// <summary>
