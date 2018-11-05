@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 
 public class MRIInteractions : MonoBehaviour
 {

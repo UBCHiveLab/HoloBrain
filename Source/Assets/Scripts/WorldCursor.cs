@@ -3,7 +3,7 @@
 
 ﻿using UnityEngine;
 using HoloToolkit.Unity;
-using UnityEngine.VR.WSA.Input;
+
 
 public class WorldCursor : MonoBehaviour
 {
@@ -77,12 +77,12 @@ public class WorldCursor : MonoBehaviour
         }
     }
 
-    private void InteractionManager_SourceDetected(InteractionSourceState state)
+    private void InteractionManager_SourceDetected(UnityEngine.XR.WSA.Input.InteractionSourceState state)
     {
         handIsShown = true;
     }
 
-    private void InteractionManager_SourceLost(InteractionSourceState state)
+    private void InteractionManager_SourceLost(UnityEngine.XR.WSA.Input.InteractionSourceState state)
     {
         handIsShown = false;
     }

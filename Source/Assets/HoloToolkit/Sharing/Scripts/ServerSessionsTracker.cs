@@ -1,7 +1,5 @@
-//
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
-//
 
 using System;
 using System.Collections.Generic;
@@ -10,12 +8,12 @@ using HoloToolkit.Unity;
 namespace HoloToolkit.Sharing
 {
     /// <summary>
-    /// The ServerSessionsTracker manages the list of sessions on the server 
-    /// and the users in these sessions.
+    /// The ServerSessionsTracker manages the list of sessions on the server and the users in these sessions.
+    /// Instance is created by Sharing Stage when a connection is found.
     /// </summary>
     public class ServerSessionsTracker : IDisposable
     {
-        private bool disposed = false;
+        private bool disposed;
         private SessionManager sessionManager;
         private SessionManagerAdapter sessionManagerAdapter;
 
@@ -31,7 +29,7 @@ namespace HoloToolkit.Sharing
 
         public event Action ServerConnected;
         public event Action ServerDisconnected;
-        
+
         /// <summary>
         /// List of sessions on the server.
         /// </summary>
@@ -49,17 +47,17 @@ namespace HoloToolkit.Sharing
 
             if (sessionManager != null)
             {
-                this.sessionManagerAdapter = new SessionManagerAdapter();
-                sessionManager.AddListener(this.sessionManagerAdapter);
-                this.sessionManagerAdapter.ServerConnectedEvent += OnServerConnected;
-                this.sessionManagerAdapter.ServerDisconnectedEvent += OnServerDisconnected;
-                this.sessionManagerAdapter.SessionClosedEvent += OnSessionClosed;
-                this.sessionManagerAdapter.SessionAddedEvent += OnSessionAdded;
-                this.sessionManagerAdapter.CreateSucceededEvent += OnSessionCreatedSuccess;
-                this.sessionManagerAdapter.CreateFailedEvent += OnSessionCreatedFail;
-                this.sessionManagerAdapter.UserChangedEvent += OnUserChanged;
-                this.sessionManagerAdapter.UserJoinedSessionEvent += OnUserJoined;
-                this.sessionManagerAdapter.UserLeftSessionEvent += OnUserLeft;
+                sessionManagerAdapter = new SessionManagerAdapter();
+                sessionManagerAdapter.ServerConnectedEvent += OnServerConnected;
+                sessionManagerAdapter.ServerDisconnectedEvent += OnServerDisconnected;
+                sessionManagerAdapter.SessionClosedEvent += OnSessionClosed;
+                sessionManagerAdapter.SessionAddedEvent += OnSessionAdded;
+                sessionManagerAdapter.CreateSucceededEvent += OnSessionCreatedSuccess;
+                sessionManagerAdapter.CreateFailedEvent += OnSessionCreatedFail;
+                sessionManagerAdapter.UserChangedEvent += OnUserChanged;
+                sessionManagerAdapter.UserJoinedSessionEvent += OnUserJoined;
+                sessionManagerAdapter.UserLeftSessionEvent += OnUserLeft;
+                sessionManager.AddListener(sessionManagerAdapter);
             }
         }
 
@@ -166,8 +164,14 @@ namespace HoloToolkit.Sharing
 
         private void OnSessionClosed(Session session)
         {
-            SessionClosed.RaiseEvent(session);
-            Sessions.Remove(session);
+            for (int i = 0; i < Sessions.Count; i++)
+            {
+                if (Sessions[i].GetName().ToString().Equals(session.GetName().ToString()))
+                {
+                    SessionClosed.RaiseEvent(Sessions[i]);
+                    Sessions.Remove(Sessions[i]);
+                }
+            }
         }
 
         private void OnServerDisconnected()
@@ -199,18 +203,6 @@ namespace HoloToolkit.Sharing
                 return localUserId == changedUserId;
             }
         }
-        public bool SessionExists(String SessionName)
-        {
-            for (int i = 0; i < Sessions.Count; i++)
-            {
-                if (Sessions[i].GetName() == SessionName)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
-
 
         #region IDisposable
 
@@ -226,19 +218,19 @@ namespace HoloToolkit.Sharing
             {
                 OnServerDisconnected();
 
-                if (this.sessionManagerAdapter != null)
+                if (sessionManagerAdapter != null)
                 {
-                    this.sessionManagerAdapter.ServerConnectedEvent -= OnServerConnected;
-                    this.sessionManagerAdapter.ServerDisconnectedEvent -= OnServerDisconnected;
-                    this.sessionManagerAdapter.SessionClosedEvent -= OnSessionClosed;
-                    this.sessionManagerAdapter.SessionAddedEvent -= OnSessionAdded;
-                    this.sessionManagerAdapter.CreateSucceededEvent -= OnSessionCreatedSuccess;
-                    this.sessionManagerAdapter.CreateFailedEvent -= OnSessionCreatedFail;
-                    this.sessionManagerAdapter.UserChangedEvent -= OnUserChanged;
-                    this.sessionManagerAdapter.UserJoinedSessionEvent -= OnUserJoined;
-                    this.sessionManagerAdapter.UserLeftSessionEvent -= OnUserLeft;
-                    this.sessionManagerAdapter.Dispose();
-                    this.sessionManagerAdapter = null;
+                    sessionManagerAdapter.ServerConnectedEvent -= OnServerConnected;
+                    sessionManagerAdapter.ServerDisconnectedEvent -= OnServerDisconnected;
+                    sessionManagerAdapter.SessionClosedEvent -= OnSessionClosed;
+                    sessionManagerAdapter.SessionAddedEvent -= OnSessionAdded;
+                    sessionManagerAdapter.CreateSucceededEvent -= OnSessionCreatedSuccess;
+                    sessionManagerAdapter.CreateFailedEvent -= OnSessionCreatedFail;
+                    sessionManagerAdapter.UserChangedEvent -= OnUserChanged;
+                    sessionManagerAdapter.UserJoinedSessionEvent -= OnUserJoined;
+                    sessionManagerAdapter.UserLeftSessionEvent -= OnUserLeft;
+                    sessionManagerAdapter.Dispose();
+                    sessionManagerAdapter = null;
                 }
 
                 if (sessionManager != null)
