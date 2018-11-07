@@ -61,7 +61,7 @@ public class StatusUICommands : MonoBehaviour {
         try
         {
             SessionIDTextBox.text = SessionNumber;
-            connectedUsers = sharing.GetComponentInChildren<AutoJoinSession>().CurrentUserCount();
+            connectedUsers = SharingStage.Instance.SessionUsersTracker.CurrentUsers.Count;
             UserCountTextBox.text = connectedUsers.ToString();
 
             if (connectedUsers == 1)
