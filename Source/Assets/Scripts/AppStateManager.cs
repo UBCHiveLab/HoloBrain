@@ -4,6 +4,7 @@
 ﻿using UnityEngine;
 using HoloToolkit.Unity;
 using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 using HoloToolkit.Unity.SpatialMapping;
 
 /// <summary>

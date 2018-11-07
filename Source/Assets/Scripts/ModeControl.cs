@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -39,15 +40,23 @@ public class ModeControl : MonoBehaviour {
 
     private void HandleStudentMode()
     {
-        GameObject sharing = GameObject.Find(SHARING_OBJ_NAME);
-        sharing.GetComponent<AutoJoinSession>().SessionName = PlayerPrefs.GetString(SESSION);
+        //This code used to do sharing.GetComponent<AutoJoinSession>().SessionName = PlayerPrefs.GetString(Session), but 
+        //AutoJoinSessionAndRoom doesnt auto join session on change of SessionName var anymore
+     
+        foreach(Session session in SharingStage.Instance.SessionsTracker.Sessions)
+        {
+            if(session.GetName().GetString() == PlayerPrefs.GetString(SESSION))
+            {
+                SharingStage.Instance.SessionsTracker.JoinSession(session);
+            }
+        }
         GameObject.Find(STATUSUI_GAMEOBJECT_NAME).GetComponent<StudentModeCommands>().ToggleControlsUI(false);
     }
 
     private void HandleProfessorMode()
     {
         GameObject sharing = GameObject.Find(SHARING_OBJ_NAME);
-        // sharing.GetComponent<AutoJoinSession>().SessionName = getRandomID().ToString();
+        SharingStage.Instance.SessionsTracker.CreateSession(SharingStage.Instance.SessionName); //before session name was getRandomID().ToString(), not focusing on that now so using default
     }
 
     private void HandleSoloMode()
