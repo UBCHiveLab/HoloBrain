@@ -8,7 +8,7 @@
 Holographic Brain Project.sln: modified
 GeneratedProjects\UWP\Assembly-CSharp\project.json: modified
 GeneratedProjects\UWP\Assembly-CSharp-firstpass\project.json: modified
-Holographic Brain Project\App.cs: 5E52CA0371A3E41A94D609638AC86A55
+Holographic Brain Project\App.cs: modified
 Holographic Brain Project\Holographic Brain Project.csproj: modified
 Holographic Brain Project\Holographic Brain Project.csproj.user: modified
 Holographic Brain Project\Package.appxmanifest: modified
@@ -19,6 +19,14 @@ Holographic Brain Project\Assets\Square44x44Logo.scale-200.png: 6C6EF27184ABE9D8
 Holographic Brain Project\Assets\Square44x44Logo.targetsize-24_altform-unplated.png: 156637F7B5363E983E7A46D8E533A23D
 Holographic Brain Project\Assets\StoreLogo.png: 90BD194CA4A7CFFF3E8B8222229857FB
 Holographic Brain Project\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F87355569CD816192D
+Holographic Brain Project\bin\x86\Release\AppX\Assets\SplashScreen.scale-200.png: 60618416282ED104FD1473935716045D
+Holographic Brain Project\bin\x86\Release\AppX\Assets\Square150x150Logo.scale-200.png: E02834B4A5DFB97FF8E212C1CACBB084
+Holographic Brain Project\bin\x86\Release\AppX\Assets\Square44x44Logo.scale-200.png: 6C6EF27184ABE9D870A9D564953775DE
+Holographic Brain Project\bin\x86\Release\AppX\Assets\Square44x44Logo.targetsize-24_altform-unplated.png: 156637F7B5363E983E7A46D8E533A23D
+Holographic Brain Project\bin\x86\Release\AppX\Assets\StoreLogo.png: 90BD194CA4A7CFFF3E8B8222229857FB
+Holographic Brain Project\bin\x86\Release\AppX\Assets\Wide310x150Logo.scale-200.png: C96846A80DF667F87355569CD816192D
+Holographic Brain Project\bin\x86\Release\AppX\Properties\Default.rd.xml: 72EB282657164E79A1C42F6240984826
+Holographic Brain Project\obj\x86\Debug\Holographic Brain Project.csproj.CopyComplete: D41D8CD98F00B204E9800998ECF8427E
 Holographic Brain Project\obj\x86\Release\Holographic Brain Project.csproj.CopyComplete: D41D8CD98F00B204E9800998ECF8427E
-Holographic Brain Project\Properties\AssemblyInfo.cs: 809F5233E75E31B1050F28B1567A89DF
+Holographic Brain Project\Properties\AssemblyInfo.cs: modified
 Holographic Brain Project\Properties\Default.rd.xml: modified

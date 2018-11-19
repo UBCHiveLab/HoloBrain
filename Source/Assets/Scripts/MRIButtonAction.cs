@@ -58,8 +58,8 @@ public class MRIButtonAction : MonoBehaviour {
         if (gameObject.GetComponent<ButtonCommands>().buttonIsEnabled)
         {
             //transform.Find("Ring").gameObject.SetActive(true);
-			//do the action
-			mriCollection_1.GetComponent<MRIManager>().ProcessMRIButtonAction();
+            //do the action
+            mriCollection_1.GetComponent<MRIManager>().ProcessMRIButtonAction();
             mriCollection_2.GetComponent<MRIManager>().ProcessMRIButtonAction();
             soundFx.Play();
         }
