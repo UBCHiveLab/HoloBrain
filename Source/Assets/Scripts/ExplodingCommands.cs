@@ -52,10 +52,10 @@ public class ExplodingCommands : MonoBehaviour {
     }
 
     private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
-    private const string CORTEX_GAMEOBJECT_NAME = "cortex_low";
+    private const string CORTEX_GAMEOBJECT_NAME = "Cortex";
     private const float EXPLODING_TRANSITION_TIME_IN_SECONDS = 1.5f;
     private const float MAX_EXPLODE_DISTANCE_MULTIPLE = 0.8f;
-    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "cortex_low", "ventricle", "thalamus" };
+    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "Cortex", "Ventricles", "Fornix", "Sinuses",  };
 
     public enum ExplodingState
     {
