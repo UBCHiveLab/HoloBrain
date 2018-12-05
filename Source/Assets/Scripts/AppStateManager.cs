@@ -24,9 +24,9 @@ public class AppStateManager : Singleton<AppStateManager>
     }
 
     private const string LOADING_SCREEN_GAMEOBJECT_NAME = "LoadingScreen";
-    private const string CURSOR_GAMEOBJECT_NAME = "Cursor";
+    private const string CURSOR_GAMEOBJECT_NAME = "/Cursor";
     private const string STATUSUI_GAMEOBJECT_NAME = "StatusUI";
-    private const string CORTEX_GAMEOBJECT_NAME = "cortex_low";
+    private const string CORTEX_GAMEOBJECT_NAME = "/HologramCollection/BrainParts/Cortex";
     private const string LABELDISPLAY_GAMEOBJECT_NAME = "LabelDisplay";
 
     private GameObject loadingScreen;

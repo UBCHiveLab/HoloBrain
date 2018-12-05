@@ -127,7 +127,7 @@ public class IsolateStructures : MonoBehaviour {
     private Quaternion minimapStructureRotation;
     private bool currentlyInIsolatedMode;
     private StateAccessor stateAccessor;
-    private BoxCollider cortexBoxCollider;
+   // private BoxCollider cortexBoxCollider;
     
     public bool AtLeastOneStructureIsMovingOrResizing
     {
@@ -156,7 +156,7 @@ public class IsolateStructures : MonoBehaviour {
 
         CalculateDefaultAndFinalPositionsScalesAndRotations();
         currentlyInIsolatedMode = false;
-        cortexBoxCollider = GameObject.Find(CORTEX_OBJECT_NAME).GetComponent<BoxCollider>();
+      //  cortexBoxCollider = GameObject.Find(CORTEX_OBJECT_NAME).GetComponent<BoxCollider>();
     }
 
     private GameObject CopyStructure(GameObject structureToCopy)
@@ -247,7 +247,7 @@ public class IsolateStructures : MonoBehaviour {
             StartIsolatingStructure(ventricles);
             Destroy(ventricles.GetComponent<MeshCollider>());
 
-            cortexBoxCollider.enabled = true;
+      //      cortexBoxCollider.enabled = true;
             currentlyInIsolatedMode = true;
         }
         else
@@ -480,7 +480,7 @@ public class IsolateStructures : MonoBehaviour {
                 GameObject.DestroyImmediate(movingStructureWithDirection.structure.ModelTransform.gameObject);
             }
         }
-        cortexBoxCollider.enabled = false;
+       // cortexBoxCollider.enabled = false;
         isolatedStructures.Clear();
         movingStructures.Clear();
         ResetStructurePositionsAndScales();
