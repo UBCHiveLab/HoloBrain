@@ -14638,9 +14638,6 @@ GameObject:
   - component: {fileID: 942915103}
   - component: {fileID: 942915102}
   - component: {fileID: 942915109}
-  - component: {fileID: 942915105}
-  - component: {fileID: 942915104}
-  - component: {fileID: 942915106}
   - component: {fileID: 942915107}
   - component: {fileID: 942915108}
   - component: {fileID: 942915101}
@@ -14699,45 +14696,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cecaaed11b1ca2e4280acbe862b19ba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &942915104
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 942915099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44e70c9b8ae3324b8ccde71dedcca32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &942915105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 942915099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7094c3d4ddf53c4f9bfe47cfe8ba7f2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MaxGazeDistance: 15
-  RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  Stabilizer: {fileID: 942915106}
---- !u!114 &942915106
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 942915099}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b81e3e700505863408cacaa0346cb1a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StoredStabilitySamples: 60
 --- !u!114 &942915107
 MonoBehaviour:
   m_ObjectHideFlags: 0

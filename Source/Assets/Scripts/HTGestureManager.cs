@@ -76,10 +76,12 @@ public class HTGestureManager : Singleton<HTGestureManager>
         {
             if (oldFocusedObject != null)
             {
+                Debug.Log(oldFocusedObject.name);
                 oldFocusedObject.SendMessageUpwards("OnEndGaze");
             }
             if (focusedObject != null)
             {
+                Debug.Log(focusedObject.name);
                 focusedObject.SendMessageUpwards("OnStartGaze");
             }
 
