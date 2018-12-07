@@ -15,9 +15,8 @@ public class WorldCursor : MonoBehaviour
     public GameObject CursorOnHolograms;
     public GameObject CursorOffHolograms;
 
-    public HTGazeManager gazeManager;
-
     private bool handIsShown;
+    private HTGazeManager gazeManager;
 
     void Start()
     {
@@ -26,6 +25,7 @@ public class WorldCursor : MonoBehaviour
         handIsShown = false;
         InteractionManager.InteractionSourceDetected += InteractionManager_SourceDetected;
         InteractionManager.InteractionSourceLost += InteractionManager_SourceLost;
+        gazeManager = HTGazeManager.Instance;
 
     }
 

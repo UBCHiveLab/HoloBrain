@@ -48,7 +48,9 @@ public class ButtonCommands : MonoBehaviour {
     void OnStartGaze()
     {
         //let the UIManager know that it is being gazed at
-        controlsUI.OnGazeEnteredUI();
+        if(controlsUI != null) {
+            controlsUI.OnGazeEnteredUI();
+        }
 
         //visual change of the button on gaze over
         EnableOrDisableFrame(true);

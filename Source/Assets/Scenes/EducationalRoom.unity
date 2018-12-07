@@ -9148,10 +9148,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c7f4ac6346f4c94d979f819485402a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxGazeDistance: 5
+  MaxGazeDistance: 100
   CursorOnHolograms: {fileID: 2054108383}
   CursorOffHolograms: {fileID: 1716813206}
-  gazeManager: {fileID: 942915105}
 --- !u!4 &579884619
 Transform:
   m_ObjectHideFlags: 0
@@ -14644,6 +14643,7 @@ GameObject:
   - component: {fileID: 942915106}
   - component: {fileID: 942915107}
   - component: {fileID: 942915108}
+  - component: {fileID: 942915101}
   m_Layer: 0
   m_Name: HologramCollection
   m_TagString: Untagged
@@ -14666,6 +14666,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &942915101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 942915099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 415e5a23338d8a14683e0b46019fa49e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &942915102
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14733,7 +14744,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 942915099}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f1af3e32de8a6094eae2900124419b55, type: 3}
   m_Name: 
@@ -14745,7 +14756,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 942915099}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e8421fee52f2ad04bbad3547f92c7e92, type: 3}
   m_Name: 
