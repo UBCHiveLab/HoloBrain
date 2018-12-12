@@ -110,8 +110,8 @@ public class IsolateStructures : MonoBehaviour {
     private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.2f;
     private const float ISOLATION_TRANSITION_TIME_IN_SECONDS = 1.5f;
     private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
-    private const string CORTEX_OBJECT_NAME = "cortex_low";
-    private const string VENTRICLE_OBJECT_NAME = "ventricle";
+    private const string CORTEX_OBJECT_NAME = "Cortex";
+    private const string VENTRICLE_OBJECT_NAME = "Ventricles";
     private const string BRAIN_MINIMAP_POSITION_OBJECT = "MinimapPositionObject";
 
     private CustomMessages customMessages;
