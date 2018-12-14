@@ -53,8 +53,8 @@ public class GazeMarkerManager : MonoBehaviour
         markerRenderer = Marker.GetComponent<MeshRenderer>();
         markerRenderer.enabled = false;
 
-        state = this.GetComponent<StateAccessor>();
-        gazeManager = transform.GetComponentInParent<HTGazeManager>();
+        state = this.GetComponent<StateAccessor>(); //this dependency might be dangerous
+        gazeManager = HTGazeManager.Instance;
         soundFX = gameObject.GetComponent<AudioSource>();
     }
 
