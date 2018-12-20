@@ -19,8 +19,6 @@ public class ModeSelection : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-        DontDestroyOnLoad(this.gameObject);
         STUDENT_BUTTON = "Student";
         PROFESSOR_BUTTON = "Professor";
         JOIN_LAB_BUTTON = "Join Lab";

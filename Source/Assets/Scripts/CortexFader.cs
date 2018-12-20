@@ -32,7 +32,7 @@ public class CortexFader : MonoBehaviour {
         brain = GameObject.Find("BrainParts");
         scaleScript = brain.GetComponent<ScaleToggler>();
 
-        cortexRenderComp = brain.transform.Find("cortex_low").GetComponent<MeshRenderer>();
+        cortexRenderComp = brain.transform.Find("Cortex").GetComponent<MeshRenderer>();
         cortexOriginalColor = cortexRenderComp.material.color;
 
         UpdateBrainRadius();

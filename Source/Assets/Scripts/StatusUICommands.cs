@@ -24,7 +24,8 @@ public class StatusUICommands : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        mode = PlayerPrefs.GetString("mode");
+        //mode = PlayerPrefs.GetString("mode");
+        mode = SOLO_MODE;
 
         SessionIDTextBox = transform.Find("SessionID").GetComponent<Text>();
         UserCountTextBox = transform.Find("UserCountText").GetComponent<Text>();

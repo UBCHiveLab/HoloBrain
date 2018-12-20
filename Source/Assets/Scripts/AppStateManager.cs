@@ -25,9 +25,9 @@ public class AppStateManager : Singleton<AppStateManager>
 
     private const string LOADING_SCREEN_GAMEOBJECT_NAME = "/LoadingScreen";
     private const string CURSOR_GAMEOBJECT_NAME = "/Cursor";
-    private const string STATUSUI_GAMEOBJECT_NAME = "/StatusUI";
+    private const string STATUSUI_GAMEOBJECT_NAME = "StatusUI";
     private const string CORTEX_GAMEOBJECT_NAME = "/HologramCollection/Brain/BrainParts/Cortex";
-    private const string LABELDISPLAY_GAMEOBJECT_NAME = "/LabelDisplay";
+    private const string LABELDISPLAY_GAMEOBJECT_NAME = "LabelDisplay";
 
     private GameObject loadingScreen;
     private GameObject cursor;
@@ -39,7 +39,7 @@ public class AppStateManager : Singleton<AppStateManager>
     /// </summary>
     public AppState CurrentAppState { get; set; }
 
-    void Start()
+    void Awake()
     {
         CurrentAppState = AppState.WaitingForAnchor;
         Debug.Log("AppStateManager: has just started and is WaitingForAnchor");
@@ -56,30 +56,20 @@ public class AppStateManager : Singleton<AppStateManager>
         // If we fall back to waiting for anchor, everything needed to 
         // get us into setting the target transform state will be setup.
         Debug.Log("AppStateManager: the stage is being reset");
-        CurrentAppState = AppState.WaitingForAnchor;
+        CurrentAppState = AppState.Starting;
     }
 
     void Update()
     {
         switch (CurrentAppState)
         {
-            case AppState.WaitingForAnchor:
-                // Once the anchor is established we need to run spatial mapping for a 
-                // little while to build up some meshes.
-                if (ImportExportAnchorManager.Instance.AnchorEstablished)
-                {
-                    CurrentAppState = AppState.WaitingForStageTransform;
-                    LoadUI();
-                    HTGestureManager.Instance.OverrideFocusedObject = HologramPlacement.Instance.gameObject;
-                    SpatialMappingManager.Instance.gameObject.SetActive(true);
-                    SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
-                    SpatialMappingManager.Instance.StartObserver();
-                }
-                else
-                {
-                    labelDisplay.SetActive(false);
-                    cortex.SetActive(false);
-                }
+            case AppState.Starting:
+                CurrentAppState = AppState.WaitingForStageTransform;
+                LoadUI();
+                HTGestureManager.Instance.OverrideFocusedObject = HologramPlacement.Instance.gameObject;
+                SpatialMappingManager.Instance.gameObject.SetActive(true);
+                SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
+                SpatialMappingManager.Instance.StartObserver();
                 break;
             case AppState.WaitingForStageTransform:
                 // Now if we have the stage transform we are ready to go.
@@ -89,6 +79,7 @@ public class AppStateManager : Singleton<AppStateManager>
                     HTGestureManager.Instance.OverrideFocusedObject = null;
                     transform.Find("ControlsUI").gameObject.SetActive(true);
                 }
+                Debug.Log("breaking second case");
                 break;
         }
     }

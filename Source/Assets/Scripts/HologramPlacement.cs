@@ -4,6 +4,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Windows.Speech;
+using UnityEngine.SceneManagement;
 using HoloToolkit.Unity;
 using HoloToolkit.Sharing;
 using HoloToolkit.Sharing.Tests;
@@ -26,7 +27,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     private string mode;
     private StudentModeCommands uiVisibilityCommands;
 
-    void Start()
+    void Awake()
     {
         mriManager = GameObject.Find(MRI_COLLECTION).GetComponent<MRIManager>();
         mode = PlayerPrefs.GetString("mode");
@@ -73,8 +74,6 @@ public class HologramPlacement : Singleton<HologramPlacement>
 
         }
         mriManager.UpdateClippingForRepositioning(GotTransform);
-
-
     }
 
     /// <summary>
@@ -171,6 +170,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
 
         if (mode != "solo")
         {
+            Debug.Log("inside if");
             // We need to know how many users are in the experience with good transforms.
             Vector3 cumulatedPosition = Camera.main.transform.position;
             int playerCount = 1;
@@ -193,7 +193,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
         return retval;
     }
 
-    public void OnSelect()
+    void OnSelect()
     {
         if (mode != "student")
         {
@@ -255,7 +255,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     {
         if (uiVisibilityCommands != null)
         {
-            uiVisibilityCommands.SetUIVisibilityUI(false);
+            uiVisibilityCommands.SetVisibilityUI(false);
         }
     }
 

@@ -8,6 +8,8 @@ using UnityEngine;
 public class RepositionButtonAction : MonoBehaviour {
 
     private AudioSource audio;
+    private string BRAIN_OBJ_NAME = "BrainParts";
+
     // Use this for initialization
     void Start () {
         //brain = GameObject.Find("Brain");
@@ -22,7 +24,7 @@ public class RepositionButtonAction : MonoBehaviour {
     public void OnSelect()
     {
         audio.Play();
-        GameObject.Find("Brain").GetComponent<HologramPlacement>().ResetStage();
+        GameObject.Find(BRAIN_OBJ_NAME).GetComponent<HologramPlacement>().ResetStage();
     }
 
 

@@ -16,7 +16,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
     private CustomMessages customMessages;
     private AudioSource soundFX;
 
-    public GameObject pin;
+   // public GameObject pin;
     public GameObject labelZone;
     public HighlightAndLabelCommands otherHalf;
     public Sprite labelSprite;
@@ -34,15 +34,15 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         mode = PlayerPrefs.GetString("mode");
         customMessages = CustomMessages.Instance;
         soundFX = gameObject.GetComponent<AudioSource>();
-        gameObject.GetComponent<Renderer>().material.color = defaultColour;
+        //gameObject.GetComponent<Renderer>().material.color = defaultColour;
 
         isLocked = false;
         hasPin = false;
 
-        if (!transform.name.Contains("(Clone)")) {
+      /*  if (!transform.name.Contains("(Clone)")) {
             pin.GetComponent<PinPositionManager>().SetBrainSectionTransform(transform);
             pin.SetActive(false);
-        }
+        }*/
     }
 
 
@@ -116,10 +116,10 @@ public class HighlightAndLabelCommands : MonoBehaviour {
             soundFX.Play();
         }
         
-        if (!(StateAccessor.Instance.CurrentlyIsolatedOrIsolating() || StateAccessor.Instance.CurrentlyInMRIMode()))
+      /*  if (!(StateAccessor.Instance.CurrentlyIsolatedOrIsolating() || StateAccessor.Instance.CurrentlyInMRIMode()))
         {
             UpdatePins();
-        }
+        }*/
 
         //if the selection is locked, increase the glow. If it's unlocked, return the glow to normal
         if (isLocked)
@@ -181,29 +181,29 @@ public class HighlightAndLabelCommands : MonoBehaviour {
             else
             {
                 //update this pin (this section has a pin to add or remove)
-                TogglePin();
+                //TogglePin();
                 //if this section isn't locked, but the other half is (we know it doesn't have a pin at this point)
                 if (!isLocked && otherHalf.isLocked)
                 {
                     //add the pin to the other
-                    otherHalf.TogglePin();
+                    //otherHalf.TogglePin();
                 }
             }
         }
         else
         {
-            TogglePin();
+           // TogglePin();
         }
 
 
     }
 
-    public void TogglePin()
+    /*public void TogglePin()
     {
         pin.SetActive(isLocked);
         pin.transform.parent.GetComponent<ActivePinsManager>().UpdateActivePin(isLocked, pin);
         hasPin = isLocked;
-    }
+    }*/
 
     public void ResetHighlightAndLocking()
     {
@@ -211,7 +211,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         isGazedAt = false;
         hasPin = false;
         gameObject.GetComponent<Renderer>().material.color = defaultColour;
-        pin.SetActive(false);
+       // pin.SetActive(false);
     }
 
 }

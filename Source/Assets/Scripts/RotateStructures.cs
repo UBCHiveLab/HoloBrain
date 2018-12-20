@@ -44,7 +44,7 @@ public class RotateStructures : MonoBehaviour {
     void Start(){
         customMessages = CustomMessages.Instance;
         // Assign the ToggleRotateMessageReceived() function to be a message handler for ToggleRotate messages
-        // MessageHandlers is a dictionary with TestMessageID's as keys and MessageCalback's as values
+        // MessageHandlers is a dictionary with TestMessageIDs as keys and MessageCallbacks as values
         if (customMessages != null)
         {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ToggleRotate] = this.MessageReceived;
