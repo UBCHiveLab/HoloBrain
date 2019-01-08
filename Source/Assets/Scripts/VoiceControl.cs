@@ -183,7 +183,7 @@ public class VoiceControl : MonoBehaviour {
         if (voiceRecognitionKeywords.TryGetValue(args.text, out keywordAction))
         {
             Debug.Log(args.text);
-            if (!brainStructures.GetComponent<StateAccessor>().CurrentlyInStudentMode())
+            if (!brain.GetComponent<StateAccessor>().CurrentlyInStudentMode())
             {
                 keywordAction.Invoke();
             }
@@ -192,7 +192,7 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleStartRotate()
     {
-        if (!brainStructures.GetComponent<RotateStructures>().isRotating)
+        if (!brain.GetComponent<RotateStructures>().isRotating)
         {
             //This line was just for testing the voice command "Play"
             //GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
@@ -200,7 +200,7 @@ public class VoiceControl : MonoBehaviour {
             GameObject.Find(buttonActionsToGameObjectName["Rotate"]).GetComponent<ButtonCommands>().OnSelect();
         }
 
-        brainStructures.GetComponent<RotateStructures>().StartRotate();
+        brain.GetComponent<RotateStructures>().StartRotate();
     }
 
     private void HandleStartRotateWalls()
@@ -255,12 +255,12 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleStopRotate()
     {
-        if (brainStructures.GetComponent<RotateStructures>().isRotating)
+        if (brain.GetComponent<RotateStructures>().isRotating)
         {
             GameObject.Find(buttonActionsToGameObjectName["Stop"]).GetComponent<ButtonCommands>().OnSelect();
         }
 
-        brainStructures.GetComponent<RotateStructures>().StopRotate();
+        brain.GetComponent<RotateStructures>().StopRotate();
     }
 
     private void HandleScaleUp()
@@ -278,39 +278,39 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleExplode()
     {
-        if (brainStructures.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingIn)
+        if (brain.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingIn)
         {
             GameObject.Find(buttonActionsToGameObjectName["Expand"]).GetComponent<ButtonCommands>().OnSelect();
         }
         
-        brainStructures.GetComponent<ExplodingCommands>().TryToExplode();
+        brain.GetComponent<ExplodingCommands>().TryToExplode();
     }
 
     private void HandleCollapse()
     {
-        if (brainStructures.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingOut)
+        if (brain.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingOut)
         {
             GameObject.Find(buttonActionsToGameObjectName["Collapse"]).GetComponent<ButtonCommands>().OnSelect();
         }
 
-        brainStructures.GetComponent<ExplodingCommands>().TryToCollapse();
+        brain.GetComponent<ExplodingCommands>().TryToCollapse();
     }
 
     private void HandleIsolate()
     {
-        brainStructures.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
         GameObject.Find(buttonActionsToGameObjectName["Isolate"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleConcludeIsolate()
     {
         GameObject.Find(buttonActionsToGameObjectName["Go Back"]).GetComponent<ButtonCommands>().OnSelect();
-        brainStructures.GetComponent<IsolateStructures>().ConcludeIsolationMode();
+        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
     }
 
     private void HandleResetState()
     {
-        brainStructures.GetComponent<ResetState>().ResetEverything();
+        brain.GetComponent<ResetState>().ResetEverything();
         ControlsUI.GetComponent<SubMenusManager>().EnableDefaultMenus();
         if (GameObject.Find(buttonActionsToGameObjectName["Reset"]) != null)
         {
@@ -343,13 +343,13 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleAddBrainPart(string partName)
     {
-        brainStructures.GetComponent<IsolateStructures>().TryToIsolate(brainStructureNameToGameObjectName[partName]);
+        brain.GetComponent<IsolateStructures>().TryToIsolate(brainStructureNameToGameObjectName[partName]);
         GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleRemoveBrainPart(string partName)
     {
-        brainStructures.GetComponent<IsolateStructures>().TryToReturnFromIsolate(brainStructureNameToGameObjectName[partName]);
+        brain.GetComponent<IsolateStructures>().TryToReturnFromIsolate(brainStructureNameToGameObjectName[partName]);
         GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
     }
 
@@ -417,12 +417,13 @@ public class VoiceControl : MonoBehaviour {
         {
             gazeManager.HitInfo.transform.GetComponent<GazeMarkerCommands>().RemoveMarkerFromStructure();
         }
-            brainStructures.GetComponent<GazeMarkerManager>().TryToRemoveGazeMarker();
+        GazeMarkerManager gmm = (GazeMarkerManager)FindObjectOfType(typeof(GazeMarkerManager));
+        gmm.TryToRemoveGazeMarker();
     }
 
     private void HandleMRI()
     {
-        mriCollection.GetComponent<MRIManager>().ProcessMRIButtonAction();
+        MRIManager.Instance.ProcessMRIButtonAction();
         if (GameObject.Find(buttonActionsToGameObjectName["MRI"]))
         {
             GameObject.Find(buttonActionsToGameObjectName["MRI"]).GetComponent<ButtonCommands>().OnSelect();
@@ -436,20 +437,20 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleMRIOutlineOn()
     {
-        if (!mriCollection.GetComponent<MRIManager>().IsOutlinedMRIImages())
+        if (!MRIManager.Instance.IsOutlinedMRIImages())
         {
             GameObject.Find(buttonActionsToGameObjectName["MRI Outline"]).GetComponent<ButtonCommands>().OnSelect();
         }
-        mriCollection.GetComponent<MRIManager>().TurnOnMRIImageOutlines();
+        MRIManager.Instance.TurnOnMRIImageOutlines();
     }
 
     private void HandleMRIOutlineOff()
     {
-        if (mriCollection.GetComponent<MRIManager>().IsOutlinedMRIImages())
+        if (MRIManager.Instance.IsOutlinedMRIImages())
         {
             GameObject.Find(buttonActionsToGameObjectName["MRI Outline"]).GetComponent<ButtonCommands>().OnSelect();
         }
-        mriCollection.GetComponent<MRIManager>().TurnOffMRIImageOutlines();
+        MRIManager.Instance.TurnOffMRIImageOutlines();
     }
 
     private void HandlePinMenu()

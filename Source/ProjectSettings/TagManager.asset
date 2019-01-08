@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - MRI
+  - Structure
   layers:
   - Default
   - TransparentFX

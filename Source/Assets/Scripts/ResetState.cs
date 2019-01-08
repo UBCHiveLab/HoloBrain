@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ResetState : Singleton<ResetState> {
-    private const string BRAIN_STRUCTURE_GROUPING = "BrainParts";
+    private const string BRAIN_STRUCTURE_GROUPING = "Brain";
     private const string MRI_COLLECTION = "MRICollection";
 
     private GameObject brain;
@@ -73,7 +73,6 @@ public class ResetState : Singleton<ResetState> {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
             brain.GetComponent<IsolateStructures>().ResetIsolate();
-            Debug.Log(MRICollection.GetComponent<MRIManager>());
             MRICollection.GetComponent<MRIManager>().ResetMRI();
             return true;
         }
@@ -87,15 +86,15 @@ public class ResetState : Singleton<ResetState> {
         brain.GetComponent<ScaleToggler>().ResetScale();
         brain.GetComponent<ExplodingCommands>().ResetExplode();
 
-        for (int i = 0; i < brain.transform.childCount; i++)
+        foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
         {
             try
             {
-                brain.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().ResetHighlightAndLocking();
+                structure.GetComponent<HighlightAndLabelCommands>().ResetHighlightAndLocking();
             }
             catch (System.NullReferenceException)
             {
-                Debug.Log(brain.transform.GetChild(i).name + " has no HighlightAndLabelCommands script");
+                Debug.Log(structure.name + " has no HighlightAndLabelCommands script");
             }
         }
     }

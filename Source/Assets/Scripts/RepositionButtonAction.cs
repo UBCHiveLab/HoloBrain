@@ -8,7 +8,7 @@ using UnityEngine;
 public class RepositionButtonAction : MonoBehaviour {
 
     private AudioSource audio;
-    private string BRAIN_OBJ_NAME = "BrainParts";
+    private string BRAIN_OBJ_NAME = "Brain";
 
     // Use this for initialization
     void Start () {

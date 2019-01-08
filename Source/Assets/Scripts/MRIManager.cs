@@ -11,7 +11,7 @@ using UnityEngine;
 public class MRIManager : Singleton<MRIManager> {
     private const string MRIObjectTag = "MRI";
     private const string CLIP_PLANE = "ClipPlane";
-    private const string BRAIN_PARTS = "BrainParts";
+    private const string BRAIN_PARTS = "Brain";
 
     private List<GameObject> MRIObjects;
     private GameObject activeMRI;

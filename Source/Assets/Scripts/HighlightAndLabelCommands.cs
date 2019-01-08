@@ -210,7 +210,9 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         isLocked = false;
         isGazedAt = false;
         hasPin = false;
-        gameObject.GetComponent<Renderer>().material.color = defaultColour;
+        foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>()) {
+            renderer.material.color = defaultColour;
+        }
        // pin.SetActive(false);
     }
 

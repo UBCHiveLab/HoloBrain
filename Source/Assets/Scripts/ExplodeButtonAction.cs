@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ExplodeButtonAction : MonoBehaviour
 {
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+    private const string BRAIN_PARTS_NAME = "Brain";
 
     // Use this for initialization
     void Start()

@@ -36,9 +36,8 @@ public class RotateStructures : MonoBehaviour {
         {
             MRICollection = GameObject.Find(MRI_COLLECITON_GAMEOBJECT_NAME);
         }
-        brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
 
-        soundFX = gameObject.GetComponent<AudioSource>();
+        
     }
 
     void Start(){
@@ -52,10 +51,11 @@ public class RotateStructures : MonoBehaviour {
 
         //UNCOMMENT THIS FOR GAZE MARKER
         gazeMarker = GameObject.Find(GAZE_MARKER_GAMEOBJECT_NAME).transform;
-        //brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
+        brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
         brainOriginalRotation = brain.transform.localRotation;
         MRIOriginalRotation = MRICollection.transform.localRotation;
         isolatedStructures = null;
+        soundFX = gameObject.GetComponent<AudioSource>();
 
         ResetRotation();
     }
@@ -105,13 +105,12 @@ public class RotateStructures : MonoBehaviour {
 
     private void ToggleRotate()
     {
-        //if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
-        //{
-
-        soundFX.Play();
-        isRotating = !isRotating;
-        Debug.Log(isRotating);
-        //}
+        if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+        {
+            soundFX.Play();
+            isRotating = !isRotating;
+            Debug.Log(isRotating);
+        }
     }
 
     private void RotateForOneFrame()
