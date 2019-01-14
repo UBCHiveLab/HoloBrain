@@ -29,7 +29,7 @@ public class CortexFader : MonoBehaviour {
         maxDistance = fadeStartDistance;
         minDistance = maxDistance - fadeDistance;
 
-        brain = GameObject.Find("BrainParts");
+        brain = GameObject.Find("Brain");
         scaleScript = brain.GetComponent<ScaleToggler>();
 
         cortexRenderComp = brain.transform.Find("Cortex").GetComponent<MeshRenderer>();

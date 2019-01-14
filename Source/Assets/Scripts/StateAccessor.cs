@@ -9,8 +9,9 @@ using UnityEngine;
 public class StateAccessor : Singleton<StateAccessor> {
 
     private const string MRICollection = "MRICollection";
-    private const string BRAIN_PARTS = "BrainParts";
+    private const string BRAIN_PARTS = "Brain";
     private ResetState resetState;
+    private GameObject brain;
     public enum Mode { Default, Isolated, MRI };
 
     private Mode currentMode;
@@ -18,7 +19,8 @@ public class StateAccessor : Singleton<StateAccessor> {
 	// Use this for initialization
 	void Start () {
         currentMode = Mode.Default;
-        resetState = GameObject.Find(BRAIN_PARTS).GetComponent<ResetState>();
+        brain = GameObject.Find(BRAIN_PARTS);
+        resetState = ResetState.Instance;
 	}
 	
 	// Update is called once per frame
@@ -29,7 +31,7 @@ public class StateAccessor : Singleton<StateAccessor> {
     {
         if((currentMode == Mode.Default) || (newMode == Mode.Default))
         {
-            if (!this.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
+            if (!brain.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
             {
                 currentMode = newMode;
                 return true;
@@ -38,7 +40,7 @@ public class StateAccessor : Singleton<StateAccessor> {
 
         if( ((currentMode == Mode.MRI) && (newMode == Mode.Isolated)) || ((currentMode == Mode.Isolated) && (newMode == Mode.MRI)) )
         {
-            if (!this.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
+            if (!brain.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
             {
                 resetState.ResetEverything();
                 currentMode = newMode;
@@ -61,12 +63,12 @@ public class StateAccessor : Singleton<StateAccessor> {
 
     public bool CurrentlyIsolatedOrIsolating()
     {
-        return this.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating();
+        return brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating();
     }
 
     public bool CurrentlyInStudentMode()
     {
-        return GameObject.Find("StatusUI").GetComponent<StudentModeCommands>().CurrentlyInStudentMode();
+        return false;// GameObject.Find("StatusUI").GetComponent<StudentModeCommands>().CurrentlyInStudentMode();
     }
 
    public Mode GetCurrentMode()

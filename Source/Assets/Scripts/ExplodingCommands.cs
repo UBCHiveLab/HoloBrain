@@ -171,21 +171,19 @@ public class ExplodingCommands : MonoBehaviour {
 
     private void ToggleExplode()
     {
-        Debug.Log("before soundfx");
         soundFX.Play();
         // We toggle the last state and then send the message to all other HoloLenses
         switch (lastState)
         {
             case ExplodingState.ExplodingOut:
-                Debug.Log("first case");
                 lastState = ExplodingState.ExplodingIn;
                 currentState = ExplodingState.ExplodingIn;
+                cortex.SetActive(true);
                 break;
             case ExplodingState.ExplodingIn:
-                Debug.Log("second case");
                 lastState = ExplodingState.ExplodingOut;
                 currentState = ExplodingState.ExplodingOut;
-                cortex.SetActive(false); // The cortex should be deactivated before the brain explodes
+                cortex.SetActive(true); // The cortex should be deactivated before the brain explodes
                 break;
         }
     }

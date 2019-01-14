@@ -34,7 +34,10 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         mode = PlayerPrefs.GetString("mode");
         customMessages = CustomMessages.Instance;
         soundFX = gameObject.GetComponent<AudioSource>();
-        //gameObject.GetComponent<Renderer>().material.color = defaultColour;
+        foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+        {
+            renderer.material.color = defaultColour;
+        }
 
         isLocked = false;
         hasPin = false;
@@ -141,12 +144,17 @@ public class HighlightAndLabelCommands : MonoBehaviour {
             if (isGazedAt)
             {
                 // Make the object glow
-                gameObject.GetComponent<Renderer>().material.color = gazeColour;
+                foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.material.color = gazeColour;
+                }
             }
             else
             {
                 // remove the object's glow
-                gameObject.GetComponent<Renderer>().material.color = defaultColour;
+                foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>()) {
+                    renderer.material.color = defaultColour;
+                }
             }
         }
     }

@@ -29,7 +29,7 @@ public class ResetState : Singleton<ResetState> {
         }
 
         brain = GameObject.Find(BRAIN_STRUCTURE_GROUPING);
-        soundFX = gameObject.GetComponent<AudioSource>();
+        soundFX = brain.GetComponent<AudioSource>();
         MRICollection = GameObject.Find(MRI_COLLECTION);
     }
 

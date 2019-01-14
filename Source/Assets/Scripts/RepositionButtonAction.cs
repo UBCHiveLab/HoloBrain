@@ -26,6 +26,4 @@ public class RepositionButtonAction : MonoBehaviour {
         audio.Play();
         GameObject.Find(BRAIN_OBJ_NAME).GetComponent<HologramPlacement>().ResetStage();
     }
-
-
 }
