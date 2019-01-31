@@ -974,6 +974,7 @@ GameObject:
   - component: {fileID: 301562850}
   - component: {fileID: 301562849}
   - component: {fileID: 301562857}
+  - component: {fileID: 301562852}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -1119,6 +1120,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 383fe5f122a329a4683b7300799eb1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &301562852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 301562847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3eb5ad107c4b3bc4d8900b349c2cbac5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectFlowAttachedTo: {fileID: 1507222757}
 --- !u!65 &301562853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1169,7 +1182,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 301562855}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &301562855
@@ -6394,7 +6418,6 @@ GameObject:
   - component: {fileID: 1565031692}
   - component: {fileID: 1565031691}
   - component: {fileID: 1565031688}
-  - component: {fileID: 1565031683}
   m_Layer: 5
   m_Name: SkipButton
   m_TagString: Untagged
@@ -6443,17 +6466,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 383fe5f122a329a4683b7300799eb1e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1565031683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1565031679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d757fe38e297314e8198a62b7e1e3ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!65 &1565031684
@@ -6671,7 +6683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1cd8d5ae9588dc42b7ee2073eff87dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneToSwitchTo: 3
+  sceneIndex: -1
+  sceneName: PreLoadScene
 --- !u!114 &1565031692
 MonoBehaviour:
   m_ObjectHideFlags: 0
