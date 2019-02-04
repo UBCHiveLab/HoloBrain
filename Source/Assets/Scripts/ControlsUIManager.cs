@@ -17,7 +17,7 @@ public class ControlsUIManager : MonoBehaviour {
     // Use this for initialization
     void Start () {
         gazeIsOnUI = false;
-        isPinned = false;
+        isPinned = true;
         gazeDelayCounter = 0;
         soundFX = gameObject.GetComponent<AudioSource>();
 
@@ -31,6 +31,7 @@ public class ControlsUIManager : MonoBehaviour {
     }
 
     // Update is called once per frame
+    
     void Update()
     {
         if(!isPinned)
@@ -51,6 +52,7 @@ public class ControlsUIManager : MonoBehaviour {
             }
         }
     }
+    
 
     public void TogglePinUI()
     {

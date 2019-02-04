@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BrainCellRoom.unity
     guid: 9cabf9a855d22a5489989769cc325865
+  - enabled: 0
+    path: Assets/UI_new/MenuUI.unity
+    guid: c6f7e1933563fe84a80d58980d54143c
   m_configObjects: {}
