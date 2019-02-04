@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tutorial.unity
     guid: 84be7d09b491ad142a8602cdade99b15
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PreLoadScene.unity
     guid: d0dbba88060bf804cb3cd4fdd5c0614c
   - enabled: 0
@@ -17,7 +17,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/StartAppScene.unity
     guid: 485df5ae50db49b47bfec5b2e2eee9e0
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/StudentOrSoloScene.unity
     guid: 10b9ee8bc2c68a24e9fcfbbdf89f88eb
   - enabled: 0

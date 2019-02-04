@@ -22,6 +22,8 @@ public class VoiceControl : MonoBehaviour {
 
     private const string FMRI_BRAIN_NAME = "fMRIBrains"; // change later
 
+    private const string TUTORIAL_SCENE_NAME= "Tutorial";
+
 
     private GameObject brain;
     private GameObject brainStructures;
@@ -48,6 +50,7 @@ public class VoiceControl : MonoBehaviour {
         brain = GameObject.Find(BRAIN_GAME_OBJECT_NAME);
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
         crossfadeSlider = GameObject.Find("CrossfadeSlider");
+        
 
         fmriBrain = GameObject.Find(FMRI_BRAIN_NAME);
         //fmriBrain.SetActive(false);
@@ -118,7 +121,9 @@ public class VoiceControl : MonoBehaviour {
             { "Educational Room", "structures-icon"},
             { "MRI Room", "mri-icon"},
             { "fMRI Room", "fmri-icon"},
-            { "Brain Cell Room", "brain-cell-icon"}
+            { "Brain Cell Room", "brain-cell-icon"},
+            { "End Tutorial", "SkipButton"},
+            { "Next", "NextButton"}
         };
 
         voiceRecognitionKeywords.Add("Rotate", HandleStartRotate);
@@ -169,6 +174,9 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("UnPin Menu", HandleUnpinMenu);
         voiceRecognitionKeywords.Add("Show Structures", HandleStructuresMode);
 
+        voiceRecognitionKeywords.Add("End Tutorial", HandleEndTutorial);
+        voiceRecognitionKeywords.Add("Next", HandleNextChapter);
+
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
@@ -176,17 +184,23 @@ public class VoiceControl : MonoBehaviour {
 
 	}
 
-
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
         System.Action keywordAction;
         if (voiceRecognitionKeywords.TryGetValue(args.text, out keywordAction))
         {
             Debug.Log(args.text);
-            if (!brain.GetComponent<StateAccessor>().CurrentlyInStudentMode())
+
+            if (brainStructures != null)
+            {
+                if (!brainStructures.GetComponent<StateAccessor>().CurrentlyInStudentMode()) keywordAction.Invoke();
+            }
+
+            if (SceneManager.GetActiveScene().name == TUTORIAL_SCENE_NAME)
             {
                 keywordAction.Invoke();
             }
+
         }               
     }
 
@@ -477,5 +491,15 @@ public class VoiceControl : MonoBehaviour {
         GameObject.Find(buttonActionsToGameObjectName["Structures"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
+    private void HandleNextChapter()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["Next"]).GetComponent<NextButtonAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Next"]).GetComponent<ButtonCommands>().OnSelect();
+    }
 
+    private void HandleEndTutorial()
+    {
+        GameObject.Find(buttonActionsToGameObjectName["End Tutorial"]).GetComponent<SwitchRoomAction>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["End Tutorial"]).GetComponent<ButtonCommands>().OnSelect();
+    }
 }

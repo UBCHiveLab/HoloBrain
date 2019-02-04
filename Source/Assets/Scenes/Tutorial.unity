@@ -974,6 +974,7 @@ GameObject:
   - component: {fileID: 301562850}
   - component: {fileID: 301562849}
   - component: {fileID: 301562857}
+  - component: {fileID: 301562858}
   - component: {fileID: 301562852}
   m_Layer: 5
   m_Name: NextButton
@@ -1131,7 +1132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3eb5ad107c4b3bc4d8900b349c2cbac5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectFlowAttachedTo: {fileID: 1507222757}
+  flowScriptObject: {fileID: 1507222757}
 --- !u!65 &301562853
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1239,6 +1240,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2dc77b8b66a448a4faa316cbf540b890, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &301562858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 301562847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74db29f6da5f1c441bfb515f434d7d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &308459718
@@ -6416,8 +6428,8 @@ GameObject:
   - component: {fileID: 1565031681}
   - component: {fileID: 1565031689}
   - component: {fileID: 1565031692}
-  - component: {fileID: 1565031691}
   - component: {fileID: 1565031688}
+  - component: {fileID: 1565031691}
   m_Layer: 5
   m_Name: SkipButton
   m_TagString: Untagged

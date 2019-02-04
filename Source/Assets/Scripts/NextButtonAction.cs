@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShowNextChapter : MonoBehaviour {
+public class NextButtonAction : MonoBehaviour {
 
     public GameObject flowScriptObject;
 	// Use this for initialization
@@ -10,7 +10,7 @@ public class ShowNextChapter : MonoBehaviour {
 		
 	}
 
-    void OnSelect() {
+    public void OnSelect() {
         flowScriptObject.GetComponent<Flow>().ShowNextChapterPages();
     }
 }
