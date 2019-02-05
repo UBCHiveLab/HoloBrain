@@ -7,19 +7,19 @@ using UnityEngine;
 
 public class ToggleMenu : MonoBehaviour {
 
-    private GameObject brainParts;
+    private GameObject brain;
 
 	// Use this for initialization
 	void Start () {
-        brainParts = GameObject.Find("BrainParts");
+        brain = GameObject.Find("Brain");
     }
     public void ChangeMenu()
     {
-        if (gameObject.name == "exit-mode-icon" && (brainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated || brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing) ) 
+        if (gameObject.name == "exit-mode-icon" && (brain.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated || brain.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing) ) 
         {
             return;
         }
-        if (gameObject.name == "isolate-mode-icon" && brainParts.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated && brainParts.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
+        if (gameObject.name == "isolate-mode-icon" && brain.GetComponent<StateAccessor>().GetCurrentMode() != StateAccessor.Mode.Isolated && brain.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
         {
             return;
         }

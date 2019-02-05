@@ -183,7 +183,7 @@ public class ExplodingCommands : MonoBehaviour {
             case ExplodingState.ExplodingIn:
                 lastState = ExplodingState.ExplodingOut;
                 currentState = ExplodingState.ExplodingOut;
-                cortex.SetActive(true); // The cortex should be deactivated before the brain explodes
+                cortex.SetActive(false); // The cortex should be deactivated before the brain explodes
                 break;
         }
     }

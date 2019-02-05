@@ -10,7 +10,7 @@ using System.Linq;
 using UnityEngine;
 
 public class RotateStructures : MonoBehaviour {
-    private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
+    private const string BRAIN_PARTS_GAMEOBJECT_NAME = "Brain";
     private const string GAZE_MARKER_GAMEOBJECT_NAME = "GazeMarker";
     private const string MRI_COLLECITON_GAMEOBJECT_NAME = "MRICollection";
     private const string FMRI_BRAINS_GAMEOBJECT_NAME = "fMRIBrains";
@@ -52,6 +52,7 @@ public class RotateStructures : MonoBehaviour {
         //UNCOMMENT THIS FOR GAZE MARKER
         gazeMarker = GameObject.Find(GAZE_MARKER_GAMEOBJECT_NAME).transform;
         brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
+
         brainOriginalRotation = brain.transform.localRotation;
         MRIOriginalRotation = MRICollection.transform.localRotation;
         isolatedStructures = null;

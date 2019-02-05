@@ -191,9 +191,9 @@ public class VoiceControl : MonoBehaviour {
         {
             Debug.Log(args.text);
 
-            if (brainStructures != null)
+            if (brain != null)
             {
-                if (!brainStructures.GetComponent<StateAccessor>().CurrentlyInStudentMode()) keywordAction.Invoke();
+                if (!brain.GetComponent<StateAccessor>().CurrentlyInStudentMode()) keywordAction.Invoke();
             }
 
             if (SceneManager.GetActiveScene().name == TUTORIAL_SCENE_NAME)

@@ -12,6 +12,5 @@ public class CortexCollider : MonoBehaviour {
             myCollider.bounds.Encapsulate(current.bounds);
         }
         myCollider.center = Vector3.zero;
-
 	}
 }
