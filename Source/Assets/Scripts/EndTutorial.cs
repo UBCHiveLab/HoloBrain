@@ -1,1 +1,0 @@
-﻿using UnityEngine; using UnityEngine.EventSystems; using UnityEngine.SceneManagement;  public class EndTutorial : MonoBehaviour,ISelectHandler {  	// Use this for initialization 	void Start () { 		 	}      void ISelectHandler.OnSelect(BaseEventData eventData)     {         SceneManager.LoadScene("BrainCellRoom");     } } 

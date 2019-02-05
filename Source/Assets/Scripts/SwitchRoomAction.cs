@@ -5,7 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class SwitchRoomAction : MonoBehaviour {
 
-    public int sceneToSwitchTo;
+    public int sceneIndexOr;
+    public string sceneName = "Main";
     private AudioSource audio;
 
     public void Start()
@@ -15,6 +16,13 @@ public class SwitchRoomAction : MonoBehaviour {
     public void OnSelect()
     {
         audio.Play();
-        SceneManager.LoadScene(sceneToSwitchTo);
+        if (sceneIndexOr > 0)
+        {
+            SceneManager.LoadScene(sceneIndexOr);
+        }
+        else
+        {
+            SceneManager.LoadScene(sceneName);
+        }   
     }
 }
