@@ -56,6 +56,7 @@ public class HSGazeObserver : MonoBehaviour
                 if (!IsGazed)
                 {
                     IsGazed = true;
+                    gameObject.GetComponent<SpriteRenderer>().sprite = HoverSprite;
                     FocusEntered.RaiseEvent();
                 }
             }
