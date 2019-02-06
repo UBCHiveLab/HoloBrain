@@ -11,6 +11,8 @@ public class NextButtonAction : MonoBehaviour {
 	}
 
     public void OnSelect() {
-        flowScriptObject.GetComponent<Flow>().ShowNextChapterPages();
+        //flowScriptObject.GetComponent<Flow>().ShowNextChapterPages();
+
+        Flow.flow.ShowNextChapterPages();
     }
 }

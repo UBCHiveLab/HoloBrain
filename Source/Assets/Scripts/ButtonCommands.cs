@@ -45,8 +45,10 @@ public class ButtonCommands : MonoBehaviour {
 
     void OnEndGaze()
     {
-        //let the UIManager know that it is no longer being gazed at
-        controlsUI.OnGazeExitUI();
+        if (controlsUI != null){
+            //let the UIManager know that it is no longer being gazed at
+            controlsUI.OnGazeExitUI();
+        }
 
         //visual change of the button on gaze over
         EnableOrDisableFrame(false);

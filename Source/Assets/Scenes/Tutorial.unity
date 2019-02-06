@@ -761,7 +761,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 234220713}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee1092bceaf265409370fb5a456ba81, type: 3}
   m_Name: 
@@ -799,11 +799,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'The dot is your mouse cursor
-
-    Placing it on objects show extra options
-
-    Gaze at the next button to continue'
+  m_Text: "The dot is your mouse cursor \nPlacing it on objects show extra options
+    \nGaze at the next button to continue"
 --- !u!222 &234220718
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -976,6 +973,7 @@ GameObject:
   - component: {fileID: 301562857}
   - component: {fileID: 301562858}
   - component: {fileID: 301562852}
+  - component: {fileID: 301562859}
   m_Layer: 5
   m_Name: NextButton
   m_TagString: Untagged
@@ -1253,6 +1251,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74db29f6da5f1c441bfb515f434d7d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &301562859
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 301562847}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e459c7e60583894db6d21b9350272a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextButton: {fileID: 301562847}
 --- !u!1 &308459718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,7 +1685,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 381978744}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee1092bceaf265409370fb5a456ba81, type: 3}
   m_Name: 
@@ -2111,7 +2121,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 448845461}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee1092bceaf265409370fb5a456ba81, type: 3}
   m_Name: 
@@ -2237,6 +2247,7 @@ GameObject:
   - component: {fileID: 458851242}
   - component: {fileID: 458851244}
   - component: {fileID: 458851243}
+  - component: {fileID: 458851245}
   m_Layer: 0
   m_Name: Gaze
   m_TagString: Untagged
@@ -2269,6 +2280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7356f0c065085f41b065e06eb3d3254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onOrOff: 1
   obj: {fileID: 301562847}
 --- !u!114 &458851244
 MonoBehaviour:
@@ -2281,7 +2293,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7356f0c065085f41b065e06eb3d3254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onOrOff: 1
   obj: {fileID: 1565031679}
+--- !u!114 &458851245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 458851241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e05344a86bd584d8782af71ab0bf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextButton: {fileID: 301562847}
+  onOrOff: 1
 --- !u!1 &494989252
 GameObject:
   m_ObjectHideFlags: 0
@@ -2982,7 +3008,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 713871520}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee1092bceaf265409370fb5a456ba81, type: 3}
   m_Name: 
@@ -3547,6 +3573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 924492688}
+  - component: {fileID: 924492689}
   m_Layer: 0
   m_Name: Outtro
   m_TagString: Untagged
@@ -3568,6 +3595,19 @@ Transform:
   m_Father: {fileID: 1507222758}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &924492689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 924492687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e05344a86bd584d8782af71ab0bf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextButton: {fileID: 301562847}
+  onOrOff: 1
 --- !u!1 &941591324
 GameObject:
   m_ObjectHideFlags: 0
@@ -4534,6 +4574,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1130794174}
+  - component: {fileID: 1130794175}
   m_Layer: 0
   m_Name: Airtap
   m_TagString: Untagged
@@ -4555,6 +4596,19 @@ Transform:
   m_Father: {fileID: 1507222758}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1130794175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1130794173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e05344a86bd584d8782af71ab0bf97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nextButton: {fileID: 301562847}
+  onOrOff: 0
 --- !u!1 &1153440144
 GameObject:
   m_ObjectHideFlags: 0
@@ -4718,7 +4772,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1168082040}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee1092bceaf265409370fb5a456ba81, type: 3}
   m_Name: 
@@ -6750,6 +6804,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7356f0c065085f41b065e06eb3d3254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onOrOff: 1
   obj: {fileID: 450427439}
 --- !u!114 &1596456879
 MonoBehaviour:
@@ -6762,6 +6817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7356f0c065085f41b065e06eb3d3254, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  onOrOff: 1
   obj: {fileID: 241584767}
 --- !u!1 &1616091107
 GameObject:
@@ -7687,7 +7743,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1967937565}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ee1092bceaf265409370fb5a456ba81, type: 3}
   m_Name: 
@@ -8020,7 +8076,7 @@ Prefab:
     - target: {fileID: 224366438599907698, guid: c5682f906c5b4c6458ce1c366d17289b,
         type: 2}
       propertyPath: m_AnchoredPosition.x
-      value: -245.312
+      value: -345.312
       objectReference: {fileID: 0}
     - target: {fileID: 224366438599907698, guid: c5682f906c5b4c6458ce1c366d17289b,
         type: 2}
