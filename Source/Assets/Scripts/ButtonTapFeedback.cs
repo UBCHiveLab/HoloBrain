@@ -31,7 +31,7 @@ public class ButtonTapFeedback : MonoBehaviour {
         if (opacityTimer == 0)
         {
             //once the timer reaches zero change the opacity back to original and disable the script
-            gameObject.GetComponent<SpriteRenderer>().color = PartialOpacityColor;
+            //gameObject.GetComponent<SpriteRenderer>().color = PartialOpacityColor; TODO this line shouldnt be commented out
             //call the method to disable
             gameObject.GetComponent<ButtonCommands>().TurnOnFullOpacity(false);
         }

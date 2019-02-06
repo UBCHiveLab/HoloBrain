@@ -7,8 +7,7 @@ using UnityEngine.UI;
 
 public class TESTING : MonoBehaviour {
 	
-	public void OnSelect ()
-    {
-        Debug.Log("clicekd");
+	public void OnSelect() { 
+
     }
 }
