@@ -9,6 +9,8 @@ public class SwitchRoomUI : MonoBehaviour
     public List<GameObject> Buttons;
     public List<GameObject> Elements;
 
+    // This doesn't work because button onclick doesn't work
+
     // Note that button order must match element order
     // EX Education room button and UI canvas must both be in same index for both list
     // (ex: both at index 0)

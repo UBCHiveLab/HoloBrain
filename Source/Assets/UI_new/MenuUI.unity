@@ -217,7 +217,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 126935756}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b0d83b7afbbba7641959b98d8ebdb31e, type: 3}
   m_Name: 
@@ -232,6 +232,17 @@ MonoBehaviour:
   - {fileID: 1879960533}
   - {fileID: 2064167092}
   - {fileID: 2064167092}
+--- !u!114 &126935758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 126935756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1416400e618f3f448b0a4ba0237fb7e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &128663340 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1875811811571478, guid: 738cb49b96ff3194498a349c9278761d,
@@ -597,6 +608,11 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 114480553558464530, guid: 1019b9d10065a674289007670bcb3f49,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1019b9d10065a674289007670bcb3f49, type: 2}
   m_IsPrefabAsset: 0
@@ -810,6 +826,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 200, y: 50, z: 5}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &576653656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 576653646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 825e4b074de642346a41eee5839ba7ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Educational: 0
 --- !u!1 &618088508 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1994857569778428, guid: 738cb49b96ff3194498a349c9278761d,
