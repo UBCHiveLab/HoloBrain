@@ -8,7 +8,7 @@ public class DDOL : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         DontDestroyOnLoad(this.gameObject);
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("MenuUI");
         PlayerPrefs.SetString("mode", "solo");
         this.gameObject.AddComponent<AppStateManager>();
        // this.gameObject.AddComponent<StudentModeCommands>();
