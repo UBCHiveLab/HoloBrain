@@ -3707,18 +3707,18 @@ GameObject:
 --- !u!114 &945452095
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 114887223111489418, guid: 5ab9a7cd61f19be4eb1f84d534eaaea5,
-    type: 2}
+  m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 945452094}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c7f4ac6346f4c94d979f819485402a4, type: 3}
+  m_Script: {fileID: 11500000, guid: ad6cd4bb89b0ef146a23683163a9e3df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MaxGazeDistance: 5
   CursorOnHolograms: {fileID: 951488605}
   CursorOffHolograms: {fileID: 1707273249}
+  gazeManager: {fileID: 973079229}
 --- !u!4 &945452096
 Transform:
   m_ObjectHideFlags: 0
@@ -3774,9 +3774,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 973079228}
+  - component: {fileID: 973079231}
   - component: {fileID: 973079230}
   - component: {fileID: 973079229}
-  - component: {fileID: 973079231}
   m_Layer: 0
   m_Name: HologramCollection
   m_TagString: Untagged
@@ -3806,9 +3806,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 973079227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d44e70c9b8ae3324b8ccde71dedcca32, type: 3}
+  m_Script: {fileID: 11500000, guid: fa642ac525d05fa4e847283ae139541d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MaxGazeDistance: 15
+  RaycastLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  Stabilizer: {fileID: 973079231}
 --- !u!114 &973079230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3817,14 +3822,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 973079227}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7094c3d4ddf53c4f9bfe47cfe8ba7f2, type: 3}
+  m_Script: {fileID: 11500000, guid: c793e48fce335b040bbaad9e5a5e9b59, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxGazeDistance: 15
-  RaycastLayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967291
-  Stabilizer: {fileID: 973079231}
+  dtGazeManager: {fileID: 973079229}
 --- !u!114 &973079231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5933,7 +5934,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextButton: {fileID: 301562847}
   audio: {fileID: 0}
-  nextScene: Main
+  nextScene: StartAppScene
 --- !u!1 &1508666386
 GameObject:
   m_ObjectHideFlags: 0

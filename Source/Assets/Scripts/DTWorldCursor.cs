@@ -1,12 +1,12 @@
-// Copyright (c) Microsoft Corporation. All rights reserved.
+﻿// Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.XR.WSA.Input;
 using HoloToolkit.Unity;
 
 
-public class WorldCursor : MonoBehaviour
+public class DTWorldCursor : MonoBehaviour
 {
     private MeshRenderer meshRenderer;
 
@@ -16,8 +16,7 @@ public class WorldCursor : MonoBehaviour
     public GameObject CursorOffHolograms;
 
     private bool handIsShown;
-    private HTGazeManager gazeManager;
-
+    public DTGazeManager gazeManager;
 
     void Start()
     {
@@ -26,8 +25,6 @@ public class WorldCursor : MonoBehaviour
         handIsShown = false;
         InteractionManager.InteractionSourceDetected += InteractionManager_SourceDetected;
         InteractionManager.InteractionSourceLost += InteractionManager_SourceLost;
-        gazeManager = HTGazeManager.Instance;
-
     }
 
     void Awake()
@@ -50,13 +47,14 @@ public class WorldCursor : MonoBehaviour
         var headPosition = gazeManager.gazeOrigin;
         var gazeDirection = gazeManager.gazeDirection;
 
-        if(gazeManager.Hit)
+        if (gazeManager.Hit)
         {
-            if(handIsShown)
+            if (handIsShown)
             {
                 CursorOnHolograms.SetActive(true);
                 CursorOffHolograms.SetActive(false);
-            }else
+            }
+            else
             {
                 CursorOnHolograms.SetActive(false);
                 CursorOffHolograms.SetActive(true);
