@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/PreLoadScene.unity
     guid: d0dbba88060bf804cb3cd4fdd5c0614c
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main.unity
     guid: 8a6aae011d8501a459ab7a10e308b4dc
   - enabled: 0
@@ -35,7 +35,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BrainCellRoom.unity
     guid: 9cabf9a855d22a5489989769cc325865
-  - enabled: 1
+  - enabled: 0
     path: Assets/UI_new/MenuUI.unity
     guid: c6f7e1933563fe84a80d58980d54143c
   m_configObjects: {}
