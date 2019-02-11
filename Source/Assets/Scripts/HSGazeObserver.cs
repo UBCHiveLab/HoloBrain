@@ -13,6 +13,8 @@ public class HSGazeObserver : MonoBehaviour
 {
     public event Action FocusEntered;
     public event Action FocusExited;
+    public DTGazeManager dtGazeManager;
+
 
     /// <summary>
     /// Indicates if the object is being gazed at.
@@ -21,8 +23,16 @@ public class HSGazeObserver : MonoBehaviour
 
     private void Start()
     {
-        // Change this to somehow use HTGazeManager
-        HTGazeManager.Instance.FocusedObjectChanged += GazeManager_FocusedObjectChanged;
+        if (HTGazeManager.Instance != null) {
+            HTGazeManager.Instance.FocusedObjectChanged += GazeManager_FocusedObjectChanged;
+        }
+        else
+        {
+            dtGazeManager = GameObject.Find("HologramCollection").GetComponent<DTGazeManager>();
+            // Change this to somehow use HTGazeManager
+            dtGazeManager.FocusedObjectChanged += GazeManager_FocusedObjectChanged;
+
+        }
     }
 
     private void OnDestroy()
@@ -30,6 +40,11 @@ public class HSGazeObserver : MonoBehaviour
         if (HTGazeManager.Instance != null)
         {
             HTGazeManager.Instance.FocusedObjectChanged -= GazeManager_FocusedObjectChanged;
+        }
+
+        if (dtGazeManager != null)
+        {
+            dtGazeManager.FocusedObjectChanged -= GazeManager_FocusedObjectChanged;
         }
     }
 
