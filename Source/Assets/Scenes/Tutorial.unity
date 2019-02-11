@@ -1240,7 +1240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc77b8b66a448a4faa316cbf540b890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dtGazeManager: {fileID: 0}
+  dtGazeManager: {fileID: 973079229}
 --- !u!114 &301562858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6034,7 +6034,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NextButton: {fileID: 301562847}
   audio: {fileID: 0}
-  nextScene: StartAppScene
+  nextScene: Main
 --- !u!1 &1508666386
 GameObject:
   m_ObjectHideFlags: 0
@@ -6850,7 +6850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1cd8d5ae9588dc42b7ee2073eff87dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneIndexOr: 0
+  sceneIndexOr: -1
   sceneName: Main
 --- !u!114 &1565031692
 MonoBehaviour:
@@ -6863,7 +6863,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc77b8b66a448a4faa316cbf540b890, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dtGazeManager: {fileID: 0}
+  dtGazeManager: {fileID: 973079229}
 --- !u!1 &1596456876
 GameObject:
   m_ObjectHideFlags: 0

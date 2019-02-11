@@ -23,15 +23,14 @@ public class HSGazeObserver : MonoBehaviour
 
     private void Start()
     {
-        if (HTGazeManager.Instance != null) {
+        if (HTGazeManager.Instance != null)
+        {
             HTGazeManager.Instance.FocusedObjectChanged += GazeManager_FocusedObjectChanged;
         }
-        else
-        {
-            dtGazeManager = GameObject.Find("HologramCollection").GetComponent<DTGazeManager>();
-            // Change this to somehow use HTGazeManager
-            dtGazeManager.FocusedObjectChanged += GazeManager_FocusedObjectChanged;
 
+        if (dtGazeManager != null)
+        { 
+            dtGazeManager.FocusedObjectChanged += GazeManager_FocusedObjectChanged;
         }
     }
 
