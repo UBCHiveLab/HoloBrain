@@ -14,23 +14,11 @@ public class ScaleDownButtonAction : MonoBehaviour {
     void Start () {
 		
 	}
-	
+
     public void OnSelect()
     {
         //GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleDown();
         scaleObject.GetComponent<ScaleToggler>().ScaleDown();
 
     }
-    void OnStartGaze()
-    {
-       transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = true;
-        GameObject.Find("ScaleButtonsManager").GetComponent<SubButtonManager>().SetGazeOn(true);
-
-    }
-    void OnEndGaze()
-    {
-        transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = false;
-        GameObject.Find("ScaleButtonsManager").GetComponent<SubButtonManager>().SetGazeOn(false);
-    }
-
 }

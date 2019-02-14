@@ -20,9 +20,12 @@ public class PinButtonAction : MonoBehaviour {
     public void OnSelect()
     {
         audio.Play();
-        UIManager.TogglePinUI();
+        if(UIManager != null)
+        {
+            UIManager.TogglePinUI();
+        }
     }
-    private void OnEnable()
+    /*private void OnEnable()
     {
         if(UIManager == null)
         {
@@ -30,11 +33,11 @@ public class PinButtonAction : MonoBehaviour {
         }
 
         if (UIManager.GetMenuPinState())
-            {
+        {
                 Debug.Log("In the on enable pin state is true");
                 gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
                 Debug.Log("In the on enable pin state is true: image toggled");
-            }
-    }
+        }
+    }*/
 
 }

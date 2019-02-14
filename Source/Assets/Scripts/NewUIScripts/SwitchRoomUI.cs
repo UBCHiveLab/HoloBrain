@@ -29,17 +29,20 @@ public class SwitchRoomUI : MonoBehaviour
     {
         for (int i = 0; i < Buttons.Count; i++)
         {
-            Buttons[i].GetComponent<Button>().onClick.AddListener(delegate { SwitchToUI(Elements[i]); });
+            Buttons[i].GetComponent<ButtonCommands>().AddCommand(SwitchToUI(i));
         }
     }
 
-    private void SwitchToUI(GameObject activeElement)
+    private Action SwitchToUI(int i)
     {
-        foreach (GameObject element in Elements)
+        return delegate
         {
-            element.SetActive(false);
-        }
+            foreach (GameObject element in Elements)
+            {
+                element.SetActive(false);
+            }
 
-        activeElement.SetActive(true);
+            Elements[i].SetActive(true);
+        };
     }
 }
