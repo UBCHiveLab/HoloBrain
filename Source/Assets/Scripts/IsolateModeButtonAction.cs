@@ -10,22 +10,16 @@ public class IsolateModeButtonAction : MonoBehaviour {
     private AudioSource audio;
     private GameObject isolateMode;
 
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+    private const string BRAIN_PARTS_NAME = "Brain";
     private GameObject brain;
     // Use this for initialization
     void Start () {
         audio = gameObject.GetComponent<AudioSource>();
-        isolateMode = GameObject.Find("IsolateMode");
-        if(isolateMode != null)
-        {
-            isolateMode.SetActive(false);
-        }
         brain = GameObject.Find(BRAIN_PARTS_NAME);
     }
 	
 	void OnSelect()
     {
-        isolateMode.SetActive(true);
         brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
     }
 }

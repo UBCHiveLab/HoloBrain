@@ -16,18 +16,11 @@ public class ControlsUIManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Debug.Log("UI Controls manager start");
         gazeIsOnUI = false;
         isPinned = true;
         gazeDelayCounter = 0;
         soundFX = gameObject.GetComponent<AudioSource>();
-
-        Debug.Log("UI Controls manager start");
-
-        ConfigReader cReader = ConfigReader.Instance;
-        RegisterUIToConfig(cReader);
-        cReader.ReadConfigFile();
-
-        Debug.Log("Finished UI event");
     }
 
     // Update is called once per frame
@@ -74,15 +67,5 @@ public class ControlsUIManager : MonoBehaviour {
     public bool GetMenuPinState()
     {
         return isPinned;
-    }
-
-    protected void RegisterUIToConfig(ConfigReader reader)
-    {
-        ConfigListener[] listeners = GetComponentsInChildren<ConfigListener>();
-
-        foreach (ConfigListener listener in listeners)
-        {
-            reader.ConfigReady += listener.OnConfigReady;
-        }
     }
 }

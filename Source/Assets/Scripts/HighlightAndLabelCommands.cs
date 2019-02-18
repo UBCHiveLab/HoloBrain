@@ -127,7 +127,10 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         //if the selection is locked, increase the glow. If it's unlocked, return the glow to normal
         if (isLocked)
         {
-            gameObject.GetComponent<Renderer>().material.color = highlightedColour;
+            foreach(Renderer cur in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                cur.material.color = highlightedColour;
+            }
         }
         else
         {

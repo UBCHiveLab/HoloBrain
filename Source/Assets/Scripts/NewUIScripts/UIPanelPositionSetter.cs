@@ -18,9 +18,10 @@ public class UIPanelPositionSetter : MonoBehaviour
 
     // settings
     float RestingDistFromCamera = 1.5f;
-    float RestingRotationFromCamera = -20f;
-    float RotationDownwardsToTriggerUI = 10f;
+    float RestingRotationFromCamera = -35f;
+    float RotationDownwardsToTriggerUI = 20f;
     float TimeToRotateUp = 2f;
+    float OffsetFromCameraHorizon = -.3f;
 
     // global variable to save state
     private GameObject UIPanelUsingTransformReference_alwaysOnHorizontalPlane;
@@ -29,7 +30,7 @@ public class UIPanelPositionSetter : MonoBehaviour
     private bool StartRotatingPanelUp = false;
     private bool PanelRotatedUp = false;
     private float CurrentTimeStepWhenRotatingUp = 0f;
-    public bool CameraIsDown = false;
+    private bool CameraIsDown = false;
     private bool CameraWasJustUpAfterThePreviousRotation;
 
     // Use this for initialization
@@ -107,7 +108,7 @@ public class UIPanelPositionSetter : MonoBehaviour
     private void UpdateUIPanelUsingTransformReference()
     {
         UIPanelUsingTransformReference_alwaysOnHorizontalPlane.transform.position = new Vector3(UIPanelUsingTransformReference_parentedToCamera.transform.position.x,
-                                                                                                Camera.main.transform.position.y,
+                                                                                                Camera.main.transform.position.y + OffsetFromCameraHorizon,
                                                                                                 UIPanelUsingTransformReference_parentedToCamera.transform.position.z);
         UIPanelUsingTransformReference_alwaysOnHorizontalPlane.transform.eulerAngles = new Vector3(UIPanelUsingTransformReference_parentedToCamera.transform.rotation.eulerAngles.x,
                                                                                                             Camera.main.transform.rotation.eulerAngles.y,

@@ -22,6 +22,7 @@ public class ButtonAppearance : MonoBehaviour {
         {
             ResetButton();
         }
+        activeState = false;
     }
 
     public void SetButtonHover()
@@ -32,11 +33,25 @@ public class ButtonAppearance : MonoBehaviour {
     public void SetButtonActive()
     {
         renderer.sprite = activeSprite;
+        activeState = true;
+    }
+
+    public void ToggleButtonActive()
+    {
+        if (activeState == false)
+        {
+            SetButtonActive();
+        }
+        else
+        {
+            ResetButton();
+        }
     }
 
     public void ResetButton()
     {
         renderer.sprite = defaultSprite;
+        activeState = false;
     }
 
     public void OnStartGaze()

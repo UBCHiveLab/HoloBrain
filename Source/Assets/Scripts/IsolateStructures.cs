@@ -106,10 +106,11 @@ public class IsolateStructures : MonoBehaviour {
         }
     }
 
-    private const float ISOLATED_STRUCTURE_SCALE_SIZE = 2.0f;
-    private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.2f;
+    private const float ISOLATED_STRUCTURE_SCALE_SIZE = 0.003f;
+    private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.001f;
     private const float ISOLATION_TRANSITION_TIME_IN_SECONDS = 1.5f;
     private const string BRAIN_PARTS_GAMEOBJECT_NAME = "Brain";
+    private GameObject brain;
     private const string CORTEX_OBJECT_NAME = "Cortex";
     private const string VENTRICLE_OBJECT_NAME = "Ventricles";
     private const string BRAIN_MINIMAP_POSITION_OBJECT = "MinimapPositionObject";
@@ -205,10 +206,12 @@ public class IsolateStructures : MonoBehaviour {
 
     private void CalculateDefaultAndFinalPositionsScalesAndRotations()
     {
-        defaultStructurePosition = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.localPosition;
-        defaultStructureScale = transform.GetChild(0).localScale;
-        defaultStructureRotation = transform.GetChild(0).rotation;
-        minimapStructurePosition = 0.3f * GameObject.Find(BRAIN_MINIMAP_POSITION_OBJECT).transform.localPosition;
+        Debug.Log("default");
+        defaultStructurePosition = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).localPosition;
+        defaultStructureScale = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).localScale;
+        defaultStructureRotation = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).rotation;
+        Debug.Log("final");
+        minimapStructurePosition = GameObject.Find("Models").transform.Find(BRAIN_MINIMAP_POSITION_OBJECT).localPosition;
         minimapStructureScale = new Vector3(MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE);
         isolatedStructureScale = new Vector3(ISOLATED_STRUCTURE_SCALE_SIZE, ISOLATED_STRUCTURE_SCALE_SIZE, ISOLATED_STRUCTURE_SCALE_SIZE);
     }
@@ -242,11 +245,6 @@ public class IsolateStructures : MonoBehaviour {
             ResetStructurePositionsAndScales();
             StartSettingUpMinimap();
 
-            GameObject ventricles = GameObject.Find(VENTRICLE_OBJECT_NAME);
-            ventricles.AddComponent<MeshCollider>();
-            StartIsolatingStructure(ventricles);
-            Destroy(ventricles.GetComponent<MeshCollider>());
-
             cortexBoxCollider.enabled = true;
             currentlyInIsolatedMode = true;
         }
@@ -274,7 +272,7 @@ public class IsolateStructures : MonoBehaviour {
     private void ConcludeIsolation()
     {
         //UNCOMMENT THIS FOR GAZE MARKER
-        GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).GetComponent<GazeMarkerManager>().ClearMarkerLocally();
+        brain.GetComponent<GazeMarkerManager>().ClearMarkerLocally();
 
         if (AtLeastOneStructureIsMovingOrResizing)
         {
@@ -310,7 +308,8 @@ public class IsolateStructures : MonoBehaviour {
 
     private void TryToIsolateStructure(string structureName)
     {
-        GameObject structureToIsolate = GameObject.Find(structureName);
+        Debug.Log("trying to isolate " + structureName);
+        GameObject structureToIsolate = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.Find(structureName).gameObject;
         if (currentlyInIsolatedMode && GameObject.Find(structureToIsolate.name + "(Clone)") == null)
         {
             StartIsolatingStructure(structureToIsolate);
@@ -407,6 +406,7 @@ public class IsolateStructures : MonoBehaviour {
             currentStructureWithDirection.structure.MoveStructure();
             if (currentStructureWithDirection.structure.IsDoneMoving())
             {
+                Debug.Log("finishing moving: " + currentStructureWithDirection.structure.ModelTransform.gameObject.name);
                 FinishMovingAndResizingStructure(currentStructureWithDirection);
                 movingStructures.RemoveAt(i);
             }
@@ -425,16 +425,26 @@ public class IsolateStructures : MonoBehaviour {
         switch(structureWithDirection.direction)
         {
             case MovingToState.Isolation:
+                Debug.Log("isolation");
                 if (structureWithDirection.structure.ModelTransform.name != VENTRICLE_OBJECT_NAME+"(Clone)")
                 {
-                    structureWithDirection.structure.ModelTransform.GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
-                    GameObject.Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
+                    foreach(HighlightAndLabelCommands cur in structureWithDirection.structure.ModelTransform.GetComponentsInChildren<HighlightAndLabelCommands>())
+                    {
+                        cur.TurnOnLockedHighlight();
+                    }
+                    foreach(HighlightAndLabelCommands cur in GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).GetComponent<Transform>().Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponentsInChildren<HighlightAndLabelCommands>())
+                    {
+                        cur.TurnOnLockedHighlight();
+                    }
                 }
                 break;
             case MovingToState.Minimap:
                 if (structureWithDirection.structure.ModelTransform.name.Contains("(Clone)"))
                 {
-                    GameObject.Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
+                    foreach (HighlightAndLabelCommands cur in GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).GetComponent<Transform>().Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponentsInChildren<HighlightAndLabelCommands>())
+                    {
+                        cur.TurnOffLockedHighlight();
+                    }
                     GameObject.DestroyImmediate(structureWithDirection.structure.ModelTransform.gameObject);
                 }
                 break;
@@ -443,8 +453,14 @@ public class IsolateStructures : MonoBehaviour {
                 {
                     if (structureWithDirection.structure.ModelTransform.name != VENTRICLE_OBJECT_NAME + "(Clone)")
                     {
-                        structureWithDirection.structure.ModelTransform.GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
-                        GameObject.Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponent<HighlightAndLabelCommands>().TurnOffLockedHighlight();
+                        foreach(HighlightAndLabelCommands cur in structureWithDirection.structure.ModelTransform.GetComponentsInChildren<HighlightAndLabelCommands>())
+                        {
+                            cur.TurnOffLockedHighlight();
+                        }
+                        foreach(HighlightAndLabelCommands cur in GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).GetComponent<Transform>().Find(structureWithDirection.structure.ModelTransform.name.Replace("(Clone)", "")).GetComponentsInChildren<HighlightAndLabelCommands>())
+                        {
+                            cur.TurnOffLockedHighlight();
+                        }
                     }
                     GameObject.DestroyImmediate(structureWithDirection.structure.ModelTransform.gameObject);
                 }
@@ -466,7 +482,7 @@ public class IsolateStructures : MonoBehaviour {
     public void ResetIsolate()
     {
         //UNCOMMENT THIS FOR GAZE MARKER
-        GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).GetComponent<GazeMarkerManager>().ClearMarkerLocally();
+        brain.GetComponent<GazeMarkerManager>().ClearMarkerLocally();
 
         foreach (Transform structure in isolatedStructures)
         {

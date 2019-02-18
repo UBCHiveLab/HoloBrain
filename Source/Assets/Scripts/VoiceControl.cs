@@ -93,7 +93,7 @@ public class VoiceControl : MonoBehaviour {
             {"Scale Up", "scale-up" },
             {"Scale Down", "scale-down" },
             {"Isolate", "isolate-mode-icon" },
-            {"Go Back", "exit-mode-icon" },
+            {"Exit Isolate", "exit-mode-icon" },
             {"Reposition", "reposition-icon" },
             {"Add All", "add-icon" },
             {"Remove All", "remove-icon" },
@@ -127,15 +127,13 @@ public class VoiceControl : MonoBehaviour {
         };
 
         voiceRecognitionKeywords.Add("Rotate", HandleStartRotate);
-        voiceRecognitionKeywords.Add("Rotate Walls", HandleStartRotateWalls);
         voiceRecognitionKeywords.Add("Stop", HandleStopRotate);
-        voiceRecognitionKeywords.Add("Stop Walls", HandleStartRotateWalls);
         voiceRecognitionKeywords.Add("Scale Up", HandleScaleUp);
         voiceRecognitionKeywords.Add("Scale Down", HandleScaleDown);
         voiceRecognitionKeywords.Add("Expand", HandleExplode);
         voiceRecognitionKeywords.Add("Collapse", HandleCollapse);
         voiceRecognitionKeywords.Add("Show Isolate", HandleIsolate);
-        voiceRecognitionKeywords.Add("Go Back", HandleConcludeIsolate);
+        voiceRecognitionKeywords.Add("Hide Isolate", HandleConcludeIsolate);
         voiceRecognitionKeywords.Add("Reset", HandleResetState);
         voiceRecognitionKeywords.Add("Reposition", HandleResetAnchor);
         voiceRecognitionKeywords.Add("Add All", HandleAddAll);
@@ -156,7 +154,6 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("Functional MRI Room", HandleFMRIRoom);
         voiceRecognitionKeywords.Add("MRI Room", HandleMRIRoom);
         voiceRecognitionKeywords.Add("MRI Scan Room", HandleMRIRoom);
-        voiceRecognitionKeywords.Add("Brain Cell Room", HandleBrainCellRoom);
         voiceRecognitionKeywords.Add("Cell Room", HandleBrainCellRoom);
 
         voiceRecognitionKeywords.Add("Show Microglia", HandleShowMicroglia);
@@ -180,8 +177,6 @@ public class VoiceControl : MonoBehaviour {
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
         keywordRecognizer.Start();
-
-
 	}
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
@@ -200,35 +195,112 @@ public class VoiceControl : MonoBehaviour {
             {
                 keywordAction.Invoke();
             }
-
         }               
     }
 
     private void HandleStartRotate()
     {
-        if (!brain.GetComponent<RotateStructures>().isRotating)
-        {
-            //This line was just for testing the voice command "Play"
-            //GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
-
-            GameObject.Find(buttonActionsToGameObjectName["Rotate"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-
         brain.GetComponent<RotateStructures>().StartRotate();
     }
 
-    private void HandleStartRotateWalls()
+    private void HandleStopRotate()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Rotate Walls"]).GetComponent<RotateWallsButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Rotate Walls"]).GetComponent<ButtonCommands>().OnSelect();
-        
+        brain.GetComponent<RotateStructures>().StopRotate();
+    }
+
+    private void HandleScaleUp()
+    {
+        brain.GetComponent<ScaleToggler>().ScaleUp();
+    }
+
+    private void HandleScaleDown()
+    {
+        brain.GetComponent<ScaleToggler>().ScaleDown();
+    }
+
+    private void HandleExplode()
+    {
+        brain.GetComponent<ExplodingCommands>().TryToExplode();
+    }
+
+    private void HandleCollapse()
+    {
+        brain.GetComponent<ExplodingCommands>().TryToCollapse();
+    }
+
+    private void HandleIsolate()
+    {
+        brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        //these two OnSelects will make the menu state ready to do isolate
+        GameObject.Find("Educational").GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find("Isolate").GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleConcludeIsolate()
+    {
+        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
+    }
+
+    private void HandleResetState()
+    {
+        brain.GetComponent<ResetState>().ResetEverything();
+    }
+
+    private void HandleResetAnchor()
+    {
+        brain.GetComponent<HologramPlacement>().ResetStage();
+    }
+
+    private void HandleAddAll()
+    {
+        brain.GetComponent<IsolateStructures>().AddAllParts();
+    }
+
+    private void HandleRemoveAll()
+    {
+        brain.GetComponent<IsolateStructures>().RemoveAllParts();
+    }
+
+    private void HandleEducationalRoom()
+    {
+        GameObject.Find("Educational").GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleMRIRoom()
+    {
+        GameObject.Find("MRI").GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleFMRIRoom()
+    {
+        GameObject.Find("fMRI").GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandleBrainCellRoom()
+    {
+        GameObject.Find("Cell").GetComponent<ButtonCommands>().OnSelect();
+    }
+
+    private void HandlePinMenu()
+    {
+        if (!GameObject.Find("ControlsUI").GetComponent<ControlsUIManager>().GetMenuPinState())
+        {
+            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<PinButtonAction>().OnSelect();
+        }
+    }
+
+    private void HandleUnpinMenu()
+    {
+        if (GameObject.Find("ControlsUI").GetComponent<ControlsUIManager>().GetMenuPinState())
+        {
+            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<PinButtonAction>().OnSelect();
+        }
     }
 
     private void HandleStartPlay()
     {
         GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<PlayButtonAction>().OnSelect();
         GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
-
     }
 
     private void HandleSpeedUpPlayback()
@@ -267,94 +339,6 @@ public class VoiceControl : MonoBehaviour {
         GameObject.Find(buttonActionsToGameObjectName["Back Ten"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
-    private void HandleStopRotate()
-    {
-        if (brain.GetComponent<RotateStructures>().isRotating)
-        {
-            GameObject.Find(buttonActionsToGameObjectName["Stop"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-
-        brain.GetComponent<RotateStructures>().StopRotate();
-    }
-
-    private void HandleScaleUp()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["Scale Up"]).GetComponent<ButtonCommands>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Scale Up"]).GetComponent<ScaleUpButtonAction>().OnSelect();
-
-    }
-
-    private void HandleScaleDown()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["Scale Down"]).GetComponent<ButtonCommands>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Scale Down"]).GetComponent<ScaleDownButtonAction>().OnSelect();
-    }
-
-    private void HandleExplode()
-    {
-        if (brain.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingIn)
-        {
-            GameObject.Find(buttonActionsToGameObjectName["Expand"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-        
-        brain.GetComponent<ExplodingCommands>().TryToExplode();
-    }
-
-    private void HandleCollapse()
-    {
-        if (brain.GetComponent<ExplodingCommands>().lastState == ExplodingCommands.ExplodingState.ExplodingOut)
-        {
-            GameObject.Find(buttonActionsToGameObjectName["Collapse"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-
-        brain.GetComponent<ExplodingCommands>().TryToCollapse();
-    }
-
-    private void HandleIsolate()
-    {
-        brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
-        GameObject.Find(buttonActionsToGameObjectName["Isolate"]).GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleConcludeIsolate()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["Go Back"]).GetComponent<ButtonCommands>().OnSelect();
-        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
-    }
-
-    private void HandleResetState()
-    {
-        brain.GetComponent<ResetState>().ResetEverything();
-        ControlsUI.GetComponent<SubMenusManager>().EnableDefaultMenus();
-        if (GameObject.Find(buttonActionsToGameObjectName["Reset"]) != null)
-        {
-            GameObject.Find(buttonActionsToGameObjectName["Reset"]).GetComponent<ResetButtonAction>().ResetUI();
-        }
-       
-    }
-
-    private void HandleResetAnchor()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["Reposition"]).GetComponent<ButtonCommands>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Reposition"]).GetComponent<RepositionButtonAction>().OnSelect();
-    }
-
-
-    private void HandleAddAll()
-    {
-       // brainStructures.GetComponent<IsolateStructures>().AddAllParts();
-        GameObject.Find(buttonActionsToGameObjectName["Add All"]).GetComponent<ButtonCommands>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Add All"]).GetComponent<IsolateButtonAction>().OnSelect();
-    }
-
-    private void HandleRemoveAll()
-    {
-       //brainStructures.GetComponent<IsolateStructures>().RemoveAllParts();
-        GameObject.Find(buttonActionsToGameObjectName["Remove All"]).GetComponent<ButtonCommands>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Remove All"]).GetComponent<IsolateButtonAction>().OnSelect();
-
-    }
-
     private void HandleAddBrainPart(string partName)
     {
         brain.GetComponent<IsolateStructures>().TryToIsolate(brainStructureNameToGameObjectName[partName]);
@@ -365,30 +349,6 @@ public class VoiceControl : MonoBehaviour {
     {
         brain.GetComponent<IsolateStructures>().TryToReturnFromIsolate(brainStructureNameToGameObjectName[partName]);
         GameObject.Find(buttonActionsToGameObjectName[partName]).GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleEducationalRoom()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["Educational Room"]).GetComponent<SwitchRoomAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Educational Room"]).GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleMRIRoom()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["MRI Room"]).GetComponent<SwitchRoomAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["MRI Room"]).GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleFMRIRoom()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]).GetComponent<SwitchRoomAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]).GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleBrainCellRoom()
-    {
-        GameObject.Find(buttonActionsToGameObjectName["Brain Cell Room"]).GetComponent<SwitchRoomAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Brain Cell Room"]).GetComponent<ButtonCommands>().OnSelect();
     }
 
     private void HandleShowMicroglia()
@@ -465,24 +425,6 @@ public class VoiceControl : MonoBehaviour {
             GameObject.Find(buttonActionsToGameObjectName["MRI Outline"]).GetComponent<ButtonCommands>().OnSelect();
         }
         MRIManager.Instance.TurnOffMRIImageOutlines();
-    }
-
-    private void HandlePinMenu()
-    {
-        if (!GameObject.Find("ControlsUI").GetComponent<ControlsUIManager>().GetMenuPinState())
-        {
-            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<PinButtonAction>().OnSelect();
-            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-    }
-
-    private void HandleUnpinMenu()
-    {
-        if (GameObject.Find("ControlsUI").GetComponent<ControlsUIManager>().GetMenuPinState())
-        {
-            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<PinButtonAction>().OnSelect();
-            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<ButtonCommands>().OnSelect();
-        }
     }
 
     private void HandleStructuresMode()

@@ -46,7 +46,7 @@ public class ButtonCommands : MonoBehaviour {
         }
 
         //visual change of the button on gaze over
-        EnableOrDisableFrame(true);
+        //EnableOrDisableFrame(true);
     }
 
     void OnEndGaze()
@@ -58,7 +58,7 @@ public class ButtonCommands : MonoBehaviour {
         }
 
         //visual change of the button on gaze over
-        EnableOrDisableFrame(false);
+        //EnableOrDisableFrame(false);
     }
 
     public void AddCommand(Action command)

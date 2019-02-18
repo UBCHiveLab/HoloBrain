@@ -31,7 +31,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     {
         mriManager = GameObject.Find(MRI_COLLECTION).GetComponent<MRIManager>();
         mode = PlayerPrefs.GetString("mode");
-        uiVisibilityCommands = GameObject.Find("StatusUI").GetComponent<StudentModeCommands>();
+        //uiVisibilityCommands = GameObject.Find("StatusUI").GetComponent<StudentModeCommands>();
 
         if (mode != "solo")
         {
@@ -61,7 +61,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     {
         GotTransform = false;
         SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
-        HideUI();
+        //HideUI();
 
         if (mode != "solo") { 
             AppStateManager.Instance.ResetStage();
@@ -71,7 +71,6 @@ public class HologramPlacement : Singleton<HologramPlacement>
         else
         {
             HTGestureManager.Instance.OverrideFocusedObject = gameObject;
-
         }
         mriManager.UpdateClippingForRepositioning(GotTransform);
     }

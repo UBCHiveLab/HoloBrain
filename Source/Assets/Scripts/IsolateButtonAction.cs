@@ -9,8 +9,9 @@ public class IsolateButtonAction : MonoBehaviour {
 
     private bool buttonSelected;
     private Dictionary<string, string> isolateIconsToGameObjectName;
-    private const string BRAIN_PARTS_NAME = "BrainParts";
-    private const string ISOLATE_MENU_NAME = "IsolateMode";
+    private const string BRAIN_PARTS_NAME = "Brain";
+    private const string ISOLATE_MENU_NAME = "isolateMode";
+    List<GameObject> isolateButtons;
     private GameObject IsolateMenu;
     private GameObject brainStructures;
     private string PartToIsolate;
@@ -19,24 +20,40 @@ public class IsolateButtonAction : MonoBehaviour {
         buttonSelected = false;
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
         IsolateMenu = GameObject.Find(ISOLATE_MENU_NAME);
-        isolateIconsToGameObjectName = new Dictionary<string, string>
-        {
-            {"putamen-icon" , "right_putamen"},
-            {"caudate-icon", "right_caudate"},
-            { "globus-icon", "right_globus_pallidus" },
-            { "nigra-icon",  "right_substantia_nigra" },
-            { "subthalamic-icon" , "right_subthalamic"},
-            { "thalamus-icon","thalamus"},
-            {"add-icon","AddAll"},
-            {"remove-icon","RemoveAll"},
-        };
         Debug.Log("in the on start of: " + gameObject.name);
+        isolateButtons = GetStructureButtons();
+    }
+
+    List<GameObject> GetStructureButtons()
+    {
+        GameObject menu = GameObject.Find("isolateMode");
+        List<GameObject> result = new List<GameObject>();
+        Transform[] basal = menu.transform.Find("Basal/BasalStructures").GetComponentsInChildren<Transform>(true);
+        Transform[] limbic = menu.transform.Find("Limbic/LimbicStructures").GetComponentsInChildren<Transform>(true);
+        Transform[] vessels = menu.transform.Find("Vessel/VesselStructures").GetComponentsInChildren<Transform>(true);
+        Debug.Log("declared arrays");
+        foreach(Transform cur in basal)
+        {
+            result.Add(cur.gameObject);
+        }
+        foreach (Transform cur in limbic)
+        {
+            result.Add(cur.gameObject);
+        }
+        foreach (Transform cur in vessels)
+        {
+            result.Add(cur.gameObject);
+        }
+        Debug.Log("pushed arrays to list");
+        result.Add(menu.transform.Find("Cerebellum").gameObject);
+        result.Add(menu.transform.Find("DTI").gameObject);
+        Debug.Log("returning result");
+        return result;
     }
 	
     public void OnSelect()
     {
-      
-        PartToIsolate = isolateIconsToGameObjectName[gameObject.name];
+        PartToIsolate = gameObject.name;
         if (PartToIsolate == "AddAll")
         {
             AddAllParts();
@@ -49,23 +66,21 @@ public class IsolateButtonAction : MonoBehaviour {
 
         else if (!buttonSelected)
         {
-           
             AddBrainPart(PartToIsolate);
             buttonSelected = true;
-
+            gameObject.GetComponent<ButtonAppearance>().SetButtonActive();
         }
         else
         {
-           
             RemoveBrainPart(PartToIsolate);
             buttonSelected = false;
+            gameObject.GetComponent<ButtonAppearance>().ResetButton();
         }
        
     }
     private void AddBrainPart(string PartName)
     {
         brainStructures.GetComponent<IsolateStructures>().TryToIsolate(PartName);
-
     }
 
     private void RemoveBrainPart(string PartName)
@@ -91,11 +106,11 @@ public class IsolateButtonAction : MonoBehaviour {
 
     public void SelectAllButtons(bool select)
     {
-           for (int i=0; i < IsolateMenu.transform.childCount; i++)
+           for (int i=0; i < isolateButtons.Count; i++)
         {
-            if (IsolateMenu.transform.GetChild(i).gameObject.GetComponent<ButtonEnabledFeedback>() != null)
+            if (isolateButtons[i].GetComponent<ButtonEnabledFeedback>() != null)
             {
-                IsolateMenu.transform.GetChild(i).gameObject.GetComponent<ButtonEnabledFeedback>().ToggleOpacity(select);
+                isolateButtons[i].GetComponent<ButtonEnabledFeedback>().ToggleOpacity(select);
             }
         }
     }
