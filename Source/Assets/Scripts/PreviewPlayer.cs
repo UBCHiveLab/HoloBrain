@@ -28,7 +28,7 @@ public class PreviewPlayer : MonoBehaviour {
         } else
         {
             timer += Time.deltaTime;
-            if(timer >= 0.03)
+            if(timer >= 0.05)
             {
                 timer = 0;
                 index += 1;

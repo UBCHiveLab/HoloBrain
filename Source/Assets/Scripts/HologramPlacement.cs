@@ -212,7 +212,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
             else
             {
                 HTGestureManager.Instance.OverrideFocusedObject = null;
-                GameObject controlsUI = GameObject.Find("ControlsUI");
+                GameObject controlsUI = GameObject.Find("menu");
                 controlsUI.SetActive(true);
             }
         }

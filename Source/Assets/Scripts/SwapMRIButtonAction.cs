@@ -19,7 +19,7 @@ public class SwapMRIButtonAction : MonoBehaviour {
     void OnSelect()
     {
         MRIManager.Instance.ReturnFromDisplaySingleMRI();
-        MRIIconManager.Instance.DeselectAll();
+        //MRIIconManager.Instance.DeselectAll();
         //gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
         slice.SelectMRI();
     }

@@ -26,7 +26,7 @@ public class AppStateManager : Singleton<AppStateManager>
     private const string LOADING_SCREEN_GAMEOBJECT_NAME = "/LoadingScreen";
     private const string CURSOR_GAMEOBJECT_NAME = "/Cursor";
     private const string STATUSUI_GAMEOBJECT_NAME = "StatusUI";
-    private const string CORTEX_GAMEOBJECT_NAME = "/HologramCollection/Brain/BrainParts/Cortex";
+    private const string CORTEX_GAMEOBJECT_NAME = "/HologramCollection/Models/Brain/Cortex";
     private const string LABELDISPLAY_GAMEOBJECT_NAME = "LabelDisplay";
 
     private GameObject loadingScreen;
@@ -65,7 +65,7 @@ public class AppStateManager : Singleton<AppStateManager>
         {
             case AppState.Starting:
                 CurrentAppState = AppState.WaitingForStageTransform;
-                LoadUI();
+                loadingScreen.SetActive(true);
                 HTGestureManager.Instance.OverrideFocusedObject = HologramPlacement.Instance.gameObject;
                 SpatialMappingManager.Instance.gameObject.SetActive(true);
                 SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
@@ -76,6 +76,7 @@ public class AppStateManager : Singleton<AppStateManager>
                 if (HologramPlacement.Instance.GotTransform)
                 {
                     CurrentAppState = AppState.Ready;
+                    LoadUI();
                     HTGestureManager.Instance.OverrideFocusedObject = null;
                     transform.Find("ControlsUI").gameObject.SetActive(true);
                 }

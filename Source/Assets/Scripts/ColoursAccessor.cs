@@ -39,7 +39,7 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
 
     public void ToggledLockedHighlightOnBrain()
     {
-        foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structures"))
+        foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
         {
             try
             {
@@ -54,7 +54,7 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
 
     public void TurnOnHighlightOnBrain()
     {
-        foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structures"))
+        foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
         {
             try
             {

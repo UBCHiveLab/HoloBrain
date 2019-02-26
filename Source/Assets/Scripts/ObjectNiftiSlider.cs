@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
 public class ObjectNiftiSlider : MonoBehaviour
 {
 
@@ -21,10 +20,10 @@ public class ObjectNiftiSlider : MonoBehaviour
 
     public bool isPlaying;
     float speed = 5f;
-    private const float initTimePerObject = 250f; // in ms
+    private const float initTimePerObject = 0.5f; // in s
     float timePerObject;
-
-    Slider slider;
+    float timeOnCurrentObject;
+    
     public Transform fmriBrain;
     public Transform deltafMRIBrain;
 
@@ -33,11 +32,16 @@ public class ObjectNiftiSlider : MonoBehaviour
     {
         for (int i = 0; i < fmriBrain.childCount; i++)
         {
-
             GameObject child = fmriBrain.GetChild(i).gameObject;
-            Debug.Log(child.name);
             fmriGameObjects.Add(child);
-
+            if(i == 0)
+            {
+                child.SetActive(true);
+            } else
+            {
+                child.SetActive(false);
+            }
+            /*
             if (deltafMRIBrain.Find((i + 1).ToString()) != null) // If a corresponding deltaFMRI exists 
             {
                 Debug.Log("not null");
@@ -46,18 +50,16 @@ public class ObjectNiftiSlider : MonoBehaviour
             else // If there is no corresponding deltaFMRI, have a corresponding empty object
             {
                 deltafMRIGameObjects.Add(new GameObject());
-            }
+            }*/
         }
 
         timePerObject = initTimePerObject;
-        slider = GetComponent<Slider>();
+        timeOnCurrentObject = 0f;
+
         fMRItext = GetComponentInChildren<Text>();
         fMRITotal = fmriGameObjects.Count.ToString();
   
         fMRItext.text = "1/" + fMRITotal;
-        slider.maxValue = fmriGameObjects.Count * timePerObject;
-        slider.onValueChanged.AddListener(delegate { SliderUpdate(); });
-
     }
 
 
@@ -72,50 +74,34 @@ public class ObjectNiftiSlider : MonoBehaviour
 
         if (isPlaying)
         {
-            slider.value += Time.deltaTime * 1000;  
-            if (slider.value >= slider.maxValue)
+            timeOnCurrentObject += Time.deltaTime;
+            if (timeOnCurrentObject > timePerObject)
             {
-                slider.value = slider.minValue;
+                timeOnCurrentObject = 0;
+                SliderUpdate(index + 1);
             }
         }
+
     }
 
     public void SlowDownPlayback()
     {
         timePerObject *= 2;
-        slider.maxValue = fmriGameObjects.Count * timePerObject;
-        slider.value = index * timePerObject;
     }
 
     public void Skip(int numFrames)
     {
-        int newIndex = Mathf.Min(index + numFrames, fmriGameObjects.Count);
-        slider.value = index * timePerObject;
-        if (newIndex != index)
-        {
-            SwitchfMRIObjects(newIndex);
-            index = newIndex;
-            UpdateSliderText();
-        }
+        SliderUpdate(index + numFrames);
     }
 
     public void Back(int numFrames)
     {
-        int newIndex = Mathf.Max(0, index - numFrames);
-        slider.value = index * timePerObject;
-        if (newIndex != index)
-        {
-            SwitchfMRIObjects(newIndex);
-            index = newIndex;
-            UpdateSliderText();
-        }
+        SliderUpdate(index - numFrames);
     }
 
     public void SpeedUpPlayback()
     {
         timePerObject /= 2;
-        slider.maxValue = fmriGameObjects.Count * timePerObject;
-        slider.value = index * timePerObject;
     }
 
     public void TogglePlay()
@@ -124,16 +110,13 @@ public class ObjectNiftiSlider : MonoBehaviour
         {
             isPlaying = false;
             timePerObject = initTimePerObject;
-            slider.maxValue = fmriGameObjects.Count * timePerObject;
         }
         else
             isPlaying = true;
     }
 
-    private void UpdateSliderText() {
-
-        fMRItext.text = (index + 1).ToString() + "/" + fMRITotal;
-
+    private void UpdateSliderText(int newIndex) {
+        fMRItext.text = (newIndex + 1).ToString() + "/" + fMRITotal;
     }
 
     private void SwitchfMRIObjects(int newIndex)
@@ -141,33 +124,24 @@ public class ObjectNiftiSlider : MonoBehaviour
         fmriGameObjects[newIndex].SetActive(true);
         fmriGameObjects[index].SetActive(false);
 
-        deltafMRIGameObjects[newIndex].SetActive(true);
-        deltafMRIGameObjects[index].SetActive(false);
+       // deltafMRIGameObjects[newIndex].SetActive(true);
+        //deltafMRIGameObjects[index].SetActive(false);
     }
 
-    public void SliderUpdate()
+    public void SliderUpdate(int newIndex)
     {
-        int newIndex = Mathf.FloorToInt(slider.value / timePerObject);
-        print(slider.value);
-        print(newIndex);
-
-
-        // if slider is a whole number, just display the corresponding indexed object in the list at full opacity
-        if ( newIndex != index)
+        int tempIndex = newIndex;
+        if (newIndex >= fmriGameObjects.Count)
         {
-
-            //Debug.Log("Current index: " + index.ToString() + "\n New index: " + newIndex.ToString());
-            //Debug.Log("Old object active: " + fmriGameObjects[index].activeSelf + "\n New object active: " + fmriGameObjects[newIndex].activeSelf);
-
-            SwitchfMRIObjects(newIndex);
-
-            //adding 1 so that list starts from 1 
-           // Debug.Log("Old object active: " + fmriGameObjects[index].activeSelf + "\n New object active: " + fmriGameObjects[newIndex].activeSelf);
-
-            index = newIndex;
-            UpdateSliderText();
-
+            tempIndex = newIndex%fmriGameObjects.Count;
+        }
+        else if(newIndex < 0)
+        {
+            tempIndex = fmriGameObjects.Count + newIndex;
         }
 
+        SwitchfMRIObjects(tempIndex);
+        UpdateSliderText(tempIndex);
+        index = tempIndex;
     }
 }

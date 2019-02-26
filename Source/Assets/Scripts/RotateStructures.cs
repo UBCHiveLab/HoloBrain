@@ -29,17 +29,6 @@ public class RotateStructures : MonoBehaviour {
     private CustomMessages customMessages;
     private AudioSource soundFX;
 
-    void Awake()
-    {
-        //this is in awake because the MRICollection is disabled in Start() in another script- so it might be null before Start() executes in this script
-        if (MRICollection == null)
-        {
-            MRICollection = GameObject.Find(MRI_COLLECITON_GAMEOBJECT_NAME);
-        }
-
-        
-    }
-
     void Start(){
         customMessages = CustomMessages.Instance;
         // Assign the ToggleRotateMessageReceived() function to be a message handler for ToggleRotate messages
@@ -55,6 +44,7 @@ public class RotateStructures : MonoBehaviour {
 
         brainOriginalRotation = brain.transform.localRotation;
         MRIOriginalRotation = MRICollection.transform.localRotation;
+        fMRIOriginalRotation = fMRIBrains.transform.localRotation;
         isolatedStructures = null;
         soundFX = gameObject.GetComponent<AudioSource>();
 
@@ -119,22 +109,13 @@ public class RotateStructures : MonoBehaviour {
         if (isolatedStructures == null)
         {
             brain.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
-            MRICollection.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
-     
-            if (fMRIBrains != null)
-            {
-                fMRIBrains.transform.Rotate((new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0)));
-            
-            }
         }
         else
         {
-       
             Vector3 rotation = new Vector3(0, 0, Time.deltaTime * ROTATION_SPEED);
             foreach (Transform structure in isolatedStructures) {
                 structure.Rotate(rotation);
             }
-
             //UNCOMMENT THIS FOR GAZE MARKER
             //gazeMarker.RotateAround(isolatedStructures[0].position, Vector3.up, Time.deltaTime * ROTATION_SPEED);
         }
@@ -159,7 +140,7 @@ public class RotateStructures : MonoBehaviour {
         MRICollection.transform.localRotation = MRIOriginalRotation;
         if (fMRIBrains != null)
         {
-          //  fMRIBrains.transform.localRotation = fMRIOriginalRotation;
+            fMRIBrains.transform.localRotation = fMRIOriginalRotation;
         }
         isolatedStructures = null;
         isRotating = false;

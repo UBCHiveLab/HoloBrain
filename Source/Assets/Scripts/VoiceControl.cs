@@ -230,7 +230,7 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleIsolate()
     {
-        brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        //brain.GetComponent<IsolateStructures>().InitiateIsolationMode(); original isolation doesnt work with restructure, need to fix it
         //these two OnSelects will make the menu state ready to do isolate
         GameObject.Find("Educational").GetComponent<ButtonCommands>().OnSelect();
         GameObject.Find("Isolate").GetComponent<ButtonCommands>().OnSelect();
@@ -238,7 +238,7 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleConcludeIsolate()
     {
-        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
+        //brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
     }
 
     private void HandleResetState()

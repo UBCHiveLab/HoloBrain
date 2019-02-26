@@ -211,7 +211,7 @@ public class IsolateStructures : MonoBehaviour {
         defaultStructureScale = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).localScale;
         defaultStructureRotation = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).rotation;
         Debug.Log("final");
-        minimapStructurePosition = GameObject.Find("Models").transform.Find(BRAIN_MINIMAP_POSITION_OBJECT).localPosition;
+        minimapStructurePosition = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.Find(BRAIN_MINIMAP_POSITION_OBJECT).localPosition;
         minimapStructureScale = new Vector3(MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE);
         isolatedStructureScale = new Vector3(ISOLATED_STRUCTURE_SCALE_SIZE, ISOLATED_STRUCTURE_SCALE_SIZE, ISOLATED_STRUCTURE_SCALE_SIZE);
     }

@@ -58,7 +58,14 @@ public class StateAccessor : Singleton<StateAccessor> {
 
     public bool CurrentlyInMRIMode()
     {
-        return GameObject.Find(MRICollection).GetComponent<MRIManager>().isCurrentlyInMRIMode();
+        GameObject mri = GameObject.Find(MRICollection);
+        if(mri == null)
+        {
+            return false;
+        } else
+        {
+            return mri.GetComponent<MRIManager>().isCurrentlyInMRIMode();
+        }
     }
 
     public bool CurrentlyIsolatedOrIsolating()
