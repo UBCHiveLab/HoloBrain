@@ -116,15 +116,6 @@ public class ExplodingCommands : MonoBehaviour {
         }
 	}
 
-    public void OnSelect()
-    {
-        if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
-        {
-            SendExplodingMessage();
-            ToggleExplode();
-        }
-    }
-
     public void ToggleExplodeMessageReceived(NetworkInMessage msg)
     {
         // This reads the user ID which we do not need
@@ -169,22 +160,25 @@ public class ExplodingCommands : MonoBehaviour {
         }
     }
 
-    private void ToggleExplode()
+    public void ToggleExplode()
     {
-        soundFX.Play();
-        // We toggle the last state and then send the message to all other HoloLenses
-        switch (lastState)
+        if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         {
-            case ExplodingState.ExplodingOut:
-                lastState = ExplodingState.ExplodingIn;
-                currentState = ExplodingState.ExplodingIn;
-                cortex.SetActive(true);
-                break;
-            case ExplodingState.ExplodingIn:
-                lastState = ExplodingState.ExplodingOut;
-                currentState = ExplodingState.ExplodingOut;
-                cortex.SetActive(false); // The cortex should be deactivated before the brain explodes
-                break;
+            soundFX.Play();
+            // We toggle the last state and then send the message to all other HoloLenses
+            switch (lastState)
+            {
+                case ExplodingState.ExplodingOut:
+                    lastState = ExplodingState.ExplodingIn;
+                    currentState = ExplodingState.ExplodingIn;
+                    cortex.SetActive(true);
+                    break;
+                case ExplodingState.ExplodingIn:
+                    lastState = ExplodingState.ExplodingOut;
+                    currentState = ExplodingState.ExplodingOut;
+                    cortex.SetActive(false); // The cortex should be deactivated before the brain explodes
+                    break;
+            }
         }
     }
 

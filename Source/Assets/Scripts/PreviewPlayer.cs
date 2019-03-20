@@ -14,7 +14,7 @@ public class PreviewPlayer : MonoBehaviour {
         renderer = this.GetComponent<SpriteRenderer>();
         if(renderer == null)
         {
-            Debug.Log("Preview player need a spriterenderer");
+            Debug.Log("Preview player needs a spriterenderer");
         }
         timer = 0;
         index = 0;
@@ -24,6 +24,7 @@ public class PreviewPlayer : MonoBehaviour {
 	void Update () {
         if(frames == null)
         {
+            renderer.sprite = null;
             return;
         } else
         {
@@ -35,6 +36,7 @@ public class PreviewPlayer : MonoBehaviour {
             }
             index = index % frames.Length;
             renderer.sprite = frames[index];
+            renderer.size = new Vector2(1024, 576);
         }
 	}
 

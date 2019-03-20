@@ -24,10 +24,6 @@ public class ButtonCommands : MonoBehaviour {
 
     private void Start()
     {
-        buttonIsEnabled = true;
-        IsPressed = false;
-        FullOpacityColor = new Color(1, 1, 1, 1);
-        PartialOpacityColor = new Color(1, 1, 1, 0.63f);
         controlsUI = transform.GetComponentInParent<ControlsUIManager>();
         
         //disable the white selection frame

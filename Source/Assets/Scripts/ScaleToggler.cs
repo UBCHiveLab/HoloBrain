@@ -54,14 +54,14 @@ public class ScaleToggler : MonoBehaviour
 
         }
     }
-
+    /*
     public void OnSelect()
     {
         if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         {
             ToggleScale();
         }
-    }
+    }*/
 
     void ScaleChangeMessageReceived(NetworkInMessage msg)
     {

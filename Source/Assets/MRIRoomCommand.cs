@@ -8,8 +8,10 @@ public class MRIRoomCommand : MonoBehaviour {
     public GameObject MRI;
     public GameObject fMRI;
     public GameObject CELL;
+    private AudioSource sound;
 	// Use this for initialization
 	void Start () {
+        sound = GetComponent<AudioSource>();
         gameObject.GetComponent<ButtonCommands>().AddCommand(HideOthers());
 	}
 
@@ -17,20 +19,34 @@ public class MRIRoomCommand : MonoBehaviour {
     {
         return delegate
         {
+            sound.Play();
             if (MRI != null)
             {
-                MRI.SetActive(true);
+                foreach (Renderer renderer in MRI.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = true;
+                }
             }
             if (fMRI != null)
             {
-                fMRI.SetActive(false);
+                foreach (Renderer renderer in fMRI.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
             if (CELL != null)
             {
-                CELL.SetActive(false);
+                foreach (Renderer renderer in CELL.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
             foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
             {
+                foreach(Collider collider in cur.GetComponentsInChildren<Collider>())
+                {
+                    collider.enabled = true;
+                }
                 foreach (Renderer renderer in cur.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = true;

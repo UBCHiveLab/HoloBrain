@@ -11,6 +11,7 @@ public class ButtonAppearance : MonoBehaviour {
     public Sprite activeSprite;
     private SpriteRenderer renderer;
     private bool activeState;
+    private AudioSource hoverSound;
     
     void Start()
     {
@@ -23,6 +24,7 @@ public class ButtonAppearance : MonoBehaviour {
             ResetButton();
         }
         activeState = false;
+        hoverSound = GameObject.Find("menu").GetComponent<AudioSource>();
     }
 
     public void SetButtonHover()
@@ -60,6 +62,7 @@ public class ButtonAppearance : MonoBehaviour {
         {
             return;
         }
+        hoverSound.Play();
         SetButtonHover();
     }
 

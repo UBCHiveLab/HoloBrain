@@ -19,8 +19,8 @@ public class ExplodeButtonAction : MonoBehaviour
     {
     }
 
-    void OnSelect()
+    public void OnSelect()
     {
-        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ExplodingCommands>().OnSelect();
+        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ExplodingCommands>().ToggleExplode();
     }
 }

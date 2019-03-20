@@ -61,9 +61,9 @@ public class RotateStructures : MonoBehaviour {
     }
 
     public void OnSelect()
-    {
+    {/*
         SendRotateMessage();
-        ToggleRotate();
+        ToggleRotate();*/
     }
 
     public void StartRotate()
@@ -94,14 +94,11 @@ public class RotateStructures : MonoBehaviour {
         ToggleRotate();
     }
 
-    private void ToggleRotate()
+    public void ToggleRotate()
     {
-        if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
-        {
-            soundFX.Play();
-            isRotating = !isRotating;
-            Debug.Log(isRotating);
-        }
+       soundFX.Play();
+       isRotating = !isRotating;
+       Debug.Log(isRotating);
     }
 
     private void RotateForOneFrame()

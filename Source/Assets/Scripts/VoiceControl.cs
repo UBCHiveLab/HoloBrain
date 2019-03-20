@@ -200,12 +200,22 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleStartRotate()
     {
-        brain.GetComponent<RotateStructures>().StartRotate();
+        RotateStructures rs = brain.GetComponent<RotateStructures>();
+        GameObject target = GameObject.Find("rotate-stop");
+        if (rs != null && target != null && rs.isRotating == false)
+        {
+            target.GetComponentsInChildren<RotateButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleStopRotate()
     {
-        brain.GetComponent<RotateStructures>().StopRotate();
+        RotateStructures rs = brain.GetComponent<RotateStructures>();
+        GameObject target = GameObject.Find("rotate-stop");
+        if (rs != null && target != null && rs.isRotating == true)
+        {
+            target.GetComponentsInChildren<RotateButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleScaleUp()
@@ -220,12 +230,28 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleExplode()
     {
-        brain.GetComponent<ExplodingCommands>().TryToExplode();
+        GameObject target = GameObject.Find("Expand/Collapse");
+        if(target != null)
+        {
+            ExplodeButtonAction component = target.GetComponentsInChildren<ExplodeButtonAction>()[0];
+            if (component != null && component.gameObject.name == "Expand")
+            {
+                component.gameObject.SendMessage("OnSelect");
+            }
+        }
     }
 
     private void HandleCollapse()
     {
-        brain.GetComponent<ExplodingCommands>().TryToCollapse();
+        GameObject target = GameObject.Find("Expand/Collapse");
+        if (target != null)
+        {
+            ExplodeButtonAction component = target.GetComponentsInChildren<ExplodeButtonAction>()[0];
+            if (component != null && component.gameObject.name == "Collapse")
+            {
+                component.gameObject.SendMessage("OnSelect");
+            }
+        }
     }
 
     private void HandleIsolate()
@@ -285,7 +311,7 @@ public class VoiceControl : MonoBehaviour {
     {
         if (!GameObject.Find("ControlsUI").GetComponent<ControlsUIManager>().GetMenuPinState())
         {
-            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<PinButtonAction>().OnSelect();
+            GameObject.Find("Pin/UnPin").GetComponentsInChildren<PinButtonAction>()[0].gameObject.SendMessage("OnSelect");
         }
     }
 
@@ -293,50 +319,71 @@ public class VoiceControl : MonoBehaviour {
     {
         if (GameObject.Find("ControlsUI").GetComponent<ControlsUIManager>().GetMenuPinState())
         {
-            GameObject.Find(buttonActionsToGameObjectName["Pin"]).GetComponent<PinButtonAction>().OnSelect();
+            GameObject.Find("Pin/UnPin").GetComponentsInChildren<PinButtonAction>()[0].gameObject.SendMessage("OnSelect");
         }
     }
 
     private void HandleStartPlay()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<PlayButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Play"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("Play/Pause");
+        if (target != null)
+        {
+            target.GetComponentsInChildren<PlayButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleSpeedUpPlayback()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Faster"]).GetComponent<SpeedUpButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Faster"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("speed");
+        if(target != null)
+        {
+            target.GetComponentsInChildren<SpeedUpButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleSlowDownPlayback()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Slower"]).GetComponent<SlowDownButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Slower"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("speed");
+        if (target != null)
+        {
+            target.GetComponentsInChildren<SlowDownButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleSkipOne()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Skip One"]).GetComponent<SkipOneButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Skip One"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("skip");
+        if (target != null)
+        {
+            target.GetComponentsInChildren<SkipOneButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleBackOne()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Back One"]).GetComponent<BackOneButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Back One"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("skip");
+        if (target != null)
+        {
+            target.GetComponentsInChildren<BackOneButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleSkipTen()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]).GetComponent<SkipTenButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("skip");
+        if (target != null)
+        {
+            target.GetComponentsInChildren<SkipTenButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleBackTen()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Back Ten"]).GetComponent<BackTenButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Back Ten"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("skip");
+        if (target != null)
+        {
+            target.GetComponentsInChildren<BackTenButtonAction>()[0].gameObject.SendMessage("OnSelect");
+        }
     }
 
     private void HandleAddBrainPart(string partName)
@@ -353,20 +400,29 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleShowMicroglia()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Microglia"]).GetComponent<SwitchBrainCellModeButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Microglia"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("microglia");
+        if (target != null)
+        {
+            target.SendMessage("OnSelect");
+        }
     }
 
     private void HandleShowChannelOne()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Channel 1"]).GetComponent<EnableObjectButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Channel 1"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("channel1");
+        if(target != null)
+        {
+            target.SendMessage("OnSelect");
+        }
     }
 
     private void HandleShowChannelTwo()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Channel 2"]).GetComponent<EnableObjectButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Channel 2"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject target = GameObject.Find("channel2");
+        if (target != null)
+        {
+            target.SendMessage("OnSelect");
+        }
     }
 
     private void Update()

@@ -182,7 +182,7 @@ public class MoveClippingPlane : MonoBehaviour {
         Shader.SetGlobalVector("_PlaneD", transform.position);
         Shader.SetGlobalVector("_PlaneN", normal);
 
-//        brainMaterial.SetVector("_PlaneD", transform.position);
-//        brainMaterial.SetVector("_PlaneN", normal);
+        brainMaterial.SetVector("_PlaneD", transform.position);
+        brainMaterial.SetVector("_PlaneN", normal);
     }
 }

@@ -82,10 +82,12 @@ public class MRIInteractions : MonoBehaviour
 
     void OnSelect()
     {
+        MRIImageWithOutline.SetActive(!MRIImageWithOutline.activeSelf);
+        /*
         if (!isSectionSelected && mode != "student")
         {
             SelectMRI();
-        }
+        }*/
     }
 
     public void SelectMRI()
@@ -132,8 +134,8 @@ public class MRIInteractions : MonoBehaviour
         ring.SetActive(false);
 
         isSectionSelected = true;
-        SetLineAnimation(false);
-        ClipPlaneAtMRIPosition();
+        //SetLineAnimation(false);
+        //ClipPlaneAtMRIPosition();
     }
 
 
@@ -150,7 +152,7 @@ public class MRIInteractions : MonoBehaviour
     {
         ActiveMRIImage.SetActive(false);
         MRIImageWithNoOutline.SetActive(false);
-        MRIImageWithOutline.SetActive(false);
+        MRIImageWithOutline.SetActive(true);
         ring.SetActive(true);
     }
 

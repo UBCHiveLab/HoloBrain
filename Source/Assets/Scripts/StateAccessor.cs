@@ -53,7 +53,7 @@ public class StateAccessor : Singleton<StateAccessor> {
 
     public bool AbleToTakeAnInteraction()
     {
-        return !(CurrentlyIsolatedOrIsolating() || (CurrentlyInMRIMode()));
+        return true;/*!(CurrentlyIsolatedOrIsolating() || (CurrentlyInMRIMode()));*/
     }
 
     public bool CurrentlyInMRIMode()

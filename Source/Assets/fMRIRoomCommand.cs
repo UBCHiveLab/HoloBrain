@@ -20,18 +20,31 @@ public class fMRIRoomCommand : MonoBehaviour {
         {
             if (MRI != null)
             {
-                MRI.SetActive(false);
+                foreach (Renderer renderer in MRI.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
             if (fMRI != null)
             {
-                fMRI.SetActive(true);
+                foreach (Renderer renderer in fMRI.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = true;
+                }
             }
             if(CELL != null)
             {
-                CELL.SetActive(false);
+                foreach (Renderer renderer in CELL.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
             foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
             {
+                foreach(Collider collider in cur.GetComponentsInChildren<Collider>())
+                {
+                    collider.enabled = false;
+                }
                 foreach (Renderer renderer in cur.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = false;

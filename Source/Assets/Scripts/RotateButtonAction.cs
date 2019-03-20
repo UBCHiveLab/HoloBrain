@@ -26,9 +26,9 @@ public class RotateButtonAction : MonoBehaviour {
     }
 
     public void OnSelect()
-    { 
-            //do the action
-            brain.GetComponent<RotateStructures>().OnSelect(); 
+    {
+        //do the action
+        brain.GetComponent<RotateStructures>().ToggleRotate(); 
     }
 
 }

@@ -7,13 +7,11 @@ public class PreviewInteraction : MonoBehaviour {
 
     public void OnStartGaze()
     {
-        Debug.Log("gaze enter preview: " + gameObject.name);
         GameObject.Find("PreviewPanel").GetComponent<PreviewPlayer>().ChangePreview(frames);
     }
 
     public void OnEndGaze()
     {
-        Debug.Log("gaze exit preview: " + gameObject.name);
         GameObject.Find("PreviewPanel").GetComponent<PreviewPlayer>().StopPreview();
     }
 }

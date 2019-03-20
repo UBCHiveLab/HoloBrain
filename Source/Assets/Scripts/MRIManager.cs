@@ -21,7 +21,7 @@ public class MRIManager : Singleton<MRIManager> {
     private CustomMessages customMessages;
     private StateAccessor stateAccessor;
     private bool isInMRIMode = false;
-    private MoveClippingPlane moveClippingPlane;
+    //private MoveClippingPlane moveClippingPlane;
     private bool isOutlinedMRIImages = true;
     private bool isOneMRIActive = false;
     private BoxCollider boxCollider;
@@ -33,7 +33,7 @@ public class MRIManager : Singleton<MRIManager> {
         customMessages = CustomMessages.Instance;
         coloursAccessor = ColoursAccessor.Instance;
         clipPlane = GameObject.Find(CLIP_PLANE);
-        moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
+       // moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
         brainParts = GameObject.Find(BRAIN_PARTS);
         stateAccessor = StateAccessor.Instance;
         boxCollider = GetComponent<BoxCollider>();
@@ -51,7 +51,7 @@ public class MRIManager : Singleton<MRIManager> {
             MRIObjects.Add(MRIObject);
         }
 
-        SetMRICollectionChildrenActive(false);
+        //SetMRICollectionChildrenActive(false);
 	}
 	
 	// Update is called once per frame
@@ -61,11 +61,12 @@ public class MRIManager : Singleton<MRIManager> {
 
     void OnSelect()
     {
-        ReturnFromDisplaySingleMRI();
+        /*ReturnFromDisplaySingleMRI();
+        SelectMRI();
         if (customMessages != null)
         {
             customMessages.SendToggleMRIMessage(activeMRI.name, isOneMRIActive);
-        }
+        }*/
     }
 
 
@@ -250,7 +251,7 @@ public class MRIManager : Singleton<MRIManager> {
     {
         isInMRIMode = false;
         ReturnFromDisplaySingleMRI();
-        moveClippingPlane.TurnOffClipping();
+      //  moveClippingPlane.TurnOffClipping();
         SetMRICollectionChildrenActive(false);
         brainParts.GetComponent<ResetState>().ResetInteractions();
     }
@@ -262,7 +263,7 @@ public class MRIManager : Singleton<MRIManager> {
             MRIObject.SetActive(active);
         }
 
-        clipPlane.SetActive(active);
+       // clipPlane.SetActive(active);
     }
 
     public void ProcessMRISelectionReceived(string toggledMRI, bool isOneMRIActive)
@@ -294,9 +295,9 @@ public class MRIManager : Singleton<MRIManager> {
         return null;
     }
 
-    public void SetActiveMRI(GameObject activeMRI)
+    public void SetActiveMRI(GameObject active)
     {
-        this.activeMRI = activeMRI;
+        this.activeMRI = active;
     }
 
     public void ReturnFromDisplaySingleMRI()
@@ -324,7 +325,6 @@ public class MRIManager : Singleton<MRIManager> {
 
     public void DisplaySingleMRI(GameObject activeMRI)
     {
-        SetActiveMRI(activeMRI);
         foreach(GameObject MRIObject in MRIObjects)
         {
             if(MRIObject.name != activeMRI.name)
@@ -341,11 +341,11 @@ public class MRIManager : Singleton<MRIManager> {
         clipPlane.SetActive(!GotTransform);
         if (!GotTransform)
         {
-            moveClippingPlane.TurnOnClipping();
+            //moveClippingPlane.TurnOnClipping();
         }
         else
         {
-            moveClippingPlane.TurnOffClipping();
+            //moveClippingPlane.TurnOffClipping();
             ReturnFromDisplaySingleMRI();
         }
     }

@@ -72,8 +72,8 @@ public class ResetState : Singleton<ResetState> {
     {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
-           // brain.GetComponent<IsolateStructures>().ResetIsolate();
-            MRICollection.GetComponent<MRIManager>().ResetMRI();
+            //brain.GetComponent<IsolateStructures>().ResetIsolate();
+            //MRICollection.GetComponent<MRIManager>().ResetMRI();
             return true;
         }
 
@@ -82,9 +82,8 @@ public class ResetState : Singleton<ResetState> {
 
     public void ResetInteractions()
     {
-        brain.GetComponent<RotateStructures>().ResetRotation();
-        brain.GetComponent<ScaleToggler>().ResetScale();
-        brain.GetComponent<ExplodingCommands>().ResetExplode();
+        //brain.GetComponent<ScaleToggler>().ResetScale();
+        //brain.GetComponent<ExplodingCommands>().ResetExplode();
 
         foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
         {

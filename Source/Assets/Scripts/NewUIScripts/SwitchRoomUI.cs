@@ -29,6 +29,7 @@ public class SwitchRoomUI : MonoBehaviour
     {
         for (int i = 0; i < Buttons.Count; i++)
         {
+            Debug.Log(Buttons[i].name);
             Buttons[i].GetComponent<ButtonCommands>().AddCommand(SwitchToUI(i));
         }
     }

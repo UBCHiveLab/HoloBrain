@@ -11,6 +11,7 @@ public class EduRoomCommand : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         gameObject.GetComponent<ButtonCommands>().AddCommand(HideOthers());
+        gameObject.SendMessage("OnSelect");
 	}
 
     public Action HideOthers()
@@ -19,18 +20,31 @@ public class EduRoomCommand : MonoBehaviour {
         {
             if (MRI != null)
             {
-                MRI.SetActive(false);
+                foreach(Renderer renderer in MRI.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
             if(fMRI != null)
             {
-                fMRI.SetActive(false);
+                foreach(Renderer renderer in fMRI.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
             if(CELL != null)
             {
-                CELL.SetActive(false);
+                foreach(Renderer renderer in CELL.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
             }
             foreach(GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
             {
+                foreach(Collider collider in cur.GetComponentsInChildren<Collider>())
+                {
+                    collider.enabled = true;
+                }
                 foreach(Renderer renderer in cur.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = true;

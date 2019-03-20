@@ -5,10 +5,11 @@ using UnityEngine;
 public class SwapMRIButtonAction : MonoBehaviour {
 
     public MRIInteractions slice;
+    private GameObject container;
 
 	// Use this for initialization
 	void Start () {
-		
+        container = GameObject.Find("MRIRoomInteractions");
 	}
 	
 	// Update is called once per frame
@@ -18,9 +19,14 @@ public class SwapMRIButtonAction : MonoBehaviour {
 
     void OnSelect()
     {
-        MRIManager.Instance.ReturnFromDisplaySingleMRI();
+        //MRIManager.Instance.ReturnFromDisplaySingleMRI();
         //MRIIconManager.Instance.DeselectAll();
         //gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
-        slice.SelectMRI();
+        //slice.SelectMRI();
+        foreach(SwapMRIButtonAction current in container.GetComponentsInChildren<SwapMRIButtonAction>())
+        {
+            current.gameObject.GetComponent<ButtonAppearance>().ResetButton();
+        }
+        GetComponent<ButtonAppearance>().SetButtonActive();
     }
 }
