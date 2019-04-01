@@ -10,6 +10,7 @@ public class CellRoomCommand : MonoBehaviour
     public GameObject MRI;
     public GameObject fMRI;
     public GameObject CELL;
+    public GameObject MRIVolume;
     // Use this for initialization
     void Start()
     {
@@ -37,6 +38,13 @@ public class CellRoomCommand : MonoBehaviour
             if (CELL != null)
             {
                 foreach (Renderer renderer in CELL.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = true;
+                }
+            }
+            if (MRIVolume != null)
+            {
+                foreach(Renderer renderer in MRIVolume.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = true;
                 }

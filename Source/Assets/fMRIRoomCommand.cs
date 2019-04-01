@@ -3,14 +3,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class fMRIRoomCommand : MonoBehaviour {
-
+public class fMRIRoomCommand : MonoBehaviour
+{
 
     public GameObject MRI;
     public GameObject fMRI;
     public GameObject CELL;
-	// Use this for initialization
-	void Start () {
+    public GameObject MRIVolume;
+    // Use this for initialization
+    void Start () {
         gameObject.GetComponent<ButtonCommands>().AddCommand(HideOthers());
 	}
 	
@@ -35,6 +36,13 @@ public class fMRIRoomCommand : MonoBehaviour {
             if(CELL != null)
             {
                 foreach (Renderer renderer in CELL.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
+            }
+            if (MRIVolume != null)
+            {
+                foreach (Renderer renderer in MRIVolume.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = false;
                 }

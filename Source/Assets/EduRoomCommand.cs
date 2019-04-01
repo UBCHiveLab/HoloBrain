@@ -8,8 +8,9 @@ public class EduRoomCommand : MonoBehaviour {
     public GameObject MRI;
     public GameObject fMRI;
     public GameObject CELL;
-	// Use this for initialization
-	void Start () {
+    public GameObject MRIVolume;
+    // Use this for initialization
+    void Start () {
         gameObject.GetComponent<ButtonCommands>().AddCommand(HideOthers());
         gameObject.SendMessage("OnSelect");
 	}
@@ -39,7 +40,14 @@ public class EduRoomCommand : MonoBehaviour {
                     renderer.enabled = false;
                 }
             }
-            foreach(GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
+            if (MRIVolume != null)
+            {
+                foreach (Renderer renderer in MRIVolume.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
+            }
+            foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
             {
                 foreach(Collider collider in cur.GetComponentsInChildren<Collider>())
                 {

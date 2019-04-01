@@ -8,6 +8,7 @@ public class MRIRoomCommand : MonoBehaviour {
     public GameObject MRI;
     public GameObject fMRI;
     public GameObject CELL;
+    public GameObject MRIVolume;
     private AudioSource sound;
 	// Use this for initialization
 	void Start () {
@@ -37,6 +38,13 @@ public class MRIRoomCommand : MonoBehaviour {
             if (CELL != null)
             {
                 foreach (Renderer renderer in CELL.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
+            }
+            if (MRIVolume != null)
+            {
+                foreach(Renderer renderer in MRIVolume.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = false;
                 }
