@@ -89,7 +89,10 @@ public class ResetState : Singleton<ResetState> {
         {
             try
             {
-                structure.GetComponent<HighlightAndLabelCommands>().ResetHighlightAndLocking();
+                foreach(HighlightAndLabelCommands comp in structure.GetComponentsInChildren<HighlightAndLabelCommands>())
+                {
+                    comp.ResetHighlightAndLocking();
+                }
             }
             catch (System.NullReferenceException)
             {

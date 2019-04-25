@@ -14,6 +14,11 @@ public class VoiceCommandPrompt : MonoBehaviour {
             Debug.Log("voice command prompt needs a prompt gameobject");
         }
 	}
+
+    public void ChangePrompt(string newPrompt)
+    {
+        prompt = newPrompt;
+    }
 	
 	public void OnStartGaze()
     {

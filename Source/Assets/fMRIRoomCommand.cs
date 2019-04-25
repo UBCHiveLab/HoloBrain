@@ -50,6 +50,15 @@ public class fMRIRoomCommand : MonoBehaviour {
                     renderer.enabled = false;
                 }
             }
+            //reset all button except for this one
+            foreach (ButtonAppearance button in transform.parent.GetComponentsInChildren<ButtonAppearance>())
+            {
+                if (button.name != gameObject.name)
+                {
+                    button.ResetButton();
+                }
+            }
+            GetComponent<ButtonAppearance>().SetButtonActive();
         };
     }
 }

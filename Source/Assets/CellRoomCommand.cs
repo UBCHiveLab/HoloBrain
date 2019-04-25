@@ -52,6 +52,14 @@ public class CellRoomCommand : MonoBehaviour
                     renderer.enabled = false;
                 }
             }
+            foreach (ButtonAppearance button in transform.parent.GetComponentsInChildren<ButtonAppearance>())
+            {
+                if (button.name != gameObject.name)
+                {
+                    button.ResetButton();
+                }
+            }
+            GetComponent<ButtonAppearance>().SetButtonActive();
         };
     }
 }

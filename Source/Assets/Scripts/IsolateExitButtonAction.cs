@@ -7,8 +7,7 @@ using UnityEngine;
 
 public class IsolateExitButtonAction : MonoBehaviour {
 
-    private const string BRAIN_PARTS_NAME = "BrainParts";
-    private GameObject isolateMode;
+    private const string BRAIN_PARTS_NAME = "Brain";
     GameObject brain;
  
     // Use this for initialization
@@ -17,17 +16,8 @@ public class IsolateExitButtonAction : MonoBehaviour {
         brain = GameObject.Find(BRAIN_PARTS_NAME);
     }
 
-    private void OnEnable()
-    {
-        isolateMode = GameObject.Find("IsolateMode");
-    }
-
     void OnSelect()
     {
         brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
-        if (isolateMode != null)
-        {
-            isolateMode.SetActive(false);
-        }
     }
 }

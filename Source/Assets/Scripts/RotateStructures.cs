@@ -103,19 +103,20 @@ public class RotateStructures : MonoBehaviour {
 
     private void RotateForOneFrame()
     {
-        if (isolatedStructures == null)
-        {
+       // if (isolatedStructures == null)
+       // {
             brain.transform.Rotate(new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0));
-        }
+       // }
+       /*
         else
         {
-            Vector3 rotation = new Vector3(0, 0, Time.deltaTime * ROTATION_SPEED);
+            Vector3 rotation = new Vector3(0, Time.deltaTime * ROTATION_SPEED, 0);
             foreach (Transform structure in isolatedStructures) {
                 structure.Rotate(rotation);
             }
             //UNCOMMENT THIS FOR GAZE MARKER
             //gazeMarker.RotateAround(isolatedStructures[0].position, Vector3.up, Time.deltaTime * ROTATION_SPEED);
-        }
+        }*/
     }
 
     public void SetIsolatedStructures(List<Transform> newIsolatedStructures)

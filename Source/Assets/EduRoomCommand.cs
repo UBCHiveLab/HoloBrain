@@ -43,13 +43,27 @@ public class EduRoomCommand : MonoBehaviour {
             {
                 foreach(Collider collider in cur.GetComponentsInChildren<Collider>())
                 {
-                    collider.enabled = true;
+                    if(cur.name != "Cortex")
+                    {
+                        collider.enabled = true;
+                    } else
+                    {
+                        collider.enabled = false;
+                    }
                 }
                 foreach(Renderer renderer in cur.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = true;
                 }
             }
+            foreach(ButtonAppearance button in transform.parent.GetComponentsInChildren<ButtonAppearance>())
+            {
+                if(button.name != gameObject.name)
+                {
+                    button.ResetButton();
+                }
+            }
+            GetComponent<ButtonAppearance>().SetButtonActive();
         };
     } 
 }

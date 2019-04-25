@@ -13,7 +13,7 @@ public class ButtonAppearance : MonoBehaviour {
     private bool activeState;
     private AudioSource hoverSound;
     
-    void Start()
+    void Awake()
     {
         renderer = GetComponent<SpriteRenderer>();
         if (renderer == null)
@@ -25,6 +25,12 @@ public class ButtonAppearance : MonoBehaviour {
         }
         activeState = false;
         hoverSound = GameObject.Find("menu").GetComponent<AudioSource>();
+    }
+
+    void OnDisable()
+    {
+        activeState = false;
+        renderer.sprite = defaultSprite;
     }
 
     public void SetButtonHover()
@@ -58,7 +64,7 @@ public class ButtonAppearance : MonoBehaviour {
 
     public void OnStartGaze()
     {
-        if(activeState)
+        if (activeState)
         {
             return;
         }

@@ -51,7 +51,6 @@ public class ScaleToggler : MonoBehaviour
         if (zoomChanging)
         {
             ZoomTransition(oldZoom, currentZoom);
-
         }
     }
     /*
@@ -95,14 +94,14 @@ public class ScaleToggler : MonoBehaviour
 
     public void ScaleUp()
     {
-        soundFX.Play();
-
         StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
         if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }
-        
+
+        soundFX.Play();
+
         switch (currentZoom)
         {
             case Scale.Small:
@@ -126,15 +125,13 @@ public class ScaleToggler : MonoBehaviour
 
     public void ScaleDown()
     {
-
-        soundFX.Play();
-
         StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
         if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }
 
+        soundFX.Play();
 
         switch (currentZoom)
         {
