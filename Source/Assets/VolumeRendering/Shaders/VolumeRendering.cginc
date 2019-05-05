@@ -4,7 +4,7 @@
 #include "UnityCG.cginc"
 
 #ifndef ITERATIONS
-#define ITERATIONS 100
+#define ITERATIONS 30
 #endif
 
 half4 _Color;

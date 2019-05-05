@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace VolumeRendering
 {
@@ -23,7 +24,13 @@ namespace VolumeRendering
         [Range(0f, 1f)] public float sliceXMin = 0.0f, sliceXMax = 1.0f;
         [Range(0f, 1f)] public float sliceYMin = 0.0f, sliceYMax = 1.0f;
         [Range(0f, 1f)] public float sliceZMin = 0.0f, sliceZMax = 1.0f;
-        public Quaternion axis = Quaternion.identity;
+        //public Quaternion axis = Quaternion.identity;
+        public Slider SliderXmin;
+        public Slider SliderXmax;
+        public Slider SliderYmin;
+        public Slider SliderYmax;
+        public Slider SliderZmin;
+        public Slider SliderZmax;
 
         public Texture volume;
 
@@ -31,17 +38,33 @@ namespace VolumeRendering
             material = new Material(shader);
             GetComponent<MeshFilter>().sharedMesh = Build();
             GetComponent<MeshRenderer>().sharedMaterial = material;
+            UpdateMaterial();
+            SliderXmin.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            SliderXmax.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            SliderYmin.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            SliderYmax.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            SliderZmin.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
+            SliderZmax.onValueChanged.AddListener(delegate { ValueChangeCheck(); });
         }
-        
+
+        public void ValueChangeCheck()
+        {
+            //Output this to console when Button1 or Button3 is clicked
+            Debug.Log("There has been a change of " + SliderXmin.value);
+            UpdateMaterial();
+        }
+
         protected void Update () {
+        }
+
+        private void UpdateMaterial()
+        {
             material.SetTexture("_Volume", volume);
             material.SetColor("_Color", color);
             material.SetFloat("_Threshold", threshold);
             material.SetFloat("_Intensity", intensity);
             material.SetVector("_SliceMin", new Vector3(sliceXMin, sliceYMin, sliceZMin));
             material.SetVector("_SliceMax", new Vector3(sliceXMax, sliceYMax, sliceZMax));
-
-            material.SetMatrix("_AxisRotationMatrix", Matrix4x4.Rotate(axis));
         }
 
         Mesh Build() {
