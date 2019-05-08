@@ -10,12 +10,12 @@ using UnityEngine;
 
 public class MRIManager : Singleton<MRIManager> {
     private const string MRIObjectTag = "MRI";
-    private const string CLIP_PLANE = "ClipPlane";
+    //private const string CLIP_PLANE = "ClipPlane";
     private const string BRAIN_PARTS = "Brain";
 
     private List<GameObject> MRIObjects;
     private GameObject activeMRI;
-    private GameObject clipPlane;
+    //private GameObject clipPlane;
     private GameObject brainParts;
     private ColoursAccessor coloursAccessor;
     private CustomMessages customMessages;
@@ -32,7 +32,7 @@ public class MRIManager : Singleton<MRIManager> {
         MRIObjects = new List<GameObject>();
         customMessages = CustomMessages.Instance;
         coloursAccessor = ColoursAccessor.Instance;
-        clipPlane = GameObject.Find(CLIP_PLANE);
+        //clipPlane = GameObject.Find(CLIP_PLANE);
        // moveClippingPlane = clipPlane.GetComponent<MoveClippingPlane>();
         brainParts = GameObject.Find(BRAIN_PARTS);
         stateAccessor = StateAccessor.Instance;
@@ -338,7 +338,7 @@ public class MRIManager : Singleton<MRIManager> {
 
     public void UpdateClippingForRepositioning(bool GotTransform)
     {
-        clipPlane.SetActive(!GotTransform);
+        //clipPlane.SetActive(!GotTransform);
         if (!GotTransform)
         {
             //moveClippingPlane.TurnOnClipping();

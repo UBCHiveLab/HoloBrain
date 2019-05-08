@@ -14,6 +14,7 @@ public class ResetState : Singleton<ResetState> {
 
     private GameObject brain;
     private GameObject MRICollection;
+    private GameObject ControlsUI;
     private CustomMessages customMessages;
     private AudioSource soundFX;
     private StateAccessor stateAccessor;
@@ -31,6 +32,7 @@ public class ResetState : Singleton<ResetState> {
         brain = GameObject.Find(BRAIN_STRUCTURE_GROUPING);
         soundFX = brain.GetComponent<AudioSource>();
         MRICollection = GameObject.Find(MRI_COLLECTION);
+        ControlsUI = GameObject.Find("ControlsUI");
     }
 
     void OnSelect()
@@ -72,8 +74,8 @@ public class ResetState : Singleton<ResetState> {
     {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
-            //brain.GetComponent<IsolateStructures>().ResetIsolate();
-            //MRICollection.GetComponent<MRIManager>().ResetMRI();
+            brain.GetComponent<IsolateStructures>().ResetIsolate();
+            MRICollection.GetComponent<MRIManager>().ResetMRI();
             return true;
         }
 
@@ -82,8 +84,20 @@ public class ResetState : Singleton<ResetState> {
 
     public void ResetInteractions()
     {
-        //brain.GetComponent<ScaleToggler>().ResetScale();
-        //brain.GetComponent<ExplodingCommands>().ResetExplode();
+        brain.GetComponent<ScaleToggler>().ResetScale();
+        brain.GetComponent<ExplodingCommands>().ResetExplode();
+
+        //buttons for explode and collapse should reset too
+        foreach(ExplodingCommands ec in ControlsUI.GetComponentsInChildren<ExplodingCommands>(true))
+        {
+            if (ec.name == "Expand")
+            {
+                ec.gameObject.SetActive(true);
+            } else if(ec.name == "Collapse")
+            {
+                ec.gameObject.SetActive(false);
+            }
+        }
 
         foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
         {

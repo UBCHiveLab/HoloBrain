@@ -44,6 +44,7 @@ public class VoiceControl : MonoBehaviour {
     private Dictionary<string, System.Action> voiceRecognitionKeywords;
     public static Dictionary <string, string> brainStructureNameToGameObjectName;
     private Dictionary<string, string> buttonActionsToGameObjectName;
+    private MuteButtonAction muteButton;
 
     // Use this for initialization
     void Start () {
@@ -51,6 +52,7 @@ public class VoiceControl : MonoBehaviour {
         brain = GameObject.Find(BRAIN_GAME_OBJECT_NAME);
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
         crossfadeSlider = GameObject.Find("CrossfadeSlider");
+        muteButton = GameObject.Find("mute").GetComponent<MuteButtonAction>();
         
 
         fmriBrain = GameObject.Find(FMRI_BRAIN_NAME);
@@ -123,7 +125,7 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("Scale Down", HandleScaleDown);
         voiceRecognitionKeywords.Add("Expand", HandleExplode);
         voiceRecognitionKeywords.Add("Collapse", HandleCollapse);
-        voiceRecognitionKeywords.Add("Show Isolate", HandleIsolate);
+        voiceRecognitionKeywords.Add("Isolate", HandleIsolate);
         voiceRecognitionKeywords.Add("Hide Isolate", HandleConcludeIsolate);
         voiceRecognitionKeywords.Add("Reset", HandleResetState);
         voiceRecognitionKeywords.Add("Reposition", HandleResetAnchor);
@@ -229,7 +231,7 @@ public class VoiceControl : MonoBehaviour {
     private void HandleExplode()
     {
         GameObject target = GameObject.Find("Expand/Collapse");
-        if(target != null)
+        if(target != null && brain.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         {
             ExplodeButtonAction component = target.GetComponentsInChildren<ExplodeButtonAction>()[0];
             if (component != null && component.gameObject.name == "Expand")
@@ -242,7 +244,7 @@ public class VoiceControl : MonoBehaviour {
     private void HandleCollapse()
     {
         GameObject target = GameObject.Find("Expand/Collapse");
-        if (target != null)
+        if (target != null && brain.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         {
             ExplodeButtonAction component = target.GetComponentsInChildren<ExplodeButtonAction>()[0];
             if (component != null && component.gameObject.name == "Collapse")
@@ -256,8 +258,10 @@ public class VoiceControl : MonoBehaviour {
     {
         //brain.GetComponent<IsolateStructures>().InitiateIsolationMode(); original isolation doesnt work with restructure, need to fix it
         //these two OnSelects will make the menu state ready to do isolate
-        GameObject.Find("Educational").GetComponent<ButtonCommands>().OnSelect();
-        GameObject.Find("Isolate").SendMessage("OnSelect");
+        if (GameObject.Find("Isolate") != null)
+        {
+            GameObject.Find("Isolate").SendMessage("OnSelect");
+        }
     }
 
     private void HandleConcludeIsolate()
@@ -392,11 +396,14 @@ public class VoiceControl : MonoBehaviour {
     {
         if(brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating())
         {
-            brain.GetComponent<IsolateStructures>().TryToIsolate(partName);
-            foreach (ButtonAppearance button in controlsUI.transform.GetComponentsInChildren(typeof(ButtonAppearance), true))
+            foreach (ButtonAppearance button in controlsUI.transform.GetComponentsInChildren<ButtonAppearance>(true))
             {
                 if(button.name == partName)
+                {
+                    brain.GetComponent<IsolateStructures>().TryToIsolate(partName);
+                    button.GetComponent<IsolateButtonAction>().SetButtonSelected(true);
                     button.SetButtonActive();
+                }
             }
         }
     }
@@ -405,11 +412,14 @@ public class VoiceControl : MonoBehaviour {
     {
         if (brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating())
         {
-            brain.GetComponent<IsolateStructures>().TryToReturnFromIsolate(partName);
-            foreach (ButtonAppearance button in controlsUI.transform.GetComponentsInChildren(typeof(ButtonAppearance), true))
+            foreach (ButtonAppearance button in controlsUI.transform.GetComponentsInChildren<ButtonAppearance>(true))
             {
                 if(button.name == partName)
+                {
+                    brain.GetComponent<IsolateStructures>().TryToReturnFromIsolate(partName);
+                    button.GetComponent<IsolateButtonAction>().SetButtonSelected(false);
                     button.ResetButton();
+                }
             }
         }
     }

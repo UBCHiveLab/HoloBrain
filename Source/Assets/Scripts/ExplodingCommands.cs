@@ -19,8 +19,20 @@ public class ExplodingCommands : MonoBehaviour {
         {
             modelTransform = structure;
             initialPosition = modelTransform.localPosition;
-            explodingDirection = structure.GetComponentInChildren<Renderer>().bounds.center - centerOfBrainModel;
-            furthestPosition = initialPosition + explodingDirection * MAX_EXPLODE_DISTANCE_MULTIPLE;
+            Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
+            foreach (Renderer renderer in structure.GetComponentsInChildren<Renderer>())
+            {
+                if (bounds.size.Equals(Vector3.zero))
+                {
+                    bounds = new Bounds(renderer.bounds.center, renderer.bounds.size);
+                }
+                else
+                {
+                    bounds.Encapsulate(renderer.bounds.center);
+                }
+            }
+            explodingDirection = modelTransform.InverseTransformPoint(bounds.center) - modelTransform.InverseTransformPoint(centerOfBrainModel);
+            furthestPosition = initialPosition + (explodingDirection * MAX_EXPLODE_DISTANCE_MULTIPLE);
         }
 
         // This method moves the structure away from or towards the center
@@ -55,7 +67,7 @@ public class ExplodingCommands : MonoBehaviour {
     private const string CORTEX_GAMEOBJECT_NAME = "Cortex";
     private const float EXPLODING_TRANSITION_TIME_IN_SECONDS = 1.5f;
     private const float MAX_EXPLODE_DISTANCE_MULTIPLE = 0.8f;
-    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "Cortex", "Ventricles", "Thalamus", "Arteries" };
+    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "Cortex", "Ventricles", "Arteries", "Sinuses"};
 
     public enum ExplodingState
     {
@@ -68,6 +80,7 @@ public class ExplodingCommands : MonoBehaviour {
     private List<BrainStructure> explodingStructures;
     private GameObject cortex;
     private GameObject brain;
+    private Vector3 centerOfBrainModel;
     public ExplodingState currentState { get; private set; }
     public ExplodingState lastState { get; private set; }
 
@@ -83,23 +96,91 @@ public class ExplodingCommands : MonoBehaviour {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ToggleExplode] = this.ToggleExplodeMessageReceived;
         }
 
-        cortex = GameObject.Find(CORTEX_GAMEOBJECT_NAME);
         brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
-        Vector3 centerOfBrainModel = cortex.GetComponentInChildren<Renderer>().bounds.center;
-       
+        cortex = brain.transform.Find(CORTEX_GAMEOBJECT_NAME).gameObject;
+        Renderer[] cortexRenderers = cortex.GetComponentsInChildren<Renderer>();
+        Bounds brainBounds = new Bounds(cortex.GetComponentInChildren<Renderer>().bounds.center, Vector3.zero);
+        foreach (Renderer renderer in cortexRenderers)
+        {
+            brainBounds.Encapsulate(renderer.bounds.center);
+        }
+
+        centerOfBrainModel = brainBounds.center;
+
         // Create and populate the list of brain structures
         // We add up all the initial positions of the structures to later determine the middle
         explodingStructures = new List<BrainStructure>();
         foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
         {
-            if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+            if (structure.transform.GetChild(0).name.Contains("Container"))
             {
-                explodingStructures.Add(new BrainStructure(structure.transform, centerOfBrainModel));
+                foreach (HighlightAndLabelCommands cur in structure.GetComponentsInChildren<HighlightAndLabelCommands>())
+                {
+                    if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                    {
+                        explodingStructures.Add(new BrainStructure(cur.gameObject.transform, centerOfBrainModel));
+                    }
+                }
+            }
+            else
+            {
+
+                if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                {
+                    explodingStructures.Add(new BrainStructure(structure.transform, centerOfBrainModel));
+                }
             }
         }
 
         ResetExplode();
         soundFX = this.gameObject.GetComponent<AudioSource>();
+    }
+
+    void OnDisable()
+    {
+        explodingStructures.Clear();
+    }
+
+    void OnEnable()
+    {
+        if (cortex == null)
+        {
+            return;
+        }
+
+        Renderer[] cortexRenderers = cortex.GetComponentsInChildren<Renderer>();
+        Bounds brainBounds = new Bounds(cortex.GetComponentInChildren<Renderer>().bounds.center, Vector3.zero);
+        foreach (Renderer renderer in cortexRenderers)
+        {
+            brainBounds.Encapsulate(renderer.bounds.center);
+        }
+
+        centerOfBrainModel = brainBounds.center;
+        // Create and populate the list of brain structures
+        // We add up all the initial positions of the structures to later determine the middle
+        foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
+        {
+            if (structure.transform.GetChild(0).name.Contains("Container"))
+            {
+                foreach (HighlightAndLabelCommands cur in structure.GetComponentsInChildren<HighlightAndLabelCommands>())
+                {
+                    if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                    {
+                        explodingStructures.Add(new BrainStructure(cur.gameObject.transform, centerOfBrainModel));
+                    }
+                }
+            }
+            else
+            {
+
+                if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                {
+                    explodingStructures.Add(new BrainStructure(structure.transform, centerOfBrainModel));
+                }
+            }
+        }
+
+        ResetExplode();
     }
 	
 	// Update is called once per frame

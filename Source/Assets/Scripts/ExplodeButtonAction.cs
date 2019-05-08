@@ -19,6 +19,7 @@ public class ExplodeButtonAction : MonoBehaviour
     {
     }
 
+    //this is bad coupling. there are some prereqs to explode command but switchroomui will switch the buttons anyways
     public void OnSelect()
     {
         GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ExplodingCommands>().ToggleExplode();

@@ -108,7 +108,7 @@ public class IsolateStructures : MonoBehaviour {
     }
 
     private const float ISOLATED_STRUCTURE_SCALE_SIZE = 0.003f;
-    private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.001f;
+    private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.2f;
     private const float ISOLATION_TRANSITION_TIME_IN_SECONDS = 1.5f;
     private const string BRAIN_PARTS_GAMEOBJECT_NAME = "Brain";
     private GameObject brain;
@@ -186,6 +186,10 @@ public class IsolateStructures : MonoBehaviour {
         } else
         {
             exitCollider.enabled = true;
+            if(!CurrentlyInIsolationModeOrIsolating())
+            {
+                GetComponent<ExplodingCommands>().enabled = true;
+            }
         }
 	}
 
@@ -219,11 +223,10 @@ public class IsolateStructures : MonoBehaviour {
 
     private void CalculateDefaultAndFinalPositionsScalesAndRotations()
     {
-        Debug.Log("default");
         defaultStructurePosition = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).localPosition;
         defaultStructureScale =    GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).localScale;
         defaultStructureRotation = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.GetChild(0).localRotation;
-        Debug.Log("final");
+
         minimapStructurePosition = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME).transform.Find(BRAIN_MINIMAP_POSITION_OBJECT).localPosition;
         minimapStructureScale = new Vector3(MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE, MINIMAP_STRUCTURES_SCALE_SIZE);
         isolatedStructureScale = defaultStructureScale;
@@ -254,6 +257,7 @@ public class IsolateStructures : MonoBehaviour {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Isolated))
         {
             GetComponent<ResetState>().ResetInteractions();
+            brain.GetComponent<ExplodingCommands>().enabled = false;
             CalculateDefaultAndFinalPositionsScalesAndRotations();
             ResetStructurePositionsAndScales();
             StartSettingUpMinimap();

@@ -9,6 +9,8 @@ public class SwitchRoomUI : MonoBehaviour
     public List<GameObject> Buttons;
     public List<GameObject> Elements;
 
+    protected SwitchRoomUICondition condition;
+
     // This doesn't work because button onclick doesn't work
 
     // Note that button order must match element order
@@ -23,6 +25,7 @@ public class SwitchRoomUI : MonoBehaviour
         }
 
         RegisterClickToElement();
+        condition = GetComponent<SwitchRoomUICondition>();
     }
 
     private void RegisterClickToElement()
@@ -38,12 +41,24 @@ public class SwitchRoomUI : MonoBehaviour
     {
         return delegate
         {
-            foreach (GameObject element in Elements)
+            if (condition != null && condition.SwitchCondition()) //condition is met
             {
-                element.SetActive(false);
-            }
+                foreach (GameObject element in Elements)
+                {
+                    element.SetActive(false);
+                }
 
-            Elements[i].SetActive(true);
+                Elements[i].SetActive(true);
+            }
+            else if(condition == null)  //there is no condition
+            {
+                foreach (GameObject element in Elements)
+                {
+                    element.SetActive(false);
+                }
+
+                Elements[i].SetActive(true);
+            }
         };
     }
 }
