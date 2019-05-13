@@ -9,7 +9,7 @@ public class EduRoomCommand : MonoBehaviour {
     public GameObject fMRI;
     public GameObject CELL;
     public GameObject DTI;
-	// Use this for initialization
+    public GameObject MRIVolume;
 	void Start () {
         gameObject.GetComponent<ButtonCommands>().AddCommand(HideOthers());
         gameObject.SendMessage("OnSelect");
@@ -47,6 +47,13 @@ public class EduRoomCommand : MonoBehaviour {
             if(DTI != null )
             {
                 foreach(Renderer renderer in DTI.transform.GetComponentsInChildren<Renderer>(true))
+                {
+                    renderer.enabled = false;
+                }
+            }
+            if (MRIVolume != null)
+            {
+                foreach (Renderer renderer in MRIVolume.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = false;
                 }
