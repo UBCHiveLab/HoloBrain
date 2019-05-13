@@ -18,6 +18,8 @@ namespace VolumeRendering
         [SerializeField] protected Shader shader;
         protected Material material;
 
+        public GameObject cursor;
+
         [SerializeField] Color color = Color.white;
         [Range(0f, 1f)] public float threshold = 0.5f;
         [Range(0.5f, 5f)] public float intensity = 1.5f;
@@ -117,6 +119,23 @@ namespace VolumeRendering
             } else if(max < min + threshold)
             {
                 max = min + threshold;
+            }
+        }
+
+
+        void OnStartGaze()
+        {
+            foreach (Renderer renderer in cursor.GetComponentsInChildren<Renderer>())
+            {
+                renderer.enabled = false;
+            }
+        }
+
+        void OnEndGaze()
+        {
+            foreach (Renderer renderer in cursor.GetComponentsInChildren<Renderer>())
+            {
+                renderer.enabled = true;
             }
         }
 

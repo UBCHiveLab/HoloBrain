@@ -30160,6 +30160,11 @@ Prefab:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114856506304309040, guid: 84857883a27c2cd42a46872a08477553,
+        type: 2}
+      propertyPath: cursor
+      value: 
+      objectReference: {fileID: 25316778}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84857883a27c2cd42a46872a08477553, type: 2}
   m_IsPrefabAsset: 0
@@ -40126,6 +40131,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1251599961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1251599956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f493820814e57be42b37234d799704f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  marker: {fileID: 25316778}
 --- !u!1 &1253819548
 GameObject:
   m_ObjectHideFlags: 0
