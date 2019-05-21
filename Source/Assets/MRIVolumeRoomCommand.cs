@@ -10,9 +10,11 @@ public class MRIVolumeRoomCommand : MonoBehaviour
     public GameObject fMRI;
     public GameObject CELL;
     public GameObject MRIVolume;
+    public GameObject DTI;
     // Use this for initialization
     void Start () {
         gameObject.GetComponent<ButtonCommands>().AddCommand(HideOthers());
+        gameObject.SendMessage("OnSelect");
     }
 
     Action HideOthers()
@@ -22,6 +24,13 @@ public class MRIVolumeRoomCommand : MonoBehaviour
             if (MRI != null)
             {
                 foreach (Renderer renderer in MRI.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
+            }
+            if (DTI != null)
+            {
+                foreach (Renderer renderer in DTI.GetComponentsInChildren<Renderer>())
                 {
                     renderer.enabled = false;
                 }

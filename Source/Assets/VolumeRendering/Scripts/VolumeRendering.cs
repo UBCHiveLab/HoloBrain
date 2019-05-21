@@ -122,7 +122,7 @@ namespace VolumeRendering
             }
         }
 
-
+        /* Disables the cursor when focused on the volume
         void OnStartGaze()
         {
             foreach (Renderer renderer in cursor.GetComponentsInChildren<Renderer>())
@@ -138,6 +138,7 @@ namespace VolumeRendering
                 renderer.enabled = true;
             }
         }
+        */
 
         void OnDestroy()
         {

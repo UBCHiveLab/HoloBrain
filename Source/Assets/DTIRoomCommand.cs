@@ -9,6 +9,7 @@ public class DTIRoomCommand : MonoBehaviour {
     public GameObject fMRI;
     public GameObject CELL;
     public GameObject DTI;
+    public GameObject MRIVolume;
 
 	// Use this for initialization
 	void Start () {
@@ -43,7 +44,14 @@ public class DTIRoomCommand : MonoBehaviour {
                     renderer.enabled = false;
                 }
             }
-            if(CELL != null)
+            if (MRIVolume != null)
+            {
+                foreach (Renderer renderer in MRIVolume.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.enabled = false;
+                }
+            }
+            if (CELL != null)
             {
                 foreach(Renderer renderer in CELL.transform.GetComponentsInChildren<Renderer>(true))
                 {

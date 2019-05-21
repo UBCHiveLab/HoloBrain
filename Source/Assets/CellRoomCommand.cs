@@ -58,7 +58,7 @@ public class CellRoomCommand : MonoBehaviour
             {
                 foreach(Renderer renderer in MRIVolume.GetComponentsInChildren<Renderer>())
                 {
-                    renderer.enabled = true;
+                    renderer.enabled = false;
                 }
             }
             foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
