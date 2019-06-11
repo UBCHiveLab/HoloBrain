@@ -52,7 +52,6 @@ namespace VolumeRendering
         public void ValueChangeCheck()
         {
             //Output this to console when Button1 or Button3 is clicked
-            Debug.Log("There has been a change of " + SliderXmin.value);
             UpdateMaterial();
         }
 

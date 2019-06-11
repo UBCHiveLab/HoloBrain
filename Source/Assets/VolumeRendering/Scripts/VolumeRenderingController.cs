@@ -37,6 +37,8 @@ namespace VolumeRendering
             sliderZMax.onValueChanged.AddListener((v) => {
                 volume.sliceZMax = sliderZMax.value = Mathf.Max(v, volume.sliceZMin + threshold);
             });
+
+            
         }
 
         void Update()
