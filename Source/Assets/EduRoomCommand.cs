@@ -12,7 +12,7 @@ public class EduRoomCommand : MonoBehaviour {
     public GameObject MRIVolume;
 	void Start () {
         gameObject.GetComponent<ButtonCommands>().AddCommand(HideOthers());
-        //gameObject.SendMessage("OnSelect");
+        //gmeObject.SendMessage("OnSelect");
 	}
 
     public Action HideOthers()

@@ -19,7 +19,6 @@ public class ScaleUpButtonAction : MonoBehaviour {
     {
         //GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleUp();
         scaleObject.GetComponent<ScaleToggler>().ScaleUp();
-
     }
    
 }
