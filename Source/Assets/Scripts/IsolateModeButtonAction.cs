@@ -20,6 +20,8 @@ public class IsolateModeButtonAction : MonoBehaviour {
 	
 	void OnSelect()
     {
-        brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        if(!brain.GetComponent<RotateStructures>().isRotating) {
+            brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        }
     }
 }

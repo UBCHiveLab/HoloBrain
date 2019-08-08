@@ -67,13 +67,11 @@ public class IsolateButtonAction : MonoBehaviour {
         {
             AddBrainPart(PartToIsolate);
             SetButtonSelected(true);
-            gameObject.GetComponent<ButtonAppearance>().SetButtonActive();
         }
         else
         {
             RemoveBrainPart(PartToIsolate);
-            SetButtonSelected(true);
-            gameObject.GetComponent<ButtonAppearance>().ResetButton();
+            SetButtonSelected(false);
         }
     }
 

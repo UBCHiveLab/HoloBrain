@@ -1,0 +1,10 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <UnityWSASolutionName>Holographic Brain Project</UnityWSASolutionName>
+        <UnityWSASolutionDir>C:\Users\Worklearn\Desktop\HoloBrain\Source\BasalBuild\</UnityWSASolutionDir>
+        <UnityProjectDir>C:\Users\Worklearn\Desktop\HoloBrain\Source\</UnityProjectDir>
+        <UnityWSAPlayerDir>C:\Program Files\Unity2018.2.14f1\Unity\Editor\Data\PlaybackEngines\MetroSupport\</UnityWSAPlayerDir>
+        <UnityWSAToolsDir>$(UnityWSASolutionDir)Unity\Tools\</UnityWSAToolsDir>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    </PropertyGroup>
+</Project>

@@ -9,7 +9,6 @@ public class RotateButtonAction : MonoBehaviour {
 
     public GameObject brain;
  
-
     // Use this for initialization
     void Start () {
         if (brain == null)

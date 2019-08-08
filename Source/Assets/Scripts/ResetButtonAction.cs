@@ -23,10 +23,10 @@ public class ResetButtonAction : MonoBehaviour {
     public void OnSelect()
     {
         GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ResetState>().ResetEverything();
-        ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
-        ControlsUI = GameObject.Find(ControlS_UI);
+        //ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
+        //ControlsUI = GameObject.Find(ControlS_UI);
         //reset the state of the menus and buttons
-        ResetUI();
+        //ResetUI();
        
     } 
 

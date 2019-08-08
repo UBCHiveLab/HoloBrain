@@ -164,8 +164,8 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("UnPin Menu", HandleUnpinMenu);
         voiceRecognitionKeywords.Add("Show Structures", HandleStructuresMode);
 
-        voiceRecognitionKeywords.Add("End Tutorial", HandleEndTutorial);
-        voiceRecognitionKeywords.Add("Next", HandleNextChapter);
+        //voiceRecognitionKeywords.Add("End Tutorial", HandleEndTutorial);
+        //voiceRecognitionKeywords.Add("Next", HandleNextChapter);
 
         voiceRecognitionKeywords.Add("Locate", HandleLocate);
 
@@ -256,11 +256,11 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleIsolate()
     {
-        //brain.GetComponent<IsolateStructures>().InitiateIsolationMode(); original isolation doesnt work with restructure, need to fix it
         //these two OnSelects will make the menu state ready to do isolate
-        if (GameObject.Find("Isolate") != null)
+        var btn = GameObject.Find("IsolateBtn");
+        if (btn != null && !brain.GetComponent<RotateStructures>().isRotating) //dont allow isolate while rotating because it messes with structure orientation
         {
-            GameObject.Find("Isolate").SendMessage("OnSelect");
+            btn.SendMessage("OnSelect");
         }
     }
 

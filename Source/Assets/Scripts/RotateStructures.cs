@@ -61,9 +61,9 @@ public class RotateStructures : MonoBehaviour {
     }
 
     public void OnSelect()
-    {/*
-        SendRotateMessage();
-        ToggleRotate();*/
+    {
+        //SendRotateMessage();
+        //ToggleRotate();
     }
 
     public void StartRotate()

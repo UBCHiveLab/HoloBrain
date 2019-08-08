@@ -37,7 +37,7 @@ public class ResetState : Singleton<ResetState> {
 
     void OnSelect()
     {
-        ResetEverything();
+        //ResetEverything();
     }
 
     public void ResetStateMessageReceived(NetworkInMessage msg)

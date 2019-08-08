@@ -58,8 +58,11 @@ public class ButtonAppearance : MonoBehaviour {
 
     public void ResetButton()
     {
-        renderer.sprite = defaultSprite;
-        activeState = false;
+        if (renderer != null)
+        {
+            renderer.sprite = defaultSprite;
+            activeState = false;
+        }
     }
 
     public void OnStartGaze()

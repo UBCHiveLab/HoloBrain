@@ -1,0 +1,2 @@
+C:\Users\Worklearn\Desktop\HoloBrain\Source\LimbicBuild\GeneratedProjects\UWP\Assembly-CSharp\Assembly-CSharp.csproj;x86
+C:\Users\Worklearn\Desktop\HoloBrain\Source\LimbicBuild\Holographic Brain Project\Holographic Brain Project.csproj;x86

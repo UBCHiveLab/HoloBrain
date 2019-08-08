@@ -36,6 +36,10 @@ public class EduRoomCommand : MonoBehaviour {
                 {
                     renderer.enabled = false;
                 }
+                foreach (Collider collider in fMRI.transform.GetComponentsInChildren<Collider>(true))
+                {
+                    collider.enabled = false;
+                }
             }
             if(CELL != null)
             {
@@ -43,12 +47,20 @@ public class EduRoomCommand : MonoBehaviour {
                 {
                     renderer.enabled = false;
                 }
+                foreach (Collider collider in CELL.transform.GetComponentsInChildren<Collider>(true))
+                {
+                    collider.enabled = false;
+                }
             }
             if(DTI != null )
             {
                 foreach(Renderer renderer in DTI.transform.GetComponentsInChildren<Renderer>(true))
                 {
                     renderer.enabled = false;
+                }
+                foreach (Collider collider in DTI.transform.GetComponentsInChildren<Collider>(true))
+                {
+                    collider.enabled = false;
                 }
             }
             foreach(GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))

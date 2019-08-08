@@ -300,6 +300,10 @@ public class IsolateStructures : MonoBehaviour {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
             StartReturningStructuresToDefaultState();
+            foreach (IsolateButtonAction button in GameObject.Find("menu").GetComponentsInChildren<IsolateButtonAction>(true))
+            {
+                button.SetButtonSelected(false);
+            }
             GameObject.DestroyImmediate(cortexCopy);
             GameObject.DestroyImmediate(ventriclesCopy);
             currentlyInIsolatedMode = false;
@@ -526,6 +530,13 @@ public class IsolateStructures : MonoBehaviour {
                 GameObject.DestroyImmediate(movingStructureWithDirection.structure.ModelTransform.gameObject);
             }
         }
+
+        //BAD DEPENDENCY!! need to have some sort of controller for button state of isolatebuttons. blackboard maybe?
+        foreach(IsolateButtonAction button in GameObject.Find("menu").GetComponentsInChildren<IsolateButtonAction>(true))
+        {
+            button.SetButtonSelected(false);
+        }
+
         //cortexBoxCollider.enabled = false;
         isolatedStructures.Clear();
         movingStructures.Clear();

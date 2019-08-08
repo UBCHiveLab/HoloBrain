@@ -24,6 +24,10 @@ public class DTIRoomCommand : MonoBehaviour {
                 {
                     renderer.enabled = true;
                 }
+                foreach (Collider collider in DTI.transform.GetComponentsInChildren<Collider>(true))
+                {
+                    collider.enabled = true;
+                }
             }
             if (MRI != null)
             {
@@ -42,12 +46,20 @@ public class DTIRoomCommand : MonoBehaviour {
                 {
                     renderer.enabled = false;
                 }
+                foreach (Collider collider in fMRI.transform.GetComponentsInChildren<Collider>(true))
+                {
+                    collider.enabled = false;
+                }
             }
             if(CELL != null)
             {
                 foreach(Renderer renderer in CELL.transform.GetComponentsInChildren<Renderer>(true))
                 {
                     renderer.enabled = false;
+                }
+                foreach (Collider collider in CELL.transform.GetComponentsInChildren<Collider>(true))
+                {
+                    collider.enabled = false;
                 }
             }
             foreach(GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
@@ -58,7 +70,7 @@ public class DTIRoomCommand : MonoBehaviour {
                 }
                 foreach(Renderer renderer in cur.GetComponentsInChildren<Renderer>(true))
                 {
-                    renderer.enabled = false;
+                    renderer.enabled = true;
                 }
             }
 

@@ -65,7 +65,7 @@ public class ExplodingCommands : MonoBehaviour {
 
     private const string BRAIN_PARTS_GAMEOBJECT_NAME = "Brain";
     private const string CORTEX_GAMEOBJECT_NAME = "Cortex";
-    private const float EXPLODING_TRANSITION_TIME_IN_SECONDS = 1.5f;
+    private const float EXPLODING_TRANSITION_TIME_IN_SECONDS = 2.375f;
     private const float MAX_EXPLODE_DISTANCE_MULTIPLE = 0.8f;
     private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "Cortex", "Ventricles", "Arteries", "Sinuses"};
 
