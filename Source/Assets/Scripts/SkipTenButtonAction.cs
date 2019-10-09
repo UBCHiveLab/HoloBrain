@@ -1,28 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-
-public class SkipTenButtonAction : MonoBehaviour
+public class SkipTenButtonAction : CommandToExecute
 {
     public GameObject crossfadeSlider;
-    private AudioSource audio;
 
-    // Use this for initialization
-    void Start()
+    override protected Action Command()
     {
-        audio = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void OnSelect()
-    {
-        audio.Play();
-        crossfadeSlider.GetComponent<ObjectNiftiSlider>().Skip(10);
+        return delegate
+        {
+            crossfadeSlider.GetComponent<ObjectNiftiSlider>().Skip(10);
+        };
     }
 }

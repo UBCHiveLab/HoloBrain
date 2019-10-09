@@ -4,21 +4,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ScaleUpButtonAction : MonoBehaviour {
+public class ScaleUpButtonAction : CommandToExecute {
 
     //private const string BRAIN_PARTS_NAME = "BrainParts";
     public GameObject scaleObject;
    
     // Use this for initialization
-    void Start () {
-       
-    }
-
-    public void OnSelect()
+    override protected Action Command()
     {
         //GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleUp();
-        scaleObject.GetComponent<ScaleToggler>().ScaleUp();
+        return delegate
+        {
+            scaleObject.GetComponent<ScaleToggler>().ScaleUp();
+        };
 
     }
    

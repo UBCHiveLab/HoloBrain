@@ -1,55 +1,52 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class SwapCellButtonAction : MonoBehaviour {
+public class SwapCellButtonAction : CommandToExecute {
 
     public GameObject cell;
     public GameObject cellContainer;
-    private AudioSource audio;
-	// Use this for initialization
-	void Start () {
-        audio = GetComponent<AudioSource>();
-	}
 
-    void OnSelect()
+    override protected Action Command()
     {
-        if(audio != null)
+        return delegate
         {
-            audio.Play();
-        }
-        if (cell == null || cellContainer == null)
-        {
-            Debug.Log("need a cell and container here");
-        }
-        else
-        {
-            foreach(Transform child in cellContainer.GetComponent<Transform>())
+            if (cell == null || cellContainer == null)
             {
-                child.gameObject.SetActive(false);
+                Debug.Log("need a cell and container here");
             }
-            cell.SetActive(true);
-        }
-
-        foreach(Transform cur in transform.parent)
-        {
-            ButtonAppearance appearance = cur.gameObject.GetComponent<ButtonAppearance>();
-            if (appearance != null)
+            else
             {
-                appearance.ResetButton();
-            } else
-            {
-                cur.gameObject.GetComponent<BoxCollider>().enabled = true;
+                foreach (Transform child in cellContainer.GetComponent<Transform>())
+                {
+                    child.gameObject.SetActive(false);
+                }
+                cell.SetActive(true);
             }
-        }
 
-        ButtonAppearance myAppearance = GetComponent<ButtonAppearance>();
-        if(myAppearance != null)
-        {
-            myAppearance.SetButtonActive();
-        } else
-        {
-            GetComponent<BoxCollider>().enabled = false;
-        }
+            foreach (Transform cur in transform.parent)
+            {
+                ButtonAppearance appearance = cur.gameObject.GetComponent<ButtonAppearance>();
+                if (appearance != null)
+                {
+                    appearance.ResetButton();
+                }
+                else
+                {
+                    cur.gameObject.GetComponent<BoxCollider>().enabled = true;
+                }
+            }
+
+            ButtonAppearance myAppearance = GetComponent<ButtonAppearance>();
+            if (myAppearance != null)
+            {
+                myAppearance.SetButtonActive();
+            }
+            else
+            {
+                GetComponent<BoxCollider>().enabled = false;
+            }
+        };
     }
 }

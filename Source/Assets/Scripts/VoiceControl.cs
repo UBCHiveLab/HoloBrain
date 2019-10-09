@@ -8,10 +8,12 @@ using UnityEngine.Windows.Speech;
 using System.Linq;
 using System;
 using UnityEngine.SceneManagement;
+using HoloToolkit.Unity.InputModule;
 using HolobrainConstants;
+using UnityEngine.EventSystems;
 
 public class VoiceControl : MonoBehaviour {
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+    private const string BRAIN_PARTS_NAME = "Brain";
     private const string BRAIN_GAME_OBJECT_NAME = "Brain";
 
    // private const string MRI_SCANS = "MRIScans";
@@ -41,19 +43,24 @@ public class VoiceControl : MonoBehaviour {
 
 
     private KeywordRecognizer keywordRecognizer;
-    private Dictionary<string, System.Action> voiceRecognitionKeywords;
+    private Dictionary<string, Action> voiceRecognitionKeywords;
     public static Dictionary <string, string> brainStructureNameToGameObjectName;
     private Dictionary<string, string> buttonActionsToGameObjectName;
     private MuteButtonAction muteButton;
+    private EventSystem eventSystem;
+    
+    private DataRecorder dataRecorder;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         // Referencing game objects to access their scripts
         brain = GameObject.Find(BRAIN_GAME_OBJECT_NAME);
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
         crossfadeSlider = GameObject.Find("CrossfadeSlider");
         muteButton = GameObject.Find("mute").GetComponent<MuteButtonAction>();
-        
+        eventSystem = GameObject.Find("PreLoad/InputManager/EventSystem").GetComponent<EventSystem>();
+        dataRecorder = GameObject.Find("PreLoad").GetComponent<DataRecorder>();
+
 
         fmriBrain = GameObject.Find(FMRI_BRAIN_NAME);
         //fmriBrain.SetActive(false);
@@ -66,108 +73,138 @@ public class VoiceControl : MonoBehaviour {
         mriScans = GameObject.Find(MRI_SCANS_NAME);
         mriCollection = GameObject.Find(MRI_COLLECTION_NAME);
 
-        voiceRecognitionKeywords = new Dictionary<string, System.Action>();
+        voiceRecognitionKeywords = new Dictionary<string, Action>();
 
         foreach (var item in Names.GetStructureNames())
         {
-            voiceRecognitionKeywords.Add("Add " + item, ()=> HandleAddBrainPart(item));
-            voiceRecognitionKeywords.Add("Remove " + item, ()=> HandleRemoveBrainPart(item));
+            voiceRecognitionKeywords.Add("Add " + item, () => { HandleAddBrainPart(item); });
+            voiceRecognitionKeywords.Add("Remove " + item, () => { HandleRemoveBrainPart(item); });
         }
 
         //map voice commands to the corresponding button name
         buttonActionsToGameObjectName = new Dictionary<string, string>
         {
-            { "Rotate", "rotate-icon" },
-            { "Rotate Walls", "rotate-walls-icon" },
-            { "Stop", "rotate-icon" },
-            { "Expand", "expand-icon" },
-            { "Collapse", "expand-icon" },
-            { "Reset", "reset-icon" },
+            { "Rotate", "rotate-stop" },
+            //{ "Rotate Walls", "rotate-walls-icon" },
+            { "Stop", "rotate-stop" },
+            { "Expand", "expand-collapse" },
+            { "Collapse", "expand-collapse" },
+           // { "Reset", "reset-icon" },
             {"Scale Up", "scale-up" },
             {"Scale Down", "scale-down" },
-            {"Isolate", "isolate-mode-icon" },
-            {"Exit Isolate", "exit-mode-icon" },
+            {"Isolate", "menu" },
+            {"Hide Isolate", "menu" },
             {"Reposition", "reposition-icon" },
-            {"Add All", "add-icon" },
-            {"Remove All", "remove-icon" },
-            { "Putamen", "putamen-icon" },
-            { "Caudate", "caudate-icon" },
-            { "Globus Pallidus", "globus-icon" },
-            { "Substantia Nigra", "nigra-icon" },
-            { "Subthalamic Nucleus", "subthalamic-icon" },
-            { "Thalamus", "thalamus-icon" },
-            { "Microglia", "microglia-icon" },
-            { "Channel 1", "red-icon" },
-            { "Channel 2", "green-icon" },
+            {"Add All", "menu" },
+            {"Remove All", "menu" },
+            { "Microglia", "menu" },
+           { "Channel 1", "menu" },
+            { "Channel 2", "menu" },
             { "MRI", "mri-icon" },
             { "MRI Outline", "show-colour-icon" },
-            { "Pin", "pin-icon" },
+            { "Pin", "pin-unpin" },
             { "Structures", "structures-icon" },
-            // New Voice Commands
-            { "Play", "play-icon" },
-            { "Faster", "faster-icon" },
-            { "Slower", "slower-icon" },
-            { "Skip One", "skip-one-icon" },
-            { "Skip Ten", "skip-ten-icon" },
-            { "Back One", "back-one-icon" },
-            { "Back Ten", "back-ten-icon" },
-            { "Educational Room", "structures-icon"},
-            { "MRI Room", "mri-icon"},
-            { "fMRI Room", "fmri-icon"},
-            { "Brain Cell Room", "brain-cell-icon"},
-            { "End Tutorial", "SkipButton"},
-            { "Next", "NextButton"}
+             //New Voice Commands
+            { "Play", "menu" },
+            { "Pause", "menu" },
+            { "Faster", "menu" },
+            { "Slower", "menu" },
+            { "Skip One", "menu" },
+            { "Skip Ten", "menu" },
+            { "Back One", "menu" },
+           { "Back Ten", "menu" },
+            { "Educational Room", "rooms"},
+            { "MRI Room", "rooms"},
+          { "fMRI Room", "rooms"},
+            { "Brain Cell Room", "rooms"},
+            { "DTI Room", "rooms" },
+          { "End Tutorial", "SkipButton"},
+            { "Next", "NextButton"},
+            {"Locate", "Locate" }
         };
 
-        voiceRecognitionKeywords.Add("Rotate", HandleStartRotate);
-        voiceRecognitionKeywords.Add("Stop", HandleStopRotate);
-        voiceRecognitionKeywords.Add("Scale Up", HandleScaleUp);
-        voiceRecognitionKeywords.Add("Scale Down", HandleScaleDown);
-        voiceRecognitionKeywords.Add("Expand", HandleExplode);
-        voiceRecognitionKeywords.Add("Collapse", HandleCollapse);
-        voiceRecognitionKeywords.Add("Isolate", HandleIsolate);
-        voiceRecognitionKeywords.Add("Hide Isolate", HandleConcludeIsolate);
-        voiceRecognitionKeywords.Add("Reset", HandleResetState);
-        voiceRecognitionKeywords.Add("Reposition", HandleResetAnchor);
-        voiceRecognitionKeywords.Add("Add All", HandleAddAll);
-        voiceRecognitionKeywords.Add("Remove All", HandleRemoveAll);
+        voiceRecognitionKeywords.Add("Rotate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Rotate"]), () =>
+        {
+            var rs = brain.GetComponent<RotateStructures>();
+            return rs != null && rs.isRotating == false;
+        }, typeof(RotateButtonAction)));
+        voiceRecognitionKeywords.Add("Stop", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Stop"]), () =>
+        {
+            var rs = brain.GetComponent<RotateStructures>();
+            return rs != null && rs.isRotating == true;
+        }, typeof(RotateButtonAction)));
+
+        voiceRecognitionKeywords.Add("Scale Up", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Scale Up"])));
+        voiceRecognitionKeywords.Add("Scale Down", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Scale Down"])));
+
+        voiceRecognitionKeywords.Add("Expand", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Expand"]), () =>
+        {
+            var sa = brain.GetComponent<StateAccessor>();
+            return sa != null && sa.AbleToTakeAnInteraction();
+        }, typeof(ExplodeButtonAction), "Expand"));
+        voiceRecognitionKeywords.Add("Collapse", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Collapse"]), () =>
+        {
+            var sa = brain.GetComponent<StateAccessor>();
+            return sa != null && sa.AbleToTakeAnInteraction();
+        }, typeof(ExplodeButtonAction), "Collapse"));
+
+        voiceRecognitionKeywords.Add("Isolate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Isolate"]), () => {
+            var rs = brain.GetComponent<RotateStructures>();
+            return rs != null && !rs.isRotating;
+        }, typeof(IsolateModeButtonAction)));
+        voiceRecognitionKeywords.Add("Hide Isolate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Hide Isolate"]), () =>
+        {
+            var rs = brain.GetComponent<RotateStructures>();
+            return rs != null && !rs.isRotating;
+        }, typeof(IsolateExitButtonAction)));
+        voiceRecognitionKeywords.Add("Reset", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Reset"])));
+        voiceRecognitionKeywords.Add("Reposition", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Reposition"])));
+        voiceRecognitionKeywords.Add("Add All", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Add All"]), typeof(IsolateButtonAction), buttonActionsToGameObjectName["Add All"]));
+        voiceRecognitionKeywords.Add("Remove All", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Remove All"]), typeof(IsolateButtonAction), buttonActionsToGameObjectName["Remove All"]));
         // New Voice Commands
 
-        voiceRecognitionKeywords.Add("Play", HandleStartPlay);
-        voiceRecognitionKeywords.Add("Pause", HandleStartPlay);
-        voiceRecognitionKeywords.Add("Faster", HandleSpeedUpPlayback);
-        voiceRecognitionKeywords.Add("Slower", HandleSlowDownPlayback);
-        voiceRecognitionKeywords.Add("Skip One", HandleSkipOne);
-        voiceRecognitionKeywords.Add("Back One", HandleBackOne);
-        voiceRecognitionKeywords.Add("Skip Ten", HandleSkipTen);
-        voiceRecognitionKeywords.Add("Back Ten", HandleBackTen);
+        voiceRecognitionKeywords.Add("Play", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Play"]), typeof(PlayButtonAction)));
+        voiceRecognitionKeywords.Add("Pause", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Pause"])));
+        voiceRecognitionKeywords.Add("Faster", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Faster"]), typeof(SpeedUpButtonAction)));
+        voiceRecognitionKeywords.Add("Slower", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Slower"]), typeof(SlowDownButtonAction)));
+        voiceRecognitionKeywords.Add("Skip One", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Skip One"]), typeof(SkipOneButtonAction)));
+        voiceRecognitionKeywords.Add("Back One", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Skip One"]), typeof(BackOneButtonAction)));
+        voiceRecognitionKeywords.Add("Skip Ten", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]), typeof(SkipTenButtonAction)));
+        voiceRecognitionKeywords.Add("Back Ten", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Back Ten"]), typeof(BackTenButtonAction)));
 
-        voiceRecognitionKeywords.Add("Educational Room", HandleEducationalRoom);
-        voiceRecognitionKeywords.Add("FMRI Room", HandleFMRIRoom);
-        voiceRecognitionKeywords.Add("Functional MRI Room", HandleFMRIRoom);
-        voiceRecognitionKeywords.Add("MRI Room", HandleMRIRoom);
-        voiceRecognitionKeywords.Add("MRI Scan Room", HandleMRIRoom);
-        voiceRecognitionKeywords.Add("Cell Room", HandleBrainCellRoom);
+        voiceRecognitionKeywords.Add("Educational Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Educational Room"]), typeof(EduRoomCommand)));
+        voiceRecognitionKeywords.Add("FMRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]), typeof(fMRIRoomCommand)));
+        voiceRecognitionKeywords.Add("Functional MRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]), typeof(fMRIRoomCommand)));
+        voiceRecognitionKeywords.Add("MRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["MRI Room"]), typeof(MRIRoomCommand)));
+        voiceRecognitionKeywords.Add("MRI Scan Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["MRI Room"]), typeof(MRIRoomCommand)));
+        voiceRecognitionKeywords.Add("Brain Cell Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Brain Cell Room"]), typeof(CellRoomCommand)));
 
-        voiceRecognitionKeywords.Add("Show Microglia", HandleShowMicroglia);
-        voiceRecognitionKeywords.Add("Show Channel One", HandleShowChannelOne);
-        voiceRecognitionKeywords.Add("Show Channel Two", HandleShowChannelTwo);
+        voiceRecognitionKeywords.Add("Show Microglia", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Microglia"]), typeof(SwapCellButtonAction), "microglia"));
+        voiceRecognitionKeywords.Add("Show Channel One", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Channel 1"]), typeof(SwapCellButtonAction), "channel1"));
+        voiceRecognitionKeywords.Add("Show Channel Two", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Channel 2"]), typeof(SwapCellButtonAction), "channel2"));
 
         //UNCOMMENT THIS FOR GAZE MARKER
-        voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);
-        voiceRecognitionKeywords.Add("Clear Marker", HandleClearMarker);
-        voiceRecognitionKeywords.Add("Show MRI Scans", HandleMRI);
-        voiceRecognitionKeywords.Add("Show Outline", HandleMRIOutlineOn);
-        voiceRecognitionKeywords.Add("Hide Outline", HandleMRIOutlineOff);
+        //voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);
+        //voiceRecognitionKeywords.Add("Clear Marker", HandleClearMarker);
+        //voiceRecognitionKeywords.Add("Show MRI Scans", HandleMRI); //commented because mris now show in mri room only
+        //voiceRecognitionKeywords.Add("Show Outline", HandleMRIOutlineOn); // mri ouline toggle functionaly disabled for now (MRIManager needs refactoring or splitting up)
+        //voiceRecognitionKeywords.Add("Hide Outline", HandleMRIOutlineOff);
         //voiceRecognitionKeywords.Add("Toggle Outline", HandleMRIOutline);
-        voiceRecognitionKeywords.Add("Pin Menu", HandlePinMenu);
-        voiceRecognitionKeywords.Add("UnPin Menu", HandleUnpinMenu);
-        voiceRecognitionKeywords.Add("Show Structures", HandleStructuresMode);
+        voiceRecognitionKeywords.Add("Pin Menu", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Pin"]), () =>
+        {
+            var cu = controlsUI.GetComponent<ControlsUIManager>();
+            return cu != null && !cu.GetMenuPinState();
+        }, typeof(PinButtonAction)));
+        voiceRecognitionKeywords.Add("UnPin Menu", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Pin"]), () => {
+            var cu = controlsUI.GetComponent<ControlsUIManager>();
+            return cu != null && cu.GetMenuPinState();
+        }, typeof(PinButtonAction)));
+        //voiceRecognitionKeywords.Add("Show Structures", HandleStructuresMode);
 
         //voiceRecognitionKeywords.Add("End Tutorial", HandleEndTutorial);
         //voiceRecognitionKeywords.Add("Next", HandleNextChapter);
 
-        voiceRecognitionKeywords.Add("Locate", HandleLocate);
+        voiceRecognitionKeywords.Add("Locate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Locate"])));
 
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -176,221 +213,103 @@ public class VoiceControl : MonoBehaviour {
 
     private void KeywordRecognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
-        System.Action keywordAction;
+        Action keywordAction;
         if (voiceRecognitionKeywords.TryGetValue(args.text, out keywordAction))
         {
-            Debug.Log(args.text);
+            Debug.Log("voice keyword: " + args.text);
 
             if (brain != null)
             {
                 if (!brain.GetComponent<StateAccessor>().CurrentlyInStudentMode()) keywordAction.Invoke();
             }
-
+            if(dataRecorder != null)
+            {
+                //dataRecorder.QueueMessage("voice command " + args.text);
+            }
+            /*
             if (SceneManager.GetActiveScene().name == TUTORIAL_SCENE_NAME)
             {
                 keywordAction.Invoke();
-            }
+            }*/
         }               
     }
 
-    private void HandleStartRotate()
+    private void executeClick(GameObject g)
     {
-        RotateStructures rs = brain.GetComponent<RotateStructures>();
-        GameObject target = GameObject.Find("rotate-stop");
-        if (rs != null && target != null && rs.isRotating == false)
+        g.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
+    }
+
+    //use when you just want to click surface, either found or not
+    private Action HandleCommand(GameObject target)
+    {
+        return delegate
         {
-            target.GetComponentsInChildren<RotateButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleStopRotate()
-    {
-        RotateStructures rs = brain.GetComponent<RotateStructures>();
-        GameObject target = GameObject.Find("rotate-stop");
-        if (rs != null && target != null && rs.isRotating == true)
-        {
-            target.GetComponentsInChildren<RotateButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleScaleUp()
-    {
-        brain.GetComponent<ScaleToggler>().ScaleUp();
-    }
-
-    private void HandleScaleDown()
-    {
-        brain.GetComponent<ScaleToggler>().ScaleDown();
-    }
-
-    private void HandleLocate()
-    {
-        GameObject.Find("Locate").SendMessage("OnSelect");
-    }
-
-    private void HandleExplode()
-    {
-        GameObject target = GameObject.Find("Expand/Collapse");
-        if(target != null && brain.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
-        {
-            ExplodeButtonAction component = target.GetComponentsInChildren<ExplodeButtonAction>()[0];
-            if (component != null && component.gameObject.name == "Expand")
+            if (target != null)
             {
-                component.gameObject.SendMessage("OnSelect");
+                executeClick(target);
             }
-        }
+        };
     }
 
-    private void HandleCollapse()
+    //use when the click should only happen on precondition
+    private Action HandleCommand(GameObject target, Func<bool> pred)
     {
-        GameObject target = GameObject.Find("Expand/Collapse");
-        if (target != null && brain.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+        return delegate
         {
-            ExplodeButtonAction component = target.GetComponentsInChildren<ExplodeButtonAction>()[0];
-            if (component != null && component.gameObject.name == "Collapse")
+            if(pred() && target != null)
             {
-                component.gameObject.SendMessage("OnSelect");
+                executeClick(target);
             }
-        }
+        };
     }
 
-    private void HandleIsolate()
+    //use when click should happen on precondition, and to a child that has type component
+    private Action HandleCommand(GameObject target, Func<bool> pred, System.Type t)
     {
-        //these two OnSelects will make the menu state ready to do isolate
-        var btn = GameObject.Find("IsolateBtn");
-        if (btn != null && !brain.GetComponent<RotateStructures>().isRotating) //dont allow isolate while rotating because it messes with structure orientation
+        return delegate
         {
-            btn.SendMessage("OnSelect");
-        }
+            if (pred() && target != null)
+            {
+                var btn = target.GetComponentsInChildren(t)[0];
+                if (btn != null)
+                {
+                    executeClick(btn.gameObject);
+                }
+            }
+        };
     }
 
-    private void HandleConcludeIsolate()
+    //overloaded to check gameobject name before clicking (cant be part of pred because it requires component t in target to be found already)
+    private Action HandleCommand(GameObject target, Func<bool> pred, Type t, string name)
     {
-        IsolateExitButtonAction exit = controlsUI.transform.GetComponentInChildren<IsolateExitButtonAction>();
-        if(exit != null)
+        return delegate
         {
-            exit.gameObject.SendMessage("OnSelect");
-        }
+            if (pred() && target != null)
+            {
+                var btns = target.GetComponentsInChildren(t);
+                foreach (Component c in target.GetComponentsInChildren(t))
+                {
+                    if (c.name == name)
+                    {
+                        executeClick(c.gameObject);
+                    }
+                }
+            }
+        };
     }
 
-    private void HandleResetState()
+    //when button of interest isnt on the surface level, but we dont care about precondition
+    private Action HandleCommand(GameObject target, Type t)
     {
-        brain.GetComponent<ResetState>().ResetEverything();
+        return HandleCommand(target, delegate { return true; }, t);
     }
 
-    private void HandleResetAnchor()
+    //when button of interest isnt on the surface level and we want to check name, but we dont care about precondition
+    private Action HandleCommand(GameObject target, Type t, string name)
     {
-        brain.GetComponent<HologramPlacement>().ResetStage();
+        return HandleCommand(target, delegate { return true; }, t, name);
     }
 
-    private void HandleAddAll()
-    {
-        brain.GetComponent<IsolateStructures>().AddAllParts();
-    }
-
-    private void HandleRemoveAll()
-    {
-        brain.GetComponent<IsolateStructures>().RemoveAllParts();
-    }
-
-    private void HandleEducationalRoom()
-    {
-        GameObject.Find("Educational").GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleMRIRoom()
-    {
-        GameObject.Find("MRI").GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleFMRIRoom()
-    {
-        GameObject.Find("fMRI").GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandleBrainCellRoom()
-    {
-        GameObject.Find("Cell").GetComponent<ButtonCommands>().OnSelect();
-    }
-
-    private void HandlePinMenu()
-    {
-        if (!controlsUI.GetComponent<ControlsUIManager>().GetMenuPinState())
-        {
-            GameObject.Find("Pin/UnPin").GetComponentsInChildren<PinButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleUnpinMenu()
-    {
-        if (controlsUI.GetComponent<ControlsUIManager>().GetMenuPinState())
-        {
-            GameObject.Find("Pin/UnPin").GetComponentsInChildren<PinButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleStartPlay()
-    {
-        GameObject target = GameObject.Find("Play/Pause");
-        if (target != null)
-        {
-            target.GetComponentsInChildren<PlayButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleSpeedUpPlayback()
-    {
-        GameObject target = GameObject.Find("speed");
-        if(target != null)
-        {
-            target.GetComponentsInChildren<SpeedUpButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleSlowDownPlayback()
-    {
-        GameObject target = GameObject.Find("speed");
-        if (target != null)
-        {
-            target.GetComponentsInChildren<SlowDownButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleSkipOne()
-    {
-        GameObject target = GameObject.Find("skip");
-        if (target != null)
-        {
-            target.GetComponentsInChildren<SkipOneButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleBackOne()
-    {
-        GameObject target = GameObject.Find("skip");
-        if (target != null)
-        {
-            target.GetComponentsInChildren<BackOneButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleSkipTen()
-    {
-        GameObject target = GameObject.Find("skip");
-        if (target != null)
-        {
-            target.GetComponentsInChildren<SkipTenButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleBackTen()
-    {
-        GameObject target = GameObject.Find("skip");
-        if (target != null)
-        {
-            target.GetComponentsInChildren<BackTenButtonAction>()[0].gameObject.SendMessage("OnSelect");
-        }
-    }
 
     private void HandleAddBrainPart(string partName)
     {
@@ -424,36 +343,11 @@ public class VoiceControl : MonoBehaviour {
         }
     }
 
-    private void HandleShowMicroglia()
-    {
-        GameObject target = GameObject.Find("microglia");
-        if (target != null)
-        {
-            target.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleShowChannelOne()
-    {
-        GameObject target = GameObject.Find("channel1");
-        if(target != null)
-        {
-            target.SendMessage("OnSelect");
-        }
-    }
-
-    private void HandleShowChannelTwo()
-    {
-        GameObject target = GameObject.Find("channel2");
-        if (target != null)
-        {
-            target.SendMessage("OnSelect");
-        }
-    }
-
     private void Update()
     {
     }
+
+    //BELLOW HERE ARE UNUSED/UNLINKED COMMANDS
 
     //UNCOMMENT THIS FOR GAZE MARKER
     private void HandlePlaceMarker()
@@ -477,53 +371,65 @@ public class VoiceControl : MonoBehaviour {
         gmm.TryToRemoveGazeMarker();
     }
 
-    private void HandleMRI()
+    private Action HandleMRI(GameObject target)
     {
-        MRIManager.Instance.ProcessMRIButtonAction();
-        if (GameObject.Find(buttonActionsToGameObjectName["MRI"]))
+        //GameObject.Find(buttonActionsToGameObjectName["MRI"])
+        return delegate
         {
-            GameObject.Find(buttonActionsToGameObjectName["MRI"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-        else
-        {
-            controlsUI.GetComponent<SubMenusManager>().ToggleMenuUI("mri-icon");
-        }
-  
+            MRIManager.Instance.ProcessMRIButtonAction();
+            if (target != null)
+            {
+                target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
+            }
+            else
+            {
+                controlsUI.GetComponent<SubMenusManager>().ToggleMenuUI("mri-icon");
+            }
+        };
     }
 
-    private void HandleMRIOutlineOn()
+    private Action HandleMRIOutlineOn(GameObject target)
     {
-        if (!MRIManager.Instance.IsOutlinedMRIImages())
+        //GameObject.Find(buttonActionsToGameObjectName["MRI Outline"])
+        return delegate
         {
-            GameObject.Find(buttonActionsToGameObjectName["MRI Outline"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-        MRIManager.Instance.TurnOnMRIImageOutlines();
+            if (!MRIManager.Instance.IsOutlinedMRIImages())
+            {
+                target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
+            }
+            MRIManager.Instance.TurnOnMRIImageOutlines();
+        };
     }
 
-    private void HandleMRIOutlineOff()
+    private Action HandleMRIOutlineOff(GameObject target)
     {
-        if (MRIManager.Instance.IsOutlinedMRIImages())
+        //GameObject.Find(buttonActionsToGameObjectName["MRI Outline"])
+        return delegate
         {
-            GameObject.Find(buttonActionsToGameObjectName["MRI Outline"]).GetComponent<ButtonCommands>().OnSelect();
-        }
-        MRIManager.Instance.TurnOffMRIImageOutlines();
+            if (MRIManager.Instance.IsOutlinedMRIImages())
+            {
+                target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
+            }
+            MRIManager.Instance.TurnOffMRIImageOutlines();
+        };
     }
 
-    private void HandleStructuresMode()
+    private Action HandleStructuresMode(GameObject target)
     {
-        GameObject.Find(buttonActionsToGameObjectName["Structures"]).GetComponent<StructuresButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Structures"]).GetComponent<ButtonCommands>().OnSelect();
+        //GameObject.Find(buttonActionsToGameObjectName["Structures"])
+        return delegate
+        {
+            target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
+        };
     }
 
     private void HandleNextChapter()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Next"]).GetComponent<NextButtonAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["Next"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["Next"]).GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
     }
 
     private void HandleEndTutorial()
     {
-        GameObject.Find(buttonActionsToGameObjectName["End Tutorial"]).GetComponent<SwitchRoomAction>().OnSelect();
-        GameObject.Find(buttonActionsToGameObjectName["End Tutorial"]).GetComponent<ButtonCommands>().OnSelect();
+        GameObject.Find(buttonActionsToGameObjectName["End Tutorial"]).GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
     }
 }

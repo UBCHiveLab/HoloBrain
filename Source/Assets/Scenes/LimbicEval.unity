@@ -9433,6 +9433,22 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 20000013304850028, guid: d379ed0a5618c9f479f58bd83a2d0ad3,
     type: 2}
   m_PrefabInternal: {fileID: 251772636}
+--- !u!1 &251772638 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1000011021619270, guid: d379ed0a5618c9f479f58bd83a2d0ad3,
+    type: 2}
+  m_PrefabInternal: {fileID: 251772636}
+--- !u!114 &251772639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 251772638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e3c6d41da680f49b09d30b737feeba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &254535449
 GameObject:
   m_ObjectHideFlags: 0
@@ -10102,6 +10118,7 @@ GameObject:
   - component: {fileID: 266481644}
   - component: {fileID: 266481643}
   - component: {fileID: 266481642}
+  - component: {fileID: 266481623}
   m_Layer: 0
   m_Name: Brain
   m_TagString: Untagged
@@ -10146,6 +10163,17 @@ Transform:
   m_Father: {fileID: 83173880}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 2.1980002, y: -0.44700003, z: 0.08800001}
+--- !u!114 &266481623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 266481621}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e3c6d41da680f49b09d30b737feeba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &266481642
 MonoBehaviour:
   m_ObjectHideFlags: 0

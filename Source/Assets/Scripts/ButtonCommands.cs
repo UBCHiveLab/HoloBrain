@@ -5,12 +5,15 @@ using System;
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Unity.InputModule;
 
-public class ButtonCommands : MonoBehaviour {
+public class ButtonCommands : MonoBehaviour, IFocusable, IInputClickHandler {
 
     public bool buttonIsEnabled { get; private set; }
 
     private ControlsUIManager controlsUI;
+    private AudioSource source;
+    private ButtonAppearance appearance;
 
     public Sprite hoverState;
     public Sprite activeState;
@@ -25,6 +28,8 @@ public class ButtonCommands : MonoBehaviour {
     private void Start()
     {
         controlsUI = transform.GetComponentInParent<ControlsUIManager>();
+        source = transform.GetComponent<AudioSource>();
+        appearance = transform.GetComponent<ButtonAppearance>();
         
         //disable the white selection frame
         EnableOrDisableFrame(false);
@@ -34,7 +39,7 @@ public class ButtonCommands : MonoBehaviour {
     {
     }
 
-    void OnStartGaze()
+    public void OnFocusEnter()
     {
         //let the UIManager know that it is being gazed at
         if(controlsUI != null) {
@@ -45,7 +50,7 @@ public class ButtonCommands : MonoBehaviour {
         //EnableOrDisableFrame(true);
     }
 
-    void OnEndGaze()
+    public void OnFocusExit()
     {
         //let the UIManager know that it is no longer being gazed at
         if(controlsUI != null)
@@ -65,11 +70,19 @@ public class ButtonCommands : MonoBehaviour {
         };
     }
 
-    public void OnSelect()
+    public void OnInputClicked(InputClickedEventData eventData)
     {
         if(Commands != null)
         {
             Commands();
+        }
+        if(source != null)
+        {
+            source.Play();
+        }
+        if(appearance != null)
+        {
+            appearance.SetButtonActive();
         }
     }
 
@@ -111,6 +124,7 @@ public class ButtonCommands : MonoBehaviour {
 
         }
     }
+
     private void ChangeMenu()
     {
         if (gameObject.GetComponent<ToggleMenu>() != null)

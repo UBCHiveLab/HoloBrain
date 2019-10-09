@@ -1,16 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class NextButtonAction : MonoBehaviour {
+public class NextButtonAction : CommandToExecute {
 
     public GameObject flowScriptObject;
 	// Use this for initialization
-	void Start () {
-		
+	override public void Start () {
+        base.Start();
 	}
 
-    public void OnSelect() {
-        flowScriptObject.GetComponent<Flow>().ShowNextChapterPages();
+    override protected Action Command() {
+        return delegate
+        {
+            flowScriptObject.GetComponent<Flow>().ShowNextChapterPages();
+        }; 
     }
 }

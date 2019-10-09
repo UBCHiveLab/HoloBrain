@@ -4,9 +4,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 [RequireComponent(typeof(ButtonAppearance))]
-public class IsolateButtonAction : MonoBehaviour {
+public class IsolateButtonAction : CommandToExecute {
 
     private bool buttonSelected;
     private Dictionary<string, string> isolateIconsToGameObjectName;
@@ -17,11 +18,12 @@ public class IsolateButtonAction : MonoBehaviour {
     private GameObject brainStructures;
     private string PartToIsolate;
     // Use this for initialization
-    void Start () {
+    override public void Start () {
         buttonSelected = false;
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
         IsolateMenu = GameObject.Find(ISOLATE_MENU_NAME);
         isolateButtons = GetStructureButtons();
+        base.Start();
     }
 
     List<GameObject> GetStructureButtons()
@@ -50,29 +52,32 @@ public class IsolateButtonAction : MonoBehaviour {
         return result;
     }
 	
-    public void OnSelect()
+    override protected Action Command()
     {
-        PartToIsolate = gameObject.name;
-        if (PartToIsolate == "AddAll")
+        return delegate
         {
-            AddAllParts();
-        }
+            PartToIsolate = gameObject.name;
+            if (PartToIsolate == "AddAll")
+            {
+                AddAllParts();
+            }
 
-        else if (PartToIsolate == "RemoveAll")
-        {
-            RemoveAllParts();
-        }
+            else if (PartToIsolate == "RemoveAll")
+            {
+                RemoveAllParts();
+            }
 
-        else if (!buttonSelected)
-        {
-            AddBrainPart(PartToIsolate);
-            SetButtonSelected(true);
-        }
-        else
-        {
-            RemoveBrainPart(PartToIsolate);
-            SetButtonSelected(false);
-        }
+            else if (!buttonSelected)
+            {
+                AddBrainPart(PartToIsolate);
+                SetButtonSelected(true);
+            }
+            else
+            {
+                RemoveBrainPart(PartToIsolate);
+                SetButtonSelected(false);
+            }
+        };
     }
 
     private void AddBrainPart(string PartName)

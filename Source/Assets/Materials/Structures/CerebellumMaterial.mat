@@ -7,15 +7,16 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CerebellumMaterial
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
-  m_ShaderKeywords: _ALPHAPREMULTUPLY_ON _BORDER_LIGHT_USES_HOVER_COLOR _DIRECTIONAL_LIGHT
-    _DISABLE_ALBEDO_MAP _HOVER_LIGHT _REFLECTIONS _SPECULAR_HIGHLIGHTS _USEAMBIENT_ON
-    _USECOLOR_ON _USEDIFFUSE_ON _USEMAINCOLOR_ON
+  m_Shader: {fileID: 4800000, guid: d45c0efca53019e43891b0f610f8146e, type: 3}
+  m_ShaderKeywords: _ALPHAPREMULTUPLY_ON _BORDER_LIGHT_USES_HOVER_COLOR _CLIPPING_PLANE
+    _DIRECTIONAL_LIGHT _DISABLE_ALBEDO_MAP _METALLIC_TEXTURE_ALBEDO_CHANNEL_A _REFLECTIONS
+    _SPECULAR_HIGHLIGHTS _USEAMBIENT_ON _USECOLOR_ON _USEDIFFUSE_ON _USEMAINCOLOR_ON
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
-  stringTagMap: {}
+  m_CustomRenderQueue: 2000
+  stringTagMap:
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -73,7 +74,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AlbedoAlphaMode: 0
+    - _AlbedoAlphaMode: 1
     - _BlendOp: 0
     - _BorderLight: 0
     - _BorderLightOpaque: 0
@@ -88,7 +89,7 @@ Material:
     - _ColorWriteMask: 15
     - _Cull: 2
     - _CullMode: 2
-    - _CustomMode: 2
+    - _CustomMode: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DirectionalLight: 1
@@ -106,12 +107,12 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0.133
     - _GlossyReflections: 1
-    - _HoverLight: 1
+    - _HoverLight: 0
     - _HoverLightOpaque: 0
     - _InnerGlow: 0
     - _MainTex_OFFSET: 0
     - _MainTex_SCALE: 0
-    - _Metallic: 0
+    - _Metallic: 0.173
     - _Mode: 0
     - _NearPlaneFade: 0
     - _OcclusionStrength: 1
@@ -127,7 +128,7 @@ Material:
     - _RoundCornerRadius: 0.25
     - _RoundCorners: 0
     - _Shade4: 0
-    - _Smoothness: 0.133
+    - _Smoothness: 0.175
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SpecularPower: 10

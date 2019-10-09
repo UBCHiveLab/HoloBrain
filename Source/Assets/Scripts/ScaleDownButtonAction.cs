@@ -4,21 +4,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ScaleDownButtonAction : MonoBehaviour {
+public class ScaleDownButtonAction : CommandToExecute {
 
     //private const string BRAIN_PARTS_NAME = "BrainParts";
     public GameObject scaleObject;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-
-    public void OnSelect()
+    override protected Action Command()
     {
         //GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleDown();
-        scaleObject.GetComponent<ScaleToggler>().ScaleDown();
+        return delegate
+        {
+            scaleObject.GetComponent<ScaleToggler>().ScaleDown();
+        };
 
     }
 }

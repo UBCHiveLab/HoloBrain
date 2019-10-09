@@ -7,8 +7,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HoloToolkit.Unity.InputModule;
 
-public class HighlightAndLabelCommands : MonoBehaviour {
+public class HighlightAndLabelCommands : MonoBehaviour, IFocusable, IInputClickHandler {
     public bool isLocked { get; private set; }
     public bool hasPin { get; private set; }
     private bool isGazedAt = false;
@@ -27,7 +28,6 @@ public class HighlightAndLabelCommands : MonoBehaviour {
     public Color highlightedColour;
 
     string mode;
-
 
     private void Start()
     {
@@ -49,7 +49,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
     }
 
 
-    void OnSelect()
+    public void OnInputClicked(InputClickedEventData e)
     {
         if (!StateAccessor.Instance.CurrentlyInStudentMode() && StateAccessor.Instance.AbleToTakeAnInteraction())
         {
@@ -58,11 +58,10 @@ public class HighlightAndLabelCommands : MonoBehaviour {
                 CustomMessages.Instance.SendToggleHighlightMessage(this.name, isLocked);
             }
             ToggleLockedHighlight();
-            //blah
         }
     }
  
-    void OnStartGaze()
+    public void OnFocusEnter()
     {
         if (StateAccessor.Instance.AbleToTakeAnInteraction() && mode != "student")
         {
@@ -71,7 +70,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         }
     }
 
-    void OnEndGaze()
+    public void OnFocusExit()
     {
         isGazedAt = false;
         HighlightObject();

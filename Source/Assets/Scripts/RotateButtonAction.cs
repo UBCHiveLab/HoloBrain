@@ -4,19 +4,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class RotateButtonAction : MonoBehaviour {
+public class RotateButtonAction : CommandToExecute {
 
     public GameObject brain;
  
     // Use this for initialization
-    void Start () {
+    override public void Start () {
         if (brain == null)
         {
             brain = GameObject.Find("Brain");
         }
         Debug.Log("Rotate button brain variable is pointing to " + brain.name);
-
+        base.Start();
     }
 	
 	// Update is called once per frame
@@ -24,10 +25,13 @@ public class RotateButtonAction : MonoBehaviour {
        
     }
 
-    public void OnSelect()
+    override protected Action Command()
     {
         //do the action
-        brain.GetComponent<RotateStructures>().ToggleRotate(); 
+        return delegate
+        {
+            brain.GetComponent<RotateStructures>().ToggleRotate();
+        };
     }
 
 }

@@ -4,24 +4,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ExplodeButtonAction : MonoBehaviour
+public class ExplodeButtonAction : CommandToExecute
 {
     private const string BRAIN_PARTS_NAME = "Brain";
-
-    // Use this for initialization
-    void Start()
-    {
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-    }
+    
 
     //this is bad coupling. there are some prereqs to explode command but switchroomui will switch the buttons anyways
-    public void OnSelect()
+    override protected Action Command()
     {
-        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ExplodingCommands>().ToggleExplode();
+        return delegate
+        {
+            GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ExplodingCommands>().ToggleExplode();
+        };
     }
 }

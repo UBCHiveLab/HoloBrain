@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ButtonCommands), typeof(AudioSource))]
-public class PlayVoiceoverCommand : MonoBehaviour {
+[RequireComponent(typeof(AudioSource))]
+public class PlayVoiceoverCommand : CommandToExecute {
 
     public AudioClip audio;
     public MuteButtonAction muteButton;
@@ -12,9 +12,9 @@ public class PlayVoiceoverCommand : MonoBehaviour {
     AudioSource source;
 
 	// Use this for initialization
-	void Start () {
+	override public void Start () {
         source = GetComponent<AudioSource>();
-        GetComponent<ButtonCommands>().AddCommand(PlayAudioClipAction());
+        base.Start();
 	}
 	
 	// Update is called once per frame
@@ -22,7 +22,7 @@ public class PlayVoiceoverCommand : MonoBehaviour {
 		
 	}
 
-    private Action PlayAudioClipAction()
+   override protected Action Command()
     {
         return delegate
         {

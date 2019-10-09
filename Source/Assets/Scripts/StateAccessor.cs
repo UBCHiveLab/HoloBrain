@@ -16,11 +16,14 @@ public class StateAccessor : Singleton<StateAccessor> {
 
     private Mode currentMode;
 
-	// Use this for initialization
-	void Start () {
+    new private void Awake()
+    {
         currentMode = Mode.Default;
         brain = GameObject.Find(BRAIN_PARTS);
         resetState = ResetState.Instance;
+    }
+    // Use this for initialization
+    void Start () {
 	}
 	
 	// Update is called once per frame

@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Unity.InputModule;
 
-public class ButtonAppearance : MonoBehaviour {
+public class ButtonAppearance : MonoBehaviour, IFocusable {
 
     // Use this for initialization
 
     public Sprite hoverSprite;
     public Sprite defaultSprite;
     public Sprite activeSprite;
+    public bool oneButtonActiveInGroup;
     private SpriteRenderer renderer;
     private bool activeState;
     private AudioSource hoverSound;
@@ -40,6 +42,16 @@ public class ButtonAppearance : MonoBehaviour {
 
     public void SetButtonActive()
     {
+        if(oneButtonActiveInGroup)
+        {
+            foreach(ButtonAppearance b in transform.parent.GetComponentsInChildren<ButtonAppearance>(true))
+            {
+                if (b.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+                {
+                    b.ResetButton();
+                }
+            }
+        }
         renderer.sprite = activeSprite;
         activeState = true;
     }
@@ -65,7 +77,7 @@ public class ButtonAppearance : MonoBehaviour {
         }
     }
 
-    public void OnStartGaze()
+    public void OnFocusEnter()
     {
         if (activeState)
         {
@@ -75,7 +87,7 @@ public class ButtonAppearance : MonoBehaviour {
         SetButtonHover();
     }
 
-    public void OnEndGaze()
+    public void OnFocusExit()
     {
         if(activeState)
         {

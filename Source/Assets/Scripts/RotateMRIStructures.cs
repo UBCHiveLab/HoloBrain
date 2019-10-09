@@ -3,7 +3,6 @@
 
 ﻿using HoloToolkit.Sharing;
 using HoloToolkit.Sharing.Tests;
-using HoloToolkit.Sharing.Tests;
 using System;
 using System.Collections;
 using System.Collections.Generic;

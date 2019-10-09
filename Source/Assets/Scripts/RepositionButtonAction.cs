@@ -4,26 +4,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using HoloToolkit.Unity.InputModule;
 
-public class RepositionButtonAction : MonoBehaviour {
-
-    private AudioSource audio;
-    private string BRAIN_OBJ_NAME = "Brain";
-
-    // Use this for initialization
-    void Start () {
-        //brain = GameObject.Find("Brain");
-        audio = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
-    public void OnSelect()
+public class RepositionButtonAction : CommandToExecute {
+    
+    override protected Action Command()
     {
-        audio.Play();
-        GameObject.Find(BRAIN_OBJ_NAME).GetComponent<HologramPlacement>().ResetStage();
+        return delegate
+        {
+            Debug.Log("calling reposition");
+            HologramPlacement.Instance.ResetStage();
+        };
     }
 }

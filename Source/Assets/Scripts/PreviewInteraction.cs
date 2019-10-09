@@ -1,16 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Unity.InputModule;
 
-public class PreviewInteraction : MonoBehaviour {
+public class PreviewInteraction : MonoBehaviour, IFocusable {
     public Sprite[] frames;
 
-    public void OnStartGaze()
+    public void OnFocusEnter()
     {
         GameObject.Find("PreviewPanel").GetComponent<PreviewPlayer>().ChangePreview(frames);
     }
 
-    public void OnEndGaze()
+    public void OnFocusExit()
     {
         GameObject.Find("PreviewPanel").GetComponent<PreviewPlayer>().StopPreview();
     }

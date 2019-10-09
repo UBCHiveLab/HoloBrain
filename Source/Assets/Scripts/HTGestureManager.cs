@@ -54,14 +54,10 @@ public class HTGestureManager : Singleton<HTGestureManager>
     private UnityEngine.XR.WSA.Input.GestureRecognizer gestureRecognizer;
     private GameObject focusedObject;
     private GameObject brainParts;
+    private DataRecorder dataRecorder;
     void Start()
     {
         // Create a new GestureRecognizer. Sign up for tapped events.
-
-//initializing data collection
-#if WINDOWS_UWP
-        startRecordingData();
-#endif
 
         gestureRecognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
         gestureRecognizer.SetRecognizableGestures(UnityEngine.XR.WSA.Input.GestureSettings.Tap);
@@ -72,6 +68,7 @@ public class HTGestureManager : Singleton<HTGestureManager>
         gestureRecognizer.StartCapturingGestures();
 
         brainParts = GameObject.Find("BrainParts");
+        dataRecorder = (DataRecorder)FindObjectOfType(typeof(DataRecorder));
     }
 
     private void GestureRecognizer_TappedEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, int tapCount, Ray headRay)
@@ -80,7 +77,9 @@ public class HTGestureManager : Singleton<HTGestureManager>
         {
             focusedObject.SendMessage("OnSelect");
 #if WINDOWS_UWP
-            queueMessage(focusedObject.name + "OnSelect"); 
+            if(dataRecorder) {
+                dataRecorder.QueueMessage(focusedObject.name + ";OnSelect"); 
+            }
 #endif
             //sw.WriteLine(focusedObject.name + " OnSelect");
         }
@@ -89,47 +88,13 @@ public class HTGestureManager : Singleton<HTGestureManager>
         {
             brainParts.SendMessage("OnEmptyTap");
 #if WINDOWS_UWP
-            queueMessage("BrainParts OnEmptyTap"); 
+            if(dataRecorder) {
+                dataRecorder.QueueMessage("BrainParts;OnEmptyTap"); 
+            }
 #endif
             //sw.WriteLine("BrainParts OnEmptyTap");
         }
     }
-
-#if WINDOWS_UWP
-    async void startRecordingData()
-    {
-        string filename = System.DateTime.UtcNow.ToString("yyyy_MM_dd_HH_mm") + ".txt";
-        dataFile = await storageFolder.CreateFileAsync(filename, CreationCollisionOption.ReplaceExisting);
-        stream = await dataFile.OpenAsync(FileAccessMode.ReadWrite);
-        recordingData = true;
-    }
-
-    async void writeToDataFile()
-    {
-        if(recordingData) 
-        {
-            string text;
-            using(var outputStream = stream.GetOutputStreamAt((UInt64)fileIndex)) {
-                using(var dataWriter = new DataWriter(outputStream)) {
-                    while(messages.Count > 0) { 
-                        if(messages.TryDequeue(out text))
-                        {
-                            Debug.Log("writing to file " + text);               
-                            dataWriter.WriteString(text + "\n");
-                            fileIndex = fileIndex + text.Length + 1;
-                        }
-                    }
-                    await dataWriter.StoreAsync();
-                    await outputStream.FlushAsync();
-                }
-            }
-        }
-    }
-
-    void queueMessage(string text) {
-        messages.Enqueue(text);
-    }
-#endif
 
     void LateUpdate()
     {
@@ -155,7 +120,9 @@ public class HTGestureManager : Singleton<HTGestureManager>
             {
                 oldFocusedObject.SendMessageUpwards("OnEndGaze");
 #if WINDOWS_UWP
-                queueMessage(oldFocusedObject.name + " OnEndGaze"); 
+                if(dataRecorder) {
+                    dataRecorder.QueueMessage(oldFocusedObject.name + ";OnEndGaze"); 
+                }
 #endif
                 //sw.WriteLine(oldFocusedObject.name + " OnEndGaze");
             }
@@ -163,7 +130,9 @@ public class HTGestureManager : Singleton<HTGestureManager>
             {
                 focusedObject.SendMessageUpwards("OnStartGaze");
 #if WINDOWS_UWP
-                queueMessage(focusedObject.name + " OnStartGaze"); 
+                if(dataRecorder) {
+                    dataRecorder.QueueMessage(focusedObject.name + ";OnStartGaze"); 
+                }
 #endif
                 //sw.WriteLine(oldFocusedObject.name + " OnStartGaze");
             }
@@ -173,16 +142,6 @@ public class HTGestureManager : Singleton<HTGestureManager>
             gestureRecognizer.CancelGestures();
             gestureRecognizer.StartCapturingGestures();
         }
-#if WINDOWS_UWP
-        if(dataTimer >= 60) 
-        {
-            writeToDataFile();
-            dataTimer = 0;
-        } else 
-        {
-            dataTimer += 1;
-        }
-#endif
     }
 
 
@@ -190,8 +149,5 @@ public class HTGestureManager : Singleton<HTGestureManager>
     {
         // gestureRecognizer.StopCapturingGestures();
         // gestureRecognizer.TappedEvent -= GestureRecognizer_TappedEvent;
-#if WINDOWS_UWP
-        stream.Dispose();
-#endif
     }
 }

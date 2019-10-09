@@ -4,20 +4,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class IsolateExitButtonAction : MonoBehaviour {
+public class IsolateExitButtonAction : CommandToExecute {
 
     private const string BRAIN_PARTS_NAME = "Brain";
     GameObject brain;
  
     // Use this for initialization
-    void Start()
+    override public void Start()
     {
         brain = GameObject.Find(BRAIN_PARTS_NAME);
+        base.Start();
     }
 
-    void OnSelect()
+    override protected Action Command()
     {
-        brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
+        return delegate
+        {
+            brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
+        };
     }
 }

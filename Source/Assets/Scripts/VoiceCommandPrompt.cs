@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HoloToolkit.Unity.InputModule;
 
-public class VoiceCommandPrompt : MonoBehaviour {
+public class VoiceCommandPrompt : MonoBehaviour, IFocusable {
 
     public string prompt;
     public Text promptArea;
@@ -20,12 +21,12 @@ public class VoiceCommandPrompt : MonoBehaviour {
         prompt = newPrompt;
     }
 	
-	public void OnStartGaze()
+	public void OnFocusEnter()
     {
         promptArea.text = "\"" + prompt + "\"";
     }
 
-    public void OnEndGaze()
+    public void OnFocusExit()
     {
         promptArea.text = "...";
     }

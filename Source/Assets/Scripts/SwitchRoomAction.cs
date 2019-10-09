@@ -2,27 +2,33 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System;
 
-public class SwitchRoomAction : MonoBehaviour {
+public class SwitchRoomAction : CommandToExecute {
 
     public int sceneIndexOr;
     public string sceneName = "Main";
-    private AudioSource audio;
+    private AudioSource audioSource;
 
-    public void Start()
+    override public void Start()
     {
-        audio = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
+        base.Start();
     }
-    public void OnSelect()
+
+    override protected Action Command()
     {
-        audio.Play();
-        if (sceneIndexOr > 0)
+        return delegate
         {
-            SceneManager.LoadScene(sceneIndexOr);
-        }
-        else
-        {
-            SceneManager.LoadScene(sceneName);
-        }   
+            audioSource.Play();
+            if (sceneIndexOr > 0)
+            {
+                SceneManager.LoadScene(sceneIndexOr);
+            }
+            else
+            {
+                SceneManager.LoadScene(sceneName);
+            }
+        };
     }
 }

@@ -59,6 +59,7 @@ public class SwitchRoomUI : MonoBehaviour
 
                 Elements[i].SetActive(true);
             }
+
         };
     }
 }

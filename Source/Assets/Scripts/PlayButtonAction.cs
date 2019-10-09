@@ -1,58 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class PlayButtonAction : MonoBehaviour {
-
-    private AudioSource audio;
+public class PlayButtonAction : CommandToExecute {
+    
     public GameObject crossfade;
     public List<GameObject> playButtons = new List<GameObject>();
     public List<GameObject> pauseButtons = new List<GameObject>();
     private ObjectNiftiSlider crossfadeSlider;
 
     // Use this for initialization
-    void Start () {
-
-        audio = GetComponent<AudioSource>();
-        crossfadeSlider =crossfade.GetComponent<ObjectNiftiSlider>();
-
-    }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
-
-    public void OnSelect()
+    override public void Start ()
     {
-        audio.Play();
-        crossfadeSlider.TogglePlay();
-
-        if (crossfadeSlider.isPlaying)
+        crossfadeSlider =crossfade.GetComponent<ObjectNiftiSlider>();
+        base.Start();
+    }
+    
+    override protected Action Command()
+    {
+        return delegate
         {
-            foreach (GameObject obj in playButtons)
-            {
-                Debug.Log(obj);
-               obj.SetActive(true);
-            }
+            crossfadeSlider.TogglePlay();
 
-            foreach (GameObject obj in pauseButtons)
+            if (crossfadeSlider.isPlaying)
             {
-                Debug.Log(obj);
-                obj.SetActive(false);
-            }
-        }
-        else
-        {
-            foreach (GameObject obj in playButtons)
-            {
-                obj.SetActive(false);
-            }
+                foreach (GameObject obj in playButtons)
+                {
+                    Debug.Log(obj);
+                    obj.SetActive(true);
+                }
 
-            foreach (GameObject obj in pauseButtons)
-            {
-                obj.SetActive(true);
+                foreach (GameObject obj in pauseButtons)
+                {
+                    Debug.Log(obj);
+                    obj.SetActive(false);
+                }
             }
-        }
+            else
+            {
+                foreach (GameObject obj in playButtons)
+                {
+                    obj.SetActive(false);
+                }
+
+                foreach (GameObject obj in pauseButtons)
+                {
+                    obj.SetActive(true);
+                }
+            }
+        };
     }
 }

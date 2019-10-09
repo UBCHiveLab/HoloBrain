@@ -6,11 +6,13 @@ using System.Collections.Generic;
 using UnityEngine.Windows.Speech;
 using UnityEngine.SceneManagement;
 using HoloToolkit.Unity;
+using HoloToolkit.Unity.InputModule;
 using HoloToolkit.Sharing;
 using HoloToolkit.Sharing.Tests;
 using HoloToolkit.Unity.SpatialMapping;
+using System;
 
-public class HologramPlacement : Singleton<HologramPlacement>
+public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandler
 {
     /// <summary>
     /// Tracks if we have been sent a transform for the model.
@@ -49,11 +51,15 @@ public class HologramPlacement : Singleton<HologramPlacement>
         }
         else
         {
-            HTGestureManager.Instance.OverrideFocusedObject = this.gameObject;
+            //HTGestureManager.Instance.OverrideFocusedObject = this.gameObject;
         }
         base.Awake();
     }
 
+    public void Start()
+    {
+        InputManager.Instance.AddGlobalListener(gameObject);
+    }
 
     /// <summary>
     /// Resets the stage transform, so users can place the target again.
@@ -72,7 +78,8 @@ public class HologramPlacement : Singleton<HologramPlacement>
         }
         else
         {
-            HTGestureManager.Instance.OverrideFocusedObject = gameObject;
+            Debug.Log("pushing fallback reset stage");
+            InputManager.Instance.AddGlobalListener(gameObject);
         }
         //mriManager.UpdateClippingForRepositioning(GotTransform);
     }
@@ -194,10 +201,11 @@ public class HologramPlacement : Singleton<HologramPlacement>
         return retval;
     }
 
-    void OnSelect()
+    public void OnInputClicked(InputClickedEventData e)
     {
         if (mode != "student")
         {
+            Debug.Log("brain clicked");
             // Note that we have a transform.
             GotTransform = true;
             //WorldAnchorManager.Instance.AttachAnchor(gameObject);
@@ -214,7 +222,8 @@ public class HologramPlacement : Singleton<HologramPlacement>
             }
             else
             {
-                HTGestureManager.Instance.OverrideFocusedObject = null;
+                Debug.Log("Clearing fallback input handler stack");
+                InputManager.Instance.RemoveGlobalListener(gameObject);
                 GameObject controlsUI = GameObject.Find("menu");
                 controlsUI.SetActive(true);
             }

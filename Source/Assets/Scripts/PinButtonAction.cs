@@ -4,26 +4,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class PinButtonAction : MonoBehaviour {
+public class PinButtonAction : CommandToExecute {
 
     private ControlsUIManager UIManager;
-    private AudioSource audio;
 
     // Use this for initialization
-    void Start () {
-        audio = GetComponent<AudioSource>();
+    override public void Start () {
         UIManager = transform.GetComponentInParent<ControlsUIManager>();
+        base.Start();
 	}
-   
 
-    public void OnSelect()
+    override protected Action Command()
     {
-        audio.Play();
-        if(UIManager != null)
+        return delegate
         {
-            UIManager.TogglePinUI();
-        }
+            if (UIManager != null)
+            {
+                UIManager.TogglePinUI();
+            }
+        };
     }
     /*private void OnEnable()
     {

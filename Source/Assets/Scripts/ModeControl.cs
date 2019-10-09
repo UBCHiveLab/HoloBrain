@@ -66,9 +66,9 @@ public class ModeControl : MonoBehaviour {
         GameObject loadingScreen = GameObject.Find(LOADING_SCREEN_OBJ_NAME);
         loadingScreen.SetActive(false);
       //  sharing.SetActive(false);
-        GameObject preload = GameObject.Find(PRELOAD_OBJ_NAME);
+        //GameObject preload = GameObject.Find(PRELOAD_OBJ_NAME);
        // preload.GetComponent<ImportExportAnchorManager>().enabled = false;
-        preload.GetComponent<AppStateManager>().enabled = false;
+        //preload.GetComponent<AppStateManager>().enabled = false;
        // preload.GetComponent<RemotePlayerManager>().enabled = false;
        // preload.GetComponent<LocalPlayerManager>().enabled = false;
     }

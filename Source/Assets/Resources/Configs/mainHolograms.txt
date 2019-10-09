@@ -1,0 +1,1 @@
+MRICollection,Putamen,Cerebellum,Mammillary Bodies,Thalamus,Ventricles,Globus Pallidus,Substantia Nigra,Subthalamic Nuclei,Amygdala,Caudate,Mammillothalamic Tract,Hippocampus,Fornix,MinimapPositionObject,GazeMarker,Arteries,Cortex,Sinuses,fMRIBrains,BrainCells,DTI

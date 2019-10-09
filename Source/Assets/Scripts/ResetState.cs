@@ -54,7 +54,6 @@ public class ResetState : Singleton<ResetState> {
             customMessages.SendResetStateMessage();
         }
         ResetStateAndInteractions();
-        soundFX.Play();
     }
 
     public void ResetStateAndInteractions()
@@ -75,7 +74,7 @@ public class ResetState : Singleton<ResetState> {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
             brain.GetComponent<IsolateStructures>().ResetIsolate();
-            MRICollection.GetComponent<MRIManager>().ResetMRI();
+            //MRICollection.GetComponent<MRIManager>().ResetMRI();
             return true;
         }
 

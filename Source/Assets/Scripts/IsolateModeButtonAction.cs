@@ -4,8 +4,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class IsolateModeButtonAction : MonoBehaviour {
+public class IsolateModeButtonAction : CommandToExecute {
 
     private AudioSource audio;
     private GameObject isolateMode;
@@ -13,15 +14,19 @@ public class IsolateModeButtonAction : MonoBehaviour {
     private const string BRAIN_PARTS_NAME = "Brain";
     private GameObject brain;
     // Use this for initialization
-    void Start () {
-        audio = gameObject.GetComponent<AudioSource>();
+    override public void Start () {
         brain = GameObject.Find(BRAIN_PARTS_NAME);
+        base.Start();
     }
 	
-	void OnSelect()
+	override protected Action Command()
     {
-        if(!brain.GetComponent<RotateStructures>().isRotating) {
-            brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
-        }
+        return delegate
+        {
+            if (!brain.GetComponent<RotateStructures>().isRotating)
+            {
+                brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+            }
+        };
     }
 }

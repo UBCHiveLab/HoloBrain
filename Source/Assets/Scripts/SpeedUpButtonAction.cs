@@ -1,28 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-
-public class SpeedUpButtonAction : MonoBehaviour
+public class SpeedUpButtonAction : CommandToExecute
 {
     public GameObject crossfadeSlider;
-    private AudioSource audio;
 
-    // Use this for initialization
-    void Start()
+    protected override Action Command()
     {
-        audio = GetComponent<AudioSource>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    public void OnSelect()
-    {
-        audio.Play();
-        crossfadeSlider.GetComponent<ObjectNiftiSlider>().SpeedUpPlayback();
+        return delegate
+        {
+            crossfadeSlider.GetComponent<ObjectNiftiSlider>().SpeedUpPlayback();
+        };
     }
 }

@@ -3,8 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(ButtonCommands), typeof(ButtonAppearance))]
-public class MuteButtonAction : MonoBehaviour {
+[RequireComponent(typeof(ButtonAppearance))]
+public class MuteButtonAction : CommandToExecute {
 
 
     private bool mutedState;
@@ -30,14 +30,14 @@ public class MuteButtonAction : MonoBehaviour {
         mutedState = !mutedState;
     }
     // Use this for initialization
-    void Start()
+    override public void Start()
     {
         prompt = GetComponent<VoiceCommandPrompt>();
-        GetComponent<ButtonCommands>().AddCommand(MuteAction());
         mutedState = false;
+        base.Start();
     }
 
-    private Action MuteAction()
+    override protected Action Command()
     {
         return delegate
         {
