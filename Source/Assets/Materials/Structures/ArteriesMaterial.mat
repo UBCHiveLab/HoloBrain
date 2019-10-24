@@ -8,15 +8,15 @@ Material:
   m_PrefabInternal: {fileID: 0}
   m_Name: ArteriesMaterial
   m_Shader: {fileID: 4800000, guid: d45c0efca53019e43891b0f610f8146e, type: 3}
-  m_ShaderKeywords: _ALPHABLEND_ON _ALPHAPREMULTUPLY_ON _BORDER_LIGHT_USES_HOVER_COLOR
-    _CLIPPING_PLANE _DIRECTIONAL_LIGHT _DISABLE_ALBEDO_MAP _HOVER_LIGHT _METALLIC_TEXTURE_ALBEDO_CHANNEL_A
-    _REFLECTIONS _SPECULAR_HIGHLIGHTS _USEAMBIENT_ON _USECOLOR_ON _USEDIFFUSE_ON _USEMAINCOLOR_ON
+  m_ShaderKeywords: _ALPHAPREMULTUPLY_ON _BORDER_LIGHT_USES_HOVER_COLOR _DIRECTIONAL_LIGHT
+    _DISABLE_ALBEDO_MAP _SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A _USEAMBIENT_ON _USECOLOR_ON
+    _USEDIFFUSE_ON _USEMAINCOLOR_ON
   m_LightmapFlags: 4
-  m_EnableInstancingVariants: 0
+  m_EnableInstancingVariants: 1
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 3000
+  m_CustomRenderQueue: 2000
   stringTagMap:
-    RenderType: Transparent
+    RenderType: Opaque
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
@@ -70,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _AlbedoAlphaMode: 1
+    - _AlbedoAlphaMode: 2
     - _BlendOp: 0
     - _BorderLight: 0
     - _BorderLightOpaque: 0
@@ -84,11 +84,11 @@ Material:
     - _ColorWriteMask: 15
     - _Cull: 2
     - _CullMode: 2
-    - _CustomMode: 2
+    - _CustomMode: 0
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
     - _DirectionalLight: 1
-    - _DstBlend: 10
+    - _DstBlend: 0
     - _EdgeSmoothingValue: 0.002
     - _EnableEmission: 0
     - _EnableHoverColorOpaqueOverride: 0
@@ -102,17 +102,17 @@ Material:
     - _GlossMapScale: 1
     - _Glossiness: 0
     - _GlossyReflections: 1
-    - _HoverLight: 1
+    - _HoverLight: 0
     - _HoverLightOpaque: 0
     - _InnerGlow: 0
     - _MainTex_OFFSET: 0
     - _MainTex_SCALE: 0
     - _Metallic: 0
-    - _Mode: 2
+    - _Mode: 0
     - _NearPlaneFade: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
-    - _Reflections: 1
+    - _Reflections: 0
     - _Refraction: 0
     - _RefractiveIndex: 0
     - _RenderQueueOverride: -1
@@ -124,10 +124,10 @@ Material:
     - _Shade4: 0
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
-    - _SpecularHighlights: 1
+    - _SpecularHighlights: 0
     - _SpecularPower: 10
     - _SpecularScale: 1
-    - _SrcBlend: 5
+    - _SrcBlend: 1
     - _UVSec: 0
     - _UseAmbient: 1
     - _UseBumpMap: 0
@@ -140,7 +140,7 @@ Material:
     - _UseSpecular: 0
     - _UseVertexColor: 0
     - _ZTest: 4
-    - _ZWrite: 0
+    - _ZWrite: 1
     m_Colors:
     - _ClipPlane: {r: 0, g: 1, b: 0, a: 0}
     - _ClippingPlaneBorderColor: {r: 1, g: 0.2, b: 0, a: 1}

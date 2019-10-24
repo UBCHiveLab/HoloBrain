@@ -32,6 +32,7 @@ public class ApplyAppConfiguration : MonoBehaviour {
 
             foreach(string e in activeElements)
             {
+                Debug.Log("trying " + e);
                 GameObject cur = CheckedReferences[e];
                 if(cur != null)
                 {

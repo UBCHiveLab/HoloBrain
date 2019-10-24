@@ -5015,6 +5015,46 @@ Prefab:
       propertyPath: Loop
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 20397093619043062, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: m_projectionMatrixMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20397093619043062, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: field of view
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 92131473378980716, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 20397093619043062, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20397093619043062, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20397093619043062, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 20397093619043062, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 20397093619043062, guid: bbe95bfdd4aaaad4887076e24fec76e0,
+        type: 2}
+      propertyPath: orthographic
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114513271320347590, guid: bbe95bfdd4aaaad4887076e24fec76e0, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: bbe95bfdd4aaaad4887076e24fec76e0, type: 2}
@@ -5037,6 +5077,7 @@ GameObject:
   - component: {fileID: 314865521}
   - component: {fileID: 314865520}
   - component: {fileID: 314865518}
+  - component: {fileID: 314865528}
   m_Layer: 0
   m_Name: PreLoad
   m_TagString: Untagged
@@ -5185,6 +5226,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f3fcc1fa67cda4dbe0d1e582183cae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &314865528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 314865517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 247442469, guid: f7b54ff4a43d4fcf81b4538b678e0bcc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SurfaceParent: {fileID: 0}
+  m_FreezeUpdates: 0
+  m_VolumeType: 1
+  m_SphereRadius: 2
+  m_HalfBoxExtents: {x: 4, y: 4, z: 4}
+  m_LodType: 2
+  m_NumUpdatesBeforeRemoval: 10
+  m_SecondsBetweenUpdates: 2.5
+  m_Layer: 0
+  m_Material: {fileID: 0}
+  m_EnableCollisions: 0
 --- !u!1 &319146626
 GameObject:
   m_ObjectHideFlags: 0
@@ -9442,7 +9505,7 @@ MonoBehaviour:
   m_MinScale: 0.5
   m_MaxDistance: 3
   m_MinDistance: 1
-  CloseOnInactivity: 1
+  CloseOnInactivity: 0
   CloseOnInactivityTime: 15
 --- !u!114 &618434181
 MonoBehaviour:

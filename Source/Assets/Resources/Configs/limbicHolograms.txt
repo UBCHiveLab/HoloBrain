@@ -1,1 +1,1 @@
-Putamen,Thalamus,Ventricles,Globus Pallidus,Substantia Nigra,Subthalamic Nuclei,Caudate,MinimapPositionObject,Cortex
+MRICollection,Fornix,Hippocampus,Amygdala,Mammillary Bodies,Mammillothalamic Tract,Thalamus,MinimapPositionObject,Cortex
