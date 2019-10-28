@@ -4,12 +4,13 @@ using System.Collections.Generic;
 namespace HolobrainConstants {
 
     public class Names { 
-        public const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
         public const string BRAIN_GAMEOBJECT_NAME = "Brain";
         public const string BRAIN_MINIMAP_GAMEOBJECT_NAME = "MinimapPositionObject";
         public const string HOLOGRAM_COLLECTION_GAMEOBJECT_NAME = "HologramCollection";
         public const string CONTROLS_UI_GAMEOBJECT_NAME = "ControlsUI";
         public const string LOADING_SCREEN_GAMEOBJECT_NAME = "LoadingScreen";
+        public const string PRELOAD_GAMEOBJECT_NAME = "PreLoad";
+        public const string EVENT_SYSTEM_NAME = "PreLoad/InputManager/EventSystem";
 
         public const string CORTEX_GAMEOBJECT_NAME = "Cortex";
         public const string CEREBELLUM_GAMEOBJECT_NAME = "Cerebellum";

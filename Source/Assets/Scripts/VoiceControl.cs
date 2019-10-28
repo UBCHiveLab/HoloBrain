@@ -13,40 +13,13 @@ using HolobrainConstants;
 using UnityEngine.EventSystems;
 
 public class VoiceControl : MonoBehaviour {
-    private const string BRAIN_PARTS_NAME = "Brain";
-    private const string BRAIN_GAME_OBJECT_NAME = "Brain";
-
-   // private const string MRI_SCANS = "MRIScans";
-    private const string Control_UI = "ControlsUI";
-
-    private const string HOLOGRAM_COLLECTION_NAME = "HologramCollection";
-    private const string MRI_SCANS_NAME = "MRIScans";
-    private const string MRI_COLLECTION_NAME = "MRICollection";
-
-    private const string FMRI_BRAIN_NAME = "fMRIBrains"; // change later
-
-    private const string TUTORIAL_SCENE_NAME= "Tutorial";
-
-
     private GameObject brain;
-    private GameObject brainStructures;
-    private GameObject mriScans;
-    private GameObject crossfadeSlider;
-
-    private GameObject fmriBrain;
-
-
     private GameObject controlsUI;
-
-    private GameObject mriCollection;
     private HTGazeManager gazeManager;
-
 
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> voiceRecognitionKeywords;
-    public static Dictionary <string, string> brainStructureNameToGameObjectName;
     private Dictionary<string, string> buttonActionsToGameObjectName;
-    private MuteButtonAction muteButton;
     private EventSystem eventSystem;
     
     private DataRecorder dataRecorder;
@@ -54,31 +27,18 @@ public class VoiceControl : MonoBehaviour {
     // Use this for initialization
     void Start() {
         // Referencing game objects to access their scripts
-        brain = GameObject.Find(BRAIN_GAME_OBJECT_NAME);
-        brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
-        crossfadeSlider = GameObject.Find("CrossfadeSlider");
-        muteButton = GameObject.Find("mute").GetComponent<MuteButtonAction>();
-        eventSystem = GameObject.Find("PreLoad/InputManager/EventSystem").GetComponent<EventSystem>();
-        dataRecorder = GameObject.Find("PreLoad").GetComponent<DataRecorder>();
-
-
-        fmriBrain = GameObject.Find(FMRI_BRAIN_NAME);
-        //fmriBrain.SetActive(false);
-
-
-        // mriScans = GameObject.Find(MRI_SCANS);
-        controlsUI = GameObject.Find(Control_UI);
-
-        gazeManager = GameObject.Find(HOLOGRAM_COLLECTION_NAME).GetComponent<HTGazeManager>();
-        mriScans = GameObject.Find(MRI_SCANS_NAME);
-        mriCollection = GameObject.Find(MRI_COLLECTION_NAME);
+        brain = GameObject.Find(Names.BRAIN_GAMEOBJECT_NAME);
+        eventSystem = GameObject.Find(Names.EVENT_SYSTEM_NAME).GetComponent<EventSystem>();
+        dataRecorder = GameObject.Find(Names.CONTROLS_UI_GAMEOBJECT_NAME).GetComponent<DataRecorder>();
+        controlsUI = GameObject.Find(Names.CONTROLS_UI_GAMEOBJECT_NAME);
+        gazeManager = GameObject.Find(Names.HOLOGRAM_COLLECTION_GAMEOBJECT_NAME).GetComponent<HTGazeManager>();
 
         voiceRecognitionKeywords = new Dictionary<string, Action>();
 
         foreach (var item in Names.GetStructureNames())
         {
-            voiceRecognitionKeywords.Add("Add " + item, () => { HandleAddBrainPart(item); });
-            voiceRecognitionKeywords.Add("Remove " + item, () => { HandleRemoveBrainPart(item); });
+            voiceRecognitionKeywords.Add("Add " + item, () => { HandleCommand(GameObject.Find(item)); });
+            voiceRecognitionKeywords.Add("Remove " + item, () => { HandleCommand(GameObject.Find(item)); });
         }
 
         //map voice commands to the corresponding button name
@@ -186,10 +146,6 @@ public class VoiceControl : MonoBehaviour {
         //UNCOMMENT THIS FOR GAZE MARKER
         //voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);
         //voiceRecognitionKeywords.Add("Clear Marker", HandleClearMarker);
-        //voiceRecognitionKeywords.Add("Show MRI Scans", HandleMRI); //commented because mris now show in mri room only
-        //voiceRecognitionKeywords.Add("Show Outline", HandleMRIOutlineOn); // mri ouline toggle functionaly disabled for now (MRIManager needs refactoring or splitting up)
-        //voiceRecognitionKeywords.Add("Hide Outline", HandleMRIOutlineOff);
-        //voiceRecognitionKeywords.Add("Toggle Outline", HandleMRIOutline);
         voiceRecognitionKeywords.Add("Pin Menu", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Pin"]), () =>
         {
             var cu = controlsUI.GetComponent<ControlsUIManager>();
@@ -199,7 +155,6 @@ public class VoiceControl : MonoBehaviour {
             var cu = controlsUI.GetComponent<ControlsUIManager>();
             return cu != null && cu.GetMenuPinState();
         }, typeof(PinButtonAction)));
-        //voiceRecognitionKeywords.Add("Show Structures", HandleStructuresMode);
 
         //voiceRecognitionKeywords.Add("End Tutorial", HandleEndTutorial);
         //voiceRecognitionKeywords.Add("Next", HandleNextChapter);
@@ -369,58 +324,6 @@ public class VoiceControl : MonoBehaviour {
         }
         GazeMarkerManager gmm = (GazeMarkerManager)FindObjectOfType(typeof(GazeMarkerManager));
         gmm.TryToRemoveGazeMarker();
-    }
-
-    private Action HandleMRI(GameObject target)
-    {
-        //GameObject.Find(buttonActionsToGameObjectName["MRI"])
-        return delegate
-        {
-            MRIManager.Instance.ProcessMRIButtonAction();
-            if (target != null)
-            {
-                target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
-            }
-            else
-            {
-                controlsUI.GetComponent<SubMenusManager>().ToggleMenuUI("mri-icon");
-            }
-        };
-    }
-
-    private Action HandleMRIOutlineOn(GameObject target)
-    {
-        //GameObject.Find(buttonActionsToGameObjectName["MRI Outline"])
-        return delegate
-        {
-            if (!MRIManager.Instance.IsOutlinedMRIImages())
-            {
-                target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
-            }
-            MRIManager.Instance.TurnOnMRIImageOutlines();
-        };
-    }
-
-    private Action HandleMRIOutlineOff(GameObject target)
-    {
-        //GameObject.Find(buttonActionsToGameObjectName["MRI Outline"])
-        return delegate
-        {
-            if (MRIManager.Instance.IsOutlinedMRIImages())
-            {
-                target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
-            }
-            MRIManager.Instance.TurnOffMRIImageOutlines();
-        };
-    }
-
-    private Action HandleStructuresMode(GameObject target)
-    {
-        //GameObject.Find(buttonActionsToGameObjectName["Structures"])
-        return delegate
-        {
-            target.GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
-        };
     }
 
     private void HandleNextChapter()
