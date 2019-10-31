@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HoloToolkit.Unity;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,10 +17,11 @@ public class CellRoomCommand : CommandToExecute
     {
         return delegate
         {
-            if(StateAccessor.Instance.ChangeMode(StateAccessor.Mode.Default)) {
+           /* if(StateAccessor.Instance.ChangeMode(StateAccessor.Mode.Default)) {*/
                 if (MRI != null)
-                {
-                    foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
+            {
+                ((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).resetPlanePosition();
+                foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
                     {
                         renderer.enabled = false;
                     }
@@ -84,7 +86,7 @@ public class CellRoomCommand : CommandToExecute
                     }
                 }
                 GetComponent<ButtonAppearance>().SetButtonActive();
-            }
+          //  }
         };
     }
 }

@@ -39,7 +39,6 @@ public class LabelDisplayManager : MonoBehaviour {
         textZone = transform.Find("Text");
         spriteComp = textZone.GetComponent<SpriteRenderer>();
         
-        
         brain = GameObject.Find("Brain");
         scaleScript = brain.GetComponent<ScaleToggler>();
         

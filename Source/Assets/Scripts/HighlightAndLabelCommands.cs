@@ -167,13 +167,13 @@ public class HighlightAndLabelCommands : MonoBehaviour, IFocusable, IInputClickH
         {
             if (isGazedAt && !isLocked)
             {
-                labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = true;
+                //labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = true;
                 labelZone.GetComponent<SpriteRenderer>().sprite = labelSprite;
                 labelZone.GetComponentInChildren<MeshRenderer>().enabled = true;
             }
             else
             {
-                labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = false;
+                //labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = false;
                 labelZone.GetComponent<SpriteRenderer>().sprite = null;
                 labelZone.GetComponentInChildren<MeshRenderer>().enabled = false;
             }

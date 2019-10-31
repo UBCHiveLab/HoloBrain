@@ -67,7 +67,7 @@ public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandle
     public void ResetStage()
     {
         GotTransform = false;
-        SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
+        //SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
         //WorldAnchorManager.Instance.RemoveAnchor(gameObject);
         //HideUI();
 
@@ -212,7 +212,7 @@ public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandle
             //mriManager.UpdateClippingForRepositioning(GotTransform);
             ShowUI();
 
-            SpatialMappingManager.Instance.DrawVisualMeshes = false;
+            //SpatialMappingManager.Instance.DrawVisualMeshes = false;
 
             if (mode != "solo")
             {
@@ -238,7 +238,7 @@ public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandle
     {
         // We read the user ID but we don't use it here.
         msg.ReadInt64(); 
-        SpatialMappingManager.Instance.DrawVisualMeshes = false;
+        //SpatialMappingManager.Instance.DrawVisualMeshes = false;
         transform.localPosition = CustomMessages.Instance.ReadVector3(msg);
         transform.localRotation = CustomMessages.Instance.ReadQuaternion(msg);
 

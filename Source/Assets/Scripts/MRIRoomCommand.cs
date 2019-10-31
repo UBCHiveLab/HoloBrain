@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HoloToolkit.Unity;
+using System;
 using UnityEngine;
 
 public class MRIRoomCommand : CommandToExecute {
@@ -14,10 +15,10 @@ public class MRIRoomCommand : CommandToExecute {
     {
         return delegate
         {
-            GameObject.Find("ClipPlane").GetComponent<MoveClippingPlane>().TurnOnClipping();
                 if (MRI != null)
                 {
-                    foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
+                    ((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).resetPlanePosition();
+                foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
                     {
                         renderer.enabled = true;
                     }

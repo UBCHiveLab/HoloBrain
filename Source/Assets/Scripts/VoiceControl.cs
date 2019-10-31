@@ -19,7 +19,7 @@ public class VoiceControl : MonoBehaviour {
 
     private KeywordRecognizer keywordRecognizer;
     private Dictionary<string, Action> voiceRecognitionKeywords;
-    private Dictionary<string, string> buttonActionsToGameObjectName;
+    private Dictionary<string, GameObject> buttonActionsToGameObjectName;
     private EventSystem eventSystem;
     
     private DataRecorder dataRecorder;
@@ -42,85 +42,87 @@ public class VoiceControl : MonoBehaviour {
         }
 
         //map voice commands to the corresponding button name
-        buttonActionsToGameObjectName = new Dictionary<string, string>
+        GameObject menu = GameObject.Find("menu");
+        GameObject rooms = GameObject.Find("rooms");
+        buttonActionsToGameObjectName = new Dictionary<string, GameObject>
         {
-            { "Rotate", "rotate-stop" },
+            { "Rotate", GameObject.Find("rotate-stop") },
             //{ "Rotate Walls", "rotate-walls-icon" },
-            { "Stop", "rotate-stop" },
-            { "Expand", "expand-collapse" },
-            { "Collapse", "expand-collapse" },
+            { "Stop", GameObject.Find("rotate-stop") },
+            { "Expand", GameObject.Find("expand-collapse") },
+            { "Collapse", GameObject.Find("expand-collapse") },
            // { "Reset", "reset-icon" },
-            {"Scale Up", "scale-up" },
-            {"Scale Down", "scale-down" },
-            {"Isolate", "menu" },
-            {"Hide Isolate", "menu" },
-            {"Reposition", "reposition-icon" },
-            {"Add All", "menu" },
-            {"Remove All", "menu" },
-            { "Microglia", "menu" },
-           { "Channel 1", "menu" },
-            { "Channel 2", "menu" },
-            { "MRI", "mri-icon" },
-            { "MRI Outline", "show-colour-icon" },
-            { "Pin", "pin-unpin" },
-            { "Structures", "structures-icon" },
+            {"Scale Up", GameObject.Find("scale-up") },
+            {"Scale Down", GameObject.Find("scale-down") },
+            {"Isolate", menu },
+            {"Hide Isolate", menu },
+            {"Reposition", GameObject.Find("reposition-icon") },
+            {"Add All", menu },
+            {"Remove All", menu },
+            { "Microglia", menu },
+           { "Channel 1", menu },
+            { "Channel 2", menu },
+            //{ "MRI", GameObject.Find("mri-icon") },
+           // { "MRI Outline", GameObject.Find("show-colour-icon") },
+           // { "Pin", GameObject.Find("pin-unpin") },
+           // { "Structures", GameObject.Find("structures-icon") },
              //New Voice Commands
-            { "Play", "menu" },
-            { "Pause", "menu" },
-            { "Faster", "menu" },
-            { "Slower", "menu" },
-            { "Skip One", "menu" },
-            { "Skip Ten", "menu" },
-            { "Back One", "menu" },
-           { "Back Ten", "menu" },
-            { "Educational Room", "rooms"},
-            { "MRI Room", "rooms"},
-          { "fMRI Room", "rooms"},
-            { "Brain Cell Room", "rooms"},
-            { "DTI Room", "rooms" },
-          { "End Tutorial", "SkipButton"},
-            { "Next", "NextButton"},
-            {"Locate", "Locate" }
+            { "Play", menu },
+            { "Pause", menu },
+            { "Faster", menu },
+            { "Slower", menu },
+            { "Skip One", menu },
+            { "Skip Ten", menu },
+            { "Back One", menu },
+           { "Back Ten", menu },
+            { "Educational Room", rooms},
+            { "MRI Room", rooms},
+          { "fMRI Room", rooms},
+            { "Brain Cell Room", rooms},
+            { "DTI Room", rooms },
+          { "End Tutorial", GameObject.Find("SkipButton")},
+            { "Next", GameObject.Find("NextButton")},
+            {"Locate", GameObject.Find("Locate") }
         };
 
-        voiceRecognitionKeywords.Add("Rotate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Rotate"]), () =>
+        voiceRecognitionKeywords.Add("Rotate", HandleCommand(buttonActionsToGameObjectName["Rotate"], () =>
         {
             var rs = brain.GetComponent<RotateStructures>();
             return rs != null && rs.isRotating == false;
         }, typeof(RotateButtonAction)));
-        voiceRecognitionKeywords.Add("Stop", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Stop"]), () =>
+        voiceRecognitionKeywords.Add("Stop", HandleCommand(buttonActionsToGameObjectName["Stop"], () =>
         {
             var rs = brain.GetComponent<RotateStructures>();
             return rs != null && rs.isRotating == true;
         }, typeof(RotateButtonAction)));
 
-        voiceRecognitionKeywords.Add("Scale Up", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Scale Up"])));
-        voiceRecognitionKeywords.Add("Scale Down", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Scale Down"])));
+        voiceRecognitionKeywords.Add("Scale Up", HandleCommand(buttonActionsToGameObjectName["Scale Up"]));
+        voiceRecognitionKeywords.Add("Scale Down", HandleCommand(buttonActionsToGameObjectName["Scale Down"]));
 
-        voiceRecognitionKeywords.Add("Expand", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Expand"]), () =>
+        voiceRecognitionKeywords.Add("Expand", HandleCommand(buttonActionsToGameObjectName["Expand"], () =>
         {
             var sa = brain.GetComponent<StateAccessor>();
             return sa != null && sa.AbleToTakeAnInteraction();
         }, typeof(ExplodeButtonAction), "Expand"));
-        voiceRecognitionKeywords.Add("Collapse", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Collapse"]), () =>
+        voiceRecognitionKeywords.Add("Collapse", HandleCommand(buttonActionsToGameObjectName["Collapse"], () =>
         {
             var sa = brain.GetComponent<StateAccessor>();
             return sa != null && sa.AbleToTakeAnInteraction();
         }, typeof(ExplodeButtonAction), "Collapse"));
 
-        voiceRecognitionKeywords.Add("Isolate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Isolate"]), () => {
+        voiceRecognitionKeywords.Add("Isolate", HandleCommand(buttonActionsToGameObjectName["Isolate"], () => {
             var rs = brain.GetComponent<RotateStructures>();
             return rs != null && !rs.isRotating;
         }, typeof(IsolateModeButtonAction)));
-        voiceRecognitionKeywords.Add("Hide Isolate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Hide Isolate"]), () =>
+        voiceRecognitionKeywords.Add("Hide Isolate", HandleCommand(buttonActionsToGameObjectName["Hide Isolate"], () =>
         {
             var rs = brain.GetComponent<RotateStructures>();
             return rs != null && !rs.isRotating;
         }, typeof(IsolateExitButtonAction)));
         //voiceRecognitionKeywords.Add("Reset", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Reset"])));
-        voiceRecognitionKeywords.Add("Reposition", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Reposition"])));
-        voiceRecognitionKeywords.Add("Add All", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Add All"]), typeof(IsolateButtonAction), buttonActionsToGameObjectName["Add All"]));
-        voiceRecognitionKeywords.Add("Remove All", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Remove All"]), typeof(IsolateButtonAction), buttonActionsToGameObjectName["Remove All"]));
+        voiceRecognitionKeywords.Add("Reposition", HandleCommand(buttonActionsToGameObjectName["Reposition"]));
+        voiceRecognitionKeywords.Add("Add All", HandleCommand(buttonActionsToGameObjectName["Add All"], typeof(IsolateButtonAction), "AddAll"));
+        voiceRecognitionKeywords.Add("Remove All", HandleCommand(buttonActionsToGameObjectName["Remove All"], typeof(IsolateButtonAction), "RemoveAll"));
         // New Voice Commands
 
       //  voiceRecognitionKeywords.Add("Play", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Play"]), typeof(PlayButtonAction)));
@@ -132,10 +134,10 @@ public class VoiceControl : MonoBehaviour {
       //  voiceRecognitionKeywords.Add("Skip Ten", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]), typeof(SkipTenButtonAction)));
        // voiceRecognitionKeywords.Add("Back Ten", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Back Ten"]), typeof(BackTenButtonAction)));
 
-        voiceRecognitionKeywords.Add("Educational Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Educational Room"]), typeof(EduRoomCommand)));
+        voiceRecognitionKeywords.Add("Educational Room", HandleCommand(buttonActionsToGameObjectName["Educational Room"], typeof(EduRoomCommand)));
       //  voiceRecognitionKeywords.Add("FMRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]), typeof(fMRIRoomCommand)));
       //  voiceRecognitionKeywords.Add("Functional MRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]), typeof(fMRIRoomCommand)));
-        voiceRecognitionKeywords.Add("MRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["MRI Room"]), typeof(MRIRoomCommand)));
+        voiceRecognitionKeywords.Add("MRI Room", HandleCommand(buttonActionsToGameObjectName["MRI Room"], typeof(MRIRoomCommand)));
        // voiceRecognitionKeywords.Add("MRI Scan Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["MRI Room"]), typeof(MRIRoomCommand)));
        // voiceRecognitionKeywords.Add("Brain Cell Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Brain Cell Room"]), typeof(CellRoomCommand)));
 
@@ -146,12 +148,12 @@ public class VoiceControl : MonoBehaviour {
         //UNCOMMENT THIS FOR GAZE MARKER
         //voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);
         //voiceRecognitionKeywords.Add("Clear Marker", HandleClearMarker);
-        voiceRecognitionKeywords.Add("Pin Menu", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Pin"]), () =>
+        voiceRecognitionKeywords.Add("Pin Menu", HandleCommand(buttonActionsToGameObjectName["Pin"], () =>
         {
             var cu = controlsUI.GetComponent<ControlsUIManager>();
             return cu != null && !cu.GetMenuPinState();
         }, typeof(PinButtonAction)));
-        voiceRecognitionKeywords.Add("UnPin Menu", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Pin"]), () => {
+        voiceRecognitionKeywords.Add("UnPin Menu", HandleCommand(buttonActionsToGameObjectName["Pin"], () => {
             var cu = controlsUI.GetComponent<ControlsUIManager>();
             return cu != null && cu.GetMenuPinState();
         }, typeof(PinButtonAction)));
@@ -328,11 +330,11 @@ public class VoiceControl : MonoBehaviour {
 
     private void HandleNextChapter()
     {
-        GameObject.Find(buttonActionsToGameObjectName["Next"]).GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
+        //GameObject.Find(buttonActionsToGameObjectName["Next"]).GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
     }
 
     private void HandleEndTutorial()
     {
-        GameObject.Find(buttonActionsToGameObjectName["End Tutorial"]).GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
+        //GameObject.Find(buttonActionsToGameObjectName["End Tutorial"]).GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(eventSystem));
     }
 }

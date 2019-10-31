@@ -44,11 +44,15 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
     {
         if(oneButtonActiveInGroup)
         {
-            foreach(ButtonAppearance b in transform.parent.GetComponentsInChildren<ButtonAppearance>(true))
+            foreach(Transform t in transform.parent)
             {
-                if (b.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+                if (t.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                 {
-                    b.ResetButton();
+                    ButtonAppearance b = t.GetComponent<ButtonAppearance>();
+                    if(b != null)
+                    {
+                        b.ResetButton();
+                    }
                 }
             }
         }

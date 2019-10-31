@@ -6,45 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PreLoadScene.unity
+    path: Assets/_Scenes/PreLoadScene.unity
     guid: d0dbba88060bf804cb3cd4fdd5c0614c
-  - enabled: 0
-    path: Assets/Scenes/Tutorial.unity
-    guid: 84be7d09b491ad142a8602cdade99b15
-  - enabled: 0
-    path: Assets/Scenes/Main.unity
-    guid: 8a6aae011d8501a459ab7a10e308b4dc
-  - enabled: 0
-    path: Assets/Scenes/StartAppScene.unity
-    guid: 485df5ae50db49b47bfec5b2e2eee9e0
-  - enabled: 0
-    path: Assets/Scenes/StudentOrSoloScene.unity
-    guid: 10b9ee8bc2c68a24e9fcfbbdf89f88eb
-  - enabled: 0
-    path: Assets/Scenes/EnterSessionIDScene.unity
-    guid: c63b97593109ae141b4abc35514c50a7
-  - enabled: 0
-    path: Assets/Scenes/EducationalRoom.unity
-    guid: 569d545af7438ca47acc54671fc57d2e
-  - enabled: 0
-    path: Assets/Scenes/fMRIRoom.unity
-    guid: 25c6526a59da86f4f9a02fcf989c1855
-  - enabled: 0
-    path: Assets/Scenes/MRIRoom.unity
-    guid: 29c5bd9fb2706cf4fb0aeea480b4cec8
-  - enabled: 0
-    path: Assets/Scenes/BrainCellRoom.unity
-    guid: 9cabf9a855d22a5489989769cc325865
-  - enabled: 0
-    path: Assets/UI_new/MenuUI.unity
-    guid: c6f7e1933563fe84a80d58980d54143c
-  - enabled: 0
-    path: Assets/Scenes/LimbicEval.unity
-    guid: 4afb572bd8751e84399ab2cc85c0ff85
-  - enabled: 0
-    path: Assets/Scenes/BasalEval.unity
-    guid: 6bf82f44a762aeb4d84d71399ceeacb4
   - enabled: 1
-    path: Assets/Scenes/App.unity
+    path: Assets/_Scenes/App.unity
     guid: 1d485bac3f4d2214eb3d00ed2f445630
   m_configObjects: {}

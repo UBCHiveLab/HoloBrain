@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Unity.InputModule;
+using HoloToolkit.Unity;
 
 public class EduRoomCommand : CommandToExecute {
 
@@ -23,8 +24,8 @@ public class EduRoomCommand : CommandToExecute {
             if(stateAccessor.ChangeMode(StateAccessor.Mode.Default)) {*/
                 if (MRI != null)
                 {
-                    MRI.GetComponentInChildren<MoveClippingPlane>().resetPlanePosition();
-                    foreach(Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
+                ((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).resetPlanePosition();
+                foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
                     {
                         renderer.enabled = false;
                     }

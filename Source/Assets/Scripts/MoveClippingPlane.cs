@@ -155,6 +155,7 @@ public class MoveClippingPlane : MonoBehaviour {
 
     public void resetPlanePosition()
     {
+        Debug.Log("resetting plane position");
         setPlaneOrientation(Orientation.vertical);
         transform.localPosition = defaultPosition;
         transform.localEulerAngles = defaultRotation;
@@ -162,17 +163,17 @@ public class MoveClippingPlane : MonoBehaviour {
 
     public void TurnOffClipping()
     {
+        Debug.Log("turning off clipping");
         resetPlanePosition();
         clipAtCurrentPosition();
         isClipping = false;
         isMovingX = false;
         isMovingY = false;
-
-        gameObject.SetActive(false);
     }
 
     public void TurnOnClipping()
     {
+        Debug.Log("turning on clipping");
         isClipping = true;
     }
 
