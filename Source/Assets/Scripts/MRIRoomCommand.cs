@@ -1,6 +1,7 @@
 ﻿using HoloToolkit.Unity;
 using System;
 using UnityEngine;
+using HolobrainConstants;
 
 public class MRIRoomCommand : CommandToExecute {
 
@@ -15,10 +16,14 @@ public class MRIRoomCommand : CommandToExecute {
     {
         return delegate
         {
+            GameObject Brain = GameObject.Find(Names.BRAIN_GAMEOBJECT_NAME);
+            if (!Brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating())
+            {
+                Brain.GetComponent<ExplodingCommands>().ResetExplode();
                 if (MRI != null)
                 {
                     ((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).resetPlanePosition();
-                foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
+                    foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
                     {
                         renderer.enabled = true;
                     }
@@ -53,9 +58,9 @@ public class MRIRoomCommand : CommandToExecute {
                         collider.enabled = false;
                     }
                 }
-                if(DTI != null)
+                if (DTI != null)
                 {
-                    foreach(Renderer renderer in DTI.transform.GetComponentsInChildren<Renderer>(true))
+                    foreach (Renderer renderer in DTI.transform.GetComponentsInChildren<Renderer>(true))
                     {
                         renderer.enabled = false;
                     }
@@ -66,12 +71,13 @@ public class MRIRoomCommand : CommandToExecute {
                 }
                 foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
                 {
-                    foreach(Collider collider in cur.transform.GetComponentsInChildren<Collider>(true))
+                    foreach (Collider collider in cur.transform.GetComponentsInChildren<Collider>(true))
                     {
-                        if(cur.name != "Cortex")
+                        if (cur.name != "Cortex")
                         {
                             collider.enabled = true;
-                        } else
+                        }
+                        else
                         {
                             collider.enabled = false;
                         }
@@ -89,6 +95,7 @@ public class MRIRoomCommand : CommandToExecute {
                     }
                 }
                 GetComponent<ButtonAppearance>().SetButtonActive();
+            }
         };
     }
 }

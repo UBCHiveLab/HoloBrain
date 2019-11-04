@@ -16,7 +16,7 @@ public class MoveClippingPlane : MonoBehaviour {
     private Vector3 animationHorizontalStartRotation;
     private Vector3 defaultPosition;
     private Vector3 defaultRotation;
-    private bool isClipping = false;
+    private bool isClipping = true;
     private GameObject BrainObject;
     private const string BRAIN = "Brain";
     private const float PLANE_ANIMATION_OFFSET = -.5f;

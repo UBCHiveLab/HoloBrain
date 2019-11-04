@@ -64,7 +64,7 @@ public class VoiceControl : MonoBehaviour {
             { "Channel 2", menu },
             //{ "MRI", GameObject.Find("mri-icon") },
            // { "MRI Outline", GameObject.Find("show-colour-icon") },
-           // { "Pin", GameObject.Find("pin-unpin") },
+            { "Pin", GameObject.Find("pin-unpin") },
            // { "Structures", GameObject.Find("structures-icon") },
              //New Voice Commands
             { "Play", menu },
