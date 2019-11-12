@@ -2,6 +2,7 @@
 // Licensed under the MIT License.
 
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace HoloToolkit.Unity
 {
@@ -97,6 +98,17 @@ namespace HoloToolkit.Unity
             }
 
             materialPropertyBlock = new MaterialPropertyBlock();
+        }
+
+        public void AddRenderer(Renderer rend)
+        {
+            List<Renderer> tempRenderers = new List<Renderer>();
+            foreach(Renderer temp in renderers)
+            {
+                tempRenderers.Add(temp);
+            }
+            tempRenderers.Add(rend);
+            renderers = tempRenderers.ToArray();
         }
 
         private void UpdatePlanePosition()

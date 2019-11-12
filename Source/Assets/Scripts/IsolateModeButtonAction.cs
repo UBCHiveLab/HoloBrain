@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using HoloToolkit.Unity;
 
 public class IsolateModeButtonAction : CommandToExecute {
 
@@ -25,6 +26,7 @@ public class IsolateModeButtonAction : CommandToExecute {
         {
             if (!brain.GetComponent<RotateStructures>().isRotating)
             {
+                FindObjectOfType<MoveClippingPlane>().TurnOffClipping();
                 brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
             }
         };

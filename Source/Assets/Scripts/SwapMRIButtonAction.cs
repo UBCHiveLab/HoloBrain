@@ -47,12 +47,12 @@ public class SwapMRIButtonAction : CommandToExecute {
         {
             if (vertical)
             {
-                Debug.Log("Sending message to move clipping plane: " + moveClippingPlane.transform.InverseTransformPoint(mriSlice.position).x);
-                moveClippingPlane.changePlaneXPosition(MRICollection.InverseTransformPoint(mriSlice.position).x);
+                Debug.Log("Sending message to move clipping plane: " + MRICollection.transform.InverseTransformPoint(mriSlice.position).x);
+                moveClippingPlane.changePlaneXPosition(MRICollection.transform.InverseTransformPoint(mriSlice.position).x);
             } else
             {
-                Debug.Log("Sending message to move clipping plane: " + moveClippingPlane.transform.InverseTransformPoint(mriSlice.position).x);
-                moveClippingPlane.changePlaneYPosition(MRICollection.InverseTransformPoint(mriSlice.position).y);
+                Debug.Log("Sending message to move clipping plane: " + MRICollection.transform.InverseTransformPoint(mriSlice.position).y);
+                moveClippingPlane.changePlaneYPosition(MRICollection.transform.InverseTransformPoint(mriSlice.position).y);
             }
             MRICollection.GetComponent<MRIEvents>().publishMRIHighlightEvent(mriSlice.name);
         };

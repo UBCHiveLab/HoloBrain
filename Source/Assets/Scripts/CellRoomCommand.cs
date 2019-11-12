@@ -21,6 +21,8 @@ public class CellRoomCommand : CommandToExecute
                 if (MRI != null)
             {
                 ((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).resetPlanePosition();
+                ((ClipPlane)(MRI.GetComponentInChildren(typeof(ClipPlane), true))).enabled = false;
+                //((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).TurnOffClipping();
                 foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
                     {
                         renderer.enabled = false;

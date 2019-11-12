@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using HoloToolkit.Unity.InputModule;
 
 public class ButtonAppearance : MonoBehaviour, IFocusable {
@@ -10,8 +11,10 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
     public Sprite hoverSprite;
     public Sprite defaultSprite;
     public Sprite activeSprite;
-    public bool oneButtonActiveInGroup;
+    public bool oneButtonActiveInGroup = false;
+    public bool resetOnSecondClick = false;
     private SpriteRenderer renderer;
+    private Image image;
     private bool activeState;
     private AudioSource hoverSound;
     
@@ -20,7 +23,11 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
         renderer = GetComponent<SpriteRenderer>();
         if (renderer == null)
         {
-            Debug.Log("no sprite renderer on button where expected");
+            image = GetComponent<Image>();
+            if(image == null)
+            {
+                Debug.Log("no sprite renderer or Image on button where expected");
+            }
         } else
         {
             ResetButton();
@@ -32,12 +39,12 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
     void OnDisable()
     {
         activeState = false;
-        renderer.sprite = defaultSprite;
+        changeSprite(defaultSprite);
     }
 
     public void SetButtonHover()
     {
-        renderer.sprite = hoverSprite;
+        changeSprite(hoverSprite);
     }
 
     public void SetButtonActive()
@@ -56,8 +63,17 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
                 }
             }
         }
-        renderer.sprite = activeSprite;
-        activeState = true;
+        if (activeState && resetOnSecondClick)
+        {
+            Debug.Log("resetting button: " + activeState + " " + resetOnSecondClick);
+            ResetButton();
+        }
+        else
+        {
+            Debug.Log("setting button Active");
+            changeSprite(activeSprite);
+            activeState = true;
+        }
     }
 
     public void ToggleButtonActive()
@@ -74,11 +90,8 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
 
     public void ResetButton()
     {
-        if (renderer != null)
-        {
-            renderer.sprite = defaultSprite;
-            activeState = false;
-        }
+        changeSprite(defaultSprite);
+        activeState = false;
     }
 
     public void OnFocusEnter()
@@ -98,5 +111,17 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
             return;
         }
         ResetButton();
+    }
+
+    private void changeSprite(Sprite sprite)
+    {
+        if (renderer != null)
+        {
+            renderer.sprite = sprite;
+        }
+        else if (image != null)
+        {
+            image.sprite = sprite;
+        }
     }
 }

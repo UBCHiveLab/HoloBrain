@@ -23,6 +23,7 @@ public class MRIRoomCommand : CommandToExecute {
                 if (MRI != null)
                 {
                     ((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).resetPlanePosition();
+                    ((MoveClippingPlane)(MRI.GetComponentInChildren(typeof(MoveClippingPlane), true))).TurnOnClipping();
                     foreach (Renderer renderer in MRI.transform.GetComponentsInChildren<Renderer>(true))
                     {
                         renderer.enabled = true;

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using HolobrainConstants;
+using HoloToolkit.Unity;
 
 public class IsolateStructures : MonoBehaviour {
     private class MovingStructure
@@ -172,9 +173,14 @@ public class IsolateStructures : MonoBehaviour {
 
     private GameObject CopyStructure(GameObject structureToCopy)
     {
-        GameObject copiedStructure = (GameObject) Instantiate(structureToCopy, structureToCopy.transform.parent.transform);
+        ClipPlane cp = FindObjectOfType<ClipPlane>();
+        GameObject copiedStructure = (GameObject) Instantiate(structureToCopy, structureToCopy.transform.parent);
         copiedStructure.transform.position = structureToCopy.transform.position;
         copiedStructure.transform.localScale = structureToCopy.transform.localScale;
+        foreach(Renderer rend in copiedStructure.GetComponentsInChildren<Renderer>())
+        {
+            cp.AddRenderer(rend);
+        }
         return copiedStructure;
     }
 

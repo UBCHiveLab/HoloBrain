@@ -21,8 +21,8 @@ public class IsolateButtonAction : CommandToExecute {
     override public void Start () {
         buttonSelected = false;
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
-        IsolateMenu = GameObject.Find(ISOLATE_MENU_NAME);
-        isolateButtons = GetStructureButtons();
+        //IsolateMenu = GameObject.Find(ISOLATE_MENU_NAME);
+        //isolateButtons = GetStructureButtons();
         base.Start();
     }
 
@@ -70,12 +70,12 @@ public class IsolateButtonAction : CommandToExecute {
             else if (!buttonSelected)
             {
                 AddBrainPart(PartToIsolate);
-                SetButtonSelected(true);
+                buttonSelected = true;
             }
             else
             {
                 RemoveBrainPart(PartToIsolate);
-                SetButtonSelected(false);
+                buttonSelected = false;
             }
         };
     }

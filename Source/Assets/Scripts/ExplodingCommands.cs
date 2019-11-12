@@ -124,7 +124,6 @@ public class ExplodingCommands : MonoBehaviour {
             }
             else
             {
-
                 if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
                 {
                     explodingStructures.Add(new BrainStructure(structure.transform, centerOfBrainModel));

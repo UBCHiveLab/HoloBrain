@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using HoloToolkit.Unity;
 
 public class IsolateExitButtonAction : CommandToExecute {
 
@@ -22,6 +23,7 @@ public class IsolateExitButtonAction : CommandToExecute {
     {
         return delegate
         {
+            FindObjectOfType<MoveClippingPlane>().TurnOnClipping();
             brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
         };
     }

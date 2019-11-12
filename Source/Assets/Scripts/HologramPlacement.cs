@@ -225,6 +225,7 @@ public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandle
                 Debug.Log("Clearing fallback input handler stack");
                 InputManager.Instance.RemoveGlobalListener(gameObject);
                 GameObject controlsUI = GameObject.Find("menu");
+                controlsUI.GetComponentInChildren<RepositionButtonAction>().gameObject.GetComponent<ButtonAppearance>().ResetButton();
                 controlsUI.SetActive(true);
             }
         }
