@@ -952,7 +952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: f763e36e716fe6d40915bc8df62275e0, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &7392946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3756,7 +3756,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 036183d4b274cda4fbabb07ba1cb4a54, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &56755572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3769,7 +3769,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 3338126405321fe40aecc5e373e3c8d0, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &56755573
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3782,7 +3782,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 4905757054ba0334aa1d9cccdf3be655, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &56755574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3795,7 +3795,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 869be32c60f89b0499b2fca955f6b41f, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &56755575
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3926,7 +3926,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &69124767
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4076,10 +4076,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hoverSprite: {fileID: 21300000, guid: 1143c15a1999abb4ab6383b495fcabdc, type: 3}
-  defaultSprite: {fileID: 21300000, guid: d618e9c92f14a2f4baac0e2f8676592b, type: 3}
-  activeSprite: {fileID: 21300000, guid: 10a358cc379b4244a9bb3169cfd28cb0, type: 3}
+  defaultSprite: {fileID: 21300000, guid: 10a358cc379b4244a9bb3169cfd28cb0, type: 3}
+  activeSprite: {fileID: 21300000, guid: d618e9c92f14a2f4baac0e2f8676592b, type: 3}
   oneButtonActiveInGroup: 0
-  resetOnSecondClick: 0
+  resetOnSecondClick: 1
 --- !u!114 &69124772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6585,7 +6585,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &132097630
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8292,7 +8292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 6392a7e1b0ffa68489a51417a1eb18a2, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &162916574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10990,6 +10990,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b502c8bb2a35b1b4b83752b0b8093bcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ExplodeButton: {fileID: 0}
+  CollapseButton: {fileID: 0}
 --- !u!114 &266481649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13691,7 +13693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 8d4455b964c1ed04eb6bb30aa4a840b4, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &347425888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15687,6 +15689,7 @@ GameObject:
   - component: {fileID: 385654668}
   - component: {fileID: 385654675}
   - component: {fileID: 385654674}
+  - component: {fileID: 385654669}
   m_Layer: 5
   m_Name: IsolateBtn
   m_TagString: Untagged
@@ -15749,6 +15752,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 159.99998, y: 59.999996, z: 0.19999999}
   m_Center: {x: 0.0000076293945, y: -0.000015258789, z: 0}
+--- !u!114 &385654669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 385654664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8e24ed55acdd4394bb095fc514fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &385654670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16069,7 +16083,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 036183d4b274cda4fbabb07ba1cb4a54, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &390284470
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16703,7 +16717,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &398645747
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16953,7 +16967,6 @@ GameObject:
   - component: {fileID: 401720893}
   - component: {fileID: 401720895}
   - component: {fileID: 401720896}
-  - component: {fileID: 401720897}
   m_Layer: 5
   m_Name: menu
   m_TagString: Untagged
@@ -17186,17 +17199,6 @@ MonoBehaviour:
   hoverState: {fileID: 0}
   activeState: {fileID: 0}
   GAZE_FRAME_NAME: white-border
---- !u!114 &401720897
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 401720887}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 173c01b438e23a647ae5696837cc63d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &402019100
 GameObject:
   m_ObjectHideFlags: 0
@@ -17673,7 +17675,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 8d4455b964c1ed04eb6bb30aa4a840b4, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &408737080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23117,7 +23119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 516335483845eb1439fc202134f0209f, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &539507087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27686,7 +27688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 51c7b4e7c6ccf8043b10e9279b560f0f, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &683514321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28241,7 +28243,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 7efefa656f7d458478c5c4e88717400d, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &689192221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33679,7 +33681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: d6bb4c6b5429d684b86cdc2b0a77158c, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &836872869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37391,7 +37393,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: c6730aeaa6c6b464190db9019768a075, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &955462507
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37496,6 +37498,7 @@ GameObject:
   - component: {fileID: 956853914}
   - component: {fileID: 956853920}
   - component: {fileID: 956853917}
+  - component: {fileID: 956853921}
   m_Layer: 5
   m_Name: Collapse
   m_TagString: Untagged
@@ -37720,6 +37723,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prompt: Collapse
   promptArea: {fileID: 1890802765}
+--- !u!114 &956853921
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 956853911}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ff705713c62174e98943b0fc196a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &957768434
 GameObject:
   m_ObjectHideFlags: 0
@@ -38269,6 +38283,7 @@ GameObject:
   - component: {fileID: 963397845}
   - component: {fileID: 963397846}
   - component: {fileID: 963397841}
+  - component: {fileID: 963397842}
   m_Layer: 5
   m_Name: ExitIsolate
   m_TagString: Untagged
@@ -38377,6 +38392,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &963397842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 963397835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ed8e24ed55acdd4394bb095fc514fcd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!82 &963397843
 AudioSource:
   m_ObjectHideFlags: 0
@@ -46871,7 +46897,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 947c1742cf59f9a45a9a24d45b4f0f34, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &1321171474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47318,7 +47344,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1328869181}
   - component: {fileID: 1328869182}
-  - component: {fileID: 1328869183}
   - component: {fileID: 1328869184}
   m_Layer: 5
   m_Name: expand-collapse
@@ -47364,17 +47389,6 @@ MonoBehaviour:
   Elements:
   - {fileID: 956853911}
   - {fileID: 1678133320}
---- !u!114 &1328869183
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1328869180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39ff705713c62174e98943b0fc196a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1328869184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49481,7 +49495,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 29a55e8db6faa0847828c8b53e621b3f, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &1380052426
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54390,7 +54404,6 @@ GameObject:
   - component: {fileID: 1557858477}
   - component: {fileID: 1557858485}
   - component: {fileID: 1557858482}
-  - component: {fileID: 1557858478}
   m_Layer: 5
   m_Name: Isolate
   m_TagString: Untagged
@@ -54421,17 +54434,6 @@ RectTransform:
   m_AnchoredPosition: {x: -80, y: 151}
   m_SizeDelta: {x: 160, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1557858478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1557858476}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ed8e24ed55acdd4394bb095fc514fcd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1557858482
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55631,7 +55633,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 189dd6551383400408e898e4f72b01d6, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &1596871712
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58649,6 +58651,7 @@ GameObject:
   - component: {fileID: 1678133323}
   - component: {fileID: 1678133325}
   - component: {fileID: 1678133326}
+  - component: {fileID: 1678133327}
   m_Layer: 5
   m_Name: Expand
   m_TagString: Untagged
@@ -58837,6 +58840,17 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &1678133327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1678133320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39ff705713c62174e98943b0fc196a43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!65 &1678133331
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -60142,7 +60156,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: 1c8540ab389184c4ba08f8ca4fd3ef2a, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &1739301175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62834,7 +62848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: e1055f449128adb4cb804c169b2d7f12, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &1769671494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64310,7 +64324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audio: {fileID: 8300000, guid: e91389f41c3b0fb45ba637fbdfb97e13, type: 3}
-  muteButton: {fileID: 788997291}
+  muteButton: {fileID: 69124774}
 --- !u!114 &1801951096
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -75386,7 +75400,7 @@ MonoBehaviour:
   defaultSprite: {fileID: 21300000, guid: 481159229f0de42409ff0a323ce5a583, type: 3}
   activeSprite: {fileID: 21300000, guid: c1834efcbeda3524780934b1f7f22ed2, type: 3}
   oneButtonActiveInGroup: 0
-  resetOnSecondClick: 0
+  resetOnSecondClick: 1
 --- !u!114 &2132361732
 MonoBehaviour:
   m_ObjectHideFlags: 0

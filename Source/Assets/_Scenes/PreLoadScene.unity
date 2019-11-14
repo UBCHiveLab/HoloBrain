@@ -5095,7 +5095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d585987adfc4a5499a571b450abbcdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appConfigWord: vessels
+  appConfigWord: basal
 --- !u!4 &314865519
 Transform:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class ButtonCommands : MonoBehaviour, IFocusable, IInputClickHandler {
 
     public bool buttonIsEnabled { get; private set; }
 
+    private SwitchRoomUICondition condition;
     private ControlsUIManager controlsUI;
     private AudioSource source;
     private ButtonAppearance appearance;
@@ -30,6 +31,7 @@ public class ButtonCommands : MonoBehaviour, IFocusable, IInputClickHandler {
         controlsUI = transform.GetComponentInParent<ControlsUIManager>();
         source = transform.GetComponent<AudioSource>();
         appearance = transform.GetComponent<ButtonAppearance>();
+        condition = transform.GetComponent<SwitchRoomUICondition>();
         
         //disable the white selection frame
         EnableOrDisableFrame(false);
@@ -72,17 +74,37 @@ public class ButtonCommands : MonoBehaviour, IFocusable, IInputClickHandler {
 
     public void OnInputClicked(InputClickedEventData eventData)
     {
-        if(Commands != null)
+        if(condition != null)
         {
-            Commands();
-        }
-        if(source != null)
+            if(condition.SwitchCondition())
+            {
+                if (Commands != null)
+                {
+                    Commands();
+                }
+                if (source != null)
+                {
+                    source.Play();
+                }
+                if (appearance != null)
+                {
+                    appearance.SetButtonActive();
+                }
+            }
+        } else
         {
-            source.Play();
-        }
-        if(appearance != null)
-        {
-            appearance.SetButtonActive();
+            if (Commands != null)
+            {
+                Commands();
+            }
+            if (source != null)
+            {
+                source.Play();
+            }
+            if (appearance != null)
+            {
+                appearance.SetButtonActive();
+            }
         }
     }
 

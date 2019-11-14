@@ -24,11 +24,8 @@ public class IsolateModeButtonAction : CommandToExecute {
     {
         return delegate
         {
-            if (!brain.GetComponent<RotateStructures>().isRotating)
-            {
                 FindObjectOfType<MoveClippingPlane>().TurnOffClipping();
                 brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
-            }
         };
     }
 }

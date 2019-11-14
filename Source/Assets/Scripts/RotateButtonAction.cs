@@ -30,10 +30,7 @@ public class RotateButtonAction : CommandToExecute {
         //do the action
         return delegate
         {
-            if(!brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating())
-            {
                 brain.GetComponent<RotateStructures>().ToggleRotate();
-            }
         };
     }
 
