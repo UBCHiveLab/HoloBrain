@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 288948937}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667564, g: 0.48427135, b: 0.5645232, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -544,6 +544,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: f37470129162d0e42a0d8a162220a2d3, type: 3}
   defaultSprite: {fileID: 21300000, guid: 6d63837e4a224a84385c469bd20f2b04, type: 3}
   activeSprite: {fileID: 21300000, guid: 0eb9c944f73b752469b2d851f588a6c3, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &2783011
@@ -757,6 +758,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &7392938
@@ -1122,6 +1124,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &11273310
@@ -3537,6 +3540,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &56755562
@@ -3553,6 +3557,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &56755563
@@ -3569,6 +3574,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &56755564
@@ -3585,6 +3591,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &56755565
@@ -4078,6 +4085,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 1143c15a1999abb4ab6383b495fcabdc, type: 3}
   defaultSprite: {fileID: 21300000, guid: 10a358cc379b4244a9bb3169cfd28cb0, type: 3}
   activeSprite: {fileID: 21300000, guid: d618e9c92f14a2f4baac0e2f8676592b, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &69124772
@@ -4632,6 +4640,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &88236765
@@ -5400,6 +5409,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!222 &97351692
@@ -6489,6 +6499,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0ee99698dc1d0a74e98f6ac76832db45, type: 3}
   defaultSprite: {fileID: 21300000, guid: d381914cc7cb25b49b89abf2021a1c53, type: 3}
   activeSprite: {fileID: 21300000, guid: 7f6fb4a8910016c4c9132c9092aac93d, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &130185423
@@ -6719,6 +6730,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &132097633
@@ -7847,6 +7859,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &162846456
@@ -8193,6 +8206,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &162916567
@@ -11716,6 +11730,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &293783475
@@ -12138,6 +12153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 266481621}
+  buttonsToDisable: []
 --- !u!114 &295831591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12246,6 +12262,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &295831597
@@ -12644,6 +12661,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &301400744
@@ -13746,6 +13764,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &347425892
@@ -14115,6 +14134,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!65 &348106172
@@ -14431,6 +14451,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!222 &353959467
@@ -15151,6 +15172,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &381661092
@@ -15503,6 +15525,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!65 &385421440
@@ -15740,6 +15763,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1a303d0bd3c0944999073fe95bdc1ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonsToDisable:
+  - {fileID: 1678133334}
+  - {fileID: 956853915}
 --- !u!65 &385654668
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15886,6 +15912,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!114 &385654673
@@ -16136,6 +16163,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &390284474
@@ -16759,6 +16787,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &398645749
@@ -17518,6 +17547,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &408737075
@@ -18770,6 +18800,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &448355415
@@ -19283,6 +19314,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &450043994
@@ -19902,6 +19934,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &473460160
@@ -20808,6 +20841,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!114 &486975523
@@ -22600,6 +22634,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 29cdae67944db45458a31489f5dd1384, type: 3}
   defaultSprite: {fileID: 21300000, guid: 95f5d2f5b24c8a24f8e051cdab9866c5, type: 3}
   activeSprite: {fileID: 21300000, guid: ceeb7dcfe1ad32e4b9dc4ad74f0c737b, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1 &534029741
@@ -23020,6 +23055,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &539507080
@@ -24237,6 +24273,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &575477154
@@ -24468,6 +24505,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &576078947
@@ -24851,6 +24889,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!114 &578602183
@@ -27493,6 +27532,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &683514312
@@ -27946,6 +27986,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: b3fdd3ece5e721f43a169507947e5692, type: 3}
   defaultSprite: {fileID: 21300000, guid: 02f06af55659b1a41bfc1395b4b95204, type: 3}
   activeSprite: {fileID: 21300000, guid: ff5f26865cb0522489aa2f7caa6813b1, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &686689733
@@ -28048,6 +28089,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &689192213
@@ -30197,6 +30239,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1 &747139431
@@ -31090,6 +31133,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &777528537
@@ -31486,6 +31530,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 29cdae67944db45458a31489f5dd1384, type: 3}
   defaultSprite: {fileID: 21300000, guid: 95f5d2f5b24c8a24f8e051cdab9866c5, type: 3}
   activeSprite: {fileID: 21300000, guid: ceeb7dcfe1ad32e4b9dc4ad74f0c737b, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1001 &780368246
@@ -31889,6 +31934,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 4c6c6748839cb8d4eab70417742a0537, type: 3}
   defaultSprite: {fileID: 21300000, guid: af1a366422268a44e87b0f214e891425, type: 3}
   activeSprite: {fileID: 21300000, guid: 9adfe033170629d4bae1a961d8b79884, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &788997295
@@ -32774,6 +32820,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &826943775
@@ -33034,6 +33081,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &830706609
@@ -33582,6 +33630,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &836872862
@@ -34607,6 +34656,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: fd70e513bbedc844485c7ce6103487f4, type: 3}
   defaultSprite: {fileID: 21300000, guid: 223cd059eb1531149b5a14a98ece8857, type: 3}
   activeSprite: {fileID: 21300000, guid: 1ecd4301381bb764d9935da3ea011add, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &870118483
@@ -35238,6 +35288,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!222 &888347624
@@ -36922,6 +36973,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &954241694
@@ -37045,6 +37097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 266481621}
+  buttonsToDisable: []
 --- !u!212 &954241697
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -37294,6 +37347,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &955462500
@@ -37551,6 +37605,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24a61d30d9dd54f804e13cac96136b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonsToDisable:
+  - {fileID: 385654672}
+  - {fileID: 963397840}
+  brain: {fileID: 0}
 --- !u!114 &956853915
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37565,6 +37623,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!65 &956853916
@@ -37923,6 +37982,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &957768440
@@ -38322,6 +38382,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9bce93e1e73b9a499a05b6ac6f301b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonsToEnable:
+  - {fileID: 1678133334}
+  - {fileID: 956853915}
 --- !u!114 &963397838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38363,6 +38426,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 9e4aa501c6df75e4388b533ad2243485, type: 3}
   defaultSprite: {fileID: 21300000, guid: 7ccd9e7d59930b944bf0af9267078bfd, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!114 &963397841
@@ -40872,6 +40936,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!82 &1088438497
@@ -42128,6 +42193,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: fd70e513bbedc844485c7ce6103487f4, type: 3}
   defaultSprite: {fileID: 21300000, guid: 223cd059eb1531149b5a14a98ece8857, type: 3}
   activeSprite: {fileID: 21300000, guid: 1ecd4301381bb764d9935da3ea011add, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1139915752
@@ -45604,6 +45670,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 29cdae67944db45458a31489f5dd1384, type: 3}
   defaultSprite: {fileID: 21300000, guid: 95f5d2f5b24c8a24f8e051cdab9866c5, type: 3}
   activeSprite: {fileID: 21300000, guid: ceeb7dcfe1ad32e4b9dc4ad74f0c737b, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1 &1285166995
@@ -46030,6 +46097,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1298377935
@@ -46640,6 +46708,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1 &1321171463
@@ -46798,6 +46867,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &1321171467
@@ -49396,6 +49466,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &1380052419
@@ -49602,6 +49673,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &1384263730
@@ -52982,6 +53054,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &1505509589
@@ -53395,6 +53468,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1 &1521437175
@@ -54168,6 +54242,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1551448646
@@ -55534,6 +55609,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &1596871705
@@ -57396,6 +57472,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 3252d32884efebe4e9ad1da438bc2490, type: 3}
   defaultSprite: {fileID: 21300000, guid: bb62d9154fd84d2479dfce3bfaccc504, type: 3}
   activeSprite: {fileID: 21300000, guid: 28febf7698e7b5d4cafe30ee08b58a4a, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1644993394
@@ -57929,6 +58006,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 095b0870bff1925468f18dd352b87e0c, type: 3}
   defaultSprite: {fileID: 21300000, guid: 73ad5bba44c6f8a4a95b81a02e1d12e2, type: 3}
   activeSprite: {fileID: 21300000, guid: 63a5d25117658c344bab30d724f0932c, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &1656924756
@@ -58704,6 +58782,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec24a61d30d9dd54f804e13cac96136b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buttonsToDisable:
+  - {fileID: 385654672}
+  brain: {fileID: 266481621}
 --- !u!82 &1678133324
 AudioSource:
   m_ObjectHideFlags: 0
@@ -58885,6 +58966,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 1
   resetOnSecondClick: 0
 --- !u!1 &1685441689
@@ -59400,6 +59482,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 0ee99698dc1d0a74e98f6ac76832db45, type: 3}
   defaultSprite: {fileID: 21300000, guid: d381914cc7cb25b49b89abf2021a1c53, type: 3}
   activeSprite: {fileID: 21300000, guid: 7f6fb4a8910016c4c9132c9092aac93d, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &1695529015
@@ -60057,6 +60140,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!65 &1739301168
@@ -60543,6 +60627,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: b3fdd3ece5e721f43a169507947e5692, type: 3}
   defaultSprite: {fileID: 21300000, guid: 02f06af55659b1a41bfc1395b4b95204, type: 3}
   activeSprite: {fileID: 21300000, guid: ff5f26865cb0522489aa2f7caa6813b1, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &1740142409
@@ -61352,6 +61437,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1752042546
@@ -62159,6 +62245,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: f37470129162d0e42a0d8a162220a2d3, type: 3}
   defaultSprite: {fileID: 21300000, guid: 6d63837e4a224a84385c469bd20f2b04, type: 3}
   activeSprite: {fileID: 21300000, guid: 0eb9c944f73b752469b2d851f588a6c3, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &1766084773
@@ -62379,6 +62466,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 29cdae67944db45458a31489f5dd1384, type: 3}
   defaultSprite: {fileID: 21300000, guid: 95f5d2f5b24c8a24f8e051cdab9866c5, type: 3}
   activeSprite: {fileID: 21300000, guid: ceeb7dcfe1ad32e4b9dc4ad74f0c737b, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1768181774
@@ -62653,6 +62741,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &1769671486
@@ -64129,6 +64218,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &1801951088
@@ -65235,6 +65325,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 095b0870bff1925468f18dd352b87e0c, type: 3}
   defaultSprite: {fileID: 21300000, guid: 73ad5bba44c6f8a4a95b81a02e1d12e2, type: 3}
   activeSprite: {fileID: 21300000, guid: 63a5d25117658c344bab30d724f0932c, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &1833083372
@@ -67354,6 +67445,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1896376242
@@ -67898,6 +67990,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 21300000, guid: 78bd3979bc3dffa4393d7a06b311dcd6, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &1915999810
@@ -67926,6 +68019,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   brain: {fileID: 266481621}
+  buttonsToDisable:
+  - {fileID: 385654672}
+  - {fileID: 963397840}
 --- !u!114 &1915999812
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -68395,6 +68491,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: af2caaec5c1f3a147b9bbc13cf10ee52, type: 3}
   defaultSprite: {fileID: 21300000, guid: 17fcabcb015b3cb4ea305806b03f0493, type: 3}
   activeSprite: {fileID: 21300000, guid: c7a68f96ba7c55e4b8936def25658f95, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &1950211837
@@ -69967,6 +70064,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 3252d32884efebe4e9ad1da438bc2490, type: 3}
   defaultSprite: {fileID: 21300000, guid: bb62d9154fd84d2479dfce3bfaccc504, type: 3}
   activeSprite: {fileID: 21300000, guid: 28febf7698e7b5d4cafe30ee08b58a4a, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &2009576498
@@ -70694,6 +70792,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1 &2026683182
@@ -71079,6 +71178,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 29cdae67944db45458a31489f5dd1384, type: 3}
   defaultSprite: {fileID: 21300000, guid: 95f5d2f5b24c8a24f8e051cdab9866c5, type: 3}
   activeSprite: {fileID: 21300000, guid: ceeb7dcfe1ad32e4b9dc4ad74f0c737b, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!1 &2036054731
@@ -73008,6 +73108,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 32fad7651822035418509c9ac14d342a, type: 3}
   defaultSprite: {fileID: 21300000, guid: 1281187488eef2e49b5777f9338e391c, type: 3}
   activeSprite: {fileID: 21300000, guid: 3f91a9adefaa4ba42a175cf2de857a85, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!65 &2085164260
@@ -73485,6 +73586,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: 48b270e9b68fa434aab035a9a4f4b9aa, type: 3}
   defaultSprite: {fileID: 21300000, guid: 2e9f53bdf95496843becc9a5436c1b90, type: 3}
   activeSprite: {fileID: 21300000, guid: cc7d8d0be57ddbd4aa911159ed9e93df, type: 3}
+  disabledSprite: {fileID: 0}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 0
 --- !u!114 &2096112358
@@ -75399,6 +75501,7 @@ MonoBehaviour:
   hoverSprite: {fileID: 21300000, guid: b1f2796fb3f59b9418a9a5ed3419835b, type: 3}
   defaultSprite: {fileID: 21300000, guid: 481159229f0de42409ff0a323ce5a583, type: 3}
   activeSprite: {fileID: 21300000, guid: c1834efcbeda3524780934b1f7f22ed2, type: 3}
+  disabledSprite: {fileID: 21300000, guid: f50d4421b58ef644c9f9ada3dba0d5df, type: 3}
   oneButtonActiveInGroup: 0
   resetOnSecondClick: 1
 --- !u!114 &2132361732

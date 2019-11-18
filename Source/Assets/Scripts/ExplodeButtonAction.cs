@@ -5,18 +5,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using HolobrainConstants;
 
 public class ExplodeButtonAction : CommandToExecute
 {
-    private const string BRAIN_PARTS_NAME = "Brain";
-    
+    public List<ButtonAppearance> buttonsToDisable;
+    public GameObject brain;
+    override public void Start()
+    {
+        if (brain == null)
+        {
+            brain = GameObject.Find(Names.BRAIN_GAMEOBJECT_NAME);
+        }
+        Debug.Log("Rotate button brain variable is pointing to " + brain.name);
+        base.Start();
+    }
+
 
     //this is bad coupling. there are some prereqs to explode command but switchroomui will switch the buttons anyways
     override protected Action Command()
     {
         return delegate
         {
-            GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ExplodingCommands>().ToggleExplode();
+            if (buttonsToDisable != null)
+            {
+                //turning off rotate, enabled isolate unless rotating
+                if (brain.GetComponent<ExplodingCommands>().Exploded() && !brain.GetComponent<RotateStructures>().isRotating)
+                {
+                    foreach (ButtonAppearance ba in buttonsToDisable)
+                    {
+                        ba.SetButtonEnabled ();
+                    }
+                }
+                //rotating, isolate disabled
+                else
+                {
+                    foreach (ButtonAppearance ba in buttonsToDisable)
+                    {
+                        ba.SetButtonDisabled();
+                    }
+                }
+            }
+            brain.GetComponent<ExplodingCommands>().ToggleExplode();
         };
     }
 }
