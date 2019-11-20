@@ -53,6 +53,22 @@ public class ScaleToggler : MonoBehaviour
             ZoomTransition(oldZoom, currentZoom);
         }
     }
+
+    public bool IsLargestScale()
+    {
+        return currentZoom == Scale.Large;
+    }
+
+    public bool IsSmallestScale()
+    {
+        return currentZoom == Scale.Small;
+    }
+
+    public bool IsDefaultScale()
+    {
+        return currentZoom == Scale.Default;
+    }
+
     /*
     public void OnSelect()
     {

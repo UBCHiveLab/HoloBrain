@@ -14,6 +14,7 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
     public Sprite disabledSprite;
     public bool oneButtonActiveInGroup = false;
     public bool resetOnSecondClick = false;
+    public bool defaultActive = false;
     private bool buttonDisabled = false;
     private SpriteRenderer renderer;
     private Image image;
@@ -32,16 +33,35 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
             }
         } else
         {
-            ResetButton();
+            if (defaultActive)
+            {
+                changeSprite(activeSprite);
+            }
+            else
+            {
+                ResetButton();
+            }
         }
-        activeState = false;
+        activeState = defaultActive;
         hoverSound = GameObject.Find("menu").GetComponent<AudioSource>();
     }
 
     void OnDisable()
     {
-        activeState = false;
-        changeSprite(defaultSprite);
+        if(!defaultActive)
+        {
+            activeState = false;
+            changeSprite(defaultSprite);
+        } else
+        {
+            activeState = true;
+            changeSprite(activeSprite);
+        }
+    }
+
+    public void setActiveDefault(bool def)
+    {
+        defaultActive = def;
     }
 
     public void SetButtonHover()

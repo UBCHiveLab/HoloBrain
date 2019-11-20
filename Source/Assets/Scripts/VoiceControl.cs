@@ -37,8 +37,8 @@ public class VoiceControl : MonoBehaviour {
 
         foreach (var item in Names.GetStructureNames())
         {
-            voiceRecognitionKeywords.Add("Add " + item, () => { HandleCommand(GameObject.Find(item)); });
-            voiceRecognitionKeywords.Add("Remove " + item, () => { HandleCommand(GameObject.Find(item)); });
+            voiceRecognitionKeywords.Add("Add " + item, () => { HandleAddBrainPart(item); });
+            voiceRecognitionKeywords.Add("Remove " + item, () => { HandleRemoveBrainPart(item); });
         }
 
         //map voice commands to the corresponding button name
@@ -65,6 +65,7 @@ public class VoiceControl : MonoBehaviour {
             //{ "MRI", GameObject.Find("mri-icon") },
            // { "MRI Outline", GameObject.Find("show-colour-icon") },
             { "Pin", GameObject.Find("pin-unpin") },
+            {"Mute", GameObject.Find("Mute") },
            // { "Structures", GameObject.Find("structures-icon") },
              //New Voice Commands
             { "Play", menu },
@@ -157,11 +158,18 @@ public class VoiceControl : MonoBehaviour {
             var cu = controlsUI.GetComponent<ControlsUIManager>();
             return cu != null && cu.GetMenuPinState();
         }, typeof(PinButtonAction)));
+        voiceRecognitionKeywords.Add("Mute", HandleCommand(buttonActionsToGameObjectName["Mute"], () => {
+            return !buttonActionsToGameObjectName["Mute"].GetComponent<MuteButtonAction>().IsMuted();
+            }, typeof(MuteButtonAction)));
+        voiceRecognitionKeywords.Add("UnMute", HandleCommand(buttonActionsToGameObjectName["Mute"], () => {
+            return buttonActionsToGameObjectName["Mute"].GetComponent<MuteButtonAction>().IsMuted();
+        }, typeof(MuteButtonAction)));
+
 
         //voiceRecognitionKeywords.Add("End Tutorial", HandleEndTutorial);
         //voiceRecognitionKeywords.Add("Next", HandleNextChapter);
 
-       // voiceRecognitionKeywords.Add("Locate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Locate"])));
+        // voiceRecognitionKeywords.Add("Locate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Locate"])));
 
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -276,9 +284,7 @@ public class VoiceControl : MonoBehaviour {
             {
                 if(button.name == partName)
                 {
-                    brain.GetComponent<IsolateStructures>().TryToIsolate(partName);
-                    button.GetComponent<IsolateButtonAction>().SetButtonSelected(true);
-                    button.SetButtonActive();
+                    executeClick(button.gameObject);
                 }
             }
         }
@@ -292,9 +298,7 @@ public class VoiceControl : MonoBehaviour {
             {
                 if(button.name == partName)
                 {
-                    brain.GetComponent<IsolateStructures>().TryToReturnFromIsolate(partName);
-                    button.GetComponent<IsolateButtonAction>().SetButtonSelected(false);
-                    button.ResetButton();
+                    executeClick(button.gameObject);
                 }
             }
         }

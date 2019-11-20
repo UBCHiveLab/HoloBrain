@@ -61,7 +61,7 @@ public class ControlsUIManager : MonoBehaviour {
     public void OnGazeExitUI()
     {
         gazeIsOnUI = false;
-        gazeDelayCounter = 30;
+        gazeDelayCounter = 5;
     }
 
     public bool GetMenuPinState()
