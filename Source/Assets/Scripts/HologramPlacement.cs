@@ -78,7 +78,7 @@ public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandle
         }
         else
         {
-            Debug.Log("pushing fallback reset stage");
+            Debug.Log("Adding global listener");
             InputManager.Instance.AddGlobalListener(gameObject);
         }
         //mriManager.UpdateClippingForRepositioning(GotTransform);
@@ -222,7 +222,7 @@ public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandle
             }
             else
             {
-                Debug.Log("Clearing fallback input handler stack");
+                Debug.Log("Removing global listener");
                 InputManager.Instance.RemoveGlobalListener(gameObject);
                 GameObject controlsUI = GameObject.Find("menu");
                 controlsUI.GetComponentInChildren<RepositionButtonAction>().gameObject.GetComponent<ButtonAppearance>().ResetButton();
