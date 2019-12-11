@@ -8,12 +8,14 @@ public class PlayButtonAction : CommandToExecute {
     public GameObject crossfade;
     public List<GameObject> playButtons = new List<GameObject>();
     public List<GameObject> pauseButtons = new List<GameObject>();
+    public bool IsPauseButton = false;
+
     private ObjectNiftiSlider crossfadeSlider;
 
     // Use this for initialization
     override public void Start ()
     {
-        crossfadeSlider =crossfade.GetComponent<ObjectNiftiSlider>();
+        crossfadeSlider = crossfade.GetComponent<ObjectNiftiSlider>();
         base.Start();
     }
     
@@ -27,13 +29,11 @@ public class PlayButtonAction : CommandToExecute {
             {
                 foreach (GameObject obj in playButtons)
                 {
-                    Debug.Log(obj);
                     obj.SetActive(true);
                 }
 
                 foreach (GameObject obj in pauseButtons)
                 {
-                    Debug.Log(obj);
                     obj.SetActive(false);
                 }
             }

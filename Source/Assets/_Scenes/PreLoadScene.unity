@@ -5095,7 +5095,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d585987adfc4a5499a571b450abbcdc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  appConfigWord: vessels
+  appConfigWord: main
 --- !u!4 &314865519
 Transform:
   m_ObjectHideFlags: 0
@@ -5180,7 +5180,7 @@ MonoBehaviour:
   PhysicsLayer: 31
   surfaceMaterial: {fileID: 2100000, guid: 8c0cf5d96ec80c84ab2ffc06a3322649, type: 2}
   autoStartObserver: 0
-  drawVisualMeshes: 1
+  drawVisualMeshes: 0
   castShadows: 0
 --- !u!114 &314865526
 MonoBehaviour:

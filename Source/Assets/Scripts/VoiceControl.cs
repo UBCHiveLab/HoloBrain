@@ -62,11 +62,7 @@ public class VoiceControl : MonoBehaviour {
             { "Microglia", menu },
            { "Channel 1", menu },
             { "Channel 2", menu },
-            //{ "MRI", GameObject.Find("mri-icon") },
-           // { "MRI Outline", GameObject.Find("show-colour-icon") },
             { "Pin", GameObject.Find("pin-unpin") },
-           // { "Structures", GameObject.Find("structures-icon") },
-             //New Voice Commands
             { "Play", menu },
             { "Pause", menu },
             { "Faster", menu },
@@ -125,25 +121,25 @@ public class VoiceControl : MonoBehaviour {
         voiceRecognitionKeywords.Add("Remove All", HandleCommand(buttonActionsToGameObjectName["Remove All"], typeof(IsolateButtonAction), "RemoveAll"));
         // New Voice Commands
 
-      //  voiceRecognitionKeywords.Add("Play", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Play"]), typeof(PlayButtonAction)));
-      //  voiceRecognitionKeywords.Add("Pause", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Pause"])));
-       // voiceRecognitionKeywords.Add("Faster", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Faster"]), typeof(SpeedUpButtonAction)));
-      //  voiceRecognitionKeywords.Add("Slower", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Slower"]), typeof(SlowDownButtonAction)));
-      //  voiceRecognitionKeywords.Add("Skip One", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Skip One"]), typeof(SkipOneButtonAction)));
-      //  voiceRecognitionKeywords.Add("Back One", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Skip One"]), typeof(BackOneButtonAction)));
-      //  voiceRecognitionKeywords.Add("Skip Ten", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Skip Ten"]), typeof(SkipTenButtonAction)));
-       // voiceRecognitionKeywords.Add("Back Ten", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Back Ten"]), typeof(BackTenButtonAction)));
+        voiceRecognitionKeywords.Add("Play", HandleCommand(buttonActionsToGameObjectName["Play"], typeof(PlayButtonAction), "play"));
+        voiceRecognitionKeywords.Add("Pause", HandleCommand(buttonActionsToGameObjectName["Pause"], typeof(PlayButtonAction), "pause"));
+        voiceRecognitionKeywords.Add("Faster", HandleCommand(buttonActionsToGameObjectName["Faster"], typeof(SpeedUpButtonAction)));
+        voiceRecognitionKeywords.Add("Slower", HandleCommand(buttonActionsToGameObjectName["Slower"], typeof(SlowDownButtonAction)));
+        voiceRecognitionKeywords.Add("Skip One", HandleCommand(buttonActionsToGameObjectName["Skip One"], typeof(SkipOneButtonAction)));
+        voiceRecognitionKeywords.Add("Back One", HandleCommand(buttonActionsToGameObjectName["Skip One"], typeof(BackOneButtonAction)));
+        voiceRecognitionKeywords.Add("Skip Ten", HandleCommand(buttonActionsToGameObjectName["Skip Ten"], typeof(SkipTenButtonAction)));
+        voiceRecognitionKeywords.Add("Back Ten", HandleCommand(buttonActionsToGameObjectName["Back Ten"], typeof(BackTenButtonAction)));
 
         voiceRecognitionKeywords.Add("Educational Room", HandleCommand(buttonActionsToGameObjectName["Educational Room"], typeof(EduRoomCommand)));
-      //  voiceRecognitionKeywords.Add("FMRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]), typeof(fMRIRoomCommand)));
-      //  voiceRecognitionKeywords.Add("Functional MRI Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["fMRI Room"]), typeof(fMRIRoomCommand)));
+        voiceRecognitionKeywords.Add("FMRI Room", HandleCommand(buttonActionsToGameObjectName["fMRI Room"], typeof(fMRIRoomCommand)));
+        voiceRecognitionKeywords.Add("Functional MRI Room", HandleCommand(buttonActionsToGameObjectName["fMRI Room"], typeof(fMRIRoomCommand)));
         voiceRecognitionKeywords.Add("MRI Room", HandleCommand(buttonActionsToGameObjectName["MRI Room"], typeof(MRIRoomCommand)));
-       // voiceRecognitionKeywords.Add("MRI Scan Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["MRI Room"]), typeof(MRIRoomCommand)));
-       // voiceRecognitionKeywords.Add("Brain Cell Room", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Brain Cell Room"]), typeof(CellRoomCommand)));
+        voiceRecognitionKeywords.Add("MRI Scan Room", HandleCommand(buttonActionsToGameObjectName["MRI Room"], typeof(MRIRoomCommand)));
+        voiceRecognitionKeywords.Add("Brain Cell Room", HandleCommand(buttonActionsToGameObjectName["Brain Cell Room"], typeof(CellRoomCommand)));
 
-       // voiceRecognitionKeywords.Add("Show Microglia", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Microglia"]), typeof(SwapCellButtonAction), "microglia"));
-       // voiceRecognitionKeywords.Add("Show Channel One", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Channel 1"]), typeof(SwapCellButtonAction), "channel1"));
-       // voiceRecognitionKeywords.Add("Show Channel Two", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Channel 2"]), typeof(SwapCellButtonAction), "channel2"));
+        voiceRecognitionKeywords.Add("Show Microglia", HandleCommand(buttonActionsToGameObjectName["Microglia"], typeof(SwapCellButtonAction), "microglia"));
+        voiceRecognitionKeywords.Add("Show Channel One", HandleCommand(buttonActionsToGameObjectName["Channel 1"], typeof(SwapCellButtonAction), "channel1"));
+        voiceRecognitionKeywords.Add("Show Channel Two", HandleCommand(buttonActionsToGameObjectName["Channel 2"], typeof(SwapCellButtonAction), "channel2"));
 
         //UNCOMMENT THIS FOR GAZE MARKER
         //voiceRecognitionKeywords.Add("Place Marker", HandlePlaceMarker);

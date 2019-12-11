@@ -2,8 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using HoloToolkit.Unity.InputModule;
-using HoloToolkit.Unity;
 
 public class EduRoomCommand : CommandToExecute {
 
@@ -11,10 +11,12 @@ public class EduRoomCommand : CommandToExecute {
     public GameObject fMRI;
     public GameObject CELL;
     public GameObject DTI;
+    public EventSystem es;
     private StateAccessor stateAccessor;
 	// Use this for initialization
 	override public void Start () {
         base.Start();
+        GetComponent<ButtonCommands>().OnInputClicked(new InputClickedEventData(es));
 	}
 
     override protected Action Command()
