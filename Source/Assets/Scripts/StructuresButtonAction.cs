@@ -4,26 +4,32 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class StructuresButtonAction : MonoBehaviour {
+public class StructuresButtonAction : CommandToExecute {
 
     private const string BRAIN_PARTS_NAME = "BrainParts";
     GameObject brain;
     private StateAccessor stateAccessor;
 
-    void Start()
+    override public void Start()
     {
         stateAccessor = StateAccessor.Instance;
         brain = GameObject.Find(BRAIN_PARTS_NAME);
+        base.Start();
     }
-    public void OnSelect()
+
+    override protected Action Command()
     {
         //go back to the default mode
-        if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Default)
+        return delegate
         {
-            Debug.Log("the state accessor is default");
-            return;
-        }
-        brain.GetComponent<ResetState>().ResetEverything();
+            if (stateAccessor.GetCurrentMode() == StateAccessor.Mode.Default)
+            {
+                Debug.Log("the state accessor is default");
+                return;
+            }
+            brain.GetComponent<ResetState>().ResetEverything();
+        };
    }
 }

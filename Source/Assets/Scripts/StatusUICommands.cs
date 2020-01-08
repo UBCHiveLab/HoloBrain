@@ -24,7 +24,8 @@ public class StatusUICommands : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        mode = PlayerPrefs.GetString("mode");
+        //mode = PlayerPrefs.GetString("mode");
+        mode = SOLO_MODE;
 
         SessionIDTextBox = transform.Find("SessionID").GetComponent<Text>();
         UserCountTextBox = transform.Find("UserCountText").GetComponent<Text>();
@@ -61,7 +62,7 @@ public class StatusUICommands : MonoBehaviour {
         try
         {
             SessionIDTextBox.text = SessionNumber;
-            connectedUsers = sharing.GetComponentInChildren<AutoJoinSession>().CurrentUserCount();
+            connectedUsers = SharingStage.Instance.SessionUsersTracker.CurrentUsers.Count;
             UserCountTextBox.text = connectedUsers.ToString();
 
             if (connectedUsers == 1)

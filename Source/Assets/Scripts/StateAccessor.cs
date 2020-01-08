@@ -9,16 +9,21 @@ using UnityEngine;
 public class StateAccessor : Singleton<StateAccessor> {
 
     private const string MRICollection = "MRICollection";
-    private const string BRAIN_PARTS = "BrainParts";
+    private const string BRAIN_PARTS = "Brain";
     private ResetState resetState;
+    private GameObject brain;
     public enum Mode { Default, Isolated, MRI };
 
     private Mode currentMode;
 
-	// Use this for initialization
-	void Start () {
+    new private void Awake()
+    {
         currentMode = Mode.Default;
-        resetState = GameObject.Find(BRAIN_PARTS).GetComponent<ResetState>();
+        brain = GameObject.Find(BRAIN_PARTS);
+        resetState = ResetState.Instance;
+    }
+    // Use this for initialization
+    void Start () {
 	}
 	
 	// Update is called once per frame
@@ -29,7 +34,7 @@ public class StateAccessor : Singleton<StateAccessor> {
     {
         if((currentMode == Mode.Default) || (newMode == Mode.Default))
         {
-            if (!this.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
+            if (!brain.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
             {
                 currentMode = newMode;
                 return true;
@@ -38,7 +43,7 @@ public class StateAccessor : Singleton<StateAccessor> {
 
         if( ((currentMode == Mode.MRI) && (newMode == Mode.Isolated)) || ((currentMode == Mode.Isolated) && (newMode == Mode.MRI)) )
         {
-            if (!this.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
+            if (!brain.GetComponent<IsolateStructures>().AtLeastOneStructureIsMovingOrResizing)
             {
                 resetState.ResetEverything();
                 currentMode = newMode;
@@ -51,22 +56,29 @@ public class StateAccessor : Singleton<StateAccessor> {
 
     public bool AbleToTakeAnInteraction()
     {
-        return !(CurrentlyIsolatedOrIsolating() || (CurrentlyInMRIMode()));
+        return !(CurrentlyIsolatedOrIsolating() || CurrentlyInMRIMode());
     }
 
     public bool CurrentlyInMRIMode()
     {
-        return GameObject.Find(MRICollection).GetComponent<MRIManager>().isCurrentlyInMRIMode();
+        GameObject mri = GameObject.Find(MRICollection);
+        if(mri == null)
+        {
+            return false;
+        } else
+        {
+            return mri.GetComponent<MRIManager>().isCurrentlyInMRIMode();
+        }
     }
 
     public bool CurrentlyIsolatedOrIsolating()
     {
-        return this.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating();
+        return brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating();
     }
 
     public bool CurrentlyInStudentMode()
     {
-        return GameObject.Find("StatusUI").GetComponent<StudentModeCommands>().CurrentlyInStudentMode();
+        return false;// GameObject.Find("StatusUI").GetComponent<StudentModeCommands>().CurrentlyInStudentMode();
     }
 
    public Mode GetCurrentMode()

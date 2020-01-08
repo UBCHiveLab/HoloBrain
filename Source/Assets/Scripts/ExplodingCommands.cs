@@ -1,7 +1,8 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
-﻿using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
+using HoloToolkit.Sharing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,8 +19,20 @@ public class ExplodingCommands : MonoBehaviour {
         {
             modelTransform = structure;
             initialPosition = modelTransform.localPosition;
-            explodingDirection = structure.GetComponent<Renderer>().bounds.center - centerOfBrainModel;
-            furthestPosition = initialPosition + explodingDirection * MAX_EXPLODE_DISTANCE_MULTIPLE;
+            Bounds bounds = new Bounds(Vector3.zero, Vector3.zero);
+            foreach (Renderer renderer in structure.GetComponentsInChildren<Renderer>())
+            {
+                if (bounds.size.Equals(Vector3.zero))
+                {
+                    bounds = new Bounds(renderer.bounds.center, renderer.bounds.size);
+                }
+                else
+                {
+                    bounds.Encapsulate(renderer.bounds.center);
+                }
+            }
+            explodingDirection = modelTransform.InverseTransformPoint(bounds.center) - modelTransform.InverseTransformPoint(centerOfBrainModel);
+            furthestPosition = initialPosition + (explodingDirection * MAX_EXPLODE_DISTANCE_MULTIPLE);
         }
 
         // This method moves the structure away from or towards the center
@@ -50,11 +63,11 @@ public class ExplodingCommands : MonoBehaviour {
         }
     }
 
-    private const string BRAIN_PARTS_GAMEOBJECT_NAME = "BrainParts";
-    private const string CORTEX_GAMEOBJECT_NAME = "cortex_low";
-    private const float EXPLODING_TRANSITION_TIME_IN_SECONDS = 1.5f;
+    private const string BRAIN_PARTS_GAMEOBJECT_NAME = "Brain";
+    private const string CORTEX_GAMEOBJECT_NAME = "Cortex";
+    private const float EXPLODING_TRANSITION_TIME_IN_SECONDS = 2.375f;
     private const float MAX_EXPLODE_DISTANCE_MULTIPLE = 0.8f;
-    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "cortex_low", "ventricle", "thalamus" };
+    private readonly List<string> STRUCTURES_THAT_DO_NOT_EXPLODE = new List<string> { "Cortex", "Ventricles", "Arteries", "Sinuses"};
 
     public enum ExplodingState
     {
@@ -66,6 +79,10 @@ public class ExplodingCommands : MonoBehaviour {
     private CustomMessages customMessages;
     private List<BrainStructure> explodingStructures;
     private GameObject cortex;
+    private GameObject brain;
+    private Vector3 centerOfBrainModel;
+    public GameObject ExplodeButton;
+    public GameObject CollapseButton;
     public ExplodingState currentState { get; private set; }
     public ExplodingState lastState { get; private set; }
 
@@ -81,24 +98,90 @@ public class ExplodingCommands : MonoBehaviour {
             customMessages.MessageHandlers[CustomMessages.TestMessageID.ToggleExplode] = this.ToggleExplodeMessageReceived;
         }
 
-        cortex = GameObject.Find(CORTEX_GAMEOBJECT_NAME);
-        GameObject brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
-        Vector3 centerOfBrainModel = brain.transform.Find(CORTEX_GAMEOBJECT_NAME).GetComponent<Renderer>().bounds.center;
-       
+        brain = GameObject.Find(BRAIN_PARTS_GAMEOBJECT_NAME);
+        cortex = brain.transform.Find(CORTEX_GAMEOBJECT_NAME).gameObject;
+        Renderer[] cortexRenderers = cortex.GetComponentsInChildren<Renderer>();
+        Bounds brainBounds = new Bounds(cortex.GetComponentInChildren<Renderer>().bounds.center, Vector3.zero);
+        foreach (Renderer renderer in cortexRenderers)
+        {
+            brainBounds.Encapsulate(renderer.bounds.center);
+        }
+
+        centerOfBrainModel = brainBounds.center;
+
         // Create and populate the list of brain structures
         // We add up all the initial positions of the structures to later determine the middle
         explodingStructures = new List<BrainStructure>();
-        for (int i = 0;i<brain.transform.childCount;i++)
+        foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
         {
-            Transform currentStructure = brain.transform.GetChild(i);
-            if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(currentStructure.name))
+            if (structure.transform.GetChild(0).name.Contains("Container"))
             {
-                explodingStructures.Add(new BrainStructure(currentStructure, centerOfBrainModel));
+                foreach (HighlightAndLabelCommands cur in structure.GetComponentsInChildren<HighlightAndLabelCommands>())
+                {
+                    if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                    {
+                        explodingStructures.Add(new BrainStructure(cur.gameObject.transform, centerOfBrainModel));
+                    }
+                }
+            }
+            else
+            {
+                if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                {
+                    explodingStructures.Add(new BrainStructure(structure.transform, centerOfBrainModel));
+                }
             }
         }
 
         ResetExplode();
-        soundFX = gameObject.GetComponent<AudioSource>();
+        soundFX = this.gameObject.GetComponent<AudioSource>();
+    }
+
+    void OnDisable()
+    {
+        explodingStructures.Clear();
+    }
+
+    void OnEnable()
+    {
+        if (cortex == null)
+        {
+            return;
+        }
+
+        Renderer[] cortexRenderers = cortex.GetComponentsInChildren<Renderer>();
+        Bounds brainBounds = new Bounds(cortex.GetComponentInChildren<Renderer>().bounds.center, Vector3.zero);
+        foreach (Renderer renderer in cortexRenderers)
+        {
+            brainBounds.Encapsulate(renderer.bounds.center);
+        }
+
+        centerOfBrainModel = brainBounds.center;
+        // Create and populate the list of brain structures
+        // We add up all the initial positions of the structures to later determine the middle
+        foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
+        {
+            if (structure.transform.GetChild(0).name.Contains("Container"))
+            {
+                foreach (HighlightAndLabelCommands cur in structure.GetComponentsInChildren<HighlightAndLabelCommands>())
+                {
+                    if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                    {
+                        explodingStructures.Add(new BrainStructure(cur.gameObject.transform, centerOfBrainModel));
+                    }
+                }
+            }
+            else
+            {
+
+                if (!STRUCTURES_THAT_DO_NOT_EXPLODE.Contains(structure.name))
+                {
+                    explodingStructures.Add(new BrainStructure(structure.transform, centerOfBrainModel));
+                }
+            }
+        }
+
+        ResetExplode();
     }
 	
 	// Update is called once per frame
@@ -114,15 +197,6 @@ public class ExplodingCommands : MonoBehaviour {
                 break;
         }
 	}
-
-    public void OnSelect()
-    {
-        if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
-        {
-            SendExplodingMessage();
-            ToggleExplode();
-        }
-    }
 
     public void ToggleExplodeMessageReceived(NetworkInMessage msg)
     {
@@ -168,23 +242,32 @@ public class ExplodingCommands : MonoBehaviour {
         }
     }
 
-    private void ToggleExplode()
+    public void ToggleExplode()
     {
-        soundFX.Play();
-
-        // We toggle the last state and then send the message to all other HoloLenses
-        switch (lastState)
+        if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         {
-            case ExplodingState.ExplodingOut:
-                lastState = ExplodingState.ExplodingIn;
-                currentState = ExplodingState.ExplodingIn;
-                break;
-            case ExplodingState.ExplodingIn:
-                lastState = ExplodingState.ExplodingOut;
-                currentState = ExplodingState.ExplodingOut;
-                cortex.SetActive(false); // The cortex should be deactivated before the brain explodes
-                break;
+            soundFX.Play();
+            // We toggle the last state and then send the message to all other HoloLenses
+            switch (lastState)
+            {
+                case ExplodingState.ExplodingOut:
+                    lastState = ExplodingState.ExplodingIn;
+                    currentState = ExplodingState.ExplodingIn;
+                    cortex.SetActive(true);
+                    break;
+                case ExplodingState.ExplodingIn:
+                    lastState = ExplodingState.ExplodingOut;
+                    currentState = ExplodingState.ExplodingOut;
+                    cortex.SetActive(false); // The cortex should be deactivated before the brain explodes
+                    break;
+            }
         }
+    }
+
+    public bool Exploded()
+    {
+        // this is the state when we are not exploded, any other state is either exploded, or in the process of exploding
+        return !(currentState == ExplodingState.Resting && lastState == ExplodingState.ExplodingIn);
     }
 
     private void Explode()
@@ -229,5 +312,13 @@ public class ExplodingCommands : MonoBehaviour {
         cortex.SetActive(true);
         currentState = ExplodingState.Resting;
         lastState = ExplodingState.ExplodingIn;
+        if(ExplodeButton != null)
+        {
+            ExplodeButton.SetActive(true);
+        }
+        if(CollapseButton != null)
+        {
+            CollapseButton.SetActive(false);
+        }
     }
 }

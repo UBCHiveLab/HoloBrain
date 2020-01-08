@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class ScaleToggler : MonoBehaviour
 
     private const float SCALE_CHANGE_UPDATE_RATE = 0.05f;
 
-    private GameObject brainGameObject;
+    public GameObject brainGameObject;
     private Vector3 defaultScale;
     private Scale currentZoom;
     private Scale oldZoom;
@@ -37,7 +38,7 @@ public class ScaleToggler : MonoBehaviour
             customMessages.MessageHandlers[CustomMessages.TestMessageID.scaleChange] = this.ScaleChangeMessageReceived;
         }
 
-        brainGameObject = GameObject.Find("BrainParts");
+        //brainGameObject = GameObject.Find("BrainParts");
         defaultScale = brainGameObject.transform.localScale;
         ResetScale();
 
@@ -50,17 +51,32 @@ public class ScaleToggler : MonoBehaviour
         if (zoomChanging)
         {
             ZoomTransition(oldZoom, currentZoom);
-
         }
     }
 
+    public bool IsLargestScale()
+    {
+        return currentZoom == Scale.Large;
+    }
+
+    public bool IsSmallestScale()
+    {
+        return currentZoom == Scale.Small;
+    }
+
+    public bool IsDefaultScale()
+    {
+        return currentZoom == Scale.Default;
+    }
+
+    /*
     public void OnSelect()
     {
         if (this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
         {
             ToggleScale();
         }
-    }
+    }*/
 
     void ScaleChangeMessageReceived(NetworkInMessage msg)
     {
@@ -74,12 +90,14 @@ public class ScaleToggler : MonoBehaviour
 
     public void ToggleScale()
     {
-        if (!this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+
+        StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
+        if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }
 
-            soundFX.Play();
+        soundFX.Play();
         oldZoom = currentZoom;
         currentZoom = NextScale(currentZoom);
         zoomChanging = true;
@@ -92,14 +110,13 @@ public class ScaleToggler : MonoBehaviour
 
     public void ScaleUp()
     {
-
-        soundFX.Play();
-
-        if (!this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+        StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
+        if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }
 
+        soundFX.Play();
 
         switch (currentZoom)
         {
@@ -124,14 +141,13 @@ public class ScaleToggler : MonoBehaviour
 
     public void ScaleDown()
     {
-
-        soundFX.Play();
-
-        if (!this.GetComponent<StateAccessor>().AbleToTakeAnInteraction())
+        StateAccessor stateAccessor = this.GetComponent<StateAccessor>();
+        if (stateAccessor != null && !stateAccessor.AbleToTakeAnInteraction())
         {
             return;
         }
 
+        soundFX.Play();
 
         switch (currentZoom)
         {

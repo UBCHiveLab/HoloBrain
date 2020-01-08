@@ -10,7 +10,7 @@ using System;
 public class ColoursAccessor : Singleton<ColoursAccessor> {
 
     private GameObject brainParts;
-    private const string BRAIN_PARTS = "BrainParts";
+    private const string BRAIN_PARTS = "Brain";
 	// Use this for initialization
 	void Start () {
         brainParts = GameObject.Find(BRAIN_PARTS);
@@ -39,11 +39,11 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
 
     public void ToggledLockedHighlightOnBrain()
     {
-        for (int i = 0; i < brainParts.transform.childCount; i++)
+        foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
         {
             try
             {
-                brainParts.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().ToggleLockedHighlight();
+                cur.GetComponent<HighlightAndLabelCommands>().ToggleLockedHighlight(true);
             }
             catch (NullReferenceException e)
             {
@@ -54,11 +54,11 @@ public class ColoursAccessor : Singleton<ColoursAccessor> {
 
     public void TurnOnHighlightOnBrain()
     {
-        for (int i = 0; i < brainParts.transform.childCount; i++)
+        foreach (GameObject cur in GameObject.FindGameObjectsWithTag("Structure"))
         {
             try
             {
-                brainParts.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
+                cur.GetComponent<HighlightAndLabelCommands>().TurnOnLockedHighlight();
             }
             catch (NullReferenceException e)
             {

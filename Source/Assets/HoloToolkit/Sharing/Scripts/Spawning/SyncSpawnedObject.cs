@@ -1,10 +1,8 @@
-//
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
-//
 
-using HoloToolkit.Sharing.SyncModel;
 using UnityEngine;
+using HoloToolkit.Sharing.SyncModel;
 
 namespace HoloToolkit.Sharing.Spawning
 {
@@ -16,7 +14,7 @@ namespace HoloToolkit.Sharing.Spawning
     public class SyncSpawnedObject : SyncObject
     {
         /// <summary>
-        /// Transform (position, orientation and scale) for the object.
+        /// Transform (position, rotation, and scale) for the object.
         /// </summary>
         [SyncData] public SyncTransform Transform;
 
@@ -40,16 +38,16 @@ namespace HoloToolkit.Sharing.Spawning
 
         public virtual void Initialize(string name, string parentPath)
         {
-            this.Name.Value = name;
-            this.ParentPath.Value = parentPath;
+            Name.Value = name;
+            ParentPath.Value = parentPath;
 
-            this.ObjectPath.Value = string.Empty;
-            if (!string.IsNullOrEmpty(this.ParentPath.Value))
+            ObjectPath.Value = string.Empty;
+            if (!string.IsNullOrEmpty(ParentPath.Value))
             {
-                this.ObjectPath.Value = this.ParentPath.Value + "/";
+                ObjectPath.Value = ParentPath.Value + "/";
             }
 
-            this.ObjectPath.Value += this.Name.Value;
+            ObjectPath.Value += Name.Value;
         }
     }
 }

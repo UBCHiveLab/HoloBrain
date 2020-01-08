@@ -19,20 +19,20 @@ public class StudentModeCommands : MonoBehaviour {
     private bool statusUiIsHidden;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
         brainUI = GameObject.Find(BRAIN_UI_GAMEOBJECT_NAME);
         controlsUI = GameObject.Find(CONTROLS_UI_GAMEOBJECT_NAME);
         visibleBrainUIScale = brainUI.transform.localScale;
         visibleControlsUIScale = controlsUI.transform.localScale;
         hiddenUIScale = new Vector3(0, 0, 0);
-        SetUIVisibilityUI(false);
+        SetVisibilityUI(false);
     }
 
     void OnSelect()
     {
     }
 
-    public void SetUIVisibilityUI(bool showUI)
+    public void SetVisibilityUI(bool showUI)
     {
         ToggleControlsUI(showUI);
         ToggleStatusUI(showUI);

@@ -2,17 +2,19 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 using HoloToolkit.Unity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ResetState : Singleton<ResetState> {
-    private const string BRAIN_STRUCTURE_GROUPING = "BrainParts";
+    private const string BRAIN_STRUCTURE_GROUPING = "Brain";
     private const string MRI_COLLECTION = "MRICollection";
 
     private GameObject brain;
     private GameObject MRICollection;
+    private GameObject ControlsUI;
     private CustomMessages customMessages;
     private AudioSource soundFX;
     private StateAccessor stateAccessor;
@@ -28,13 +30,14 @@ public class ResetState : Singleton<ResetState> {
         }
 
         brain = GameObject.Find(BRAIN_STRUCTURE_GROUPING);
-        soundFX = gameObject.GetComponent<AudioSource>();
+        soundFX = brain.GetComponent<AudioSource>();
         MRICollection = GameObject.Find(MRI_COLLECTION);
+        ControlsUI = GameObject.Find("ControlsUI");
     }
 
     void OnSelect()
     {
-        ResetEverything();
+        //ResetEverything();
     }
 
     public void ResetStateMessageReceived(NetworkInMessage msg)
@@ -51,13 +54,13 @@ public class ResetState : Singleton<ResetState> {
             customMessages.SendResetStateMessage();
         }
         ResetStateAndInteractions();
-        soundFX.Play();
     }
 
     public void ResetStateAndInteractions()
     {
         if (ResetMode())
         {
+            Debug.Log("Mode reset");
             ResetInteractions();
         }
         else
@@ -71,7 +74,7 @@ public class ResetState : Singleton<ResetState> {
         if (stateAccessor.ChangeMode(StateAccessor.Mode.Default))
         {
             brain.GetComponent<IsolateStructures>().ResetIsolate();
-            MRICollection.GetComponent<MRIManager>().ResetMRI();
+            //MRICollection.GetComponent<MRIManager>().ResetMRI();
             return true;
         }
 
@@ -80,19 +83,33 @@ public class ResetState : Singleton<ResetState> {
 
     public void ResetInteractions()
     {
-        brain.GetComponent<RotateStructures>().ResetRotation();
         brain.GetComponent<ScaleToggler>().ResetScale();
         brain.GetComponent<ExplodingCommands>().ResetExplode();
 
-        for (int i = 0; i < brain.transform.childCount; i++)
+        //buttons for explode and collapse should reset too
+        foreach(ExplodingCommands ec in ControlsUI.GetComponentsInChildren<ExplodingCommands>(true))
+        {
+            if (ec.name == "Expand")
+            {
+                ec.gameObject.SetActive(true);
+            } else if(ec.name == "Collapse")
+            {
+                ec.gameObject.SetActive(false);
+            }
+        }
+
+        foreach (GameObject structure in GameObject.FindGameObjectsWithTag("Structure"))
         {
             try
             {
-                brain.transform.GetChild(i).GetComponent<HighlightAndLabelCommands>().ResetHighlightAndLocking();
+                foreach(HighlightAndLabelCommands comp in structure.GetComponentsInChildren<HighlightAndLabelCommands>())
+                {
+                    comp.ResetHighlightAndLocking();
+                }
             }
             catch (System.NullReferenceException)
             {
-                Debug.Log(brain.transform.GetChild(i).name + " has no HighlightAndLabelCommands script");
+                Debug.Log(structure.name + " has no HighlightAndLabelCommands script");
             }
         }
     }

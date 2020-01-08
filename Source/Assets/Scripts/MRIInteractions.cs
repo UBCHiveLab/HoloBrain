@@ -5,6 +5,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 
 public class MRIInteractions : MonoBehaviour
 {
@@ -30,7 +31,11 @@ public class MRIInteractions : MonoBehaviour
 
     private CustomMessages customMessages;
     private MRIManager mriManager;
+    private string mode;
 
+    public GameObject wallIcon;
+    
+    
 
     void Awake()
     {
@@ -41,6 +46,7 @@ public class MRIInteractions : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        mode = PlayerPrefs.GetString("mode");
         customMessages = CustomMessages.Instance;
         mriManager = MRIManager.Instance;
         ring = transform.Find(MRI_RING).gameObject;
@@ -48,8 +54,6 @@ public class MRIInteractions : MonoBehaviour
         MRIImageWithNoOutline = transform.Find(MRI_IMAGE_NO_OUTLINE).gameObject;
         ActiveMRIImage = MRIImageWithOutline;
         ringDefaultColour = ring.GetComponent<Renderer>().material.color;
-
-
         InitializeMRI();
 
         if ((ring == null) || (clipPlane == null) || (MRIImageWithOutline == null) || (MRIImageWithNoOutline == null))
@@ -78,14 +82,21 @@ public class MRIInteractions : MonoBehaviour
 
     void OnSelect()
     {
-        if (!isSectionSelected)
+        MRIImageWithOutline.SetActive(!MRIImageWithOutline.activeSelf);
+        /*
+        if (!isSectionSelected && mode != "student")
         {
             SelectMRI();
-        }
+        }*/
     }
 
     public void SelectMRI()
     {
+        if (wallIcon != null)
+        {
+            MRIIconManager.Instance.DeselectAll();
+            wallIcon.GetComponent<ButtonSwapHighlightFeedback>().ToggleButtonImage();
+        }
         DisplayMRIImage();
         mriManager.DisplaySingleMRI(gameObject);
         if (customMessages != null)
@@ -123,8 +134,8 @@ public class MRIInteractions : MonoBehaviour
         ring.SetActive(false);
 
         isSectionSelected = true;
-        SetLineAnimation(false);
-        ClipPlaneAtMRIPosition();
+        //SetLineAnimation(false);
+        //ClipPlaneAtMRIPosition();
     }
 
 
@@ -141,7 +152,7 @@ public class MRIInteractions : MonoBehaviour
     {
         ActiveMRIImage.SetActive(false);
         MRIImageWithNoOutline.SetActive(false);
-        MRIImageWithOutline.SetActive(false);
+        MRIImageWithOutline.SetActive(true);
         ring.SetActive(true);
     }
 

@@ -2,30 +2,53 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using UnityEngine;
-using UnityEngine.VR.WSA.Input;
+//using for data collection start:
+using System.IO;
+using System.Text;
+//using for data collection end
 
 public class GazeGestureManager : MonoBehaviour
 {
+
+    //data collection variables start
+    private string filename;
+    private StreamWriter sw;
+    private string path;
+    private FileStream fs;
+    //data collection variables end
+
     public static GazeGestureManager Instance { get; private set; }
 
     // Represents the hologram that is currently being gazed at.
     public GameObject FocusedObject { get; private set; }
 
-    GestureRecognizer recognizer;
+    UnityEngine.XR.WSA.Input.GestureRecognizer recognizer;
 
     // Use this for initialization
     void Start()
     {
         Instance = this;
 
+        //initializing data collection
+        filename = System.DateTime.UtcNow.ToString() + ".txt";
+        path = Path.Combine(Application.persistentDataPath, filename);
+        Debug.Log("creating file at: " + path);
+        if (!Directory.Exists(path))
+        {
+            File.Create(path);
+        }
+        FileStream fs = new FileStream(path, FileMode.Open);
+        sw = new StreamWriter(fs);
+
         // Set up a GestureRecognizer to detect Select gestures.
-        recognizer = new GestureRecognizer();
+        recognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
         recognizer.TappedEvent += (source, tapCount, ray) =>
         {
             // Send an OnSelect message to the focused object and its ancestors.
             if (FocusedObject != null)
             {
                 FocusedObject.SendMessageUpwards("OnSelect");
+                sw.WriteLine(FocusedObject.name + " OnSelect");
             }
         };
         recognizer.StartCapturingGestures();
@@ -61,13 +84,17 @@ public class GazeGestureManager : MonoBehaviour
             if(oldFocusObject != null)
             {
                 oldFocusObject.SendMessageUpwards("OnEndGaze");
+                sw.WriteLine(oldFocusObject.name + " OnEndGaze");
             }
             if (FocusedObject != null)
             {
                 FocusedObject.SendMessageUpwards("OnStartGaze");
+                sw.WriteLine(FocusedObject.name + " OnStartGaze");
             }
             recognizer.CancelGestures();
             recognizer.StartCapturingGestures();
         }
     }
+
+
 }

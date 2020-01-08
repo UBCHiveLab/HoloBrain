@@ -1,57 +1,111 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
+using System;
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using HoloToolkit.Unity.InputModule;
 
-public class ButtonCommands : MonoBehaviour {
+public class ButtonCommands : MonoBehaviour, IFocusable, IInputClickHandler {
 
     public bool buttonIsEnabled { get; private set; }
 
+    private SwitchRoomUICondition condition;
     private ControlsUIManager controlsUI;
+    private AudioSource source;
+    private ButtonAppearance appearance;
 
-    private const string GAZE_FRAME_NAME = "white-border";
+    public Sprite hoverState;
+    public Sprite activeState;
+    public string GAZE_FRAME_NAME = "white-border";
     Color FullOpacityColor;
     Color PartialOpacityColor;
     bool IsPressed;
 
+    public delegate void MultiDelegate();
+    public MultiDelegate Commands;
 
     private void Start()
     {
-        buttonIsEnabled = true;
-        IsPressed = false;
-        FullOpacityColor = new Color(1, 1, 1, 1);
-        PartialOpacityColor = new Color(1, 1, 1, 0.63f);
         controlsUI = transform.GetComponentInParent<ControlsUIManager>();
+        source = transform.GetComponent<AudioSource>();
+        appearance = transform.GetComponent<ButtonAppearance>();
+        condition = transform.GetComponent<SwitchRoomUICondition>();
         
         //disable the white selection frame
         EnableOrDisableFrame(false);
     }
 
-    void OnStartGaze()
+    private void Update()
+    {
+    }
+
+    public void OnFocusEnter()
     {
         //let the UIManager know that it is being gazed at
-        controlsUI.OnGazeEnteredUI();
+        if(controlsUI != null) {
+            controlsUI.OnGazeEnteredUI();
+        }
 
         //visual change of the button on gaze over
-        EnableOrDisableFrame(true);
+        //EnableOrDisableFrame(true);
     }
 
-    void OnEndGaze()
+    public void OnFocusExit()
     {
         //let the UIManager know that it is no longer being gazed at
-        controlsUI.OnGazeExitUI();
+        if(controlsUI != null)
+        {
+            controlsUI.OnGazeExitUI();
+        }
 
         //visual change of the button on gaze over
-        EnableOrDisableFrame(false);
+        //EnableOrDisableFrame(false);
     }
 
-    public void OnSelect()
+    public void AddCommand(Action command)
     {
-       
-            changeButtonAppearance();
-        
+        Commands += delegate
+        {
+            command();
+        };
+    }
+
+    public void OnInputClicked(InputClickedEventData eventData)
+    {
+        if(condition != null)
+        {
+            if(condition.SwitchCondition())
+            {
+                if (Commands != null)
+                {
+                    Commands();
+                }
+                if (source != null)
+                {
+                    source.Play();
+                }
+                if (appearance != null)
+                {
+                    appearance.SetButtonActive();
+                }
+            }
+        } else
+        {
+            if (Commands != null)
+            {
+                Commands();
+            }
+            if (source != null)
+            {
+                source.Play();
+            }
+            if (appearance != null)
+            {
+                appearance.SetButtonActive();
+            }
+        }
     }
 
 
@@ -76,6 +130,12 @@ public class ButtonCommands : MonoBehaviour {
             gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
 
         }
+
+        if (gameObject.GetComponent<ButtonSwapHighlightFeedback>() != null)
+        {
+            gameObject.GetComponent<ButtonSwapHighlightFeedback>().ToggleButtonImage();
+
+        }
     }
 
     private void ChangeOpacity()
@@ -86,6 +146,7 @@ public class ButtonCommands : MonoBehaviour {
 
         }
     }
+
     private void ChangeMenu()
     {
         if (gameObject.GetComponent<ToggleMenu>() != null)
@@ -128,6 +189,11 @@ public class ButtonCommands : MonoBehaviour {
         if (gameObject.GetComponent<ButtonSwapFeedback>())
         {
             gameObject.GetComponent<ButtonSwapFeedback>().ResetButtonState();
+        }
+
+        if (gameObject.GetComponent<ButtonSwapHighlightFeedback>())
+        {
+            gameObject.GetComponent<ButtonSwapHighlightFeedback>().ResetButtonState();
         }
 
     }

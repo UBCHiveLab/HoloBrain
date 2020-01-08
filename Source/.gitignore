@@ -19,6 +19,9 @@ ExportedObj/
 *.svd
 *.pdb
 
+# Visual Studio 2015 cache/options directory
+.vs/
+
 # Unity3D generated meta files
 *.pidb.meta
 
@@ -33,3 +36,7 @@ sysinfo.txt
 /UWP/
 /VSBuild/**/*
 !/VSBuild/BuildYourProjectsInThisFolder.txt
+
+# folder that contains the build
+App/
+Builds/

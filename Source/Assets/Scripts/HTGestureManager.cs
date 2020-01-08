@@ -3,8 +3,16 @@
 
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEngine.VR.WSA.Input;
+
 using HoloToolkit.Unity;
+#if WINDOWS_UWP
+    using System;
+    using System.Collections.Concurrent;
+    using Windows.Storage;
+    using Windows.Storage.Streams;
+#endif
+using System.IO;
+using System.Text;
 
 /// <summary>
 /// GestureManager creates a gesture recognizer and signs up for a tap gesture.
@@ -24,14 +32,35 @@ public class HTGestureManager : Singleton<HTGestureManager>
         get; set;
     }
 
-    private GestureRecognizer gestureRecognizer;
+#if WINDOWS_UWP
+    StorageFolder storageFolder = ApplicationData.Current.LocalFolder;
+    StorageFile dataFile;
+    IRandomAccessStream stream;
+    private ConcurrentQueue<string> messages = new ConcurrentQueue<string>();
+    private int fileIndex;
+    bool recordingData = false;
+    int dataTimer = 0;
+#endif
+
+    //data collection variables start
+    /*
+    private string filename;
+    private StreamWriter sw;
+    private string path;
+    private FileStream fs;*/
+
+    //data collection variables end
+
+    private UnityEngine.XR.WSA.Input.GestureRecognizer gestureRecognizer;
     private GameObject focusedObject;
     private GameObject brainParts;
+    private DataRecorder dataRecorder;
     void Start()
     {
         // Create a new GestureRecognizer. Sign up for tapped events.
-        gestureRecognizer = new GestureRecognizer();
-        gestureRecognizer.SetRecognizableGestures(GestureSettings.Tap);
+
+        gestureRecognizer = new UnityEngine.XR.WSA.Input.GestureRecognizer();
+        gestureRecognizer.SetRecognizableGestures(UnityEngine.XR.WSA.Input.GestureSettings.Tap);
 
         gestureRecognizer.TappedEvent += GestureRecognizer_TappedEvent;
 
@@ -39,19 +68,32 @@ public class HTGestureManager : Singleton<HTGestureManager>
         gestureRecognizer.StartCapturingGestures();
 
         brainParts = GameObject.Find("BrainParts");
+        dataRecorder = (DataRecorder)FindObjectOfType(typeof(DataRecorder));
     }
 
-    private void GestureRecognizer_TappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
+    private void GestureRecognizer_TappedEvent(UnityEngine.XR.WSA.Input.InteractionSourceKind source, int tapCount, Ray headRay)
     {
         if (focusedObject != null)
         {
             focusedObject.SendMessage("OnSelect");
+#if WINDOWS_UWP
+            if(dataRecorder) {
+                dataRecorder.QueueMessage(focusedObject.name + ";OnSelect"); 
+            }
+#endif
+            //sw.WriteLine(focusedObject.name + " OnSelect");
         }
         //UNCOMMENT THIS FOR GAZE MARKER
-        //else if (brainParts != null)
-        //{
-        //    brainParts.SendMessage("OnEmptyTap");
-        //}
+        else if (brainParts != null)
+        {
+            brainParts.SendMessage("OnEmptyTap");
+#if WINDOWS_UWP
+            if(dataRecorder) {
+                dataRecorder.QueueMessage("BrainParts;OnEmptyTap"); 
+            }
+#endif
+            //sw.WriteLine("BrainParts OnEmptyTap");
+        }
     }
 
     void LateUpdate()
@@ -77,10 +119,22 @@ public class HTGestureManager : Singleton<HTGestureManager>
             if (oldFocusedObject != null)
             {
                 oldFocusedObject.SendMessageUpwards("OnEndGaze");
+#if WINDOWS_UWP
+                if(dataRecorder) {
+                    dataRecorder.QueueMessage(oldFocusedObject.name + ";OnEndGaze"); 
+                }
+#endif
+                //sw.WriteLine(oldFocusedObject.name + " OnEndGaze");
             }
             if (focusedObject != null)
             {
                 focusedObject.SendMessageUpwards("OnStartGaze");
+#if WINDOWS_UWP
+                if(dataRecorder) {
+                    dataRecorder.QueueMessage(focusedObject.name + ";OnStartGaze"); 
+                }
+#endif
+                //sw.WriteLine(oldFocusedObject.name + " OnStartGaze");
             }
 
             // If the currently focused object doesn't match the old focused object, cancel the current gesture.

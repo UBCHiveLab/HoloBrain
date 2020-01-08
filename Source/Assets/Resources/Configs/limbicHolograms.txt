@@ -1,0 +1,1 @@
+MRICollection,Ventricles,Fornix,Hippocampus,Amygdala,Mammillary Bodies,Mammillothalamic Tract,Thalamus,MinimapPositionObject,Cortex

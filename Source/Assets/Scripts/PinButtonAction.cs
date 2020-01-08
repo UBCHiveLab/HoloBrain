@@ -4,22 +4,38 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class PinButtonAction : MonoBehaviour {
+public class PinButtonAction : CommandToExecute {
 
     private ControlsUIManager UIManager;
+    public BoxCollider unPinCollider;
 
     // Use this for initialization
-    void Start () {
+    override public void Start () {
         UIManager = transform.GetComponentInParent<ControlsUIManager>();
+        base.Start();
 	}
-   
 
-    public void OnSelect()
+    override protected Action Command()
     {
-        UIManager.TogglePinUI();
+        return delegate
+        {
+            if (UIManager != null)
+            {
+                UIManager.TogglePinUI();
+            }
+            if(UIManager.GetMenuPinState())
+            {
+                unPinCollider.enabled = false;
+            }
+            if(!UIManager.GetMenuPinState())
+            {
+                unPinCollider.enabled = true;
+            }
+        };
     }
-    private void OnEnable()
+    /*private void OnEnable()
     {
         if(UIManager == null)
         {
@@ -27,11 +43,11 @@ public class PinButtonAction : MonoBehaviour {
         }
 
         if (UIManager.GetMenuPinState())
-            {
+        {
                 Debug.Log("In the on enable pin state is true");
                 gameObject.GetComponent<ButtonSwapFeedback>().ToggleButtonImage();
                 Debug.Log("In the on enable pin state is true: image toggled");
-            }
-    }
+        }
+    }*/
 
 }

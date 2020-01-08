@@ -13,6 +13,7 @@ public class HSGazeObserver : MonoBehaviour
 {
     public event Action FocusEntered;
     public event Action FocusExited;
+    public Sprite HoverSprite;
 
     /// <summary>
     /// Indicates if the object is being gazed at.
@@ -55,6 +56,7 @@ public class HSGazeObserver : MonoBehaviour
                 if (!IsGazed)
                 {
                     IsGazed = true;
+                    gameObject.GetComponent<SpriteRenderer>().sprite = HoverSprite;
                     FocusEntered.RaiseEvent();
                 }
             }

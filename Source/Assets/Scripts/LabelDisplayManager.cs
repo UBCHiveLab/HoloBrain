@@ -38,26 +38,13 @@ public class LabelDisplayManager : MonoBehaviour {
         
         textZone = transform.Find("Text");
         spriteComp = textZone.GetComponent<SpriteRenderer>();
-        
-        
-        brain = GameObject.Find("BrainParts");
-        scaleScript = brain.GetComponent<ScaleToggler>();
-        
-        UpdateBrainRadius();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
-
-        if (scaleScript.zoomChanging)
-        {
-            UpdateBrainRadius();
-        }
-
+        /*
         if (spriteComp.sprite != null)
         {
-            distanceFromBrain = Vector3.Distance(brain.transform.position, Camera.main.transform.position) - brainRadius;
 
             if (distanceFromBrain <= minDistance)
             {
@@ -75,11 +62,6 @@ public class LabelDisplayManager : MonoBehaviour {
 
                 spriteComp.enabled = true;
             }
-        }
-    }
-
-    private void UpdateBrainRadius()
-    {
-        brainRadius = DefaultBrainRadius * brain.transform.localScale.x;
+        }*/
     }
 }

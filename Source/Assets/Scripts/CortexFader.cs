@@ -20,7 +20,7 @@ public class CortexFader : MonoBehaviour {
     private GameObject brain;
     private ScaleToggler scaleScript;
 
-    private MeshRenderer cortexRenderComp;
+    private MeshRenderer[] cortexRenderComp;
     private Color cortexOriginalColor;
 
     // Use this for initialization
@@ -29,11 +29,11 @@ public class CortexFader : MonoBehaviour {
         maxDistance = fadeStartDistance;
         minDistance = maxDistance - fadeDistance;
 
-        brain = GameObject.Find("BrainParts");
+        brain = GameObject.Find("Brain");
         scaleScript = brain.GetComponent<ScaleToggler>();
 
-        cortexRenderComp = brain.transform.Find("cortex_low").GetComponent<MeshRenderer>();
-        cortexOriginalColor = cortexRenderComp.material.color;
+        cortexRenderComp = brain.transform.Find("Cortex").GetComponentsInChildren<MeshRenderer>();
+        cortexOriginalColor = cortexRenderComp[0].material.color;
 
         UpdateBrainRadius();
     }
@@ -48,26 +48,28 @@ public class CortexFader : MonoBehaviour {
 
         distanceFromBrain = Vector3.Distance(brain.transform.position, Camera.main.transform.position) - brainRadius;
 
-        if (distanceFromBrain <= minDistance)
-        {
-            if(cortexRenderComp.enabled)
-                cortexRenderComp.enabled = false;
-        }
-        else if (distanceFromBrain >= maxDistance)
-        {
-            if (!cortexRenderComp.enabled)
-                cortexRenderComp.enabled = true;
+        foreach(Renderer cur in cortexRenderComp) { 
+            if (distanceFromBrain <= minDistance)
+            {
+                if(cur.enabled)
+                    cur.enabled = false;
+            }
+            else if (distanceFromBrain >= maxDistance)
+            {
+                if (!cur.enabled)
+                    cur.enabled = true;
 
-            cortexRenderComp.material.color = cortexOriginalColor;
-        }
-        else
-        {
-            if (!cortexRenderComp.enabled)
-                cortexRenderComp.enabled = true;
+                cur.material.color = cortexOriginalColor;
+            }
+            else
+            {
+                if (!cur.enabled)
+                    cur.enabled = true;
 
-            cortexRenderComp.material.color = cortexOriginalColor * ((distanceFromBrain - minDistance) / fadeDistance);
+                cur.material.color = cortexOriginalColor * ((distanceFromBrain - minDistance) / fadeDistance);
+            }
         }
-        
+
     }
 
     private void UpdateBrainRadius()

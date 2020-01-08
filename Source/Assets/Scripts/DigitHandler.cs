@@ -2,6 +2,7 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Utilities;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,14 +74,24 @@ public class DigitHandler : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("HoloBrain");
+            SceneManager.LoadScene("EducationalRoom");
         }
     }
 
+    //TODO: Not sure if the session.GetName() method here is the way we want to do this comparison
     private bool SessionExists(string id)
     {
         Debug.Log("Session ID is " + id);
-        return sharing.GetComponent<AutoJoinSession>().SessionExists(id);
+        bool result = false;
+        List<Session> sessions = SharingStage.Instance.SessionsTracker.Sessions;
+        foreach(Session session in sessions)
+        {
+            if(session.GetName().GetString() == id)
+            {
+                result = true;
+            }
+        }
+        return false;
     }
 }
 

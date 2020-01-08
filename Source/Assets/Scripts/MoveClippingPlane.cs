@@ -16,11 +16,11 @@ public class MoveClippingPlane : MonoBehaviour {
     private Vector3 animationHorizontalStartRotation;
     private Vector3 defaultPosition;
     private Vector3 defaultRotation;
-    private bool isClipping = false;
+    private bool isClipping = true;
     private GameObject BrainObject;
     private const string BRAIN = "Brain";
     private const float PLANE_ANIMATION_OFFSET = -.5f;
-    private const float PLANE_DEFAULT_OFFSET = -3f;
+    private const float PLANE_DEFAULT_OFFSET = -30f;
     private bool isMovingX = false;
     private bool isMovingY = false;
     private float targetPosition;
@@ -85,23 +85,28 @@ public class MoveClippingPlane : MonoBehaviour {
             {
                 moveTowardsNewYPosition();
             }
-            clipAtCurrentPosition();
+            //clipAtCurrentPosition();
         }
     }
 
     public void changePlaneXPosition(float xPosition)
     {
+        Debug.Log("changing plane position on x: " + xPosition);
         transform.localEulerAngles = animationVerticalStartRotation;
         isMovingX = true;
+        isMovingY = false;
         targetPosition = xPosition;
         currentPosition = animationVerticalStartPosition.x;
+        transform.localPosition = animationVerticalStartPosition;
     }
 
 
     public void changePlaneYPosition(float yPosition)
     {
+        Debug.Log("changing plane position on y: " + yPosition);
         transform.localEulerAngles = animationHorizontalStartRotation;
         isMovingY = true;
+        isMovingX = false;
         targetPosition = yPosition;
         currentPosition = animationHorizontalStartPosition.y;
         transform.localPosition = animationHorizontalStartPosition;
@@ -109,34 +114,48 @@ public class MoveClippingPlane : MonoBehaviour {
 
     public void moveTowardsNewXPosition()
     {
-        if /*((currentPosition <= targetPosition) || */((currentPosition - targetPosition) < movementRate)
+        if /*((currentPosition <= targetPosition) || */(Mathf.Abs(currentPosition - targetPosition) < movementRate)
         {
             isMovingX = false;
             transform.localPosition = new Vector3(targetPosition, animationVerticalStartPosition.y, animationVerticalStartPosition.z);
         }
         else
         {
-            currentPosition = currentPosition - movementRate;
+            if(targetPosition > currentPosition)
+            {
+                currentPosition = currentPosition + movementRate;
+            }
+            else if(targetPosition < currentPosition){
+                currentPosition = currentPosition - movementRate;
+            }
             transform.localPosition = new Vector3(currentPosition, animationVerticalStartPosition.y, animationVerticalStartPosition.z);
         }
     }
 
     public void moveTowardsNewYPosition()
     {
-        if /*((currentPosition <= targetPosition) || */((currentPosition - targetPosition) < movementRate)
+        if /*((currentPosition <= targetPosition) || */(Mathf.Abs(currentPosition - targetPosition) < movementRate)
         {
             isMovingY = false;
             transform.localPosition = new Vector3(animationVerticalStartPosition.x, targetPosition, animationVerticalStartPosition.z);
         }
         else
         {
-            currentPosition = currentPosition - movementRate;
+            if (targetPosition > currentPosition)
+            {
+                currentPosition = currentPosition + movementRate;
+            }
+            else if (targetPosition < currentPosition)
+            {
+                currentPosition = currentPosition - movementRate;
+            }
             transform.localPosition = new Vector3(animationVerticalStartPosition.x, currentPosition, animationVerticalStartPosition.z);
         }
     }
 
     public void resetPlanePosition()
     {
+        Debug.Log("resetting plane position");
         setPlaneOrientation(Orientation.vertical);
         transform.localPosition = defaultPosition;
         transform.localEulerAngles = defaultRotation;
@@ -144,17 +163,17 @@ public class MoveClippingPlane : MonoBehaviour {
 
     public void TurnOffClipping()
     {
+        Debug.Log("turning off clipping");
         resetPlanePosition();
         clipAtCurrentPosition();
         isClipping = false;
         isMovingX = false;
         isMovingY = false;
-
-        gameObject.SetActive(false);
     }
 
     public void TurnOnClipping()
     {
+        Debug.Log("turning on clipping");
         isClipping = true;
     }
 
@@ -170,9 +189,7 @@ public class MoveClippingPlane : MonoBehaviour {
             case Orientation.vertical:
                 transform.localEulerAngles = animationVerticalStartRotation;
                 break;
-        }
-            
-                
+        }       
     }
 
     private void clipAtCurrentPosition()
@@ -182,7 +199,7 @@ public class MoveClippingPlane : MonoBehaviour {
         Shader.SetGlobalVector("_PlaneD", transform.position);
         Shader.SetGlobalVector("_PlaneN", normal);
 
-//        brainMaterial.SetVector("_PlaneD", transform.position);
-//        brainMaterial.SetVector("_PlaneN", normal);
+        brainMaterial.SetVector("_PlaneD", transform.position);
+        brainMaterial.SetVector("_PlaneN", normal);
     }
 }

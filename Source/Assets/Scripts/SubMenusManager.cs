@@ -10,13 +10,11 @@ public class SubMenusManager : MonoBehaviour {
     private Dictionary<string, List<string>> ButtonNamesToCorrespondingMenus;
     private const string SUBSECTION_UI_NAME = "SubsectionUI";
     private const string BUTTONS_MENU_NAME = "Buttons";
-    private const string BASAL_GANGLIA_MODES_NAME = "BasalGangliaModes";
     private const string ISOLATE_MODE_NAME = "IsolateMode";
     private const string MRI_MODE_NAME = "MRIMode";
 
     private GameObject SubsectionMenu;
     private GameObject ButtonsMenu;
-    private GameObject BasalGangliaMenu;
     private GameObject IsolateModeMenu;
     private GameObject MRIMenu;
     private GameObject MenuButton;
@@ -29,20 +27,21 @@ public class SubMenusManager : MonoBehaviour {
         //map button names to the corresponsing menus that should be enabled when the button is pressed
         ButtonNamesToCorrespondingMenus = new Dictionary<string, List<string>>
         {
-            { "basal-icon", new List<string> { "BasalGangliaModes" } },
-            { "isolate-mode-icon", new List<string> { "IsolateMode" } },
-            { "subsections-button", new List<string> { "SubsectionUI" } },
-            { "structures-icon", new List<string> { "BasalGangliaModes", "Buttons" } },
-            { "mri-icon", new List<string> { "BasalGangliaModes", "MRIMode" } },
-            { "exit-mode-icon", new List<string> { "BasalGangliaModes", "Buttons" } },
-
+            { "isolate-mode-icon", new List<string> { "IsolateMode", "Buttons" } },
+            { "subsections-button", new List<string> { "SubsectionUI", "Buttons" } },
+            { "structures-icon", new List<string> { "Buttons" } },
+            { "mri-icon", new List<string> { "MRIMode" } },
+            { "exit-mode-icon", new List<string> { "Buttons" } },
         };
                 
         SubsectionMenu = GameObject.Find(SUBSECTION_UI_NAME);
         ButtonsMenu = GameObject.Find(BUTTONS_MENU_NAME);
-        BasalGangliaMenu = GameObject.Find(BASAL_GANGLIA_MODES_NAME);
         IsolateModeMenu = GameObject.Find(ISOLATE_MODE_NAME);
-        MRIMenu= GameObject.Find(MRI_MODE_NAME);
+        if (IsolateModeMenu != null)
+        {
+            IsolateModeMenu.SetActive(false);
+        }
+        MRIMenu = GameObject.Find(MRI_MODE_NAME);
 
         EnableDefaultMenus();
 
@@ -76,11 +75,9 @@ public class SubMenusManager : MonoBehaviour {
     public void EnableDefaultMenus()
     {
         ButtonsMenu.SetActive(true);
-        BasalGangliaMenu.SetActive(true);
-        //SubsectionMenu.SetActive(false);
         IsolateModeMenu.SetActive(false);
         MRIMenu.SetActive(false);
-        CurrentActiveMenu = new List<string> { "BasalGangliaModes", "Buttons" };
+        CurrentActiveMenu = new List<string> { "Buttons" };
     }
 
     private void ResetChildButtonState(GameObject MenuToDeactivate)

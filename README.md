@@ -1,12 +1,15 @@
 #Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Holographic Brain Project:
+Unity Project for interaction with 3d visualizations of brain data in Hololens
 
 #Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+*Scene load order:
+1 preload
+2 App
+
+*App configuration
+ * In the Preload GameObject there is a script called ApplyAppConfiguration that takes a config file prefix
+ * Find examples of configuration files in Assets/Resources/Configs
 
 #Build and Test
 TODO: Describe and show how to build your code and run the tests. 

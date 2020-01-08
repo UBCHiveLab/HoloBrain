@@ -4,80 +4,108 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class IsolateButtonAction : MonoBehaviour {
+[RequireComponent(typeof(ButtonAppearance))]
+public class IsolateButtonAction : CommandToExecute {
 
     private bool buttonSelected;
     private Dictionary<string, string> isolateIconsToGameObjectName;
-    private const string BRAIN_PARTS_NAME = "BrainParts";
-    private const string ISOLATE_MENU_NAME = "IsolateMode";
+    private const string BRAIN_PARTS_NAME = "Brain";
+    private const string ISOLATE_MENU_NAME = "isolateMode";
+    List<GameObject> isolateButtons;
     private GameObject IsolateMenu;
     private GameObject brainStructures;
     private string PartToIsolate;
     // Use this for initialization
-    void Start () {
+    override public void Start () {
         buttonSelected = false;
         brainStructures = GameObject.Find(BRAIN_PARTS_NAME);
-        IsolateMenu = GameObject.Find(ISOLATE_MENU_NAME);
-        isolateIconsToGameObjectName = new Dictionary<string, string>
+        //IsolateMenu = GameObject.Find(ISOLATE_MENU_NAME);
+        //isolateButtons = GetStructureButtons();
+        base.Start();
+    }
+
+    List<GameObject> GetStructureButtons()
+    {
+        GameObject menu = GameObject.Find("isolateMode");
+        List<GameObject> result = new List<GameObject>();
+        Component[] basal = menu.transform.Find("ExtendedMenu/Basal/BasalStructures").GetComponentsInChildren<IsolateButtonAction>(true);
+        Component[] limbic = menu.transform.Find("ExtendedMenu/Limbic/LimbicStructures").GetComponentsInChildren<IsolateButtonAction>(true);
+        Component[] vessels = menu.transform.Find("ExtendedMenu/Vessel/VesselStructures").GetComponentsInChildren<IsolateButtonAction>(true);
+        Debug.Log("declared arrays");
+        foreach(Component cur in basal)
         {
-            {"putamen-icon" , "right_putamen"},
-            {"caudate-icon", "right_caudate"},
-            { "globus-icon", "right_globus_pallidus" },
-            { "nigra-icon",  "right_substantia_nigra" },
-            { "subthalamic-icon" , "right_subthalamic"},
-            { "thalamus-icon","thalamus"},
-            {"add-icon","AddAll"},
-            {"remove-icon","RemoveAll"},
-        };
-        Debug.Log("in the on start of: " + gameObject.name);
+            result.Add(cur.gameObject);
+        }
+        foreach (Component cur in limbic)
+        {
+            result.Add(cur.gameObject);
+        }
+        foreach (Component cur in vessels)
+        {
+            result.Add(cur.gameObject);
+        }
+        result.Add(menu.transform.Find("Cerebellum").gameObject);
+        //result.Add(menu.transform.Find("DTI").gameObject);
+        Debug.Log("returning result");
+        return result;
     }
 	
-    public void OnSelect()
+    override protected Action Command()
     {
-      
-        PartToIsolate = isolateIconsToGameObjectName[gameObject.name];
-        if (PartToIsolate == "AddAll")
+        return delegate
         {
-            AddAllParts();
-        }
+            PartToIsolate = gameObject.name;
+            if (PartToIsolate == "AddAll")
+            {
+                AddAllParts();
+            }
 
-        else if (PartToIsolate == "RemoveAll")
-        {
-            RemoveAllParts();
-        }
+            else if (PartToIsolate == "RemoveAll")
+            {
+                RemoveAllParts();
+            }
 
-        else if (!buttonSelected)
-        {
-           
-            AddBrainPart(PartToIsolate);
-            buttonSelected = true;
-
-        }
-        else
-        {
-           
-            RemoveBrainPart(PartToIsolate);
-            buttonSelected = false;
-        }
-       
+            else if (!buttonSelected)
+            {
+                AddBrainPart(PartToIsolate);
+                buttonSelected = true;
+            }
+            else
+            {
+                RemoveBrainPart(PartToIsolate);
+                buttonSelected = false;
+            }
+        };
     }
+
     private void AddBrainPart(string PartName)
     {
         brainStructures.GetComponent<IsolateStructures>().TryToIsolate(PartName);
-
     }
 
     private void RemoveBrainPart(string PartName)
     {
         brainStructures.GetComponent<IsolateStructures>().TryToReturnFromIsolate(PartName);
+    }
 
+    public void SetButtonSelected(bool selected)
+    {
+        if(selected)
+        {
+            GetComponent<ButtonAppearance>().SetButtonActive();
+        }
+        else
+        {
+            GetComponent<ButtonAppearance>().ResetButton();
+        }
+        buttonSelected = selected;
     }
 
     public void AddAllParts()
     {
         Debug.Log("In handle add all button");
-
         brainStructures.GetComponent<IsolateStructures>().AddAllParts();
         SelectAllButtons(true);
     }
@@ -91,11 +119,11 @@ public class IsolateButtonAction : MonoBehaviour {
 
     public void SelectAllButtons(bool select)
     {
-           for (int i=0; i < IsolateMenu.transform.childCount; i++)
+           for (int i=0; i < isolateButtons.Count; i++)
         {
-            if (IsolateMenu.transform.GetChild(i).gameObject.GetComponent<ButtonEnabledFeedback>() != null)
+            if (isolateButtons[i].GetComponent<ButtonAppearance>() != null)
             {
-                IsolateMenu.transform.GetChild(i).gameObject.GetComponent<ButtonEnabledFeedback>().ToggleOpacity(select);
+                isolateButtons[i].GetComponent<IsolateButtonAction>().SetButtonSelected(select);
             }
         }
     }

@@ -2,12 +2,14 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using HoloToolkit.Unity.InputModule;
 
-public class HighlightAndLabelCommands : MonoBehaviour {
+public class HighlightAndLabelCommands : MonoBehaviour, IFocusable, IInputClickHandler {
     public bool isLocked { get; private set; }
     public bool hasPin { get; private set; }
     private bool isGazedAt = false;
@@ -15,7 +17,7 @@ public class HighlightAndLabelCommands : MonoBehaviour {
     private CustomMessages customMessages;
     private AudioSource soundFX;
 
-    public GameObject pin;
+   // public GameObject pin;
     public GameObject labelZone;
     public HighlightAndLabelCommands otherHalf;
     public Sprite labelSprite;
@@ -25,24 +27,29 @@ public class HighlightAndLabelCommands : MonoBehaviour {
     public Color gazeColour;
     public Color highlightedColour;
 
+    string mode;
 
     private void Start()
     {
+        mode = PlayerPrefs.GetString("mode");
         customMessages = CustomMessages.Instance;
         soundFX = gameObject.GetComponent<AudioSource>();
-        gameObject.GetComponent<Renderer>().material.color = defaultColour;
+        foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+        {
+            renderer.material.color = defaultColour;
+        }
 
         isLocked = false;
         hasPin = false;
 
-        if (!transform.name.Contains("(Clone)")) {
+      /*  if (!transform.name.Contains("(Clone)")) {
             pin.GetComponent<PinPositionManager>().SetBrainSectionTransform(transform);
             pin.SetActive(false);
-        }
+        }*/
     }
 
 
-    void OnSelect()
+    public void OnInputClicked(InputClickedEventData e)
     {
         if (!StateAccessor.Instance.CurrentlyInStudentMode() && StateAccessor.Instance.AbleToTakeAnInteraction())
         {
@@ -51,20 +58,19 @@ public class HighlightAndLabelCommands : MonoBehaviour {
                 CustomMessages.Instance.SendToggleHighlightMessage(this.name, isLocked);
             }
             ToggleLockedHighlight();
-            //blah
         }
     }
  
-    void OnStartGaze()
+    public void OnFocusEnter()
     {
-        if (StateAccessor.Instance.AbleToTakeAnInteraction())
+        if (StateAccessor.Instance.AbleToTakeAnInteraction() && mode != "student")
         {
             isGazedAt = true;
             HighlightObject();
         }
     }
 
-    void OnEndGaze()
+    public void OnFocusExit()
     {
         isGazedAt = false;
         HighlightObject();
@@ -103,24 +109,27 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         }
     }
 
-    public void ToggleLockedHighlight()
+    public void ToggleLockedHighlight(bool allBrainParts = false)
     {
         isLocked = !isLocked;
 
-        if (soundFX != null)
+        if (soundFX != null && !allBrainParts)
         {
             soundFX.Play();
         }
         
-        if (!(StateAccessor.Instance.CurrentlyIsolatedOrIsolating() || StateAccessor.Instance.CurrentlyInMRIMode()))
+      /*  if (!(StateAccessor.Instance.CurrentlyIsolatedOrIsolating() || StateAccessor.Instance.CurrentlyInMRIMode()))
         {
             UpdatePins();
-        }
+        }*/
 
         //if the selection is locked, increase the glow. If it's unlocked, return the glow to normal
         if (isLocked)
         {
-            gameObject.GetComponent<Renderer>().material.color = highlightedColour;
+            foreach(Renderer cur in gameObject.GetComponentsInChildren<Renderer>())
+            {
+                cur.material.color = highlightedColour;
+            }
         }
         else
         {
@@ -137,12 +146,17 @@ public class HighlightAndLabelCommands : MonoBehaviour {
             if (isGazedAt)
             {
                 // Make the object glow
-                gameObject.GetComponent<Renderer>().material.color = gazeColour;
+                foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>())
+                {
+                    renderer.material.color = gazeColour;
+                }
             }
             else
             {
                 // remove the object's glow
-                gameObject.GetComponent<Renderer>().material.color = defaultColour;
+                foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>()) {
+                    renderer.material.color = defaultColour;
+                }
             }
         }
     }
@@ -153,13 +167,15 @@ public class HighlightAndLabelCommands : MonoBehaviour {
         {
             if (isGazedAt && !isLocked)
             {
-                labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = true;
+                //labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = true;
                 labelZone.GetComponent<SpriteRenderer>().sprite = labelSprite;
+                labelZone.GetComponentInChildren<MeshRenderer>().enabled = true;
             }
             else
             {
-                labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = false;
+                //labelZone.GetComponentInParent<CameraCanvasStabilizer>().IsBeingRendered = false;
                 labelZone.GetComponent<SpriteRenderer>().sprite = null;
+                labelZone.GetComponentInChildren<MeshRenderer>().enabled = false;
             }
         }
     }
@@ -177,37 +193,39 @@ public class HighlightAndLabelCommands : MonoBehaviour {
             else
             {
                 //update this pin (this section has a pin to add or remove)
-                TogglePin();
+                //TogglePin();
                 //if this section isn't locked, but the other half is (we know it doesn't have a pin at this point)
                 if (!isLocked && otherHalf.isLocked)
                 {
                     //add the pin to the other
-                    otherHalf.TogglePin();
+                    //otherHalf.TogglePin();
                 }
             }
         }
         else
         {
-            TogglePin();
+           // TogglePin();
         }
 
 
     }
 
-    public void TogglePin()
+    /*public void TogglePin()
     {
         pin.SetActive(isLocked);
         pin.transform.parent.GetComponent<ActivePinsManager>().UpdateActivePin(isLocked, pin);
         hasPin = isLocked;
-    }
+    }*/
 
     public void ResetHighlightAndLocking()
     {
         isLocked = false;
         isGazedAt = false;
         hasPin = false;
-        gameObject.GetComponent<Renderer>().material.color = defaultColour;
-        pin.SetActive(false);
+        foreach (Renderer renderer in gameObject.GetComponentsInChildren<Renderer>()) {
+            renderer.material.color = defaultColour;
+        }
+       // pin.SetActive(false);
     }
 
 }

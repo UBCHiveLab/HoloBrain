@@ -4,30 +4,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ScaleDownButtonAction : MonoBehaviour {
+public class ScaleDownButtonAction : CommandToExecute {
 
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+    //private const string BRAIN_PARTS_NAME = "BrainParts";
+    public GameObject scaleObject;
+    public ButtonAppearance scaleUpButton;
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-    void OnSelect()
+    override protected Action Command()
     {
-        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleDown();
-    }
-    void OnStartGaze()
-    {
-       transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = true;
-        GameObject.Find("ScaleButtonsManager").GetComponent<SubButtonManager>().SetGazeOn(true);
+        //GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ScaleToggler>().ScaleDown();
+        return delegate
+        {
+            scaleObject.GetComponent<ScaleToggler>().ScaleDown();
+            if(scaleObject.GetComponent<ScaleToggler>().IsDefaultScale())
+            {
+                scaleUpButton.SetButtonEnabled();
+            }
+            if(scaleObject.GetComponent<ScaleToggler>().IsSmallestScale())
+            {
+                GetComponent<ButtonAppearance>().SetButtonDisabled();
+            }
+        };
 
     }
-    void OnEndGaze()
-    {
-        transform.Find("white-border").GetComponent<SpriteRenderer>().enabled = false;
-        GameObject.Find("ScaleButtonsManager").GetComponent<SubButtonManager>().SetGazeOn(false);
-    }
-
 }

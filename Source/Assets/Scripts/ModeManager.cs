@@ -3,6 +3,7 @@
 
 ﻿using System.Collections;
 using System.Collections.Generic;
+using HoloToolkit.Sharing.Tests;
 using UnityEngine;
 
 public class ModeManager : MonoBehaviour {

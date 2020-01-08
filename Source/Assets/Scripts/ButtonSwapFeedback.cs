@@ -27,7 +27,11 @@ public class ButtonSwapFeedback : MonoBehaviour {
         if (VoiceToolTip == null)
         {
             StartIconisOn = true;
-            VoiceToolTip = gameObject.transform.Find(VOICE_COMMAND_TOOLTIP_NAME).gameObject;
+
+            if (gameObject.transform.Find(VOICE_COMMAND_TOOLTIP_NAME) != null)
+            {
+                VoiceToolTip = gameObject.transform.Find(VOICE_COMMAND_TOOLTIP_NAME).gameObject;
+            }
         }
     }
 
@@ -40,7 +44,7 @@ public class ButtonSwapFeedback : MonoBehaviour {
                 gameObject.GetComponent<SpriteRenderer>().sprite = EndIcon;
 
             }
-            if (EndVoiceCommand != null)
+            if (EndVoiceCommand != null && VoiceToolTip != null)
             {
                 Debug.Log("end voice command should change");
                 VoiceToolTip.GetComponent<Tooltip>().Text = EndVoiceCommand;
@@ -49,14 +53,14 @@ public class ButtonSwapFeedback : MonoBehaviour {
 
             }
             StartIconisOn = false;
-        }else
+        } else
         {
             if (StartIcon != null)
             {
                 gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
 
             }
-            if (StartVoiceCommand != null)
+            if (StartVoiceCommand != null && VoiceToolTip != null)
             {
                 VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
 
@@ -72,7 +76,10 @@ public class ButtonSwapFeedback : MonoBehaviour {
         Debug.Log("in reset button " + gameObject.name);
         StartIconisOn = true;
         gameObject.GetComponent<SpriteRenderer>().sprite = StartIcon;
-        VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
+        if (VoiceToolTip != null)
+        {
+            VoiceToolTip.GetComponent<Tooltip>().Text = StartVoiceCommand;
+        }
     }
 
 }

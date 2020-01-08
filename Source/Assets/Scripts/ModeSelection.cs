@@ -19,8 +19,6 @@ public class ModeSelection : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
-        DontDestroyOnLoad(transform.gameObject);
         STUDENT_BUTTON = "Student";
         PROFESSOR_BUTTON = "Professor";
         JOIN_LAB_BUTTON = "Join Lab";
@@ -61,7 +59,7 @@ public class ModeSelection : MonoBehaviour {
             PlayerPrefs.SetFloat("adjustmentAngle", 0.0f);
 
         PushSceneName("StartAppScene");
-        SceneManager.LoadScene("StudentOrSoloScene");
+        SceneManager.LoadScene("StudentOrSoloScene", LoadSceneMode.Single);
     }
 
     private void LoadEnterSessionIDScene()
@@ -73,19 +71,19 @@ public class ModeSelection : MonoBehaviour {
             PlayerPrefs.SetFloat("adjustmentAngle", 0.0f);
 
         PushSceneName("StudentOrSoloScene");
-        SceneManager.LoadScene("EnterSessionIDScene");
+        SceneManager.LoadScene("EnterSessionIDScene", LoadSceneMode.Single);
     }
 
     private void HandleProfessorTapped() {
         PlayerPrefs.SetString("mode", "professor");
  
-        SceneManager.LoadScene("HoloBrain");
+        SceneManager.LoadScene("EducationalRoom", LoadSceneMode.Single);
     }
 
     private void HandleSoloTapped()
     {
         PlayerPrefs.SetString("mode", "solo");
-        SceneManager.LoadScene("HoloBrain");
+        SceneManager.LoadScene("EducationalRoom", LoadSceneMode.Single);
     }
 
     private void HandleBackButton()
@@ -99,7 +97,7 @@ public class ModeSelection : MonoBehaviour {
         else
             PlayerPrefs.SetFloat("adjustmentAngle", 0.0f);
         
-        SceneManager.LoadScene(PopSceneName());
+        SceneManager.LoadScene(PopSceneName(), LoadSceneMode.Single);
     }
 
     private void PushSceneName(string name)

@@ -32,7 +32,7 @@ public class CameraCanvasStabilizer : MonoBehaviour {
         child = transform.GetChild(0);
         childInitialPositions = child.localPosition;
 
-        stabilizer = GameObject.Find("HologramCollection").GetComponent<GazeStabilizer>();
+        stabilizer = GameObject.Find("PreLoad").GetComponent<GazeStabilizer>();
     }
 
     // Update is called once per frame

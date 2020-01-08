@@ -4,18 +4,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using HoloToolkit.Unity;
 
-public class IsolateModeButtonAction : MonoBehaviour {
+public class IsolateModeButtonAction : CommandToExecute {
 
-    private const string BRAIN_PARTS_NAME = "BrainParts";
-    GameObject brain;
+    private AudioSource audio;
+    private GameObject isolateMode;
+
+    private const string BRAIN_PARTS_NAME = "Brain";
+    private GameObject brain;
+
+    public List<ButtonAppearance> buttonsToDisable;
     // Use this for initialization
-    void Start () {
+    override public void Start () {
         brain = GameObject.Find(BRAIN_PARTS_NAME);
+        base.Start();
     }
 	
-	void OnSelect()
+	override protected Action Command()
     {
-        brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        return delegate
+        {
+            if(buttonsToDisable != null)
+            {
+                foreach(ButtonAppearance ba in buttonsToDisable)
+                {
+                    ba.SetButtonDisabled();
+                }
+            }
+            FindObjectOfType<MoveClippingPlane>().TurnOffClipping();
+            brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+        };
     }
 }

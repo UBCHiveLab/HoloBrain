@@ -4,30 +4,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class ResetButtonAction : MonoBehaviour {
-    private const string BRAIN_PARTS_NAME = "BrainParts";
+public class ResetButtonAction : CommandToExecute {
+    private const string BRAIN_PARTS_NAME = "Brain";
     private const string STRUCTURES_MENU_BUTTONS = "Buttons";
     private const string ControlS_UI = "ControlsUI";
     GameObject ButtonsMenu;
     GameObject ControlsUI;
-    
-	// Use this for initialization
-	void Start () {
-    }
-	
-	// Update is called once per frame
-	void Update () {
-	}
 
-    public void OnSelect()
+    override protected Action Command()
     {
-        GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ResetState>().ResetEverything();
-        ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
-        ControlsUI = GameObject.Find(ControlS_UI);
-        //reset the state of the menus and buttons
-        ResetUI();
-       
+        return delegate
+        {
+            GameObject.Find(BRAIN_PARTS_NAME).GetComponent<ResetState>().ResetEverything();
+            //ButtonsMenu = GameObject.Find(STRUCTURES_MENU_BUTTONS);
+            //ControlsUI = GameObject.Find(ControlS_UI);
+            //reset the state of the menus and buttons
+            //ResetUI();
+        };
     } 
 
     void ResetUIButtons()
@@ -49,7 +44,7 @@ public class ResetButtonAction : MonoBehaviour {
 
     public void ResetUI()
     {
-        ResetMenu();
+        //ResetMenu();
         ResetUIButtons();
     }
 }

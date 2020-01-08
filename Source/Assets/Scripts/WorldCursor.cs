@@ -2,8 +2,9 @@
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 
 ﻿using UnityEngine;
+using UnityEngine.XR.WSA.Input;
 using HoloToolkit.Unity;
-using UnityEngine.VR.WSA.Input;
+
 
 public class WorldCursor : MonoBehaviour
 {
@@ -14,17 +15,17 @@ public class WorldCursor : MonoBehaviour
     public GameObject CursorOnHolograms;
     public GameObject CursorOffHolograms;
 
-    public HTGazeManager gazeManager;
-
     private bool handIsShown;
+    private HTGazeManager gazeManager;
 
     void Start()
     {
         // Grab the mesh renderer that's on the same object as this script.
         meshRenderer = this.gameObject.GetComponentInChildren<MeshRenderer>();
         handIsShown = false;
-        InteractionManager.SourceDetected += InteractionManager_SourceDetected;
-        InteractionManager.SourceLost += InteractionManager_SourceLost;
+        InteractionManager.InteractionSourceDetected += InteractionManager_SourceDetected;
+        InteractionManager.InteractionSourceLost += InteractionManager_SourceLost;
+        gazeManager = HTGazeManager.Instance;
 
     }
 
@@ -77,12 +78,12 @@ public class WorldCursor : MonoBehaviour
         }
     }
 
-    private void InteractionManager_SourceDetected(InteractionSourceState state)
+    private void InteractionManager_SourceDetected(UnityEngine.XR.WSA.Input.InteractionSourceDetectedEventArgs args)
     {
         handIsShown = true;
     }
 
-    private void InteractionManager_SourceLost(InteractionSourceState state)
+    private void InteractionManager_SourceLost(UnityEngine.XR.WSA.Input.InteractionSourceLostEventArgs args)
     {
         handIsShown = false;
     }

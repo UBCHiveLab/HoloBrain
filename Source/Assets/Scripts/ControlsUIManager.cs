@@ -4,6 +4,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UIConfig;
 
 public class ControlsUIManager : MonoBehaviour {
 
@@ -15,14 +16,16 @@ public class ControlsUIManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        Debug.Log("UI Controls manager start");
         gazeIsOnUI = false;
-        isPinned = false;
+        isPinned = true;
         gazeDelayCounter = 0;
         soundFX = gameObject.GetComponent<AudioSource>();
     }
 
-// Update is called once per frame
-void Update()
+    // Update is called once per frame
+    
+    void Update()
     {
         if(!isPinned)
         {
@@ -42,6 +45,7 @@ void Update()
             }
         }
     }
+    
 
     public void TogglePinUI()
     {
@@ -57,7 +61,7 @@ void Update()
     public void OnGazeExitUI()
     {
         gazeIsOnUI = false;
-        gazeDelayCounter = 30;
+        gazeDelayCounter = 5;
     }
 
     public bool GetMenuPinState()

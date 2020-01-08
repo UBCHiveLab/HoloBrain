@@ -9,16 +9,13 @@ using HoloToolkit.Sharing;
 public class MRIButtonAction : MonoBehaviour {
     private GameObject MRICollection;
     private const string MRICollectionName = "MRICollection";
+    private AudioSource soundFx;
 
 	// Use this for initialization
 	void Start () {
         MRICollection = GameObject.Find(MRICollectionName);
+        soundFx = GetComponent<AudioSource>();
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 
 
     public void OnSelect()
@@ -28,6 +25,7 @@ public class MRIButtonAction : MonoBehaviour {
         {
             //do the action
             MRICollection.GetComponent<MRIManager>().ProcessMRIButtonAction();
+            soundFx.Play();
         }
     }
 

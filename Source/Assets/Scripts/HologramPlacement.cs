@@ -4,11 +4,15 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Windows.Speech;
+using UnityEngine.SceneManagement;
 using HoloToolkit.Unity;
+using HoloToolkit.Unity.InputModule;
 using HoloToolkit.Sharing;
+using HoloToolkit.Sharing.Tests;
 using HoloToolkit.Unity.SpatialMapping;
+using System;
 
-public class HologramPlacement : Singleton<HologramPlacement>
+public class HologramPlacement : Singleton<HologramPlacement>, IInputClickHandler
 {
     /// <summary>
     /// Tracks if we have been sent a transform for the model.
@@ -25,11 +29,11 @@ public class HologramPlacement : Singleton<HologramPlacement>
     private string mode;
     private StudentModeCommands uiVisibilityCommands;
 
-    void Start()
+    override protected void Awake()
     {
-        mriManager = GameObject.Find(MRI_COLLECTION).GetComponent<MRIManager>();
+        //mriManager = GameObject.Find(MRI_COLLECTION).GetComponent<MRIManager>();
         mode = PlayerPrefs.GetString("mode");
-        uiVisibilityCommands = GameObject.Find("StatusUI").GetComponent<StudentModeCommands>();
+        //uiVisibilityCommands = GameObject.Find("StatusUI").GetComponent<StudentModeCommands>();
 
         if (mode != "solo")
         {
@@ -47,10 +51,15 @@ public class HologramPlacement : Singleton<HologramPlacement>
         }
         else
         {
-            HTGestureManager.Instance.OverrideFocusedObject = this.gameObject;
+            //HTGestureManager.Instance.OverrideFocusedObject = this.gameObject;
         }
+        base.Awake();
     }
 
+    public void Start()
+    {
+        InputManager.Instance.AddGlobalListener(gameObject);
+    }
 
     /// <summary>
     /// Resets the stage transform, so users can place the target again.
@@ -58,8 +67,9 @@ public class HologramPlacement : Singleton<HologramPlacement>
     public void ResetStage()
     {
         GotTransform = false;
-        SpatialMappingManager.Instance.DrawVisualMeshes = true;
-        HideUI();
+        //SpatialMappingManager.Instance.DrawVisualMeshes = false; // true;
+        //WorldAnchorManager.Instance.RemoveAnchor(gameObject);
+        //HideUI();
 
         if (mode != "solo") { 
             AppStateManager.Instance.ResetStage();
@@ -68,12 +78,10 @@ public class HologramPlacement : Singleton<HologramPlacement>
         }
         else
         {
-            HTGestureManager.Instance.OverrideFocusedObject = gameObject;
-
+            Debug.Log("Adding global listener");
+            InputManager.Instance.AddGlobalListener(gameObject);
         }
-        mriManager.UpdateClippingForRepositioning(GotTransform);
-
-
+        //mriManager.UpdateClippingForRepositioning(GotTransform);
     }
 
     /// <summary>
@@ -86,7 +94,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
         if (GotTransform)
         {
             CustomMessages.Instance.SendStageTransform(transform.localPosition, transform.localRotation);
-            mriManager.UpdateClippingForRepositioning(GotTransform);
+            //mriManager.UpdateClippingForRepositioning(GotTransform);
         }
         else
         {
@@ -146,7 +154,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
                 {
                     // After which we want to start rendering.
                     EnableModel();
-                    mriManager.UpdateClippingForRepositioning(GotTransform);
+                    //mriManager.UpdateClippingForRepositioning(GotTransform);
                     ShowUI();
                 }
             }
@@ -170,6 +178,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
 
         if (mode != "solo")
         {
+            Debug.Log("inside if");
             // We need to know how many users are in the experience with good transforms.
             Vector3 cumulatedPosition = Camera.main.transform.position;
             int playerCount = 1;
@@ -192,26 +201,31 @@ public class HologramPlacement : Singleton<HologramPlacement>
         return retval;
     }
 
-    public void OnSelect()
+    public void OnInputClicked(InputClickedEventData e)
     {
         if (mode != "student")
         {
+            Debug.Log("brain clicked");
             // Note that we have a transform.
             GotTransform = true;
-            mriManager.UpdateClippingForRepositioning(GotTransform);
+            //WorldAnchorManager.Instance.AttachAnchor(gameObject);
+            //mriManager.UpdateClippingForRepositioning(GotTransform);
             ShowUI();
 
-            SpatialMappingManager.Instance.DrawVisualMeshes = false;
+            //SpatialMappingManager.Instance.DrawVisualMeshes = false;
 
             if (mode != "solo")
             {
+                Debug.Log(mode);
                 // And send it to our friends.
                 CustomMessages.Instance.SendStageTransform(transform.localPosition, transform.localRotation);
             }
             else
             {
-                HTGestureManager.Instance.OverrideFocusedObject = null;
-                GameObject controlsUI = GameObject.Find("ControlsUI");
+                Debug.Log("Removing global listener");
+                InputManager.Instance.RemoveGlobalListener(gameObject);
+                GameObject controlsUI = GameObject.Find("menu_current");
+                controlsUI.GetComponentInChildren<RepositionButtonAction>().gameObject.GetComponent<ButtonAppearance>().ResetButton();
                 controlsUI.SetActive(true);
             }
         }
@@ -225,12 +239,12 @@ public class HologramPlacement : Singleton<HologramPlacement>
     {
         // We read the user ID but we don't use it here.
         msg.ReadInt64(); 
-        SpatialMappingManager.Instance.DrawVisualMeshes = false;
+        //SpatialMappingManager.Instance.DrawVisualMeshes = false;
         transform.localPosition = CustomMessages.Instance.ReadVector3(msg);
         transform.localRotation = CustomMessages.Instance.ReadQuaternion(msg);
 
         GotTransform = true;
-        mriManager.UpdateClippingForRepositioning(GotTransform);
+        //mriManager.UpdateClippingForRepositioning(GotTransform);
         if (ImportExportAnchorManager.Instance.AnchorEstablished)
         {
             ShowUI();
@@ -243,7 +257,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     void OnResetStage(NetworkInMessage msg)
     {
         GotTransform = false;
-        mriManager.UpdateClippingForRepositioning(GotTransform);
+        //mriManager.UpdateClippingForRepositioning(GotTransform);
         HideUI();
 
         AppStateManager.Instance.ResetStage();
@@ -253,7 +267,7 @@ public class HologramPlacement : Singleton<HologramPlacement>
     {
         if (uiVisibilityCommands != null)
         {
-            uiVisibilityCommands.SetUIVisibilityUI(false);
+            uiVisibilityCommands.SetVisibilityUI(false);
         }
     }
 
