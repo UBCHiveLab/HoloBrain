@@ -14,6 +14,8 @@ public class IsolateModeButtonAction : CommandToExecute {
 
     private const string BRAIN_PARTS_NAME = "Brain";
     private GameObject brain;
+
+    public List<ButtonAppearance> buttonsToDisable;
     // Use this for initialization
     override public void Start () {
         brain = GameObject.Find(BRAIN_PARTS_NAME);
@@ -24,11 +26,15 @@ public class IsolateModeButtonAction : CommandToExecute {
     {
         return delegate
         {
-            if (!brain.GetComponent<RotateStructures>().isRotating)
+            if(buttonsToDisable != null)
             {
-                FindObjectOfType<MoveClippingPlane>().TurnOffClipping();
-                brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
+                foreach(ButtonAppearance ba in buttonsToDisable)
+                {
+                    ba.SetButtonDisabled();
+                }
             }
+            FindObjectOfType<MoveClippingPlane>().TurnOffClipping();
+            brain.GetComponent<IsolateStructures>().InitiateIsolationMode();
         };
     }
 }

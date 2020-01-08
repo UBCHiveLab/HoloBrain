@@ -10,6 +10,7 @@ public class ScaleDownButtonAction : CommandToExecute {
 
     //private const string BRAIN_PARTS_NAME = "BrainParts";
     public GameObject scaleObject;
+    public ButtonAppearance scaleUpButton;
 
     override protected Action Command()
     {
@@ -17,6 +18,14 @@ public class ScaleDownButtonAction : CommandToExecute {
         return delegate
         {
             scaleObject.GetComponent<ScaleToggler>().ScaleDown();
+            if(scaleObject.GetComponent<ScaleToggler>().IsDefaultScale())
+            {
+                scaleUpButton.SetButtonEnabled();
+            }
+            if(scaleObject.GetComponent<ScaleToggler>().IsSmallestScale())
+            {
+                GetComponent<ButtonAppearance>().SetButtonDisabled();
+            }
         };
 
     }

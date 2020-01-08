@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using HolobrainConstants;
 
 public class IsolateCondition : SwitchRoomUICondition {
@@ -9,6 +7,6 @@ public class IsolateCondition : SwitchRoomUICondition {
     public override bool SwitchCondition()
     {
         GameObject Brain = GameObject.Find(Names.BRAIN_GAMEOBJECT_NAME);
-        return !Brain.GetComponent<RotateStructures>().isRotating;
+        return (!Brain.GetComponent<ExplodingCommands>().Exploded()) && !(Brain.GetComponent<RotateStructures>().isRotating);
     }
 }

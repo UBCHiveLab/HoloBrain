@@ -110,7 +110,7 @@ public class IsolateStructures : MonoBehaviour {
 
     private const float ISOLATED_STRUCTURE_SCALE_SIZE = 0.003f;
     private const float MINIMAP_STRUCTURES_SCALE_SIZE = 0.2f;
-    private const float ISOLATION_TRANSITION_TIME_IN_SECONDS = 1.5f;
+    private const float ISOLATION_TRANSITION_TIME_IN_SECONDS = .75f;
     private const string BRAIN_PARTS_GAMEOBJECT_NAME = "Brain";
     private GameObject brain;
     private GameObject ventricles;

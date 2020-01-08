@@ -48,7 +48,6 @@ public class MuteButtonAction : CommandToExecute {
                     prompt.ChangePrompt("Mute");
                 }
                 UnMute();
-                GetComponent<ButtonAppearance>().ResetButton();
             }
             else
             {
@@ -57,7 +56,6 @@ public class MuteButtonAction : CommandToExecute {
                     prompt.ChangePrompt("Unmute");
                 }
                 Mute();
-                GetComponent<ButtonAppearance>().SetButtonActive();
             }
         };
     }

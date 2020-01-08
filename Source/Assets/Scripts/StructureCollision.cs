@@ -8,7 +8,7 @@ public class StructureCollision : MonoBehaviour {
 
     private void Awake()
     {
-        foreach(StructureCollision other in GameObject.Find("menu").GetComponentsInChildren<StructureCollision>())
+        foreach(StructureCollision other in GameObject.Find("menu_current").GetComponentsInChildren<StructureCollision>())
         {
             foreach(Collider coll1 in other.GetColliders())
             {

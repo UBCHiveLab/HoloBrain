@@ -81,6 +81,8 @@ public class ExplodingCommands : MonoBehaviour {
     private GameObject cortex;
     private GameObject brain;
     private Vector3 centerOfBrainModel;
+    public GameObject ExplodeButton;
+    public GameObject CollapseButton;
     public ExplodingState currentState { get; private set; }
     public ExplodingState lastState { get; private set; }
 
@@ -262,6 +264,12 @@ public class ExplodingCommands : MonoBehaviour {
         }
     }
 
+    public bool Exploded()
+    {
+        // this is the state when we are not exploded, any other state is either exploded, or in the process of exploding
+        return !(currentState == ExplodingState.Resting && lastState == ExplodingState.ExplodingIn);
+    }
+
     private void Explode()
     {
         bool doneExploding = false;
@@ -304,5 +312,13 @@ public class ExplodingCommands : MonoBehaviour {
         cortex.SetActive(true);
         currentState = ExplodingState.Resting;
         lastState = ExplodingState.ExplodingIn;
+        if(ExplodeButton != null)
+        {
+            ExplodeButton.SetActive(true);
+        }
+        if(CollapseButton != null)
+        {
+            CollapseButton.SetActive(false);
+        }
     }
 }

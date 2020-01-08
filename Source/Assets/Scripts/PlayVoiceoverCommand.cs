@@ -26,7 +26,7 @@ public class PlayVoiceoverCommand : CommandToExecute {
     {
         return delegate
         {
-            if(!muteButton.IsMuted())
+            if(!(muteButton == null) && !muteButton.IsMuted())
                 source.PlayOneShot(audio, 2.0f);
         };
     }

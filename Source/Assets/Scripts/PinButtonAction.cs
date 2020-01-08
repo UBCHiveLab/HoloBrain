@@ -9,6 +9,7 @@ using System;
 public class PinButtonAction : CommandToExecute {
 
     private ControlsUIManager UIManager;
+    public BoxCollider unPinCollider;
 
     // Use this for initialization
     override public void Start () {
@@ -23,6 +24,14 @@ public class PinButtonAction : CommandToExecute {
             if (UIManager != null)
             {
                 UIManager.TogglePinUI();
+            }
+            if(UIManager.GetMenuPinState())
+            {
+                unPinCollider.enabled = false;
+            }
+            if(!UIManager.GetMenuPinState())
+            {
+                unPinCollider.enabled = true;
             }
         };
     }

@@ -11,8 +11,11 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
     public Sprite hoverSprite;
     public Sprite defaultSprite;
     public Sprite activeSprite;
+    public Sprite disabledSprite;
     public bool oneButtonActiveInGroup = false;
     public bool resetOnSecondClick = false;
+    public bool defaultActive = false;
+    private bool buttonDisabled = false;
     private SpriteRenderer renderer;
     private Image image;
     private bool activeState;
@@ -30,87 +33,137 @@ public class ButtonAppearance : MonoBehaviour, IFocusable {
             }
         } else
         {
-            ResetButton();
+            if (defaultActive)
+            {
+                changeSprite(activeSprite);
+            }
+            else
+            {
+                ResetButton();
+            }
         }
-        activeState = false;
-        hoverSound = GameObject.Find("menu").GetComponent<AudioSource>();
+        activeState = defaultActive;
+        hoverSound = GameObject.Find("menu_current").GetComponent<AudioSource>();
     }
 
     void OnDisable()
     {
-        activeState = false;
-        changeSprite(defaultSprite);
+        if(!defaultActive)
+        {
+            activeState = false;
+            changeSprite(defaultSprite);
+        } else
+        {
+            activeState = true;
+            changeSprite(activeSprite);
+        }
+    }
+
+    public void setActiveDefault(bool def)
+    {
+        defaultActive = def;
     }
 
     public void SetButtonHover()
     {
-        changeSprite(hoverSprite);
+        if(!buttonDisabled)
+        {
+            changeSprite(hoverSprite);
+        }
     }
 
     public void SetButtonActive()
     {
-        if(oneButtonActiveInGroup)
-        {
-            foreach(Transform t in transform.parent)
+        if(!buttonDisabled) {
+            //reset all other buttons in the group
+            if(oneButtonActiveInGroup)
             {
-                if (t.gameObject.GetInstanceID() != gameObject.GetInstanceID())
+                foreach(Transform t in transform.parent)
                 {
-                    ButtonAppearance b = t.GetComponent<ButtonAppearance>();
-                    if(b != null)
+                    if (t.gameObject.GetInstanceID() != gameObject.GetInstanceID())
                     {
-                        b.ResetButton();
+                        ButtonAppearance b = t.GetComponent<ButtonAppearance>();
+                        if(b != null)
+                        {
+                            b.ResetButton();
+                        }
                     }
                 }
             }
+            //"unpress" the button
+            if (activeState && resetOnSecondClick)
+            {
+                Debug.Log("resetting button: " + activeState + " " + resetOnSecondClick);
+                ResetButton();
+            }
+            else
+            {
+                Debug.Log("setting button Active");
+                changeSprite(activeSprite);
+                activeState = true;
+            }
         }
-        if (activeState && resetOnSecondClick)
-        {
-            Debug.Log("resetting button: " + activeState + " " + resetOnSecondClick);
-            ResetButton();
-        }
-        else
-        {
-            Debug.Log("setting button Active");
-            changeSprite(activeSprite);
-            activeState = true;
-        }
+    }
+
+    public void SetButtonDisabled()
+    {
+        buttonDisabled = true;
+        changeSprite(disabledSprite);
+    }
+    
+    public void SetButtonEnabled()
+    {
+        buttonDisabled = false;
+        changeSprite(defaultSprite);
     }
 
     public void ToggleButtonActive()
     {
-        if (activeState == false)
+        if(!buttonDisabled)
         {
-            SetButtonActive();
-        }
-        else
-        {
-            ResetButton();
+            if (activeState == false)
+            {
+                SetButtonActive();
+            }
+            else
+            {
+                ResetButton();
+            }
         }
     }
 
     public void ResetButton()
     {
-        changeSprite(defaultSprite);
-        activeState = false;
+        if(!buttonDisabled)
+        {
+            changeSprite(defaultSprite);
+            activeState = false;
+        }
     }
 
     public void OnFocusEnter()
     {
-        if (activeState)
+        if(!buttonDisabled)
         {
-            return;
+            if (activeState)
+            {
+                return;
+            }
+            hoverSound.Play();
+            SetButtonHover();
         }
-        hoverSound.Play();
-        SetButtonHover();
     }
 
     public void OnFocusExit()
     {
-        if(activeState)
+        if(!buttonDisabled)
         {
-            return;
+            if (activeState)
+            {
+                return;
+            }
+            ResetButton();
         }
-        ResetButton();
     }
 
     private void changeSprite(Sprite sprite)

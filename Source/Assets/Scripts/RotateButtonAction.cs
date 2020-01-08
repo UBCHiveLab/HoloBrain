@@ -9,6 +9,7 @@ using System;
 public class RotateButtonAction : CommandToExecute {
 
     public GameObject brain;
+    public List<ButtonAppearance> buttonsToDisable;
  
     // Use this for initialization
     override public void Start () {
@@ -30,10 +31,27 @@ public class RotateButtonAction : CommandToExecute {
         //do the action
         return delegate
         {
-            if(!brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating())
+            if(buttonsToDisable != null)
             {
-                brain.GetComponent<RotateStructures>().ToggleRotate();
+                //turning off rotate
+                if(brain.GetComponent<RotateStructures>().isRotating && !brain.GetComponent<ExplodingCommands>().Exploded())
+                {
+                    foreach(ButtonAppearance ba in buttonsToDisable)
+                    {
+                        ba.SetButtonEnabled();
+                    }
+                } 
+                //rotating, isolate and expand disabled
+                else
+                {
+                    foreach(ButtonAppearance ba in buttonsToDisable)
+                    {
+                        ba.SetButtonDisabled();
+                    }
+                }
             }
+            brain.GetComponent<RotateStructures>().ToggleRotate();
+
         };
     }
 

@@ -17,8 +17,6 @@ public class MRIRoomCommand : CommandToExecute {
         return delegate
         {
             GameObject Brain = GameObject.Find(Names.BRAIN_GAMEOBJECT_NAME);
-            if (!Brain.GetComponent<IsolateStructures>().CurrentlyInIsolationModeOrIsolating())
-            {
                 Brain.GetComponent<ExplodingCommands>().ResetExplode();
                 if (MRI != null)
                 {
@@ -96,7 +94,7 @@ public class MRIRoomCommand : CommandToExecute {
                     }
                 }
                 GetComponent<ButtonAppearance>().SetButtonActive();
-            }
+            
         };
     }
 }

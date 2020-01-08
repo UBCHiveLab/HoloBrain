@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.Windows.Speech;
 using System.Linq;
 using System;
-using UnityEngine.SceneManagement;
 using HoloToolkit.Unity.InputModule;
 using HolobrainConstants;
 using UnityEngine.EventSystems;
@@ -29,7 +28,6 @@ public class VoiceControl : MonoBehaviour {
         // Referencing game objects to access their scripts
         brain = GameObject.Find(Names.BRAIN_GAMEOBJECT_NAME);
         eventSystem = GameObject.Find(Names.EVENT_SYSTEM_NAME).GetComponent<EventSystem>();
-        dataRecorder = GameObject.Find(Names.CONTROLS_UI_GAMEOBJECT_NAME).GetComponent<DataRecorder>();
         controlsUI = GameObject.Find(Names.CONTROLS_UI_GAMEOBJECT_NAME);
         gazeManager = GameObject.Find(Names.HOLOGRAM_COLLECTION_GAMEOBJECT_NAME).GetComponent<HTGazeManager>();
 
@@ -37,8 +35,8 @@ public class VoiceControl : MonoBehaviour {
 
         foreach (var item in Names.GetStructureNames())
         {
-            voiceRecognitionKeywords.Add("Add " + item, () => { HandleCommand(GameObject.Find(item)); });
-            voiceRecognitionKeywords.Add("Remove " + item, () => { HandleCommand(GameObject.Find(item)); });
+            voiceRecognitionKeywords.Add("Add " + item, () => { HandleAddBrainPart(item); });
+            voiceRecognitionKeywords.Add("Remove " + item, () => { HandleRemoveBrainPart(item); });
         }
 
         //map voice commands to the corresponding button name
@@ -63,6 +61,7 @@ public class VoiceControl : MonoBehaviour {
            { "Channel 1", menu },
             { "Channel 2", menu },
             { "Pin", GameObject.Find("pin-unpin") },
+            {"Mute", GameObject.Find("Mute") },
             { "Play", menu },
             { "Pause", menu },
             { "Faster", menu },
@@ -153,11 +152,18 @@ public class VoiceControl : MonoBehaviour {
             var cu = controlsUI.GetComponent<ControlsUIManager>();
             return cu != null && cu.GetMenuPinState();
         }, typeof(PinButtonAction)));
+        voiceRecognitionKeywords.Add("Mute", HandleCommand(buttonActionsToGameObjectName["Mute"], () => {
+            return !buttonActionsToGameObjectName["Mute"].GetComponent<MuteButtonAction>().IsMuted();
+            }, typeof(MuteButtonAction)));
+        voiceRecognitionKeywords.Add("UnMute", HandleCommand(buttonActionsToGameObjectName["Mute"], () => {
+            return buttonActionsToGameObjectName["Mute"].GetComponent<MuteButtonAction>().IsMuted();
+        }, typeof(MuteButtonAction)));
+
 
         //voiceRecognitionKeywords.Add("End Tutorial", HandleEndTutorial);
         //voiceRecognitionKeywords.Add("Next", HandleNextChapter);
 
-       // voiceRecognitionKeywords.Add("Locate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Locate"])));
+        // voiceRecognitionKeywords.Add("Locate", HandleCommand(GameObject.Find(buttonActionsToGameObjectName["Locate"])));
 
         keywordRecognizer = new KeywordRecognizer(voiceRecognitionKeywords.Keys.ToArray());
         keywordRecognizer.OnPhraseRecognized += KeywordRecognizer_OnPhraseRecognized;
@@ -175,15 +181,6 @@ public class VoiceControl : MonoBehaviour {
             {
                 if (!brain.GetComponent<StateAccessor>().CurrentlyInStudentMode()) keywordAction.Invoke();
             }
-            if(dataRecorder != null)
-            {
-                //dataRecorder.QueueMessage("voice command " + args.text);
-            }
-            /*
-            if (SceneManager.GetActiveScene().name == TUTORIAL_SCENE_NAME)
-            {
-                keywordAction.Invoke();
-            }*/
         }               
     }
 
@@ -272,9 +269,7 @@ public class VoiceControl : MonoBehaviour {
             {
                 if(button.name == partName)
                 {
-                    brain.GetComponent<IsolateStructures>().TryToIsolate(partName);
-                    button.GetComponent<IsolateButtonAction>().SetButtonSelected(true);
-                    button.SetButtonActive();
+                    executeClick(button.gameObject);
                 }
             }
         }
@@ -288,9 +283,7 @@ public class VoiceControl : MonoBehaviour {
             {
                 if(button.name == partName)
                 {
-                    brain.GetComponent<IsolateStructures>().TryToReturnFromIsolate(partName);
-                    button.GetComponent<IsolateButtonAction>().SetButtonSelected(false);
-                    button.ResetButton();
+                    executeClick(button.gameObject);
                 }
             }
         }

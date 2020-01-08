@@ -9,6 +9,7 @@ using HoloToolkit.Unity;
 
 public class IsolateExitButtonAction : CommandToExecute {
 
+    public List<ButtonAppearance> buttonsToEnable;
     private const string BRAIN_PARTS_NAME = "Brain";
     GameObject brain;
  
@@ -23,6 +24,13 @@ public class IsolateExitButtonAction : CommandToExecute {
     {
         return delegate
         {
+            if(buttonsToEnable != null)
+            {
+                foreach(ButtonAppearance ba in buttonsToEnable)
+                {
+                    ba.SetButtonEnabled();
+                }
+            }
             FindObjectOfType<MoveClippingPlane>().TurnOnClipping();
             brain.GetComponent<IsolateStructures>().ConcludeIsolationMode();
         };
