@@ -1,8 +1,7 @@
 fileFormatVersion: 2
 guid: 2a056e2bb89e0134daaf49e5f183e5dc
-timeCreated: 1485994274
-licenseType: Free
 TrueTypeFontImporter:
+  externalObjects: {}
   serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
@@ -12,10 +11,13 @@ TrueTypeFontImporter:
   fontName: Selawik
   fontNames:
   - Selawik
-  fallbackFontReferences: []
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 23cb372070fd97744a822bbe245e7d4c, type: 3}
   customCharacters: 
   fontRenderingMode: 0
   ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 
