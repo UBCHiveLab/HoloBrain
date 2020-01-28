@@ -6,9 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/MixedReality-SpectatorView/SpectatorView/Scenes/SpectatorView.Android.unity
+    guid: 8c5e2534a4ad5f64dbb50a1bad484ef2
+  - enabled: 1
     path: Assets/_Scenes/PreLoadScene.unity
     guid: d0dbba88060bf804cb3cd4fdd5c0614c
   - enabled: 1
     path: Assets/_Scenes/App.unity
     guid: 1d485bac3f4d2214eb3d00ed2f445630
+  - enabled: 0
+    path: Assets/MixedReality-SpectatorView/SpectatorView/Scenes/SpectatorView.iOS.unity
+    guid: f8cc70d0d868b754ab89047eb4a6317b
   m_configObjects: {}
