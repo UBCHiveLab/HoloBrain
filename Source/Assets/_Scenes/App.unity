@@ -27337,6 +27337,11 @@ Prefab:
       propertyPath: isButton
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114322905338528642, guid: cd24dfaf8d3115749a8c4a6e1fb95ade,
+        type: 2}
+      propertyPath: defaultActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cd24dfaf8d3115749a8c4a6e1fb95ade, type: 2}
   m_IsPrefabAsset: 0
