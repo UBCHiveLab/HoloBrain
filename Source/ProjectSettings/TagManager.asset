@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - MRI
-  - Structure
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -38,14 +36,8 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Spatial Awareness
   m_SortingLayers:
-  - name: MRI
-    uniqueID: 56444867
-    locked: 0
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: GUIElement
-    uniqueID: 161951951
     locked: 0
