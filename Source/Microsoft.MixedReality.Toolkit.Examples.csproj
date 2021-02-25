@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{1B463D49-1B20-AF65-5E1B-AA23FCB452C7}</ProjectGuid>
+    <ProjectGuid>{A235D5D7-3C4D-2AAF-DE25-EDF401ADFAB6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Microsoft.MixedReality.Toolkit.Examples</AssemblyName>
@@ -726,34 +726,34 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.20f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/Work Projects/UBC/HoloBrain-HL2/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/Work Projects/UBC/HoloBrain/Source/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>D:/Work Projects/UBC/HoloBrain-HL2/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>D:/Work Projects/UBC/HoloBrain/Source/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>D:/Work Projects/UBC/HoloBrain-HL2/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>D:/Work Projects/UBC/HoloBrain/Source/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Microsoft.MixedReality.Toolkit.csproj">
-      <Project>{4BDABAC7-D907-E2FF-A21D-F2EE910F461C}</Project>
+      <Project>{5E094BDE-C625-BA8F-BEC6-1E7938AAA019}</Project>
       <Name>Microsoft.MixedReality.Toolkit</Name>
     </ProjectReference>
     <ProjectReference Include="Microsoft.MixedReality.Toolkit.Async.csproj">
-      <Project>{6BED80DD-F707-3DDB-E73B-27FD52840602}</Project>
+      <Project>{27EABB05-907E-0275-F021-5DC78AD9D3C1}</Project>
       <Name>Microsoft.MixedReality.Toolkit.Async</Name>
     </ProjectReference>
     <ProjectReference Include="Microsoft.MixedReality.Toolkit.SDK.csproj">
-      <Project>{17C19EC0-8C50-1D3D-725D-44C95A841E99}</Project>
+      <Project>{0E4DB6E2-D484-A574-1F2A-87DF44DD6F9A}</Project>
       <Name>Microsoft.MixedReality.Toolkit.SDK</Name>
     </ProjectReference>
     <ProjectReference Include="Microsoft.MixedReality.Toolkit.Services.InputAnimation.csproj">
-      <Project>{C13D1CD2-06C3-3F09-BE82-4B77C0DCC2E3}</Project>
+      <Project>{533A30B0-538C-00AC-CBB2-9B4BB7EE23A1}</Project>
       <Name>Microsoft.MixedReality.Toolkit.Services.InputAnimation</Name>
     </ProjectReference>
     <ProjectReference Include="Microsoft.MixedReality.Toolkit.Services.InputSystem.csproj">
-      <Project>{03C52AE1-CDF1-78A9-0629-1E9387796890}</Project>
+      <Project>{FC21687A-B97C-AB3F-CBF5-BEA0FD90D691}</Project>
       <Name>Microsoft.MixedReality.Toolkit.Services.InputSystem</Name>
     </ProjectReference>
   </ItemGroup>
