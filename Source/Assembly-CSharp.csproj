@@ -64,6 +64,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Prefabs\Grid ButtonCollection\Atom.cs" />
+    <Compile Include="Assets\Prefabs\Grid ButtonCollection\Element.cs" />
+    <Compile Include="Assets\Prefabs\Grid ButtonCollection\IsolateModeLoader.cs" />
+    <Compile Include="Assets\Prefabs\Grid ButtonCollection\LayoutStyleChanger.cs" />
+    <Compile Include="Assets\Prefabs\Grid ButtonCollection\OptimizeSceneforDeviceType.cs" />
+    <Compile Include="Assets\Prefabs\Grid ButtonCollection\PresentToPlayer.cs" />
+    <Compile Include="Assets\Scripts\Buttons\ExpandModel.cs" />
     <Compile Include="Assets\Scripts\Buttons\ResetStructure.cs" />
     <Compile Include="Assets\Scripts\Buttons\RotateStructure.cs" />
     <Compile Include="Assets\Scripts\Buttons\ScaleStructures.cs" />
@@ -74,6 +81,7 @@
     <None Include="Assets\Resources\Configs\mainMenu.txt" />
     <None Include="Assets\MRTK\StandardAssets\Shaders\InstancedColored.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Materials\AcrylicReflective.shader" />
     <None Include="Assets\MRTK\StandardAssets\Shaders\ChannelPacker.shader" />
     <None Include="Assets\MRTK\Services\Version.txt" />
     <None Include="Assets\Resources\DTI\VertexColor.shader" />
