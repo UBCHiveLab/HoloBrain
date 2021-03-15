@@ -17,7 +17,6 @@ namespace HoloToolkit.MRDL.PeriodicTable
         public TextMesh ElementName;
         public TextMesh ElementNameDetail;
 
-        public TextMeshProUGUI ElementDescription;
 
         public Renderer BoxRenderer;
         public MeshRenderer[] PanelSides;
@@ -60,7 +59,7 @@ namespace HoloToolkit.MRDL.PeriodicTable
 
             StartCoroutine(UpdateActive());
         }
-
+        
         public void Highlight()
         {
             if (ActiveElement == this)
@@ -132,7 +131,6 @@ namespace HoloToolkit.MRDL.PeriodicTable
 
             
             ElementName.text = data.name;
-            ElementDescription.text = data.summary;
 
             // Set up our materials
             if (!typeMaterials.TryGetValue(data.category.Trim(), out dimMaterial))

@@ -3,7 +3,7 @@
       {
         "name": "Basal \nStructures",
         "category": "default",
-        "ypos": 0,
+        "ypos": 1,
         "appearance": "default",
         "summary": "Lead (/l\u025bd/) is a chemical element in the carbon group with symbol Pb (from Latin: plumbum) and atomic number 82. Lead is a soft, malleable and heavy post-transition metal. Metallic lead has a bluish-white color after being freshly cut, but it soon tarnishes to a dull grayish color when exposed to air.",
         "xpos": 1
@@ -11,7 +11,7 @@
       {
         "name": "Other",
         "category": "default",
-        "ypos": 0,
+        "ypos": 1,
         "appearance": "default",
         "summary": "Lead (/l\u025bd/) is a chemical element in the carbon group with symbol Pb (from Latin: plumbum) and atomic number 82. Lead is a soft, malleable and heavy post-transition metal. Metallic lead has a bluish-white color after being freshly cut, but it soon tarnishes to a dull grayish color when exposed to air.",
         "xpos": 2

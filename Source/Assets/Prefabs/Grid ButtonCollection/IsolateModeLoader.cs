@@ -78,7 +78,7 @@ namespace HoloToolkit.MRDL.PeriodicTable
                 {
                     GameObject newElement = Instantiate<GameObject>(ElementPrefab, Parent);
                     newElement.GetComponentInChildren<Element>().SetFromElementData(element, typeMaterials);
-                    newElement.transform.localPosition = new Vector3(element.xpos * ElementSeperationDistance - ElementSeperationDistance * 18 / 2, ElementSeperationDistance * 9 - element.ypos * ElementSeperationDistance, 2.0f);
+                    newElement.transform.localPosition = new Vector3(element.xpos * ElementSeperationDistance , element.ypos * ElementSeperationDistance, 2.0f);
                     newElement.transform.localRotation = Quaternion.identity;
                     newElement.SetActive(true);
                 }
@@ -92,7 +92,7 @@ namespace HoloToolkit.MRDL.PeriodicTable
                 foreach(Transform existingElementObject in Parent)
                 {
                     existingElementObject.parent.GetComponentInChildren<Element>().SetFromElementData(elements[i], typeMaterials);
-                    existingElementObject.localPosition = new Vector3(elements[i].xpos * ElementSeperationDistance - ElementSeperationDistance * 18 / 2, ElementSeperationDistance * 9 - elements[i].ypos * ElementSeperationDistance, 2.0f);
+                    existingElementObject.localPosition = new Vector3(elements[i].xpos * ElementSeperationDistance ,  elements[i].ypos * ElementSeperationDistance, 2.0f);
                     existingElementObject.localRotation = Quaternion.identity;
                     i++;
                 }
