@@ -64,16 +64,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Prefabs\Grid ButtonCollection\Atom.cs" />
-    <Compile Include="Assets\Prefabs\Grid ButtonCollection\Element.cs" />
-    <Compile Include="Assets\Prefabs\Grid ButtonCollection\IsolateModeLoader.cs" />
-    <Compile Include="Assets\Prefabs\Grid ButtonCollection\LayoutStyleChanger.cs" />
-    <Compile Include="Assets\Prefabs\Grid ButtonCollection\OptimizeSceneforDeviceType.cs" />
-    <Compile Include="Assets\Prefabs\Grid ButtonCollection\PresentToPlayer.cs" />
+    <Compile Include="Assets\BrainContainer.cs" />
+    <Compile Include="Assets\Prefabs\GridButtonCollection\Atom.cs" />
+    <Compile Include="Assets\Prefabs\GridButtonCollection\Element.cs" />
+    <Compile Include="Assets\Prefabs\GridButtonCollection\IsolateModeLoader.cs" />
+    <Compile Include="Assets\Prefabs\GridButtonCollection\LayoutStyleChanger.cs" />
+    <Compile Include="Assets\Prefabs\GridButtonCollection\OptimizeSceneforDeviceType.cs" />
+    <Compile Include="Assets\Prefabs\GridButtonCollection\PresentToPlayer.cs" />
     <Compile Include="Assets\Scripts\Buttons\ExpandModel.cs" />
     <Compile Include="Assets\Scripts\Buttons\ResetStructure.cs" />
     <Compile Include="Assets\Scripts\Buttons\RotateStructure.cs" />
     <Compile Include="Assets\Scripts\Buttons\ScaleStructures.cs" />
+    <Compile Include="Assets\StructureSelector.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\MRTK\StandardAssets\Shaders\Text3DShader.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
