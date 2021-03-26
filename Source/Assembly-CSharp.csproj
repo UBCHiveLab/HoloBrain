@@ -75,7 +75,9 @@
     <Compile Include="Assets\Scripts\Buttons\ResetStructure.cs" />
     <Compile Include="Assets\Scripts\Buttons\RotateStructure.cs" />
     <Compile Include="Assets\Scripts\Buttons\ScaleStructures.cs" />
+    <Compile Include="Assets\Scripts\IsolateMode\FlyToObject.cs" />
     <Compile Include="Assets\StructureSelector.cs" />
+    <Compile Include="Assets\StuctureActiveManager.cs" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMPro.cginc" />
     <None Include="Assets\MRTK\StandardAssets\Shaders\Text3DShader.shader" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Mobile Overlay.shader" />
